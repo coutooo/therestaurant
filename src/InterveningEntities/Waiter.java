@@ -14,4 +14,26 @@ package InterveningEntities;
  */
 public class Waiter extends Thread {
     
+    private int id;
+    
+    private WaiterState state;
+    
+    public void run(){
+        
+    }
+    
+    public int getWaiterID() {
+		return id;
+	}
+    
+    public WaiterState getWaiterState(){
+        return state;
+    }
+    
+    public void setState(WaiterState s) {
+		StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+		state = s;
+	}
+    
+    
 }

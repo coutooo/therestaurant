@@ -14,4 +14,32 @@ package InterveningEntities;
  */
 public class Chief extends Thread {
     
+     private int id;
+    
+    private ChiefState state;
+    
+    public void run(){
+        
+    }
+    
+    public void watchTheNews(){
+        
+    }
+    
+    public int getChiefID() {
+		return id;
+	}
+    
+    public ChiefState getChiefState(){
+        return state;
+    }
+    
+    public void setState(ChiefState s) {
+		StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+		state = s;
+	}
+    
+    
+    
+    
 }

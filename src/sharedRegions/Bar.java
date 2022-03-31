@@ -10,4 +10,8 @@ package sharedRegions;
  */
 public class Bar {
     
+    private boolean[] serviceRequests;
+    
+    
+    
 }

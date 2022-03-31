@@ -14,4 +14,28 @@ package InterveningEntities;
  */
 public class Student extends Thread {
     
+     private int id;
+    
+    private StudentState state;
+    
+    
+    
+    public void run(){
+        
+    }
+    
+    public int geStudentID() {
+		return id;
+	}
+    
+    public StudentState getStudentState(){
+        return state;
+    }
+    
+    public void setState(StudentState s) {
+		StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+		state = s;
+	}
+    
+    
 }
