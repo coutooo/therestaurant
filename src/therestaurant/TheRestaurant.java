@@ -4,10 +4,12 @@
  */
 package therestaurant;
 import java.util.Date;
+import sharedRegions.*;
+import InterveningEntities.*;
 
 /**
  *
- * @author couto
+ * @author Couto and Rafinha
  */
 public class TheRestaurant {
 
@@ -29,6 +31,17 @@ dinner: a starter, a main course and a dessert.)
     
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        // Shared memory regions
+        Bar bar = new Bar();
+        Kitchen kitchen = new Kitchen();
+        Table table = new Table();
+        
+        // Entities
+        Student[] students = new Student[Nstudents];
+        
+        
+        
     }
     
 }
