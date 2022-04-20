@@ -114,7 +114,14 @@ public class Chief extends Thread {
     }
 
     private boolean orderBeenCompleted() {
-        return true;
+        if(Kitchen.getNCourses() == 3)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     

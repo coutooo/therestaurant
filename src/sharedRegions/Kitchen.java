@@ -4,6 +4,7 @@
  */
 package sharedRegions;
 
+import InterveningEntities.*;
 import static java.lang.Thread.sleep;
 
 /**
@@ -11,39 +12,55 @@ import static java.lang.Thread.sleep;
  * @author couto
  */
 public class Kitchen {
+    
+    private static int servedPortions;   // numero de porcoes servidas
+    
+    private static int NCourse;         // numero de pratos servidos
 
-    public static void startPreparation() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public static synchronized void startPreparation() {
+        ((Chief) Thread.currentThread ()).setChiefState(ChiefState.PREPARING_THE_COURSE);
     }
 
     public static void proceedToPresentation() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        ((Chief) Thread.currentThread ()).setChiefState(ChiefState.DISHING_THE_PORTIONS);
     }
 
     public static void alertTheWaiter() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    public static void watchTheNews(){
-        try
-        { sleep ((long) (1 + 100 * Math.random ()));
-        }
-        catch (InterruptedException e) {}
-    }
 
     public static void continuePreparation() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     public static boolean allPortionsDelivered() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (servedPortions == 7)
+        {
+            servedPortions = 0;
+            NCourse = NCourse + 1;
+            return true;
+        }
+        return false;
     }
 
     public static void haveNextPortionReady() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        servedPortions = servedPortions + 1;    
     }
 
     public static void cleanUp() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ((Chief) Thread.currentThread ()).setChiefState(ChiefState.CLOSING_SERVICE);
+    }
+    
+    public static void watchTheNews(){
+    try
+    { sleep ((long) (1 + 100 * Math.random ()));
+    }
+    catch (InterruptedException e) {}
+}
+    
+    public static int getNCourses(){
+        return NCourse;
     }
     
 }
