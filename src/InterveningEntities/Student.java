@@ -18,7 +18,7 @@ import sharedRegions.*;
 public class Student extends Thread {
     
     /**
-     *   Chief identification
+     *   Student identification
      */
     private int student_id;
     
@@ -43,7 +43,7 @@ public class Student extends Thread {
      *     @param name thread name
      *     @param student_id student id
      *     @param b reference to the Bar
-     *     @param k reference to the Kitchen
+     *     @param t reference to the Table
      */
     public Student(String name, int student_id, Bar b, Table t){
         super(name);
@@ -53,7 +53,7 @@ public class Student extends Thread {
         this.t = t;
     }
     /**
-     *   Life cycle of the Chief.
+     *   Life cycle of the Student.
      */
     @Override
 	public void run (){
@@ -102,8 +102,8 @@ public class Student extends Thread {
      *
      *     @param id Student id
      */
-    public void setStudentID(StudentState state){
-        currentState = state;
+    public void setStudentID(int id){
+        student_id = id;
     }
     
     /**

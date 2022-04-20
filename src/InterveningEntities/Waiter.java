@@ -4,6 +4,9 @@
  */
 package InterveningEntities;
 
+import static java.lang.Thread.sleep;
+import sharedRegions.*;
+
 /**
  * Waiter thread:
  * Implements the life-cycle of a waiter and stores his internal variables
@@ -14,26 +17,105 @@ package InterveningEntities;
  */
 public class Waiter extends Thread {
     
-    private int id;
+    /**
+     * 	Waiter state
+    */
+    private WaiterState currentState;
     
-    private WaiterState state;
+    /**
+     *   Reference to Kitchen
+     */
+    private final Kitchen k;
     
-    public void run(){
-        
+    /**
+     *   Reference to Bar
+     */
+    private final Bar b;
+    
+    /**
+     *   Reference to Table
+     */
+    private final Table t;
+    
+    /**
+     *   Instantiation of a Waiter thread.
+     *
+     *     @param name thread name
+     *     @param waiter_id waiter id
+     *     @param k reference to the Kitchen
+     *     @param b reference to the Bar
+     *     @param t reference to the Table
+     */
+    public Waiter(String name, Kitchen k, Bar b, Table t){
+        super(name);
+        this.currentState = WaiterState.APPRAISING_SITUATION;
+        this.k = k;
+        this.b = b;
+        this.t = t;
     }
     
-    public int getWaiterID() {
-		return id;
-	}
-    
-    public WaiterState getWaiterState(){
-        return state;
+    /**
+     *   Life cycle of the Waiter.
+     */
+    @Override
+    public void run (){
+        //used to store the request that needs to be performed by the waiter
+        char request;
+        //used to check if simulation may stop or not
+        boolean stop = false;
+
+        while(true){
+            request = b.lookAround();
+
+            switch(request){
+                case 'c':	//Client arriving, needs to be presented with the menu
+                    t.saluteClient(b.getStudentBeingAnswered());
+                    t.returnBar();
+                    break;
+                case 'o':	//Order will be described to the waiter
+                    t.getThePad();
+                    k.handNoteToChef();
+                    k.returnToBar();
+                    break;
+                case 'p':	//Portions need to be collected and delivered
+                    while(!t.haveAllClientsBeenServed()) {
+                        k.collectPortion();
+                        t.deliverPortion();
+                    }
+                    t.returnBar();
+                    break;
+                case 'b':	//Bill needs to be prepared so it can be payed by the student
+                    b.preprareBill();
+                    t.presentBill();
+                    t.returnBar();
+                    break;
+                case 'g':	//Goodbye needs to be said to a student
+                    stop = b.sayGoodbye();
+                    break;
+            }
+            //If the last student has left the restaurant, life cycle may terminate
+            if (stop)
+                break;
+        }
     }
-    
-    public void setState(WaiterState s) {
-		StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-		state = s;
-	}
-    
-    
+     
+    /**
+     *   Set Waiter state.
+     *
+     *     @param state Waiter state
+     */
+    public void setWaiterState (WaiterState state)
+    {
+        currentState = state;
+    }
+
+    /**
+     *   Get Waiter state.
+     *
+     *     @return Waiter state.
+     */
+    public WaiterState getWaiterState ()
+    {
+        return currentState;
+    }
 }

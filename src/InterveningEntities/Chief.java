@@ -41,15 +41,15 @@ public class Chief extends Thread {
      *
      *     @param name thread name
      *     @param chief_id chief id
+     *     @param k reference to the Kitchen     
      *     @param b reference to the Bar
-     *     @param k reference to the Kitchen
      */
-    public Chief(String name, int chief_id, Bar b, Kitchen k){
+    public Chief(String name, int chief_id, Kitchen k, Bar b){
         super(name);
         this.chief_id = chief_id;
         this.currentState = ChiefState.WAITING_FOR_AN_ORDER;
-        this.b = b;
         this.k = k;
+        this.b = b;
     }
     
     /**
@@ -80,8 +80,8 @@ public class Chief extends Thread {
      *
      *     @param id Chief id
      */
-    public void setChiefID(ChiefState state){
-        currentState = state;
+    public void setChiefID(int id){
+        chief_id = id;
     }
     
     /**
