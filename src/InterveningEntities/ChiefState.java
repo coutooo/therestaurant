@@ -9,42 +9,12 @@ package InterveningEntities;
  * @author Rafael Dias
  * @author Manuel Couto
  */
-    
+
 public enum ChiefState { 
-    /**
-     * 
-     */
-    WAITING_FOR_AN_ORDER ("WaitO"),
-
-    /**
-     * 
-     */
-    PREPARING_THE_COURSE ("PrepC"),
-
-    /**
-     * 
-     */
-    DISHING_THE_PORTIONS ("DishP"),
-
-    /**
-     * 
-     */
-    DELIVERING_THE_PORTIONS ("DelivP"),
-
-    /**
-     * 
-     */
-    CLOSING_SERVICE ("ClosS");
-
-    private final String description;
-
-    private ChiefState(String description){
-        this.description = description;
-    }
-
-    @Override
-    public String toString(){
-        return this.description;
-    }
+    WAITING_FOR_AN_ORDER,
+    PREPARING_THE_COURSE,
+    DISHING_THE_PORTIONS,
+    DELIVERING_THE_PORTIONS,
+    CLOSING_SERVICE
 }
 

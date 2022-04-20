@@ -21,6 +21,10 @@ public class Student extends Thread {
     
     
     public void run(){
+        walkaBit();
+    }
+    
+    public void walkaBit(){
         
     }
     

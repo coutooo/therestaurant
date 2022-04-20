@@ -11,53 +11,13 @@ package InterveningEntities;
  */
     
 public enum StudentState { 
-    /**
-     * 
-     */
-    GOING_TO_THE_RESTAURANT ("GoR"),
-
-    /**
-     * 
-     */
-    TAKING_A_SEAT_AT_THE_TABLE ("TakS"),
-
-    /**
-     * 
-     */
-    SELECTING_THE_COURSES ("SelC"),
-
-    /**
-     * 
-     */
-    ORGANIZING_THE_ORDER ("OrgO"),
-
-    /**
-     * 
-     */
-    CHATTING_WITH_COMPANIONS ("ChatC"),
     
-    /**
-     * 
-     */
-    ENJOYING_THE_MEAL ("EnjoyM"),
-    
-    /**
-     * 
-     */
-    PAYING_THE_MEAL ("PayM"),
-    /**
-     * 
-     */
-    GOING_HOME ("GoH");
-
-    private final String description;
-
-    private StudentState(String description){
-        this.description = description;
-    }
-
-    @Override
-    public String toString(){
-        return this.description;
-    }
+    GOING_TO_THE_RESTAURANT,
+    TAKING_A_SEAT_AT_THE_TABLE,
+    SELECTING_THE_COURSES,
+    ORGANIZING_THE_ORDER,
+    CHATTING_WITH_COMPANIONS,
+    ENJOYING_THE_MEAL,
+    PAYING_THE_MEAL,
+    GOING_HOME
 }

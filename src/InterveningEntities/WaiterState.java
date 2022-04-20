@@ -11,49 +11,11 @@ package InterveningEntities;
  */
     
 public enum WaiterState { 
-    /**
-     * 
-     */
-    APPRAISING_SITUATION ("ApprS"),
-
-    /**
-     * 
-     */
-    PRESENTING_THE_MENU ("PresM"),
-
-    /**
-     * 
-     */
-    TAKING_THE_ORDER ("TakO"),
-
-    /**
-     * 
-     */
-    PLACING_THE_ORDER ("PlacO"),
-
-    /**
-     * 
-     */
-    WAITING_FOR_PORTION ("WaitP"),
-    
-    /**
-     * 
-     */
-    PROCESSING_THE_BILL ("ProcesB"),
-    
-    /*
-    *
-    */
-    RECEIVING_PAYMENT ("RecP");
-    
-    private final String description;
-
-    private WaiterState(String description){
-        this.description = description;
-    }
-
-    @Override
-    public String toString(){
-        return this.description;
-    }
+    APPRAISING_SITUATION ,
+    PRESENTING_THE_MENU ,
+    TAKING_THE_ORDER ,
+    PLACING_THE_ORDER ,
+    WAITING_FOR_PORTION ,
+    PROCESSING_THE_BILL ,
+    RECEIVING_PAYMENT 
 }

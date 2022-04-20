@@ -4,6 +4,8 @@
  */
 package InterveningEntities;
 
+import sharedRegions.*;
+
 /**
  * Chief thread:
  * Implements the life-cycle of a chief and stores his internal variables
@@ -16,14 +18,32 @@ public class Chief extends Thread {
     
      private int id;
     
-    private ChiefState state;
+    private ChiefState currentState;
+    
+    private final Bar bar;
+    
+    private final Kitchen kitchen;
+    
+    private final Table table;
+    
     
     public void run(){
-        
-    }
-    
-    public void watchTheNews(){
-        
+        boolean firstCourse=true;
+        Kitchen.watchTheNews();
+        Kitchen.startPreparation();
+        do{
+            if(!firstCourse) Kitchen.continuePreparation();
+            else firstCourse = false;
+            
+            Kitchen.proceedToPresentation();
+            Bar.alertWaiter();
+            
+            while(!Kitchen.allPortionsDelivered()){
+                Kitchen.haveNextPortionReady();
+                Bar.alertWaiter();
+            }
+        }while(!orderBeenCompleted());
+        Kitchen.cleanUp();
     }
     
     public int getChiefID() {
@@ -31,13 +51,17 @@ public class Chief extends Thread {
 	}
     
     public ChiefState getChiefState(){
-        return state;
+        return currentState;
     }
     
     public void setState(ChiefState s) {
 		StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-		state = s;
+		currentState = s;
 	}
+
+    private boolean orderBeenCompleted() {
+        return true;
+    }
     
     
     
