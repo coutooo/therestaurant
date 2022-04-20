@@ -16,48 +16,102 @@ import sharedRegions.*;
  */
 public class Chief extends Thread {
     
-     private int id;
+    /**
+     *   Chief identification
+     */
+    private int chief_id;
     
+    /**
+     *   Chief state
+     */
     private ChiefState currentState;
     
-    private final Bar bar;
+    /**
+     *   Reference to Bar
+     */
+    private final Bar b;
     
-    private final Kitchen kitchen;
+    /**
+     *   Reference to Kitchen
+     */
+    private final Kitchen k;
     
-    private final Table table;
+    /**
+     *   Instantiation of a Chief thread.
+     *
+     *     @param name thread name
+     *     @param chief_id chief id
+     *     @param b reference to the Bar
+     *     @param k reference to the Kitchen
+     */
+    public Chief(String name, int chief_id, Bar b, Kitchen k){
+        super(name);
+        this.chief_id = chief_id;
+        this.currentState = ChiefState.WAITING_FOR_AN_ORDER;
+        this.b = b;
+        this.k = k;
+    }
     
-    
+    /**
+     *   Life cycle of the Chief.
+     */
+    @Override
     public void run(){
         boolean firstCourse=true;
-        Kitchen.watchTheNews();
-        Kitchen.startPreparation();
+        k.watchTheNews();
+        k.startPreparation();
         do{
-            if(!firstCourse) Kitchen.continuePreparation();
+            if(!firstCourse) k.continuePreparation();
             else firstCourse = false;
             
-            Kitchen.proceedToPresentation();
-            Bar.alertWaiter();
+            k.proceedToPresentation();
+            b.alertWaiter();
             
-            while(!Kitchen.allPortionsDelivered()){
-                Kitchen.haveNextPortionReady();
-                Bar.alertWaiter();
+            while(!k.allPortionsDelivered()){
+                k.haveNextPortionReady();
+                b.alertWaiter();
             }
         }while(!orderBeenCompleted());
-        Kitchen.cleanUp();
+        k.cleanUp();
     }
     
-    public int getChiefID() {
-		return id;
-	}
+    /**
+     *   Set Chief id.
+     *
+     *     @param id Chief id
+     */
+    public void setChiefID(ChiefState state){
+        currentState = state;
+    }
     
-    public ChiefState getChiefState(){
+    /**
+     *   Get Chief id.
+     *
+     *     @return Chief id
+     */
+    public int getChiefID() {
+        return chief_id;
+    }
+    
+    /**
+     *   Set Chief state.
+     *
+     *     @param state Chief state
+     */
+    public void setChiefState (ChiefState state)
+    {
+        currentState = state;
+    }
+
+    /**
+     *   Get Chief state.
+     *
+     *     @return Chief state.
+     */
+    public ChiefState getChiefState ()
+    {
         return currentState;
     }
-    
-    public void setState(ChiefState s) {
-		StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-		currentState = s;
-	}
 
     private boolean orderBeenCompleted() {
         return true;
