@@ -4,6 +4,9 @@
  */
 package sharedRegions;
 
+import genclass.GenericIO;
+import genclass.TextFile;
+import java.util.Objects;
 /**
  * 
  * 
@@ -12,4 +15,19 @@ package sharedRegions;
  */
 class GeneralRepos {
     
+    
+    
+    
+    
+    public synchronized void setChefState (int state){
+        switch(state) {
+            
+        }
+        chefState = state;
+        reportStatus();
+    }
+
+    private void reportStatus() {
+        
+    }
 }

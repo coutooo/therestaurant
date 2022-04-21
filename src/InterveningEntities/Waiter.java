@@ -4,7 +4,6 @@
  */
 package InterveningEntities;
 
-import static java.lang.Thread.sleep;
 import sharedRegions.*;
 
 /**
