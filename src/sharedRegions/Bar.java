@@ -74,13 +74,13 @@ public class Bar
 	public Bar(GeneralRepos repo, Table tab) 
 	{
 		//Initizalization of students thread
-		students = new Student[ExecuteConst.N];
-		for(int i = 0; i < ExecuteConst.N; i++ ) 
+		students = new Student[TheRestaurant.Nstudents];
+		for(int i = 0; i < TheRestaurant.Nstudents; i++ ) 
 			students[i] = null;
 		
 		//Initialization of the queue of pending requests
 		try {
-			pendingServiceRequestQueue = new MemFIFO<> (new Request [ExecuteConst.N * ExecuteConst.M]);
+			pendingServiceRequestQueue = new MemFIFO<> (new Request [TheRestaurant.Nstudents * TheRestaurant.Ncourses]);
 		} catch (MemException e) {
 			pendingServiceRequestQueue = null;
 		    System.exit (1);
@@ -91,8 +91,8 @@ public class Bar
 		this.repo = repo;
 		this.tab = tab;
 		
-		this.studentsGreeted = new boolean[ExecuteConst.N];
-		for(int i = 0 ;i < ExecuteConst.N; i++)
+		this.studentsGreeted = new boolean[TheRestaurant.Nstudents];
+		for(int i = 0 ;i < TheRestaurant.Nstudents; i++)
 			studentsGreeted[i] = false;
 	}
 	
@@ -124,7 +124,7 @@ public class Bar
 			}
 		}
 		
-		Request r = new Request(ExecuteConst.N+1,'p');
+		Request r = new Request(TheRestaurant.Nstudents+1,'p');
 		
 		//Add a new service request to queue of pending requests (portion to be collected)
 		try {
@@ -252,17 +252,17 @@ public class Bar
 	{		
 		synchronized(this)
 		{
-			int studentId = ((Student) Thread.currentThread()).getStudentId();
+			int studentId = ((Student) Thread.currentThread()).getStudentID();
 			//Update student state
 			students[studentId] = ((Student) Thread.currentThread());
-			students[studentId].setStudentState(StudentStates.GOING_TO_THE_RESTAURANT);
+			students[studentId].setStudentState(StudentState.GOING_TO_THE_RESTAURANT);
 			
 			numberOfStudentsAtRestaurant++;
 
 			//Register first and last to arrive
 			if(numberOfStudentsAtRestaurant == 1)
 				tab.setFirstToArrive(studentId);
-			else if (numberOfStudentsAtRestaurant == ExecuteConst.N)
+			else if (numberOfStudentsAtRestaurant == TheRestaurant.Nstudents)
 				tab.setLastToArrive(studentId);
 			
 			//Add a new pending requests to the queue
@@ -303,7 +303,7 @@ public class Bar
 	 */
 	public synchronized void callWaiter()
 	{
-		int studentId = ((Student) Thread.currentThread()).getStudentId();
+		int studentId = ((Student) Thread.currentThread()).getStudentID();
 		Request r = new Request(studentId,'o');
 		
 		//Add a new service request to queue of pending requests (portion to be collected)
@@ -331,9 +331,9 @@ public class Bar
 	 */
 	public synchronized void signalWaiter()
 	{
-		int studentId = ((Student) Thread.currentThread()).getStudentId();
+		int studentId = ((Student) Thread.currentThread()).getStudentID();
 
-		if(((Student) Thread.currentThread()).getStudentState() == StudentStates.PAYING_THE_BILL)
+		if(((Student) Thread.currentThread()).getStudentState() == StudentState.PAYING_THE_BILL)
 		{		
 			//Add a new pending requests to the queue
 			try {
@@ -368,7 +368,7 @@ public class Bar
 	 */
 	public synchronized void exit()
 	{
-		int studentId = ((Student) Thread.currentThread()).getStudentId();
+		int studentId = ((Student) Thread.currentThread()).getStudentID();
 		Request r = new Request(studentId,'g');
 		
 		//Add a new service request to queue of pending requests (portion to be collected)

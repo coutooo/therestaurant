@@ -1,7 +1,7 @@
 package sharedRegions;
 
-import entities.*;
-import main.ExecuteConst;
+import InterveningEntities.*;
+import therestaurant.TheRestaurant;
 
 /**
  * Table
@@ -30,12 +30,12 @@ public class Table {
 	/**
 	 * Number of orders made by students
 	 */
-	private int numOrders;
+	private int nOrders;
 	
 	/**
 	 * Number of students that finished the course
 	 */
-	private int numStudentsFinishedCourse;
+	private int nStudentsFinishedCourse;
 	
 	/**
 	 * Id of student last to eat
@@ -45,12 +45,12 @@ public class Table {
 	/**
 	 * Number of courses eaten
 	 */
-	private int numOfCoursesEaten;
+	private int nOfCoursesEaten;
 	
 	/**
 	 * Number of students served
 	 */
-	private int numStudentsServed;	
+	private int nStudentsServed;	
 	
 	/**
 	 * Id of the student whose request the waiter is taking care of
@@ -75,7 +75,7 @@ public class Table {
 	/**
 	 * Used to count number of students that woke up after last student to eat has signaled them to
 	 */
-	private int numStudentsWokeUp;
+	private int nStudentsWokeUp;
 	
 	/**
 	 * Boolean variable to check if waiter is processing the bill
@@ -110,31 +110,31 @@ public class Table {
     {
     	this.firstToArrive = -1;
     	this.lastToArrive = -1;
-    	this.numOrders = 0;
-    	this.numStudentsFinishedCourse = 0;
+    	this.nOrders = 0;
+    	this.nStudentsFinishedCourse = 0;
     	this.lastToEat = -1;
-    	this.numOfCoursesEaten = 0;
-    	this.numStudentsServed = 0;
+    	this.nOfCoursesEaten = 0;
+    	this.nStudentsServed = 0;
     	this.studentBeingAnswered = 0;
-    	this.numStudentsWokeUp = 0;
+    	this.nStudentsWokeUp = 0;
     	this.presentingTheMenu = false;
     	this.takingTheOrder = false;
     	this.informingCompanion = false;
     	this.processingBill = false;
     	this.repos = repos;
     	
-    	studentsSeated = new boolean[ExecuteConst.N];
-    	studentsReadMenu = new boolean[ExecuteConst.N];
+    	studentsSeated = new boolean[TheRestaurant.Nstudents];
+    	studentsReadMenu = new boolean[TheRestaurant.Nstudents];
     	
-    	for(int i = 0; i < ExecuteConst.N; i++)
+    	for(int i = 0; i < TheRestaurant.Nstudents; i++)
     	{
     		studentsSeated[i] = false;
     		studentsReadMenu[i] = false;
     	}
     	
 		//Initizalization of students thread
-		students = new Student[ExecuteConst.N];
-		for(int i = 0; i < ExecuteConst.N; i++ ) 
+		students = new Student[TheRestaurant.Nstudents];
+		for(int i = 0; i < TheRestaurant.Nstudents; i++ ) 
 			students[i] = null;
     	
     }
@@ -180,7 +180,7 @@ public class Table {
     	studentBeingAnswered = studentIdBeingAnswered;
     	
     	//Update Waiter state
-    	((Waiter) Thread.currentThread()).setWaiterState(WaiterStates.PRESENTING_THE_MENU);
+    	((Waiter) Thread.currentThread()).setWaiterState(WaiterState.PRESENTING_THE_MENU);
     	repos.setWaiterState(((Waiter) Thread.currentThread()).getWaiterState());
     	
     	presentingTheMenu = true;
@@ -228,7 +228,7 @@ public class Table {
     public synchronized void returnBar()
     {
     	//Update Waiter state
-    	((Waiter) Thread.currentThread()).setWaiterState(WaiterStates.APRAISING_SITUATION);
+    	((Waiter) Thread.currentThread()).setWaiterState(WaiterState.APPRAISING_SITUATION);
     	repos.setWaiterState(((Waiter) Thread.currentThread()).getWaiterState());    	
     }
     
@@ -244,7 +244,7 @@ public class Table {
     public synchronized void getThePad()
     {
     	//Update Waiter state
-    	((Waiter) Thread.currentThread()).setWaiterState(WaiterStates.TAKING_THE_ORDER);
+    	((Waiter) Thread.currentThread()).setWaiterState(WaiterState.TAKING_THE_ORDER);
     	repos.setWaiterState(((Waiter) Thread.currentThread()).getWaiterState());
     	
     	takingTheOrder = true;
@@ -280,10 +280,10 @@ public class Table {
     public synchronized boolean haveAllClientsBeenServed()
     {    	
     	//If all clients have been served they must be notified
-    	if(numStudentsServed == ExecuteConst.N) {
+    	if(nStudentsServed == TheRestaurant.Nstudents) {
     		System.out.println("I CHANGED numStudentsFinished");
     		lastToEat = -1;
-    		numStudentsWokeUp = 0;
+    		nStudentsWokeUp = 0;
     		notifyAll();
     		return true;
     	}
@@ -301,7 +301,7 @@ public class Table {
     public synchronized void deliverPortion()
     {
     	//Update number of Students server after portion delivery
-    	numStudentsServed++; 
+    	nStudentsServed++; 
     }
     
     
@@ -320,7 +320,7 @@ public class Table {
     	//Signal student the he can pay
     	notifyAll();
     	
-    	((Waiter) Thread.currentThread()).setWaiterState(WaiterStates.RECEIVING_PAYMENT);
+    	((Waiter) Thread.currentThread()).setWaiterState(WaiterState.RECEIVING_PAYMENT);
     	repos.setWaiterState(((Waiter) Thread.currentThread()).getWaiterState());
     	//Block waiting for his payment
     	try {
@@ -342,10 +342,10 @@ public class Table {
      */
     public synchronized void seatAtTable()
     {
-    	int studentId = ((Student) Thread.currentThread()).getStudentId();
+    	int studentId = ((Student) Thread.currentThread()).getStudentID();
     	
 		students[studentId] = ((Student) Thread.currentThread());
-		students[studentId].setStudentState(StudentStates.TAKING_A_SEAT_AT_THE_TABLE);
+		students[studentId].setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
     	
     	System.out.println("Student"+ studentId+" took a seat and blocked");
     	//Register that student took a seat
@@ -383,10 +383,10 @@ public class Table {
      */
     public synchronized void readMenu()
     {
-    	int studentId = ((Student) Thread.currentThread()).getStudentId();
+    	int studentId = ((Student) Thread.currentThread()).getStudentID();
     	
     	//Update student state
-    	students[studentId].setStudentState(StudentStates.SELECTING_THE_COURSES);
+    	students[studentId].setStudentState(StudentState.SELECTING_THE_COURSES);
     	repos.updateStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
     	
     	studentsReadMenu[studentId] = true;
@@ -409,10 +409,10 @@ public class Table {
     public synchronized void prepareOrder()
     {    	
     	//Register that first student to arrive already choose his own option
-    	numOrders++;
+    	nOrders++;
     	
     	//Update student state
-    	students[firstToArrive].setStudentState(StudentStates.ORGANIZING_THE_ORDER);
+    	students[firstToArrive].setStudentState(StudentState.ORGANIZING_THE_ORDER);
     	repos.updateStudentState(firstToArrive, ((Student) Thread.currentThread()).getStudentState());
     	
     }
@@ -429,7 +429,7 @@ public class Table {
      */
     public synchronized boolean everybodyHasChosen()
     {
-    	if(numOrders == ExecuteConst.N)
+    	if(nOrders == TheRestaurant.Nstudents)
     		return true;
     	else {
 	    	//Block if not everybody has choosen and while companions are not describing their choices
@@ -457,7 +457,7 @@ public class Table {
      */
     public synchronized void addUpOnesChoices()
     {
-    	numOrders++;
+    	nOrders++;
     	informingCompanion = false;
     	//Notify sleeping student threads that order was registered
     	notifyAll();
@@ -506,7 +506,7 @@ public class Table {
     public synchronized void joinTalk()
     {
     	//Update student state
-    	students[firstToArrive].setStudentState(StudentStates.CHATING_WITH_COMPANIONS);
+    	students[firstToArrive].setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
     	repos.updateStudentState(firstToArrive, ((Student) Thread.currentThread()).getStudentState());   
     }
     
@@ -522,7 +522,7 @@ public class Table {
      */
     public synchronized void informCompanion()
     {
-    	int studentId = ((Student) Thread.currentThread()).getStudentId();
+    	int studentId = ((Student) Thread.currentThread()).getStudentID();
     	
     	//If some other student is informing about his order then wait must be done
     	while(informingCompanion)
@@ -540,7 +540,7 @@ public class Table {
     	notifyAll();
     	
     	//Update student state
-    	students[studentId].setStudentState(StudentStates.CHATING_WITH_COMPANIONS);
+    	students[studentId].setStudentState(StudentState.CHATING_WITH_COMPANIONS);
     	repos.updateStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
     	
     	
@@ -556,10 +556,10 @@ public class Table {
      */    
     public synchronized void startEating()
     {
-    	int studentId = ((Student) Thread.currentThread()).getStudentId();
+    	int studentId = ((Student) Thread.currentThread()).getStudentID();
     	 
     	//Update student state
-    	students[studentId].setStudentState(StudentStates.ENJOYING_THE_MEAL);
+    	students[studentId].setStudentState(StudentState.ENJOYING_THE_MEAL);
     	repos.updateStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
     	
     	//Enjoy meal during random time
@@ -578,22 +578,22 @@ public class Table {
      */
     public synchronized void endEating()
     {
-    	int studentId = ((Student) Thread.currentThread()).getStudentId();
+    	int studentId = ((Student) Thread.currentThread()).getStudentID();
     	
     	//Update numstudents finished course
-    	numStudentsFinishedCourse++;
-    	System.out.println("I "+studentId+" finished"+numStudentsFinishedCourse);
+    	nStudentsFinishedCourse++;
+    	System.out.println("I "+studentId+" finished"+nStudentsFinishedCourse);
     	
     	//If all students have finished means that one more course was eaten
-    	if(numStudentsFinishedCourse == ExecuteConst.N)
+    	if(nStudentsFinishedCourse == TheRestaurant.Nstudents)
     	{
-    		numOfCoursesEaten++;
+    		nOfCoursesEaten++;
     		//register last to eat
     		lastToEat = studentId;
     	}
     	
     	//Update student state
-    	students[studentId].setStudentState(StudentStates.CHATING_WITH_COMPANIONS);
+    	students[studentId].setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
     	repos.updateStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
     }
     
@@ -608,16 +608,16 @@ public class Table {
      */
     public synchronized boolean hasEverybodyFinishedEating()
     {
-    	int studentId = ((Student) Thread.currentThread()).getStudentId();
+    	int studentId = ((Student) Thread.currentThread()).getStudentID();
     	
     	//Notify all students that the last one to eat has already finished
     	if(studentId == lastToEat)
     	{
-    		numStudentsFinishedCourse = 0;
-    		numStudentsServed = 0;
-    		numStudentsWokeUp++;
+    		nStudentsFinishedCourse = 0;
+    		nStudentsServed = 0;
+    		nStudentsWokeUp++;
     		notifyAll();
-    		while(numStudentsWokeUp != ExecuteConst.N)
+    		while(nStudentsWokeUp != TheRestaurant.Nstudents)
     		{
     			try {
 					wait();
@@ -629,17 +629,17 @@ public class Table {
     	}
     	
     	//Wait while not all students have finished
-    	while(numStudentsFinishedCourse != 0) {
+    	while(nStudentsFinishedCourse != 0) {
     		try {
 				wait();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    		System.out.println("Student "+studentId+" woke "+numStudentsFinishedCourse);
+    		System.out.println("Student "+studentId+" woke "+nStudentsFinishedCourse);
     	}
-    	numStudentsWokeUp++;
-    	if(numStudentsWokeUp == ExecuteConst.N)
+    	nStudentsWokeUp++;
+    	if(nStudentsWokeUp == TheRestaurant.Nstudents)
     		notifyAll();
     	
     	return true;
@@ -687,11 +687,11 @@ public class Table {
      */
     public synchronized boolean haveAllCoursesBeenEaten()
     {
-    	if(numOfCoursesEaten == ExecuteConst.M)
+    	if(nOfCoursesEaten == TheRestaurant.Ncourses)
     		return true;
 		else {
     		//Student blocks waiting for all companions to be served
-    		while(numStudentsServed != ExecuteConst.N)
+    		while(nStudentsServed != TheRestaurant.Nstudents)
     		{
 	    		try {
 					wait();
@@ -700,7 +700,7 @@ public class Table {
 					e.printStackTrace();
 				}
     		}
-    		System.out.println("All served!!! Course "+ numOfCoursesEaten);
+    		System.out.println("All served!!! Course "+ nOfCoursesEaten);
 	    	return false;
     	}
     	
@@ -718,11 +718,11 @@ public class Table {
      */
     public synchronized boolean shouldHaveArrivedEarlier()
     {
-    	int studentId = ((Student) Thread.currentThread()).getStudentId();
+    	int studentId = ((Student) Thread.currentThread()).getStudentID();
 
     	if(studentId == lastToArrive) {
 	    	//Update student state
-	    	students[studentId].setStudentState(StudentStates.PAYING_THE_BILL);
+	    	students[studentId].setStudentState(StudentState.PAYING_THE_MEAL);
 	    	repos.updateStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
 	    	return true;
     	}
