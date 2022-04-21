@@ -80,22 +80,22 @@ public class GeneralRepos {
 
    public GeneralRepos (String logFileName, int nIter)
    {
-       
-       // ainda nao mexi nada aqui
       if ((logFileName == null) || Objects.equals (logFileName, ""))
          this.logFileName = "logger";
          else this.logFileName = logFileName;
       this.nIter = nIter;
-      barberState = new int [SimulPar.M];
-      for (int i = 0; i < SimulPar.M; i++)
-        barberState[i] = BarberStates.SLEEPING;
-      customerState = new int [SimulPar.N];
-      for (int i = 0; i < SimulPar.N; i++)
-        customerState[i] = CustomerStates.DAYBYDAYLIFE;
+      
+      // inicializar students
+      studentState = new StudentState[TheRestaurant.Nstudents];
+      for (int i = 0; i < TheRestaurant.Nstudents; i++)
+        studentState[i] = StudentState.GOING_TO_THE_RESTAURANT;
+      
+      // iniciar chef
+      chefState = ChefState.WAITING_FOR_AN_ORDER;
+      waiterState = WaiterState.APPRAISING_SITUATION;
       access = new Semaphore ();
       access.up ();
       reportInitialStatus ();
-      // --------------------------------
    }
    private void reportInitialStatus ()
    {
