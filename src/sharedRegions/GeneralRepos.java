@@ -70,6 +70,33 @@ public class GeneralRepos {
    *  Internal operation.
    */
 
+   
+  /**
+   *   Instantiation of a general repository object.
+   *
+   *     @param logFileName name of the logging file
+   *     @param nIter number of iterations of the customer life cycle
+   */
+
+   public GeneralRepos (String logFileName, int nIter)
+   {
+       
+       // ainda nao mexi nada aqui
+      if ((logFileName == null) || Objects.equals (logFileName, ""))
+         this.logFileName = "logger";
+         else this.logFileName = logFileName;
+      this.nIter = nIter;
+      barberState = new int [SimulPar.M];
+      for (int i = 0; i < SimulPar.M; i++)
+        barberState[i] = BarberStates.SLEEPING;
+      customerState = new int [SimulPar.N];
+      for (int i = 0; i < SimulPar.N; i++)
+        customerState[i] = CustomerStates.DAYBYDAYLIFE;
+      access = new Semaphore ();
+      access.up ();
+      reportInitialStatus ();
+      // --------------------------------
+   }
    private void reportInitialStatus ()
    {
       TextFile log = new TextFile ();                      // instantiation of a text file handler
