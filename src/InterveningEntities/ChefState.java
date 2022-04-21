@@ -5,12 +5,12 @@
 package InterveningEntities;
 
 /**
- * Enum with the possible states of the chief on his lifecycle.
+ * Enum with the possible states of the Chef on his lifecycle.
  * @author Rafael Dias
  * @author Manuel Couto
  */
 
-public enum ChiefState { 
+public enum ChefState { 
     WAITING_FOR_AN_ORDER,
     PREPARING_THE_COURSE,
     DISHING_THE_PORTIONS,

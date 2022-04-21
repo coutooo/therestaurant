@@ -1,7 +1,7 @@
 package sharedRegions;
 
-import entities.*;
-import main.*;
+import InterveningEntities.*;
+import therestaurant.*;
 
 /**
  * 	Kitchen

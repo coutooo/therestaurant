@@ -61,7 +61,7 @@ public class Student extends Thread {
             b.enter();
             t.readMenu();
 
-            if(studentId == t.getFirstToArrive()){
+            if(student_id == t.getFirstToArrive()){
                     t.prepareOrder();
                     while(!t.everybodyHasChosen())
                             t.addUpOnesChoices();
@@ -79,7 +79,7 @@ public class Student extends Thread {
 
                     while(!t.hasEverybodyFinishedEating());
                     System.out.println("I FINISHED MY MEAL");
-                    if(studentId == t.getLastToEat() && numCoursesEaten != ExecuteConst.M) {b.signalWaiter();}
+                    if(student_id == t.getLastToEat() && numCoursesEaten != therestaurant.TheRestaurant.Ncourses) {b.signalWaiter();}
             }
 
             if(t.shouldHaveArrivedEarlier()) {

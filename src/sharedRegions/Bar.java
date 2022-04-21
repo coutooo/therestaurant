@@ -2,7 +2,7 @@ package sharedRegions;
 
 import InterveningEntities.*;
 import commInfra.*;
-//import main.*;
+import therestaurant.*;
 
 /**
  * 
@@ -139,8 +139,8 @@ public class Bar
 		courseFinished = false;
 		
 		//Update chefs state
-		((Chief) Thread.currentThread()).setChefState(ChiefState.DELIVERING_THE_PORTIONS);
-		repo.setChefState(((Chief) Thread.currentThread()).getChefState());
+		((Chef) Thread.currentThread()).setChefState(ChefState.DELIVERING_THE_PORTIONS);
+		repo.setChefState(((Chef) Thread.currentThread()).getChefState());
 		
 		//Signal waiter that there is a pending request
 		notifyAll();

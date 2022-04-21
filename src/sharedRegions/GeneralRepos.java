@@ -5,8 +5,10 @@
 package sharedRegions;
 
 /**
- *
- * @author couto and rafael
+ * 
+ * 
+ * @author Rafael Dias
+ * @author Manuel Couto
  */
 class GeneralRepos {
     
