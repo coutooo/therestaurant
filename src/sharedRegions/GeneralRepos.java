@@ -49,6 +49,18 @@ public class GeneralRepos {
    */
 
    private final StudentState [] studentState;
+
+  /**
+   *  State of the Chef.
+   */
+
+   private final ChefState chefState;
+   
+  /**
+   *  State of the Waiter.
+   */
+
+   private final WaiterState waiterState;
    
    
   /**
@@ -85,43 +97,60 @@ public class GeneralRepos {
 
    private void reportStatus ()
    {
-      TextFile log = new TextFile ();                      // instantiation of a text file handler
+        TextFile log = new TextFile ();                      // instantiation of a text file handler
 
-      String lineStatus = "";                              // state line to be printed
+        String lineStatus = "";                              // state line to be printed
 
-      if (!log.openForAppending (".", logFileName))
-         { GenericIO.writelnString ("The operation of opening for appending the file " + logFileName + " failed!");
-           System.exit (1);
-         }
-      for (int i = 0; i < TheRestaurant.Nstudents; i++)
-        switch (studentState[i])
-        { case GOING_TO_THE_RESTAURANT:   lineStatus += " GGTRT ";
-                                        break;
-          case TAKING_A_SEAT_AT_THE_TABLE: lineStatus += " TKSTT ";
-                                        break;    
-          case SELECTING_THE_COURSES: lineStatus += " SELCS ";
-                                        break; 
-          case ORGANIZING_THE_ORDER: lineStatus += " OGODR ";
-                                        break; 
-          case CHATTING_WITH_COMPANIONS: lineStatus += " CHTWC ";
-                                        break; 
-          case PAYING_THE_MEAL: lineStatus += " PYTBL ";
-                                        break; 
-          case GOING_HOME: lineStatus += " GGHOM ";
-                                        break; 
-        }
-      for (int i = 0; i < SimulPar.N; i++)
-        switch (customerState[i])
-        { case CustomerStates.DAYBYDAYLIFE:  lineStatus += " DAYBYDAY ";
-                                             break;
-          case CustomerStates.WANTTOCUTHAIR: lineStatus += " WANTCUTH ";
-                                             break;
-          case CustomerStates.WAITTURN:      lineStatus += " WAITTURN ";
-                                             break;
-          case CustomerStates.CUTTHEHAIR:    lineStatus += " CUTTHAIR ";
-                                             break;
-        }
-      
+        if (!log.openForAppending (".", logFileName))
+           { GenericIO.writelnString ("The operation of opening for appending the file " + logFileName + " failed!");
+             System.exit (1);
+           }
+        for (int i = 0; i < TheRestaurant.Nstudents; i++)
+            switch (studentState[i]){ 
+                case GOING_TO_THE_RESTAURANT:   lineStatus += " GGTRT ";
+                                            break;
+                case TAKING_A_SEAT_AT_THE_TABLE: lineStatus += " TKSTT ";
+                                              break;    
+                case SELECTING_THE_COURSES: lineStatus += " SELCS ";
+                                              break; 
+                case ORGANIZING_THE_ORDER: lineStatus += " OGODR ";
+                                              break; 
+                case CHATTING_WITH_COMPANIONS: lineStatus += " CHTWC ";
+                                              break; 
+                case PAYING_THE_MEAL: lineStatus += " PYTBL ";
+                                              break; 
+                case GOING_HOME: lineStatus += " GGHOM ";
+                                              break; 
+            }
+        switch (chefState){ 
+            case WAITING_FOR_AN_ORDER:  lineStatus += " WAFOR ";
+                                               break;
+            case PREPARING_THE_COURSE: lineStatus += " PRPCS ";
+                                               break;
+            case DISHING_THE_PORTIONS:      lineStatus += " DSHPT ";
+                                               break;
+            case DELIVERING_THE_PORTIONS:    lineStatus += " DLVPT ";
+                                               break;
+            case CLOSING_SERVICE:    lineStatus += " CLSSV ";
+                                               break;
+          }
+        switch (waiterState){ 
+            case APPRAISING_SITUATION:  lineStatus += " APPST ";
+                                               break;
+            case PRESENTING_THE_MENU: lineStatus += " PRSMN ";
+                                               break;
+            case TAKING_THE_ORDER:      lineStatus += " TKODR ";
+                                               break;
+            case PLACING_THE_ORDER:    lineStatus += " PCODR ";
+                                               break;
+            case WAITING_FOR_PORTION:    lineStatus += " WTFPT ";
+                                               break;
+            case PROCESSING_THE_BILL:    lineStatus += " PRCBL ";
+                                               break;                                              
+            case RECEIVING_PAYMENT:    lineStatus += " RECPM ";
+                                               break;                                            
+          }
+     
       log.writelnString (lineStatus);
       if (!log.close ())
          { GenericIO.writelnString ("The operation of closing the file " + logFileName + " failed!");
