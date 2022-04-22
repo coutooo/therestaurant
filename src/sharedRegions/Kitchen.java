@@ -122,7 +122,7 @@ public class Kitchen{
      * 	It is called by the chef when he finishes preparing all courses
      */
     public synchronized boolean hasOrderBeenCompleted(){
-        System.out.println("Number of courses delivered: "+numberOfCoursesDelivered);
+        System.out.println("Courses delivered: "+numberOfCoursesDelivered);
         //Check if all courses have been delivered
         if (numberOfCoursesDelivered == TheRestaurant.Ncourses)
             return true;

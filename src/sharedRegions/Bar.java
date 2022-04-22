@@ -175,7 +175,7 @@ public class Bar
             return 0;
         }		
         //Register student id in studentBeingAnswered
-        System.out.println("Waiter took student "+r.id+ " request from the queue");
+        System.out.println("Waiter attends student "+r.id+ " request");
         studentBeingAnswered = r.id;
 
         return r.type;
@@ -333,9 +333,9 @@ public class Bar
                     // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            System.out.println("Student "+studentId+" wants to leave"+studentBeingAnswered);
+            System.out.println("Student "+studentId+" is leaving");
         }
-        System.out.println("I want out "+studentId);		
+        System.out.println("goodbye "+studentId);		
     }
 }
 

@@ -244,7 +244,7 @@ public class Table {
     	//notify student that he can describe the order 
     	notifyAll();
     	
-    	System.out.println("Waiter is now wainting for order description");
+    	System.out.println("Waiter is now waiting for order description");
     	//Waiter blocks waiting for first student to arrive to describe him the order
     	while(takingTheOrder)
     	{
@@ -272,7 +272,6 @@ public class Table {
     {    	
     	//If all clients have been served they must be notified
     	if(nStudentsServed == TheRestaurant.Nstudents) {
-            System.out.println("I CHANGED numStudentsFinished");
             lastToEat = -1;
             nStudentsWokeUp = 0;
             notifyAll();
@@ -335,7 +334,7 @@ public class Table {
             students[studentId] = ((Student) Thread.currentThread());
             students[studentId].setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
     	
-    	System.out.println("Student"+ studentId+" took a seat and blocked");
+    	System.out.println("Student"+ studentId+" took a seat");
     	//Register that student took a seat
     	studentsSeated[studentId] = true;
     	//notify waiter that student took a seat (waiter may be waiting)
@@ -351,13 +350,12 @@ public class Table {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            System.out.println("I student "+studentId+"was waken up ("+studentBeingAnswered+", "+takingTheOrder+")");
             if (studentId == studentBeingAnswered && presentingTheMenu == true) {
-                System.out.println("I student "+studentId+" Can Proceed");
+                System.out.println("Student "+studentId+" Can Proceed");
                 break;
             }
         }
-    	System.out.println("Student "+studentId+ " was presented with the menu ("+studentBeingAnswered+")");
+    	System.out.println("Student "+studentId+ " has received the menu ("+studentBeingAnswered+")");
     }
     
     
@@ -455,7 +453,6 @@ public class Table {
      */
     public synchronized void describeOrder()
     {
-    	System.out.println("I reached here");
     	//After student just putted a request in the queue in the bar, now it must block
     	// in the table waiting for waiter to come with the pad
     	while(takingTheOrder == false) 
@@ -468,7 +465,7 @@ public class Table {
             }
     	}
     	
-    	System.out.println("Student "+firstToArrive+" described the order");
+    	System.out.println("Student "+firstToArrive+" requested the order");
     	takingTheOrder = false;
     	//Wake waiter to describe him the order
     	notifyAll();
@@ -557,7 +554,7 @@ public class Table {
     	
     	//Update numstudents finished course
     	nStudentsFinishedCourse++;
-    	System.out.println("I "+studentId+" finished"+nStudentsFinishedCourse);
+    	System.out.println(studentId+" finished"+nStudentsFinishedCourse);
     	
     	//If all students have finished means that one more course was eaten
     	if(nStudentsFinishedCourse == TheRestaurant.Nstudents)
@@ -610,7 +607,6 @@ public class Table {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            System.out.println("Student "+studentId+" woke "+nStudentsFinishedCourse);
     	}
     	nStudentsWokeUp++;
     	if(nStudentsWokeUp == TheRestaurant.Nstudents)
