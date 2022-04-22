@@ -37,57 +37,40 @@ public class GeneralRepos {
   /**
    *  Number of portions served.
    */
-
    private int nPortions;
   /**
    *  Number of Courses served.
    */
-
    private int nCourses;
   /**
-   *  Number of iterations of the customer life cycle.
+   *  Access Semaphore.
    */
-
    private final Semaphore access;
   /**
    *  State of the Students.
    */
-
    private final StudentState [] studentState;
 
   /**
    *  State of the Chef.
    */
-
    private ChefState chefState;
    
   /**
    *  State of the Waiter.
    */
-
    private WaiterState waiterState;
    
   /**
    *  seat where each student is.
    */
-
    private final int [] seatAtTable = new int[TheRestaurant.Nstudents];
-   
-   
-  /**
-   *  Write the header to the logging file.
-   *
-   *  The barbers are sleeping and the customers are carrying out normal duties.
-   *  Internal operation.
-   */
-
    
   /**
    *   Instantiation of a general repository object.
    *
    *     @param logFileName name of the logging file
    */
-
    public GeneralRepos (String logFileName)
    {
       if ((logFileName == null) || Objects.equals (logFileName, ""))
@@ -112,6 +95,10 @@ public class GeneralRepos {
       access.up ();
       reportInitialStatus ();
    }
+      
+  /**
+   *  Print header.
+   */
    private void reportInitialStatus ()
    {
       TextFile log = new TextFile ();                      // instantiation of a text file handler
@@ -131,12 +118,9 @@ public class GeneralRepos {
       reportStatus ();
    }
   /**
-   *  Write a state line at the end of the logging file.
+   *  Write the body of the logging file.
    *
-   *  The current state of the barbers and the customers is organized in a line to be printed.
-   *  Internal operation.
    */
-
    private void reportStatus ()
    {
         TextFile log = new TextFile ();                      // instantiation of a text file handler
@@ -247,15 +231,28 @@ public class GeneralRepos {
         reportStatus ();
         access.up ();                                        // exit critical region
     }
-
-    void setnPortions(int numberOfPortionsDelivered) {
-        nPortions = numberOfPortionsDelivered;
+  /**
+   *   Set number of portions.
+   *
+   *     @param nPortionsDelivered number of portions delivered
+   */
+    void setnPortions(int nPortionsDelivered) {
+        nPortions = nPortionsDelivered;
     }
-
+  /**
+   *   Set number of Courses.
+   *
+   *     @param setnCourses number of courses
+   */
     void setnCourses(int i) {
         nCourses = i;
     }
-
+  /**
+   *   update who is seated at the table.
+   *
+   *     @param nStudentAtRes number of students at the restaurant
+   *     @param studentId student id
+   */
     void updateSeatsAtTable(int nStudentsAtRes, int studentId) {
         seatAtTable[nStudentsAtRes] = studentId;
     }
