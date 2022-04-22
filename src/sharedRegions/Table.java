@@ -379,7 +379,7 @@ public class Table {
     	
     	//Update student state
     	students[studentId].setStudentState(StudentState.SELECTING_THE_COURSES);
-    	repos.updateStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
+    	repos.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
     	
     	studentsReadMenu[studentId] = true;
     	//Signal waiter that menu was already read
@@ -405,7 +405,7 @@ public class Table {
     	
     	//Update student state
     	students[firstToArrive].setStudentState(StudentState.ORGANIZING_THE_ORDER);
-    	repos.updateStudentState(firstToArrive, ((Student) Thread.currentThread()).getStudentState());
+    	repos.setStudentState(firstToArrive, ((Student) Thread.currentThread()).getStudentState());
     	
     }
     
@@ -498,7 +498,7 @@ public class Table {
     {
     	//Update student state
     	students[firstToArrive].setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
-    	repos.updateStudentState(firstToArrive, ((Student) Thread.currentThread()).getStudentState());   
+    	repos.setStudentState(firstToArrive, ((Student) Thread.currentThread()).getStudentState());   
     }
     
     
@@ -531,8 +531,8 @@ public class Table {
     	notifyAll();
     	
     	//Update student state
-    	students[studentId].setStudentState(StudentState.CHATING_WITH_COMPANIONS);
-    	repos.updateStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
+    	students[studentId].setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
+    	repos.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
     	
     }
     
@@ -550,7 +550,7 @@ public class Table {
     	 
     	//Update student state
     	students[studentId].setStudentState(StudentState.ENJOYING_THE_MEAL);
-    	repos.updateStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
+    	repos.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
     	
     	//Enjoy meal during random time
         try
@@ -584,7 +584,7 @@ public class Table {
     	
     	//Update student state
     	students[studentId].setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
-    	repos.updateStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
+    	repos.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
     }
     
     
@@ -713,7 +713,7 @@ public class Table {
     	if(studentId == lastToArrive) {
             //Update student state
             students[studentId].setStudentState(StudentState.PAYING_THE_MEAL);
-            repos.updateStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
+            repos.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
             return true;
     	}
     	else

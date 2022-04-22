@@ -35,12 +35,17 @@ public class GeneralRepos {
    */
    private final String logFileName;
   /**
-   *  Number of iterations of the customer life cycle.
+   *  Number of portions served.
    */
 
-   private final int nIter;
-   /**
-   *  Semaphore to ensure mutual exclusion on the execution of public methods.
+   private int nPortions;
+  /**
+   *  Number of Courses served.
+   */
+
+   private int nCourses;
+  /**
+   *  Number of iterations of the customer life cycle.
    */
 
    private final Semaphore access;
@@ -54,13 +59,13 @@ public class GeneralRepos {
    *  State of the Chef.
    */
 
-   private final ChefState chefState;
+   private ChefState chefState;
    
   /**
    *  State of the Waiter.
    */
 
-   private final WaiterState waiterState;
+   private WaiterState waiterState;
    
    
   /**
@@ -78,12 +83,11 @@ public class GeneralRepos {
    *     @param nIter number of iterations of the customer life cycle
    */
 
-   public GeneralRepos (String logFileName, int nIter)
+   public GeneralRepos (String logFileName)
    {
       if ((logFileName == null) || Objects.equals (logFileName, ""))
          this.logFileName = "logger";
          else this.logFileName = logFileName;
-      this.nIter = nIter;
       
       // inicializar students
       studentState = new StudentState[TheRestaurant.Nstudents];
@@ -184,4 +188,46 @@ public class GeneralRepos {
            System.exit (1);
          }
    }
+  /**
+   *   Set Chef state.
+   *
+   *     @param state chef state
+   */
+    void setChefState(ChefState state) {
+        access.down ();                                      // enter critical region
+        this.chefState = state;
+        reportStatus ();
+        access.up ();                                        // exit critical region
+    }
+  /**
+   *   Set Waiter state.
+   *
+   *     @param state waiter state
+   */
+    void setWaiterState(WaiterState state) {
+        access.down ();                                      // enter critical region
+        waiterState = state;
+        reportStatus ();
+        access.up ();                                        // exit critical region
+    }
+  /**
+   *   Set student state.
+   *
+   *     @param studentId student id
+   *     @param state state
+   */
+    void setStudentState(int studentId, StudentState state) {
+        access.down ();                                      // enter critical region
+        this.studentState[studentId] = state;
+        reportStatus ();
+        access.up ();                                        // exit critical region
+    }
+
+    void setnPortions(int numberOfPortionsDelivered) {
+        nPortions = numberOfPortionsDelivered;
+    }
+
+    void setnCourses(int i) {
+        nCourses = i;
+    }
 }

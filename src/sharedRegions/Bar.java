@@ -274,7 +274,7 @@ public class Bar
 
             //Update student state
             students[studentId].setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
-            repo.updateStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
+            repo.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
             //register seat at the general Repo
             repo.updateSeatsAtTable(numberOfStudentsAtRestaurant-1, studentId);
 
@@ -330,7 +330,7 @@ public class Bar
     {
         int studentId = ((Student) Thread.currentThread()).getStudentID();
 
-        if(((Student) Thread.currentThread()).getStudentState() == StudentState.PAYING_THE_BILL)
+        if(((Student) Thread.currentThread()).getStudentState() == StudentState.PAYING_THE_MEAL)
         {		
             //Add a new pending requests to the queue
             try {
@@ -383,7 +383,7 @@ public class Bar
 
         //Update student test
         students[studentId].setStudentState(StudentState.GOING_HOME);
-        repo.updateStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
+        repo.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
 
 
         //Block until waiter greets the student goodbye
