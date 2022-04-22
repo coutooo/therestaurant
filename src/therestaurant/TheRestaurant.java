@@ -49,7 +49,7 @@ public class TheRestaurant {
 
         
         /* problem initialization */
-        GenericIO.writelnString ("\n" + "      Problem of the restaureant\n");
+        GenericIO.writelnString ("\n" + "      Problem of the restaurant\n");
       
         repos = new GeneralRepos("logger");
         t = new Table(repos);
@@ -68,28 +68,29 @@ public class TheRestaurant {
         	student[i].start ();
         
         /* waiting for the end of the simulation */
+        
+        GenericIO.writelnString ();
         for (int i = 0; i < Nstudents; i++)
         { try
-        { student[i].join ();
-        }
+            { student[i].join ();
+            }
         catch (InterruptedException e) {}
-        System.out.println("The Student "+(i+1)+" just terminated");
+        GenericIO.writelnString ("The Student "+(i+1)+" just terminated");
         }
         
         try {
 			chef.join();
 		} catch (InterruptedException e) {}
-        System.out.println("The chef has terminated");
+        GenericIO.writelnString ("The chef has terminated");
         
         try {
         	waiter.join();	
 		} catch (InterruptedException e) {}
-        System.out.println("The waiter has terminated");
+        GenericIO.writelnString ("The waiter has terminated");
         
         repos.printSumUp();
 
-        System.out.println("End of the Simulation");
-    
+        GenericIO.writelnString("End of the Simulation");
     }
     
 }
