@@ -146,7 +146,7 @@ public class GeneralRepos {
         switch (waiterState){ 
             case APPRAISING_SITUATION:  lineStatus += "\tAPPST";
                                                break;
-            case PRESENTING_THE_MENU: lineStatus += "\tPRSMN";
+            case PRESENTING_THE_MENU: lineStatus += "\tPRSMN";  
                                                break;
             case TAKING_THE_ORDER:      lineStatus += "\tTKODR";
                                                break;
@@ -171,11 +171,13 @@ public class GeneralRepos {
                                               break; 
                 case CHATTING_WITH_COMPANIONS: lineStatus += "\tCHTWC";
                                               break; 
-                case PAYING_THE_MEAL: lineStatus += "\tPYTBL";
+                case PAYING_THE_MEAL: lineStatus += "\tPYTML";
+                                              break; 
+                case ENJOYING_THE_MEAL: lineStatus += "\tEJTML";
                                               break; 
                 case GOING_HOME: lineStatus += "\tGGHOM";
                                               break; 
-                default: lineStatus += "\t";
+                
             }
         lineStatus += "\t"+nCourses+"\t"+nPortions;
         
