@@ -11,21 +11,22 @@ import therestaurant.*;
  *	It is responsible for keeping track of the several requests that must be fullfilled by the waiter
  *	Implemented as an implicit monitor
  *	Public methods executed in mutual exclusion
- *	Synchronisation points include:
- *		Everytime that the waiter has to wait for a pending request
- *		When a student has to wait for the waiter to say goodbye to him so he can leave the restaurant
+ *	Synchronisation points include: 
+ *         - When the waiter needs to wait for a pending request
+ *         - When a student waits for the waiter to say goodbye to him to leave the restaurant
+ * 
+ * @author Rafael Dias
+ * @author Manuel Couto
  */
-
 public class Bar 
 {
     /**
-     *	Number of students present in the restaurant
+     *	Number of students in the restaurant
      */
-
     private int numberOfStudentsAtRestaurant;
 
     /**
-     *  Number of pending requests to be answered by the waiter
+     *  Number of pending requests to be answered 
      */
     private int numberOfPendingRequests;
 
@@ -50,12 +51,12 @@ public class Bar
     private final GeneralRepos repo;
 
     /**
-     * Auxiliary variable to keep track of the id of the student whose request is being answered
+     * Auxiliary variable of the id of the student whose request is being answered
      */
     private int studentBeingAnswered;
 
     /**
-     * Array of booleans to keep track of the students which the waiter has already said goodbye
+     * Array of booleans of the students which the waiter has already said goodbye
      */
     private boolean[] studentsGreeted;
 
@@ -68,6 +69,7 @@ public class Bar
      * Bar instantiation
      * 
      * @param repo reference to the general repository 
+     * @param tab reference to the Table
      */
     public Bar(GeneralRepos repo, Table tab) 
     {
@@ -100,18 +102,11 @@ public class Bar
      */
     public int getStudentBeingAnswered() { return studentBeingAnswered; }
 
-
-
-
     /**
      * Operation alert the waiter
-     * 
-     * It is called by the chef to alert the waiter that a portion was dished
-     * 	For requests the chef id will be N+1
      */
     public synchronized void alertWaiter()
     {
-        //Chef must not alert Waiter while course is not finished
         while(!courseFinished)
         {
             try {
@@ -132,7 +127,6 @@ public class Bar
             e.printStackTrace();
         }
 
-        //Update number of pending requests
         numberOfPendingRequests++;
         courseFinished = false;
 
@@ -143,11 +137,6 @@ public class Bar
         //Signal waiter that there is a pending request
         notifyAll();
     }
-
-
-
-
-
 
     /**
      * Operation look Around
@@ -177,9 +166,7 @@ public class Bar
 
         try 
         {
-            //If there is a pending request take it of the queue of pending requests
             r = pendingServiceRequestQueue.read();
-            //Update number of pending requests
             numberOfPendingRequests--;
         }
         catch (MemException e)
@@ -194,14 +181,8 @@ public class Bar
         return r.type;
     }
 
-
-
-
-
     /**
      * Operation prepare the Bill
-     * 
-     * It is called the waiter to prepare the bill of the meal eaten by the students
      */
     public synchronized void preprareBill()
     {
@@ -210,14 +191,8 @@ public class Bar
         repo.setWaiterState(((Waiter) Thread.currentThread()).getWaiterState());
     }
 
-
-
-
     /**
      * Operation say Goodbye
-     * 
-     * It is called by the waiter to say goodbye to a student that's leaving the restaurant
-     * @return true if there are no more students at the restaurant, false otherwise
      */
     public synchronized boolean sayGoodbye()
     {
@@ -226,7 +201,6 @@ public class Bar
         //Wake up student that is waiting to be greeted by waiter
         notifyAll();
 
-        //Update number of students at the restaurant
         numberOfStudentsAtRestaurant--;
         studentBeingAnswered = -1;
 
@@ -237,66 +211,46 @@ public class Bar
         return false;
     }
 
-
-
-
     /**
      * Operation enter the restaurant
-     * 
-     * It is called by the student to signal that he is entering the restaurant
      */
     public void enter()
     {		
         synchronized(this)
         {
             int studentId = ((Student) Thread.currentThread()).getStudentID();
-            //Update student state
             students[studentId] = ((Student) Thread.currentThread());
             students[studentId].setStudentState(StudentState.GOING_TO_THE_RESTAURANT);
 
             numberOfStudentsAtRestaurant++;
 
-            //Register first and last to arrive
             if(numberOfStudentsAtRestaurant == 1)
                 tab.setFirstToArrive(studentId);
             else if (numberOfStudentsAtRestaurant == TheRestaurant.Nstudents)
                 tab.setLastToArrive(studentId);
 
-            //Add a new pending requests to the queue
             try {
                 pendingServiceRequestQueue.write(new Request(studentId, 'c'));
             } catch (MemException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            //Update number of pending requests
             numberOfPendingRequests++;
 
-            //Update student state
             students[studentId].setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
             repo.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
-            //register seat at the general Repo
             repo.updateSeatsAtTable(numberOfStudentsAtRestaurant-1, studentId);
 
 
             //Signal waiter that there is a pending request
             notifyAll();
         }
-
         //Seat student at table and block it
         tab.seatAtTable();
-
     }
-
-
-
-
 
     /**
      * Operation call the waiter
-     * 
-     * It is called by the first student to arrive the restaurant to call the waiter to describe the order
-     *
      */
     public synchronized void callWaiter()
     {
@@ -311,20 +265,14 @@ public class Bar
             e.printStackTrace();
         }
 
-        //Update number of pending requests
         numberOfPendingRequests++;	
 
         //Signal waiter that there is a pending request
         notifyAll();
     }
 
-
-
-
     /**
      * Operation signal the waiter
-     * 
-     * It is called by the last student to finish eating to signal waiter to bring next course
      */
     public synchronized void signalWaiter()
     {
@@ -339,7 +287,6 @@ public class Bar
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            //Update number of pending requests
             numberOfPendingRequests++;	
 
             //Signal waiter that there is a pending request
@@ -349,26 +296,20 @@ public class Bar
         else
         {
             courseFinished = true;		
-            //Wake chef up because he is waiting to tell waiter to collect portion
-            // and waiter so he can collect a new portion
+            //Wake chef up because he is waiting to tell waiter to collect portion and waiter so he can collect a new portion
             notifyAll();
         }
     }
 
-
-
-
     /**
      * Operation exit the restaurant
-     * 
-     * It is called by a student when he leaves the restaurant
      */
     public synchronized void exit()
     {
         int studentId = ((Student) Thread.currentThread()).getStudentID();
         Request r = new Request(studentId,'g');
 
-        //Add a new service request to queue of pending requests (portion to be collected)
+        //Add a new service request to queue of pending requests
         try {
             pendingServiceRequestQueue.write(r);
         } catch (MemException e) {
@@ -376,12 +317,10 @@ public class Bar
             e.printStackTrace();
         }
 
-        //Update number of pending requests
         numberOfPendingRequests++;
         //notify waiter that there is a pending request
         notifyAll();
 
-        //Update student test
         students[studentId].setStudentState(StudentState.GOING_HOME);
         repo.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
 
@@ -399,10 +338,6 @@ public class Bar
         System.out.println("I want out "+studentId);		
     }
 }
-
-
-
-
 
 /**
  * 

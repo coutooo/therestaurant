@@ -7,12 +7,12 @@ import java.util.Date;
 import sharedRegions.*;
 import InterveningEntities.*;
 import genclass.GenericIO;
-import genclass.TextFile;
 
 /**
  *  Simulation of the Problem of The restaurant
  * 
- * @author Couto and Rafael
+ * @author Rafael Dias
+ * @author Manuel Couto
  */
 public class TheRestaurant {
 
