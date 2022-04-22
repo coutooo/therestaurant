@@ -367,7 +367,7 @@ public class Table {
      * (student)wakes up waiter because already reed the menu
      */
     public synchronized void readMenu()
-    {
+    {   
     	int studentId = ((Student) Thread.currentThread()).getStudentID();
     	
     	//Update student state
@@ -387,9 +387,8 @@ public class Table {
     
     
     /**
-     * Operation prepare the order
      * 
-     * Called by the student to begin the preparation of the order, 
+     * (student)begin the preparation of the order, 
      */
     public synchronized void prepareOrder()
     {    	
@@ -406,9 +405,8 @@ public class Table {
 
     
     /**
-     * Operation everybody has chosen
      * 
-     * Called by the first student to arrive to check if all his companions have choose or not
+     * (1ststudent) check if all his companions have choose or not
      * Blocks if not.
      * @return true if has everybody choosen, false otherwise
      */
@@ -435,9 +433,8 @@ public class Table {
     
     
     /**
-     * Operation add up ones choices
      * 
-     * Called by the first student to arrive to add up a companions choice to the order
+     * (1ststudent) to add up a companions choice to the order
      */
     public synchronized void addUpOnesChoices()
     {
@@ -451,9 +448,8 @@ public class Table {
     
     
     /**
-     * Operation describe the order
      * 
-     * Called by the first student to arrive to describe the order to the waiter
+     * (1ststudent) describe the order to the waiter
      * Blocks waiting for waiter to come with pad
      * Wake waiter up so he can take the order
      */
@@ -483,9 +479,8 @@ public class Table {
     
     
     /**
-     * Operation join the talk
      * 
-     * Called by the first student to arrive so he can join his companions while waiting for the courses 
+     * (1ststudent) to join his companions while waiting for the courses 
      */
     public synchronized void joinTalk()
     {
@@ -499,9 +494,8 @@ public class Table {
     
     
     /**
-     * Operation inform companion
      * 
-     * Called by a student to inform the first student to arrive about his preferences 
+     * (student) inform the first student to arrive about his preferences 
      * Blocks waiting for courses
      */
     public synchronized void informCompanion()
@@ -533,9 +527,8 @@ public class Table {
     
     
     /**
-     * Operation start eating
      * 
-     * Called by the student to start eating the meal (During random time)
+     * (student) to start eating the meal
      */    
     public synchronized void startEating()
     {
@@ -554,10 +547,9 @@ public class Table {
 
 
 
-	/**
-     * Operation end eating
+    /**
      * 
-     * Called by the student to signal that he has finished eating his meal
+     * (student) to signal that he has finished eating his meal
      */
     public synchronized void endEating()
     {
@@ -585,9 +577,8 @@ public class Table {
     
     
     /**
-     * Operation has everybody finished eating
      * 
-     * Called by to student to wait for his companions to finish eating
+     * (student) to wait for his companions to finish eating
      */
     public synchronized boolean hasEverybodyFinishedEating()
     {
@@ -633,9 +624,8 @@ public class Table {
     
     
     /**
-     * Operation honour the bill
      * 
-     * Called by the student to pay the bill
+     * (student) to pay the bill
      * Student blocks waiting for bill to be presented and signals waiter when it's time to pay it
      */
     public synchronized void honourBill()
@@ -662,9 +652,8 @@ public class Table {
     
     
     /**
-     * Operation have all courses been eaten
      * 
-     * Called by the student to check if there are more courses to be eaten
+     * (student) to check if there are more courses to be eaten
      * 	Student blocks waiting for the course to be served
      * 	@return true if all courses have been eaten, false otherwise
      */
@@ -694,9 +683,8 @@ public class Table {
     
     
     /**
-     * Operation should have arrived earlier
      * 
-     * Called by the student to check wich one was last to arrive
+     * (student) to check wich one was last to arrive
      * @return True if current student was the last to arrive, false otherwise
      */
     public synchronized boolean shouldHaveArrivedEarlier()
