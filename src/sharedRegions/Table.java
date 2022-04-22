@@ -18,12 +18,12 @@ import therestaurant.TheRestaurant;
 public class Table {
 	
     /**
-     * Id of student first to arrive at restaurant
+     * Id of the first student that arrived
      */
     private int firstToArrive;
 	
     /**
-     * Id of student last to arrive at restaurant
+     * Id of the last student that arrived
      */
     private int lastToArrive;
 	
@@ -38,7 +38,7 @@ public class Table {
     private int nStudentsFinishedCourse;
 
     /**
-     * Id of student last to eat
+     * Id of the student that ended last
      */
     private int lastToEat;
 
@@ -53,7 +53,7 @@ public class Table {
     private int nStudentsServed;	
 
     /**
-     * Id of the student whose request the waiter is taking care of
+     * Id of the student that the waiter is attending
      */
     private int studentBeingAnswered;
 
@@ -73,14 +73,14 @@ public class Table {
     private boolean informingCompanion;
 
     /**
-     * Used to count number of students that woke up after last student to eat has signaled them to
+     * Count number of students that woke up after last student to eat has signaled them to
      */
     private int nStudentsWokeUp;
 
     /**
      * Boolean variable to check if waiter is processing the bill
      */
-    private boolean payingTheMeal;
+    private boolean payingTheBill;
 
     /**
      * Boolean array to check which students have seated already
@@ -120,12 +120,13 @@ public class Table {
     	this.presentingTheMenu = false;
     	this.takingTheOrder = false;
     	this.informingCompanion = false;
-    	this.payingTheMeal = false;
+    	this.payingTheBill = false;
     	this.repos = repos;
     	
     	studentsSeated = new boolean[TheRestaurant.Nstudents];
     	studentsReadMenu = new boolean[TheRestaurant.Nstudents];
     	
+        // initiliaze the booleans at false of seated and readmenu
     	for(int i = 0; i < TheRestaurant.Nstudents; i++)
     	{
             studentsSeated[i] = false;
@@ -165,7 +166,6 @@ public class Table {
     public void setLastToArrive(int lastToArrive) { this.lastToArrive = lastToArrive; }
     
     /**
-     * Operation salute the client
      * 
      * It is called by the waiter when a student enters the restaurant
      */
@@ -204,7 +204,7 @@ public class Table {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }    
-    	}
+    	}   
     	
     	//When student has finished reading the menu his request was completed
     	studentBeingAnswered = -1;
@@ -215,9 +215,8 @@ public class Table {
     
     
     /**
-     * Operation return to the bar
      * 
-     * It is called by the waiter to change to return to the bar appraising situation
+     * waiter return to the bar appraising situation
      */
     public synchronized void returnBar()
     {
@@ -230,9 +229,8 @@ public class Table {
     
     
     /**
-     * Operation get the pad
      * 
-     * It is called by the waiter when an order is going to be described by the first student to arrive
+     * waiter calls it when an order is going to be asked by the first student to arrive
      * Waiter Blocks waiting for student to describe him the order
      */
     public synchronized void getThePad()
@@ -266,9 +264,8 @@ public class Table {
     
     
     /**
-     * Operation have all clients been served
      * 
-     * Called by the waiter to check if all clients have been served or not
+     * check if all clients have been served or not
      * @return true if all clients have been served, false otherwise
      */
     public synchronized boolean haveAllClientsBeenServed()
@@ -288,13 +285,12 @@ public class Table {
     
     
     /**
-     * Operation deliver portion
      * 
-     * Called by the waiter, when a portion is delivered at the table
+     * portion is delivered at the table
      */
     public synchronized void deliverPortion()
     {
-    	//Update number of Students server after portion delivery
+    	//Update number of Students served after portion delivery
     	nStudentsServed++; 
     }
     
@@ -303,13 +299,12 @@ public class Table {
     
     
     /**
-     * Operation present the bill
      * 
-     * Called by the waiter to present the bill to the last student to arrive
+     * waiter presents the bill to the last student to arrive
      */
     public synchronized void presentBill()
     {
-    	payingTheMeal = true;
+    	payingTheBill = true;
     	
     	//Signal student the he can pay
     	notifyAll();
@@ -329,7 +324,6 @@ public class Table {
     
     
     /**
-     * Operation siting at the table
      * 
      * Student comes in the table and sits (blocks) waiting for waiter to bring him the menu
      * Called by the student (inside enter method in the bar)
@@ -369,9 +363,8 @@ public class Table {
     
     
     /**
-     * Operation read the menu
      * 
-     * Called by the student to read a menu, wakes up waiter to signal that he already read the menu
+     * (student)wakes up waiter because already reed the menu
      */
     public synchronized void readMenu()
     {
@@ -648,7 +641,7 @@ public class Table {
     public synchronized void honourBill()
     {    	
     	//Block waiting for waiter to present the bill
-    	while(!payingTheMeal)
+    	while(!payingTheBill)
     	{
             try {
                 wait();
@@ -657,7 +650,7 @@ public class Table {
                 e.printStackTrace();
             }
     	}
-    	System.out.println("I PAYED THE BILL");
+    	System.out.println("I PAYED THE MEAL");
 	    	
     	//After waiter presents the bill, student signals waiter so he can wake up and receive it
     	notifyAll();
