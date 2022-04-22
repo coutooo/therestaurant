@@ -40,7 +40,6 @@ public class Waiter extends Thread {
      *   Instantiation of a Waiter thread.
      *
      *     @param name thread name
-     *     @param waiter_id waiter id
      *     @param k reference to the Kitchen
      *     @param b reference to the Bar
      *     @param t reference to the Table

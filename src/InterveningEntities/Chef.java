@@ -17,11 +17,6 @@ import sharedRegions.*;
 public class Chef extends Thread {
     
     /**
-     *   Chef identification
-     */
-    private int Chef_id;
-    
-    /**
      *   Chef state
      */
     private ChefState currentState;
@@ -40,13 +35,11 @@ public class Chef extends Thread {
      *   Instantiation of a Chef thread.
      *
      *     @param name thread name
-     *     @param Chef_id Chef id
      *     @param k reference to the Kitchen     
      *     @param b reference to the Bar
      */
-    public Chef(String name, int Chef_id, Kitchen k, Bar b){
+    public Chef(String name, Kitchen k, Bar b){
         super(name);
-        this.Chef_id = Chef_id;
         this.currentState = ChefState.WAITING_FOR_AN_ORDER;
         this.k = k;
         this.b = b;
@@ -77,24 +70,6 @@ public class Chef extends Thread {
         while(!k.hasOrderBeenCompleted());
 
         k.cleanUp();
-    }
-    
-    /**
-     *   Set Chef id.
-     *
-     *     @param id Chef id
-     */
-    public void setChefID(int id){
-        Chef_id = id;
-    }
-    
-    /**
-     *   Get Chef id.
-     *
-     *     @return Chef id
-     */
-    public int getChefID() {
-        return Chef_id;
     }
     
     /**

@@ -46,20 +46,21 @@ public class TheRestaurant {
         Kitchen k;						//Reference to the Kitchen
         Table t;						//Reference to the Table
         GeneralRepos repos;                                     //Reference to the General Repository
-        
-        System.out.println("\nThe restaurant");
-        /* problem initialization */
-        /*
-        repos = new GeneralRepos("logger");
-        departureAirport = new DepartureAirport(repos);
-        plane = new Plane(repos);
-        destinationAirport = new DestinationAirport(repos);
 
-        pilot = new Pilot("Pilot_1", 0, departureAirport, plane, destinationAirport, repos);
-        hostess = new Hostess("Hostess_1", 0, departureAirport, plane, repos);
-        for (int i = 0; i < ExecConst.N; i++)
-            passenger[i] = new Passenger("Passenger_"+(i+1), i, departureAirport, destinationAirport);
-        */
+        
+        /* problem initialization */
+        GenericIO.writelnString ("\n" + "      Problem of the restaureant\n");
+      
+        repos = new GeneralRepos("logger");
+        t = new Table(repos);
+        k = new Kitchen(repos);
+        b = new Bar(repos,t);
+
+        chef = new Chef("Chef_1", k, b);
+        waiter = new Waiter("Waiter_1", k, b, t);
+        for (int i = 0; i < Nstudents; i++)
+            student[i] = new Student("Student_"+(i+1), i, b, t);
+        
         /* start of the simulation */
         
         
