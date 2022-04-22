@@ -86,7 +86,6 @@ public class GeneralRepos {
    *   Instantiation of a general repository object.
    *
    *     @param logFileName name of the logging file
-   *     @param nIter number of iterations of the customer life cycle
    */
 
    public GeneralRepos (String logFileName)
@@ -104,6 +103,11 @@ public class GeneralRepos {
       chefState = ChefState.WAITING_FOR_AN_ORDER;
       // iniciar waiter
       waiterState = WaiterState.APPRAISING_SITUATION;
+      // iniciar todos os seats a -1 para indicar que nao tem ninguem sentado
+      for(int i = 0; i<TheRestaurant.Nstudents;i++)
+      {
+          seatAtTable[i] = -1;
+      }
       access = new Semaphore ();
       access.up ();
       reportInitialStatus ();
@@ -116,7 +120,7 @@ public class GeneralRepos {
          { GenericIO.writelnString ("The operation of creating the file " + logFileName + " failed!");
            System.exit (1);
          }
-      log.writelnString ("                The Restaurant - Description of the internal state");
+      log.writelnString ("\t\t\t\t\t\t  The Restaurant - Description of the internal state");
       //log.writelnString ("\nNumber of iterations = " + nIter + "\n");
       log.writelnString ("\n\tChef\tWaiter\tStu0\tStu1\tStu2\tStu3\tStu4\tStu5\tStu6\tNCourse\tNPortion\t\t\tTable\n");
       log.writelnString ("\n\tState\tState\tState\tState\tState\tState\tState\tState\tState\t\t\tSeat0\tSeat1\tSeat2\tSeat3\tSeat4\tSeat5\tSeat6\n");
@@ -143,23 +147,6 @@ public class GeneralRepos {
            { GenericIO.writelnString ("The operation of opening for appending the file " + logFileName + " failed!");
              System.exit (1);
            }
-        for (int i = 0; i < TheRestaurant.Nstudents; i++)
-            switch (studentState[i]){ 
-                case GOING_TO_THE_RESTAURANT:   lineStatus += "\tGGTRT";
-                                            break;
-                case TAKING_A_SEAT_AT_THE_TABLE: lineStatus += "\tTKSTT";
-                                              break;    
-                case SELECTING_THE_COURSES: lineStatus += "\tSELCS";
-                                              break; 
-                case ORGANIZING_THE_ORDER: lineStatus += "\tOGODR";
-                                              break; 
-                case CHATTING_WITH_COMPANIONS: lineStatus += "\tCHTWC";
-                                              break; 
-                case PAYING_THE_MEAL: lineStatus += "\tPYTBL";
-                                              break; 
-                case GOING_HOME: lineStatus += "\tGGHOM";
-                                              break; 
-            }
         switch (chefState){ 
             case WAITING_FOR_AN_ORDER:  lineStatus += "\tWAFOR";
                                                break;
@@ -188,6 +175,37 @@ public class GeneralRepos {
             case RECEIVING_PAYMENT:    lineStatus += "\tRECPM";
                                                break;                                            
           }
+        for (int i = 0; i < TheRestaurant.Nstudents; i++)
+            switch (studentState[i]){ 
+                case GOING_TO_THE_RESTAURANT:   lineStatus += "\tGGTRT";
+                                            break;
+                case TAKING_A_SEAT_AT_THE_TABLE: lineStatus += "\tTKSTT";
+                                              break;    
+                case SELECTING_THE_COURSES: lineStatus += "\tSELCS";
+                                              break; 
+                case ORGANIZING_THE_ORDER: lineStatus += "\tOGODR";
+                                              break; 
+                case CHATTING_WITH_COMPANIONS: lineStatus += "\tCHTWC";
+                                              break; 
+                case PAYING_THE_MEAL: lineStatus += "\tPYTBL";
+                                              break; 
+                case GOING_HOME: lineStatus += "\tGGHOM";
+                                              break; 
+                default: lineStatus += "\t";
+            }
+        lineStatus += "\t"+nCourses+"\t"+nPortions;
+        
+        for(int i = 0;i< TheRestaurant.Nstudents;i++)
+        {
+            lineStatus += "\t";
+            if(seatAtTable[i] == -1){
+                lineStatus += "-";
+            }
+            else
+            {
+                lineStatus += seatAtTable[i];
+            }
+        }
      
       log.writelnString (lineStatus);
       if (!log.close ())
@@ -239,6 +257,6 @@ public class GeneralRepos {
     }
 
     void updateSeatsAtTable(int nStudentsAtRes, int studentId) {
-        seatAtTable[studentId] = nStudentsAtRes;
+        seatAtTable[nStudentsAtRes] = studentId;
     }
 }
