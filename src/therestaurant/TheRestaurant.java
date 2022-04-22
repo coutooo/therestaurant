@@ -62,8 +62,34 @@ public class TheRestaurant {
             student[i] = new Student("Student_"+(i+1), i, b, t);
         
         /* start of the simulation */
+        chef.start();
+        waiter.start();
+        for (int i = 0; i < Nstudents; i++)
+        	student[i].start ();
         
+        /* waiting for the end of the simulation */
+        for (int i = 0; i < Nstudents; i++)
+        { try
+        { student[i].join ();
+        }
+        catch (InterruptedException e) {}
+        System.out.println("The Student "+(i+1)+" just terminated");
+        }
         
+        try {
+			chef.join();
+		} catch (InterruptedException e) {}
+        System.out.println("The chef has terminated");
+        
+        try {
+        	waiter.join();	
+		} catch (InterruptedException e) {}
+        System.out.println("The waiter has terminated");
+        
+        repos.printSumUp();
+
+        System.out.println("End of the Simulation");
+    
     }
     
 }
