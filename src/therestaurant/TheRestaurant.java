@@ -87,8 +87,6 @@ public class TheRestaurant {
         	waiter.join();	
 		} catch (InterruptedException e) {}
         GenericIO.writelnString ("The waiter has terminated");
-        
-        repos.printSumUp();
 
         GenericIO.writelnString("End of the Simulation");
     }

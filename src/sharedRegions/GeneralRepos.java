@@ -67,6 +67,12 @@ public class GeneralRepos {
 
    private WaiterState waiterState;
    
+  /**
+   *  seat where each student is.
+   */
+
+   private final int [] seatAtTable = new int[TheRestaurant.Nstudents];
+   
    
   /**
    *  Write the header to the logging file.
@@ -96,6 +102,7 @@ public class GeneralRepos {
       
       // iniciar chef
       chefState = ChefState.WAITING_FOR_AN_ORDER;
+      // iniciar waiter
       waiterState = WaiterState.APPRAISING_SITUATION;
       access = new Semaphore ();
       access.up ();
@@ -111,8 +118,8 @@ public class GeneralRepos {
          }
       log.writelnString ("                The Restaurant - Description of the internal state");
       //log.writelnString ("\nNumber of iterations = " + nIter + "\n");
-      log.writelnString ("\nChef Waiter Stu0 Stu1 Stu2 Stu3 Stu4 Stu5 Stu6 NCourse NPortion                 Table\n");
-      log.writelnString ("\nState State State State State State State State State Seat0 Seat1 Seat2 Seat3 Seat4 Seat5 Seat6\n");
+      log.writelnString ("\n\tChef\tWaiter\tStu0\tStu1\tStu2\tStu3\tStu4\tStu5\tStu6\tNCourse\tNPortion\t\t\tTable\n");
+      log.writelnString ("\n\tState\tState\tState\tState\tState\tState\tState\tState\tState\t\t\tSeat0\tSeat1\tSeat2\tSeat3\tSeat4\tSeat5\tSeat6\n");
       if (!log.close ())
          { GenericIO.writelnString ("The operation of closing the file " + logFileName + " failed!");
            System.exit (1);
@@ -138,47 +145,47 @@ public class GeneralRepos {
            }
         for (int i = 0; i < TheRestaurant.Nstudents; i++)
             switch (studentState[i]){ 
-                case GOING_TO_THE_RESTAURANT:   lineStatus += " GGTRT ";
+                case GOING_TO_THE_RESTAURANT:   lineStatus += "\tGGTRT";
                                             break;
-                case TAKING_A_SEAT_AT_THE_TABLE: lineStatus += " TKSTT ";
+                case TAKING_A_SEAT_AT_THE_TABLE: lineStatus += "\tTKSTT";
                                               break;    
-                case SELECTING_THE_COURSES: lineStatus += " SELCS ";
+                case SELECTING_THE_COURSES: lineStatus += "\tSELCS";
                                               break; 
-                case ORGANIZING_THE_ORDER: lineStatus += " OGODR ";
+                case ORGANIZING_THE_ORDER: lineStatus += "\tOGODR";
                                               break; 
-                case CHATTING_WITH_COMPANIONS: lineStatus += " CHTWC ";
+                case CHATTING_WITH_COMPANIONS: lineStatus += "\tCHTWC";
                                               break; 
-                case PAYING_THE_MEAL: lineStatus += " PYTBL ";
+                case PAYING_THE_MEAL: lineStatus += "\tPYTBL";
                                               break; 
-                case GOING_HOME: lineStatus += " GGHOM ";
+                case GOING_HOME: lineStatus += "\tGGHOM";
                                               break; 
             }
         switch (chefState){ 
-            case WAITING_FOR_AN_ORDER:  lineStatus += " WAFOR ";
+            case WAITING_FOR_AN_ORDER:  lineStatus += "\tWAFOR";
                                                break;
-            case PREPARING_THE_COURSE: lineStatus += " PRPCS ";
+            case PREPARING_THE_COURSE: lineStatus += "\tPRPCS";
                                                break;
-            case DISHING_THE_PORTIONS:      lineStatus += " DSHPT ";
+            case DISHING_THE_PORTIONS:      lineStatus += "\tDSHPT";
                                                break;
-            case DELIVERING_THE_PORTIONS:    lineStatus += " DLVPT ";
+            case DELIVERING_THE_PORTIONS:    lineStatus += "\tDLVPT";
                                                break;
-            case CLOSING_SERVICE:    lineStatus += " CLSSV ";
+            case CLOSING_SERVICE:    lineStatus += "\tCLSSV";
                                                break;
           }
         switch (waiterState){ 
-            case APPRAISING_SITUATION:  lineStatus += " APPST ";
+            case APPRAISING_SITUATION:  lineStatus += "\tAPPST";
                                                break;
-            case PRESENTING_THE_MENU: lineStatus += " PRSMN ";
+            case PRESENTING_THE_MENU: lineStatus += "\tPRSMN";
                                                break;
-            case TAKING_THE_ORDER:      lineStatus += " TKODR ";
+            case TAKING_THE_ORDER:      lineStatus += "\tTKODR";
                                                break;
-            case PLACING_THE_ORDER:    lineStatus += " PCODR ";
+            case PLACING_THE_ORDER:    lineStatus += "\tPCODR";
                                                break;
-            case WAITING_FOR_PORTION:    lineStatus += " WTFPT ";
+            case WAITING_FOR_PORTION:    lineStatus += "\tWTFPT";
                                                break;
-            case PROCESSING_THE_BILL:    lineStatus += " PRCBL ";
+            case PROCESSING_THE_BILL:    lineStatus += "\tPRCBL";
                                                break;                                              
-            case RECEIVING_PAYMENT:    lineStatus += " RECPM ";
+            case RECEIVING_PAYMENT:    lineStatus += "\tRECPM";
                                                break;                                            
           }
      
@@ -229,5 +236,9 @@ public class GeneralRepos {
 
     void setnCourses(int i) {
         nCourses = i;
+    }
+
+    void updateSeatsAtTable(int nStudentsAtRes, int studentId) {
+        seatAtTable[studentId] = nStudentsAtRes;
     }
 }
