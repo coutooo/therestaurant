@@ -1,0 +1,129 @@
+\hypertarget{classshared_regions_1_1_bar}{}\doxysection{shared\+Regions.\+Bar Class Reference}
+\label{classshared_regions_1_1_bar}\index{sharedRegions.Bar@{sharedRegions.Bar}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classshared_regions_1_1_bar_ace2d3845574e4a0649ebe75ce02e2ff1}{Bar}} (\mbox{\hyperlink{classshared_regions_1_1_general_repos}{General\+Repos}} repo, \mbox{\hyperlink{classshared_regions_1_1_table}{Table}} tab)
+\item 
+int \mbox{\hyperlink{classshared_regions_1_1_bar_a9ff3d9df7b0834c0f0bc6d644aa161fa}{get\+Student\+Being\+Answered}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_bar_add55fba75049632d7016b586d2466ad1}{alert\+Waiter}} ()
+\item 
+synchronized char \mbox{\hyperlink{classshared_regions_1_1_bar_aa818854aa0002f36ba7903ca8178c087}{look\+Around}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_bar_a12aec9c41d547f41461aebbfdc058e0c}{preprare\+Bill}} ()
+\item 
+synchronized boolean \mbox{\hyperlink{classshared_regions_1_1_bar_a9a61a652123bc0ba90ab89c7467ee4c2}{say\+Goodbye}} ()
+\item 
+void \mbox{\hyperlink{classshared_regions_1_1_bar_a1c525b402a26b6b12d5e3b0425e5a06f}{enter}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_bar_a72caed5ac2500a9c0c6c4c66a0c6fc4b}{call\+Waiter}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_bar_ae723a97106f239832b87333aef958062}{signal\+Waiter}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_bar_aa7e43441915ad6dbb4308662acefce16}{exit}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classshared_regions_1_1_bar}{Bar}}
+
+It is responsible for keeping track of the several requests that must be fullfilled by the waiter Implemented as an implicit monitor Public methods executed in mutual exclusion Synchronisation points include\+:
+\begin{DoxyItemize}
+\item When the waiter needs to wait for a pending request
+\item When a student waits for the waiter to say goodbye to him to leave the restaurant
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Rafael Dias 
+
+Manuel Couto 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classshared_regions_1_1_bar_ace2d3845574e4a0649ebe75ce02e2ff1}\label{classshared_regions_1_1_bar_ace2d3845574e4a0649ebe75ce02e2ff1}} 
+\index{sharedRegions.Bar@{sharedRegions.Bar}!Bar@{Bar}}
+\index{Bar@{Bar}!sharedRegions.Bar@{sharedRegions.Bar}}
+\doxysubsubsection{\texorpdfstring{Bar()}{Bar()}}
+{\footnotesize\ttfamily shared\+Regions.\+Bar.\+Bar (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshared_regions_1_1_general_repos}{General\+Repos}}}]{repo,  }\item[{\mbox{\hyperlink{classshared_regions_1_1_table}{Table}}}]{tab }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{classshared_regions_1_1_bar}{Bar}} instantiation
+
+
+\begin{DoxyParams}{Parameters}
+{\em repo} & reference to the general repository \\
+\hline
+{\em tab} & reference to the \mbox{\hyperlink{classshared_regions_1_1_table}{Table}} \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classshared_regions_1_1_bar_add55fba75049632d7016b586d2466ad1}\label{classshared_regions_1_1_bar_add55fba75049632d7016b586d2466ad1}} 
+\index{sharedRegions.Bar@{sharedRegions.Bar}!alertWaiter@{alertWaiter}}
+\index{alertWaiter@{alertWaiter}!sharedRegions.Bar@{sharedRegions.Bar}}
+\doxysubsubsection{\texorpdfstring{alertWaiter()}{alertWaiter()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Bar.\+alert\+Waiter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation alert the waiter \mbox{\Hypertarget{classshared_regions_1_1_bar_a72caed5ac2500a9c0c6c4c66a0c6fc4b}\label{classshared_regions_1_1_bar_a72caed5ac2500a9c0c6c4c66a0c6fc4b}} 
+\index{sharedRegions.Bar@{sharedRegions.Bar}!callWaiter@{callWaiter}}
+\index{callWaiter@{callWaiter}!sharedRegions.Bar@{sharedRegions.Bar}}
+\doxysubsubsection{\texorpdfstring{callWaiter()}{callWaiter()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Bar.\+call\+Waiter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation call the waiter \mbox{\Hypertarget{classshared_regions_1_1_bar_a1c525b402a26b6b12d5e3b0425e5a06f}\label{classshared_regions_1_1_bar_a1c525b402a26b6b12d5e3b0425e5a06f}} 
+\index{sharedRegions.Bar@{sharedRegions.Bar}!enter@{enter}}
+\index{enter@{enter}!sharedRegions.Bar@{sharedRegions.Bar}}
+\doxysubsubsection{\texorpdfstring{enter()}{enter()}}
+{\footnotesize\ttfamily void shared\+Regions.\+Bar.\+enter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation enter the restaurant \mbox{\Hypertarget{classshared_regions_1_1_bar_aa7e43441915ad6dbb4308662acefce16}\label{classshared_regions_1_1_bar_aa7e43441915ad6dbb4308662acefce16}} 
+\index{sharedRegions.Bar@{sharedRegions.Bar}!exit@{exit}}
+\index{exit@{exit}!sharedRegions.Bar@{sharedRegions.Bar}}
+\doxysubsubsection{\texorpdfstring{exit()}{exit()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Bar.\+exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation exit the restaurant \mbox{\Hypertarget{classshared_regions_1_1_bar_a9ff3d9df7b0834c0f0bc6d644aa161fa}\label{classshared_regions_1_1_bar_a9ff3d9df7b0834c0f0bc6d644aa161fa}} 
+\index{sharedRegions.Bar@{sharedRegions.Bar}!getStudentBeingAnswered@{getStudentBeingAnswered}}
+\index{getStudentBeingAnswered@{getStudentBeingAnswered}!sharedRegions.Bar@{sharedRegions.Bar}}
+\doxysubsubsection{\texorpdfstring{getStudentBeingAnswered()}{getStudentBeingAnswered()}}
+{\footnotesize\ttfamily int shared\+Regions.\+Bar.\+get\+Student\+Being\+Answered (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Id of the student whose request is being answered 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classshared_regions_1_1_bar_aa818854aa0002f36ba7903ca8178c087}\label{classshared_regions_1_1_bar_aa818854aa0002f36ba7903ca8178c087}} 
+\index{sharedRegions.Bar@{sharedRegions.Bar}!lookAround@{lookAround}}
+\index{lookAround@{lookAround}!sharedRegions.Bar@{sharedRegions.Bar}}
+\doxysubsubsection{\texorpdfstring{lookAround()}{lookAround()}}
+{\footnotesize\ttfamily synchronized char shared\+Regions.\+Bar.\+look\+Around (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation look Around
+
+It is called by the waiter, he checks for pending service requests and if not waits for them \begin{DoxyReturn}{Returns}
+Character the represents the service to be executed \textquotesingle{}c\textquotesingle{} \+: means a client has arrived therefore needs to be presented with the menu by the waiter \textquotesingle{}o\textquotesingle{} \+: means that the waiter will hear the order and deliver it to the chef \textquotesingle{}p\textquotesingle{} \+: means that a portion needs to be delivered by the waiter \textquotesingle{}b\textquotesingle{} \+: means that the bill needs to be prepared and presented by the waiter \textquotesingle{}g\textquotesingle{} \+: means that some student wants to leave and waiter needs to say goodbye 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classshared_regions_1_1_bar_a12aec9c41d547f41461aebbfdc058e0c}\label{classshared_regions_1_1_bar_a12aec9c41d547f41461aebbfdc058e0c}} 
+\index{sharedRegions.Bar@{sharedRegions.Bar}!preprareBill@{preprareBill}}
+\index{preprareBill@{preprareBill}!sharedRegions.Bar@{sharedRegions.Bar}}
+\doxysubsubsection{\texorpdfstring{preprareBill()}{preprareBill()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Bar.\+preprare\+Bill (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation prepare the Bill \mbox{\Hypertarget{classshared_regions_1_1_bar_a9a61a652123bc0ba90ab89c7467ee4c2}\label{classshared_regions_1_1_bar_a9a61a652123bc0ba90ab89c7467ee4c2}} 
+\index{sharedRegions.Bar@{sharedRegions.Bar}!sayGoodbye@{sayGoodbye}}
+\index{sayGoodbye@{sayGoodbye}!sharedRegions.Bar@{sharedRegions.Bar}}
+\doxysubsubsection{\texorpdfstring{sayGoodbye()}{sayGoodbye()}}
+{\footnotesize\ttfamily synchronized boolean shared\+Regions.\+Bar.\+say\+Goodbye (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation say Goodbye \mbox{\Hypertarget{classshared_regions_1_1_bar_ae723a97106f239832b87333aef958062}\label{classshared_regions_1_1_bar_ae723a97106f239832b87333aef958062}} 
+\index{sharedRegions.Bar@{sharedRegions.Bar}!signalWaiter@{signalWaiter}}
+\index{signalWaiter@{signalWaiter}!sharedRegions.Bar@{sharedRegions.Bar}}
+\doxysubsubsection{\texorpdfstring{signalWaiter()}{signalWaiter()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Bar.\+signal\+Waiter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation signal the waiter 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/shared\+Regions/\mbox{\hyperlink{_bar_8java}{Bar.\+java}}\end{DoxyCompactItemize}

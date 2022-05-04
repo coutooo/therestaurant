@@ -1,0 +1,125 @@
+\hypertarget{classcomm_infra_1_1_mem_f_i_f_o}{}\doxysection{comm\+Infra.\+Mem\+FIFO\texorpdfstring{$<$}{<} R \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classcomm_infra_1_1_mem_f_i_f_o}\index{commInfra.MemFIFO$<$ R $>$@{commInfra.MemFIFO$<$ R $>$}}
+Inheritance diagram for comm\+Infra.\+Mem\+FIFO\texorpdfstring{$<$}{<} R \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcomm_infra_1_1_mem_f_i_f_o}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcomm_infra_1_1_mem_f_i_f_o_ab67f4d25d93d13ee07406f8721bc314f}{Mem\+FIFO}} (R\mbox{[}$\,$\mbox{]} storage)  throws Mem\+Exception    
+\item 
+void \mbox{\hyperlink{classcomm_infra_1_1_mem_f_i_f_o_ac2f7067f34fe399a73262bb088a3d251}{write}} (R val)  throws Mem\+Exception    
+\item 
+R \mbox{\hyperlink{classcomm_infra_1_1_mem_f_i_f_o_a3bb5603d222eb5e20f66a642f8c65067}{read}} ()  throws Mem\+Exception    
+\item 
+boolean \mbox{\hyperlink{classcomm_infra_1_1_mem_f_i_f_o_a164243d5e319977a2e7847221aed2bb0}{full}} ()
+\item 
+boolean \mbox{\hyperlink{classcomm_infra_1_1_mem_f_i_f_o_aa23afabccf904560fdb3b21e5f284f69}{empty}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Parametric FIFO derived from a parametric memory. Errors are reported.
+
+
+\begin{DoxyParams}{Parameters}
+{\em $<$\+R$>$} & data type of stored objects \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcomm_infra_1_1_mem_f_i_f_o_ab67f4d25d93d13ee07406f8721bc314f}\label{classcomm_infra_1_1_mem_f_i_f_o_ab67f4d25d93d13ee07406f8721bc314f}} 
+\index{commInfra.MemFIFO$<$ R $>$@{commInfra.MemFIFO$<$ R $>$}!MemFIFO@{MemFIFO}}
+\index{MemFIFO@{MemFIFO}!commInfra.MemFIFO$<$ R $>$@{commInfra.MemFIFO$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{MemFIFO()}{MemFIFO()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcomm_infra_1_1_mem_f_i_f_o}{comm\+Infra.\+Mem\+FIFO}}$<$ R $>$.\mbox{\hyperlink{classcomm_infra_1_1_mem_f_i_f_o}{Mem\+FIFO}} (\begin{DoxyParamCaption}\item[{R\mbox{[}$\,$\mbox{]}}]{storage }\end{DoxyParamCaption}) throws \mbox{\hyperlink{classcomm_infra_1_1_mem_exception}{Mem\+Exception}}}
+
+FIFO instantiation. The instantiation only takes place if the memory exists. Otherwise, an error is reported.
+
+
+\begin{DoxyParams}{Parameters}
+{\em storage} & memory to be used \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \mbox{\hyperlink{classcomm_infra_1_1_mem_exception}{Mem\+Exception}}} & when the memory does not exist \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcomm_infra_1_1_mem_f_i_f_o_aa23afabccf904560fdb3b21e5f284f69}\label{classcomm_infra_1_1_mem_f_i_f_o_aa23afabccf904560fdb3b21e5f284f69}} 
+\index{commInfra.MemFIFO$<$ R $>$@{commInfra.MemFIFO$<$ R $>$}!empty@{empty}}
+\index{empty@{empty}!commInfra.MemFIFO$<$ R $>$@{commInfra.MemFIFO$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily boolean \mbox{\hyperlink{classcomm_infra_1_1_mem_f_i_f_o}{comm\+Infra.\+Mem\+FIFO}}$<$ R $>$.empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Test FIFO current empty status.
+
+\begin{DoxyReturn}{Returns}
+true, if FIFO is empty -\/ false, otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classcomm_infra_1_1_mem_f_i_f_o_a164243d5e319977a2e7847221aed2bb0}\label{classcomm_infra_1_1_mem_f_i_f_o_a164243d5e319977a2e7847221aed2bb0}} 
+\index{commInfra.MemFIFO$<$ R $>$@{commInfra.MemFIFO$<$ R $>$}!full@{full}}
+\index{full@{full}!commInfra.MemFIFO$<$ R $>$@{commInfra.MemFIFO$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{full()}{full()}}
+{\footnotesize\ttfamily boolean \mbox{\hyperlink{classcomm_infra_1_1_mem_f_i_f_o}{comm\+Infra.\+Mem\+FIFO}}$<$ R $>$.full (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Test FIFO current full status.
+
+\begin{DoxyReturn}{Returns}
+true, if FIFO is full -\/ false, otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classcomm_infra_1_1_mem_f_i_f_o_a3bb5603d222eb5e20f66a642f8c65067}\label{classcomm_infra_1_1_mem_f_i_f_o_a3bb5603d222eb5e20f66a642f8c65067}} 
+\index{commInfra.MemFIFO$<$ R $>$@{commInfra.MemFIFO$<$ R $>$}!read@{read}}
+\index{read@{read}!commInfra.MemFIFO$<$ R $>$@{commInfra.MemFIFO$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily R \mbox{\hyperlink{classcomm_infra_1_1_mem_f_i_f_o}{comm\+Infra.\+Mem\+FIFO}}$<$ R $>$.read (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) throws \mbox{\hyperlink{classcomm_infra_1_1_mem_exception}{Mem\+Exception}}}
+
+FIFO retrieval. A parametric object is read from it. If the FIFO is empty, an error is reported.
+
+\begin{DoxyReturn}{Returns}
+first parametric object that was written 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \mbox{\hyperlink{classcomm_infra_1_1_mem_exception}{Mem\+Exception}}} & when the FIFO is empty \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \mbox{\hyperlink{classcomm_infra_1_1_mem_object_a7558e9fb52ce1817079e02d725813d6a}{comm\+Infra.\+Mem\+Object$<$ R $>$}}.
+
+\mbox{\Hypertarget{classcomm_infra_1_1_mem_f_i_f_o_ac2f7067f34fe399a73262bb088a3d251}\label{classcomm_infra_1_1_mem_f_i_f_o_ac2f7067f34fe399a73262bb088a3d251}} 
+\index{commInfra.MemFIFO$<$ R $>$@{commInfra.MemFIFO$<$ R $>$}!write@{write}}
+\index{write@{write}!commInfra.MemFIFO$<$ R $>$@{commInfra.MemFIFO$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily void \mbox{\hyperlink{classcomm_infra_1_1_mem_f_i_f_o}{comm\+Infra.\+Mem\+FIFO}}$<$ R $>$.write (\begin{DoxyParamCaption}\item[{R}]{val }\end{DoxyParamCaption}) throws \mbox{\hyperlink{classcomm_infra_1_1_mem_exception}{Mem\+Exception}}}
+
+FIFO insertion. A parametric object is written into it. If the FIFO is full, an error is reported.
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & parametric object to be written \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \mbox{\hyperlink{classcomm_infra_1_1_mem_exception}{Mem\+Exception}}} & when the FIFO is full \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \mbox{\hyperlink{classcomm_infra_1_1_mem_object_a0849fbd81e4b6ed63bcfa181c1c27e20}{comm\+Infra.\+Mem\+Object$<$ R $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/comm\+Infra/\mbox{\hyperlink{_mem_f_i_f_o_8java}{Mem\+FIFO.\+java}}\end{DoxyCompactItemize}

@@ -1,0 +1,112 @@
+\hypertarget{classcomm_infra_1_1_mem_object}{}\doxysection{comm\+Infra.\+Mem\+Object\texorpdfstring{$<$}{<} R \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classcomm_infra_1_1_mem_object}\index{commInfra.MemObject$<$ R $>$@{commInfra.MemObject$<$ R $>$}}
+Inheritance diagram for comm\+Infra.\+Mem\+Object\texorpdfstring{$<$}{<} R \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcomm_infra_1_1_mem_object}
+\end{center}
+\end{figure}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcomm_infra_1_1_mem_object_a46cf7b7e8c018936c0e7d5ae306defdd}{Mem\+Object}} (R\mbox{[}$\,$\mbox{]} storage)  throws Mem\+Exception    
+\item 
+abstract void \mbox{\hyperlink{classcomm_infra_1_1_mem_object_a0849fbd81e4b6ed63bcfa181c1c27e20}{write}} (R val)  throws Mem\+Exception
+\item 
+abstract R \mbox{\hyperlink{classcomm_infra_1_1_mem_object_a7558e9fb52ce1817079e02d725813d6a}{read}} ()  throws Mem\+Exception
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+R\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{classcomm_infra_1_1_mem_object_ae695702727d7c9078fa92d7f6e623e0a}{mem}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Parametric memory. Non-\/instantiatable data type. It must be derived. Errors are reported.
+
+
+\begin{DoxyParams}{Parameters}
+{\em $<$\+R$>$} & data type of stored objects \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcomm_infra_1_1_mem_object_a46cf7b7e8c018936c0e7d5ae306defdd}\label{classcomm_infra_1_1_mem_object_a46cf7b7e8c018936c0e7d5ae306defdd}} 
+\index{commInfra.MemObject$<$ R $>$@{commInfra.MemObject$<$ R $>$}!MemObject@{MemObject}}
+\index{MemObject@{MemObject}!commInfra.MemObject$<$ R $>$@{commInfra.MemObject$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{MemObject()}{MemObject()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcomm_infra_1_1_mem_object}{comm\+Infra.\+Mem\+Object}}$<$ R $>$.\mbox{\hyperlink{classcomm_infra_1_1_mem_object}{Mem\+Object}} (\begin{DoxyParamCaption}\item[{R\mbox{[}$\,$\mbox{]}}]{storage }\end{DoxyParamCaption}) throws \mbox{\hyperlink{classcomm_infra_1_1_mem_exception}{Mem\+Exception}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+Memory instantiation. The instantiation only takes place if the memory exists.
+
+
+\begin{DoxyParams}{Parameters}
+{\em storage} & memory to be used \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \mbox{\hyperlink{classcomm_infra_1_1_mem_exception}{Mem\+Exception}}} & when the memory does not exist \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcomm_infra_1_1_mem_object_a7558e9fb52ce1817079e02d725813d6a}\label{classcomm_infra_1_1_mem_object_a7558e9fb52ce1817079e02d725813d6a}} 
+\index{commInfra.MemObject$<$ R $>$@{commInfra.MemObject$<$ R $>$}!read@{read}}
+\index{read@{read}!commInfra.MemObject$<$ R $>$@{commInfra.MemObject$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily abstract R \mbox{\hyperlink{classcomm_infra_1_1_mem_object}{comm\+Infra.\+Mem\+Object}}$<$ R $>$.read (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) throws \mbox{\hyperlink{classcomm_infra_1_1_mem_exception}{Mem\+Exception}}\hspace{0.3cm}{\ttfamily [abstract]}, {\ttfamily [protected]}}
+
+Memory read. A parametric object is read from it. Virtual method, it has to be overridden in a derived data type.
+
+\begin{DoxyReturn}{Returns}
+last parametric object that was written 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \mbox{\hyperlink{classcomm_infra_1_1_mem_exception}{Mem\+Exception}}} & when the memory is empty \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented in \mbox{\hyperlink{classcomm_infra_1_1_mem_f_i_f_o_a3bb5603d222eb5e20f66a642f8c65067}{comm\+Infra.\+Mem\+FIFO$<$ R $>$}}.
+
+\mbox{\Hypertarget{classcomm_infra_1_1_mem_object_a0849fbd81e4b6ed63bcfa181c1c27e20}\label{classcomm_infra_1_1_mem_object_a0849fbd81e4b6ed63bcfa181c1c27e20}} 
+\index{commInfra.MemObject$<$ R $>$@{commInfra.MemObject$<$ R $>$}!write@{write}}
+\index{write@{write}!commInfra.MemObject$<$ R $>$@{commInfra.MemObject$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily abstract void \mbox{\hyperlink{classcomm_infra_1_1_mem_object}{comm\+Infra.\+Mem\+Object}}$<$ R $>$.write (\begin{DoxyParamCaption}\item[{R}]{val }\end{DoxyParamCaption}) throws \mbox{\hyperlink{classcomm_infra_1_1_mem_exception}{Mem\+Exception}}\hspace{0.3cm}{\ttfamily [abstract]}, {\ttfamily [protected]}}
+
+Memory write. A parametric object is written into it. Virtual method, it has to be overridden in a derived data type.
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & parametric object to be written \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \mbox{\hyperlink{classcomm_infra_1_1_mem_exception}{Mem\+Exception}}} & when the memory is full \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented in \mbox{\hyperlink{classcomm_infra_1_1_mem_f_i_f_o_ac2f7067f34fe399a73262bb088a3d251}{comm\+Infra.\+Mem\+FIFO$<$ R $>$}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classcomm_infra_1_1_mem_object_ae695702727d7c9078fa92d7f6e623e0a}\label{classcomm_infra_1_1_mem_object_ae695702727d7c9078fa92d7f6e623e0a}} 
+\index{commInfra.MemObject$<$ R $>$@{commInfra.MemObject$<$ R $>$}!mem@{mem}}
+\index{mem@{mem}!commInfra.MemObject$<$ R $>$@{commInfra.MemObject$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{mem}{mem}}
+{\footnotesize\ttfamily R \mbox{[}$\,$\mbox{]} \mbox{\hyperlink{classcomm_infra_1_1_mem_object}{comm\+Infra.\+Mem\+Object}}$<$ R $>$.mem\hspace{0.3cm}{\ttfamily [protected]}}
+
+Internal storage area. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/comm\+Infra/\mbox{\hyperlink{_mem_object_8java}{Mem\+Object.\+java}}\end{DoxyCompactItemize}

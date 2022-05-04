@@ -1,0 +1,144 @@
+\hypertarget{classshared_regions_1_1_kitchen}{}\doxysection{shared\+Regions.\+Kitchen Class Reference}
+\label{classshared_regions_1_1_kitchen}\index{sharedRegions.Kitchen@{sharedRegions.Kitchen}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classshared_regions_1_1_kitchen_ad18f844ba1798ffef8c360109d70a264}{Kitchen}} (\mbox{\hyperlink{classshared_regions_1_1_general_repos}{General\+Repos}} repos)
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_kitchen_a747ed1a42e844696b85a671d52aff4da}{watch\+The\+News}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_kitchen_ab5ed87b29f5ea503b53d5ea7351b24c2}{start\+Preparation}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_kitchen_a5809902879b5e29e3844444667af9a71}{proceed\+Preparation}} ()
+\item 
+synchronized boolean \mbox{\hyperlink{classshared_regions_1_1_kitchen_a263b0323269c014e133d22804ba41461}{have\+All\+Portions\+Been\+Delivered}} ()
+\item 
+synchronized boolean \mbox{\hyperlink{classshared_regions_1_1_kitchen_a1d7b045290fbd7aff4dfb4a99a9a6839}{has\+Order\+Been\+Completed}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_kitchen_aa7fb4196c1cb656a835138ca769fb5a6}{continue\+Preparation}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_kitchen_a4753e9203bb81e53618a2efc2fa782dd}{have\+Next\+Portion\+Ready}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_kitchen_a3acecf51e9f1cbf5c53e5b360ad4da7c}{clean\+Up}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_kitchen_aed9ec414d78b881ae00c9722942c097f}{hand\+Note\+To\+Chef}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_kitchen_a2827f44402fc7fea543d29c5c07f76ed}{return\+To\+Bar}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_kitchen_af710c1077c921878a071a1cc7b0e99ec}{collect\+Portion}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classshared_regions_1_1_kitchen}{Kitchen}}
+
+\begin{DoxyAuthor}{Author}
+Rafael Dias 
+
+Manuel Couto 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classshared_regions_1_1_kitchen_ad18f844ba1798ffef8c360109d70a264}\label{classshared_regions_1_1_kitchen_ad18f844ba1798ffef8c360109d70a264}} 
+\index{sharedRegions.Kitchen@{sharedRegions.Kitchen}!Kitchen@{Kitchen}}
+\index{Kitchen@{Kitchen}!sharedRegions.Kitchen@{sharedRegions.Kitchen}}
+\doxysubsubsection{\texorpdfstring{Kitchen()}{Kitchen()}}
+{\footnotesize\ttfamily shared\+Regions.\+Kitchen.\+Kitchen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshared_regions_1_1_general_repos}{General\+Repos}}}]{repos }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{classshared_regions_1_1_kitchen}{Kitchen}} instantiation 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classshared_regions_1_1_kitchen_a3acecf51e9f1cbf5c53e5b360ad4da7c}\label{classshared_regions_1_1_kitchen_a3acecf51e9f1cbf5c53e5b360ad4da7c}} 
+\index{sharedRegions.Kitchen@{sharedRegions.Kitchen}!cleanUp@{cleanUp}}
+\index{cleanUp@{cleanUp}!sharedRegions.Kitchen@{sharedRegions.Kitchen}}
+\doxysubsubsection{\texorpdfstring{cleanUp()}{cleanUp()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Kitchen.\+clean\+Up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation clean up
+
+It is called by the chef when he finishes the order \mbox{\Hypertarget{classshared_regions_1_1_kitchen_af710c1077c921878a071a1cc7b0e99ec}\label{classshared_regions_1_1_kitchen_af710c1077c921878a071a1cc7b0e99ec}} 
+\index{sharedRegions.Kitchen@{sharedRegions.Kitchen}!collectPortion@{collectPortion}}
+\index{collectPortion@{collectPortion}!sharedRegions.Kitchen@{sharedRegions.Kitchen}}
+\doxysubsubsection{\texorpdfstring{collectPortion()}{collectPortion()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Kitchen.\+collect\+Portion (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation collect portion
+
+Called by the waiter when there is a portion to be delivered. Signal chef that the portion was delivered \mbox{\Hypertarget{classshared_regions_1_1_kitchen_aa7fb4196c1cb656a835138ca769fb5a6}\label{classshared_regions_1_1_kitchen_aa7fb4196c1cb656a835138ca769fb5a6}} 
+\index{sharedRegions.Kitchen@{sharedRegions.Kitchen}!continuePreparation@{continuePreparation}}
+\index{continuePreparation@{continuePreparation}!sharedRegions.Kitchen@{sharedRegions.Kitchen}}
+\doxysubsubsection{\texorpdfstring{continuePreparation()}{continuePreparation()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Kitchen.\+continue\+Preparation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation continue preparation
+
+It is called by the chef when not all portions have been delivered \mbox{\Hypertarget{classshared_regions_1_1_kitchen_aed9ec414d78b881ae00c9722942c097f}\label{classshared_regions_1_1_kitchen_aed9ec414d78b881ae00c9722942c097f}} 
+\index{sharedRegions.Kitchen@{sharedRegions.Kitchen}!handNoteToChef@{handNoteToChef}}
+\index{handNoteToChef@{handNoteToChef}!sharedRegions.Kitchen@{sharedRegions.Kitchen}}
+\doxysubsubsection{\texorpdfstring{handNoteToChef()}{handNoteToChef()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Kitchen.\+hand\+Note\+To\+Chef (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation hand note to chef
+
+Called by the waiter to Wake chef up chef to give him the description of the order \mbox{\Hypertarget{classshared_regions_1_1_kitchen_a1d7b045290fbd7aff4dfb4a99a9a6839}\label{classshared_regions_1_1_kitchen_a1d7b045290fbd7aff4dfb4a99a9a6839}} 
+\index{sharedRegions.Kitchen@{sharedRegions.Kitchen}!hasOrderBeenCompleted@{hasOrderBeenCompleted}}
+\index{hasOrderBeenCompleted@{hasOrderBeenCompleted}!sharedRegions.Kitchen@{sharedRegions.Kitchen}}
+\doxysubsubsection{\texorpdfstring{hasOrderBeenCompleted()}{hasOrderBeenCompleted()}}
+{\footnotesize\ttfamily synchronized boolean shared\+Regions.\+Kitchen.\+has\+Order\+Been\+Completed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation has order been completed
+
+It is called by the chef when he finishes preparing all courses \mbox{\Hypertarget{classshared_regions_1_1_kitchen_a263b0323269c014e133d22804ba41461}\label{classshared_regions_1_1_kitchen_a263b0323269c014e133d22804ba41461}} 
+\index{sharedRegions.Kitchen@{sharedRegions.Kitchen}!haveAllPortionsBeenDelivered@{haveAllPortionsBeenDelivered}}
+\index{haveAllPortionsBeenDelivered@{haveAllPortionsBeenDelivered}!sharedRegions.Kitchen@{sharedRegions.Kitchen}}
+\doxysubsubsection{\texorpdfstring{haveAllPortionsBeenDelivered()}{haveAllPortionsBeenDelivered()}}
+{\footnotesize\ttfamily synchronized boolean shared\+Regions.\+Kitchen.\+have\+All\+Portions\+Been\+Delivered (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation have all portions been delivered
+
+It is called by the chef when he finishes a portion and checks if another one needs to be prepared or not. It is also here were the chef blocks waiting for waiter do deliver the current portion \mbox{\Hypertarget{classshared_regions_1_1_kitchen_a4753e9203bb81e53618a2efc2fa782dd}\label{classshared_regions_1_1_kitchen_a4753e9203bb81e53618a2efc2fa782dd}} 
+\index{sharedRegions.Kitchen@{sharedRegions.Kitchen}!haveNextPortionReady@{haveNextPortionReady}}
+\index{haveNextPortionReady@{haveNextPortionReady}!sharedRegions.Kitchen@{sharedRegions.Kitchen}}
+\doxysubsubsection{\texorpdfstring{haveNextPortionReady()}{haveNextPortionReady()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Kitchen.\+have\+Next\+Portion\+Ready (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation have next portion ready
+
+It is called by the chef after a portion has been delivered and another one needs to be prepared \mbox{\Hypertarget{classshared_regions_1_1_kitchen_a5809902879b5e29e3844444667af9a71}\label{classshared_regions_1_1_kitchen_a5809902879b5e29e3844444667af9a71}} 
+\index{sharedRegions.Kitchen@{sharedRegions.Kitchen}!proceedPreparation@{proceedPreparation}}
+\index{proceedPreparation@{proceedPreparation}!sharedRegions.Kitchen@{sharedRegions.Kitchen}}
+\doxysubsubsection{\texorpdfstring{proceedPreparation()}{proceedPreparation()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Kitchen.\+proceed\+Preparation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation proceed presentation
+
+It is called by the chef when a portion needs to be prepared \mbox{\Hypertarget{classshared_regions_1_1_kitchen_a2827f44402fc7fea543d29c5c07f76ed}\label{classshared_regions_1_1_kitchen_a2827f44402fc7fea543d29c5c07f76ed}} 
+\index{sharedRegions.Kitchen@{sharedRegions.Kitchen}!returnToBar@{returnToBar}}
+\index{returnToBar@{returnToBar}!sharedRegions.Kitchen@{sharedRegions.Kitchen}}
+\doxysubsubsection{\texorpdfstring{returnToBar()}{returnToBar()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Kitchen.\+return\+To\+Bar (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation return to the bar
+
+Called by the waiter when he is the kitchen to return to the bar \mbox{\Hypertarget{classshared_regions_1_1_kitchen_ab5ed87b29f5ea503b53d5ea7351b24c2}\label{classshared_regions_1_1_kitchen_ab5ed87b29f5ea503b53d5ea7351b24c2}} 
+\index{sharedRegions.Kitchen@{sharedRegions.Kitchen}!startPreparation@{startPreparation}}
+\index{startPreparation@{startPreparation}!sharedRegions.Kitchen@{sharedRegions.Kitchen}}
+\doxysubsubsection{\texorpdfstring{startPreparation()}{startPreparation()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Kitchen.\+start\+Preparation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation start presentation
+
+It is called by the chef after waiter has notified him of the order to be prepared \mbox{\Hypertarget{classshared_regions_1_1_kitchen_a747ed1a42e844696b85a671d52aff4da}\label{classshared_regions_1_1_kitchen_a747ed1a42e844696b85a671d52aff4da}} 
+\index{sharedRegions.Kitchen@{sharedRegions.Kitchen}!watchTheNews@{watchTheNews}}
+\index{watchTheNews@{watchTheNews}!sharedRegions.Kitchen@{sharedRegions.Kitchen}}
+\doxysubsubsection{\texorpdfstring{watchTheNews()}{watchTheNews()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Kitchen.\+watch\+The\+News (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Operation watch the news
+
+It is called by the chef while waiting to be notified by the waiter to give the order 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/shared\+Regions/\mbox{\hyperlink{_kitchen_8java}{Kitchen.\+java}}\end{DoxyCompactItemize}

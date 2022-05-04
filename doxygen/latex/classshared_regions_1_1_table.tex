@@ -1,0 +1,247 @@
+\hypertarget{classshared_regions_1_1_table}{}\doxysection{shared\+Regions.\+Table Class Reference}
+\label{classshared_regions_1_1_table}\index{sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classshared_regions_1_1_table_a5c1200cb48a9e3623eb6f9ee4b200408}{Table}} (\mbox{\hyperlink{classshared_regions_1_1_general_repos}{General\+Repos}} repos)
+\item 
+int \mbox{\hyperlink{classshared_regions_1_1_table_a27445afdfb2d9b62b78b481a257cd348}{get\+First\+To\+Arrive}} ()
+\item 
+int \mbox{\hyperlink{classshared_regions_1_1_table_a6fd075d800b07c2bc2a9c0c522c64630}{get\+Last\+To\+Eat}} ()
+\item 
+void \mbox{\hyperlink{classshared_regions_1_1_table_a0e397c60db0b51fb35e192712e4086e6}{set\+First\+To\+Arrive}} (int first\+To\+Arrive)
+\item 
+void \mbox{\hyperlink{classshared_regions_1_1_table_afcb6ed7d40645840d9eb78606a943ff9}{set\+Last\+To\+Arrive}} (int last\+To\+Arrive)
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_a54f62144ce73db58193e09aea2cad9ce}{salute\+Client}} (int student\+Id\+Being\+Answered)
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_a1e61f38372501eb6e554eb6854f17bca}{return\+Bar}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_a9663dd03d1e0525818d989970425054f}{get\+The\+Pad}} ()
+\item 
+synchronized boolean \mbox{\hyperlink{classshared_regions_1_1_table_a47766fd224b2b2c767d5102841b27c35}{have\+All\+Clients\+Been\+Served}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_ae3c76b0b1b1b1c4b9dac56ed5c47ab2a}{deliver\+Portion}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_a23a75d273b769e2d1835707a2bda3435}{present\+Bill}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_ab4e416645d4f27481da32e73370fbfc5}{seat\+At\+Table}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_ad454e60853c7d4bf2a9996fe2b58b7fc}{read\+Menu}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_a426bc9e2252a6da22eaea3935150ce76}{prepare\+Order}} ()
+\item 
+synchronized boolean \mbox{\hyperlink{classshared_regions_1_1_table_a5f0f1d0dcf746eb54bbd214d8cfe9b51}{everybody\+Has\+Chosen}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_ac9d1706962143b9ab57082982fd1bec5}{add\+Up\+Ones\+Choices}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_a40aed78e16150b068e4dae786bb9500e}{describe\+Order}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_ac68d16c9aa3caab12be02e0fbae3a475}{join\+Talk}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_aaa9539ca30b6a5378ced772e0cb22447}{inform\+Companion}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_ac79bf896a8c8666407b86045c3c241db}{start\+Eating}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_a802d0dcc56ff999c7b7b5bc47e50ca1f}{end\+Eating}} ()
+\item 
+synchronized boolean \mbox{\hyperlink{classshared_regions_1_1_table_a962f2643fdf2a91e0d2690e919d59476}{has\+Everybody\+Finished\+Eating}} ()
+\item 
+synchronized void \mbox{\hyperlink{classshared_regions_1_1_table_a122891ea468bee77c77b7a91b93b0f02}{honour\+Bill}} ()
+\item 
+synchronized boolean \mbox{\hyperlink{classshared_regions_1_1_table_ae709fc5525b484aed4ce9eab13057b86}{have\+All\+Courses\+Been\+Eaten}} ()
+\item 
+synchronized boolean \mbox{\hyperlink{classshared_regions_1_1_table_a173a84a63659f158fe773410c2e0befb}{should\+Have\+Arrived\+Earlier}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classshared_regions_1_1_table}{Table}} Synchronisation points include\+: Waiter waits for students to read the menu First student to arrive blocks waiting for others to arrive and describe him the order Waiter has to wait for first student to arrive to describe him the order Student blocks waiting for the course to be served Last student to arrive blocks waiting for bill to be presented Waiter blocks waiting for student to pay the bill 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classshared_regions_1_1_table_a5c1200cb48a9e3623eb6f9ee4b200408}\label{classshared_regions_1_1_table_a5c1200cb48a9e3623eb6f9ee4b200408}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!Table@{Table}}
+\index{Table@{Table}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{Table()}{Table()}}
+{\footnotesize\ttfamily shared\+Regions.\+Table.\+Table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classshared_regions_1_1_general_repos}{General\+Repos}}}]{repos }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{classshared_regions_1_1_table}{Table}} instantiation 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classshared_regions_1_1_table_ac9d1706962143b9ab57082982fd1bec5}\label{classshared_regions_1_1_table_ac9d1706962143b9ab57082982fd1bec5}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!addUpOnesChoices@{addUpOnesChoices}}
+\index{addUpOnesChoices@{addUpOnesChoices}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{addUpOnesChoices()}{addUpOnesChoices()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+add\+Up\+Ones\+Choices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+(1ststudent) to add up a companions choice to the order \mbox{\Hypertarget{classshared_regions_1_1_table_ae3c76b0b1b1b1c4b9dac56ed5c47ab2a}\label{classshared_regions_1_1_table_ae3c76b0b1b1b1c4b9dac56ed5c47ab2a}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!deliverPortion@{deliverPortion}}
+\index{deliverPortion@{deliverPortion}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{deliverPortion()}{deliverPortion()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+deliver\+Portion (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+portion is delivered at the table \mbox{\Hypertarget{classshared_regions_1_1_table_a40aed78e16150b068e4dae786bb9500e}\label{classshared_regions_1_1_table_a40aed78e16150b068e4dae786bb9500e}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!describeOrder@{describeOrder}}
+\index{describeOrder@{describeOrder}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{describeOrder()}{describeOrder()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+describe\+Order (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+(1ststudent) describe the order to the waiter Blocks waiting for waiter to come with pad Wake waiter up so he can take the order \mbox{\Hypertarget{classshared_regions_1_1_table_a802d0dcc56ff999c7b7b5bc47e50ca1f}\label{classshared_regions_1_1_table_a802d0dcc56ff999c7b7b5bc47e50ca1f}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!endEating@{endEating}}
+\index{endEating@{endEating}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{endEating()}{endEating()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+end\+Eating (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+(student) to signal that he has finished eating his meal \mbox{\Hypertarget{classshared_regions_1_1_table_a5f0f1d0dcf746eb54bbd214d8cfe9b51}\label{classshared_regions_1_1_table_a5f0f1d0dcf746eb54bbd214d8cfe9b51}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!everybodyHasChosen@{everybodyHasChosen}}
+\index{everybodyHasChosen@{everybodyHasChosen}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{everybodyHasChosen()}{everybodyHasChosen()}}
+{\footnotesize\ttfamily synchronized boolean shared\+Regions.\+Table.\+everybody\+Has\+Chosen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+(1ststudent) check if all his companions have choose or not Blocks if not. \begin{DoxyReturn}{Returns}
+true if has everybody choosen, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classshared_regions_1_1_table_a27445afdfb2d9b62b78b481a257cd348}\label{classshared_regions_1_1_table_a27445afdfb2d9b62b78b481a257cd348}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!getFirstToArrive@{getFirstToArrive}}
+\index{getFirstToArrive@{getFirstToArrive}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{getFirstToArrive()}{getFirstToArrive()}}
+{\footnotesize\ttfamily int shared\+Regions.\+Table.\+get\+First\+To\+Arrive (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+id of the first student to arrive at the restaurant 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classshared_regions_1_1_table_a6fd075d800b07c2bc2a9c0c522c64630}\label{classshared_regions_1_1_table_a6fd075d800b07c2bc2a9c0c522c64630}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!getLastToEat@{getLastToEat}}
+\index{getLastToEat@{getLastToEat}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{getLastToEat()}{getLastToEat()}}
+{\footnotesize\ttfamily int shared\+Regions.\+Table.\+get\+Last\+To\+Eat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+id of the last student to finish eating a meal 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classshared_regions_1_1_table_a9663dd03d1e0525818d989970425054f}\label{classshared_regions_1_1_table_a9663dd03d1e0525818d989970425054f}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!getThePad@{getThePad}}
+\index{getThePad@{getThePad}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{getThePad()}{getThePad()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+get\+The\+Pad (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+waiter calls it when an order is going to be asked by the first student to arrive Waiter Blocks waiting for student to describe him the order \mbox{\Hypertarget{classshared_regions_1_1_table_a962f2643fdf2a91e0d2690e919d59476}\label{classshared_regions_1_1_table_a962f2643fdf2a91e0d2690e919d59476}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!hasEverybodyFinishedEating@{hasEverybodyFinishedEating}}
+\index{hasEverybodyFinishedEating@{hasEverybodyFinishedEating}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{hasEverybodyFinishedEating()}{hasEverybodyFinishedEating()}}
+{\footnotesize\ttfamily synchronized boolean shared\+Regions.\+Table.\+has\+Everybody\+Finished\+Eating (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+(student) to wait for his companions to finish eating \mbox{\Hypertarget{classshared_regions_1_1_table_a47766fd224b2b2c767d5102841b27c35}\label{classshared_regions_1_1_table_a47766fd224b2b2c767d5102841b27c35}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!haveAllClientsBeenServed@{haveAllClientsBeenServed}}
+\index{haveAllClientsBeenServed@{haveAllClientsBeenServed}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{haveAllClientsBeenServed()}{haveAllClientsBeenServed()}}
+{\footnotesize\ttfamily synchronized boolean shared\+Regions.\+Table.\+have\+All\+Clients\+Been\+Served (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+check if all clients have been served or not \begin{DoxyReturn}{Returns}
+true if all clients have been served, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classshared_regions_1_1_table_ae709fc5525b484aed4ce9eab13057b86}\label{classshared_regions_1_1_table_ae709fc5525b484aed4ce9eab13057b86}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!haveAllCoursesBeenEaten@{haveAllCoursesBeenEaten}}
+\index{haveAllCoursesBeenEaten@{haveAllCoursesBeenEaten}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{haveAllCoursesBeenEaten()}{haveAllCoursesBeenEaten()}}
+{\footnotesize\ttfamily synchronized boolean shared\+Regions.\+Table.\+have\+All\+Courses\+Been\+Eaten (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+(student) to check if there are more courses to be eaten Student blocks waiting for the course to be served \begin{DoxyReturn}{Returns}
+true if all courses have been eaten, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classshared_regions_1_1_table_a122891ea468bee77c77b7a91b93b0f02}\label{classshared_regions_1_1_table_a122891ea468bee77c77b7a91b93b0f02}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!honourBill@{honourBill}}
+\index{honourBill@{honourBill}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{honourBill()}{honourBill()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+honour\+Bill (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+(student) to pay the bill Student blocks waiting for bill to be presented and signals waiter when it\textquotesingle{}s time to pay it \mbox{\Hypertarget{classshared_regions_1_1_table_aaa9539ca30b6a5378ced772e0cb22447}\label{classshared_regions_1_1_table_aaa9539ca30b6a5378ced772e0cb22447}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!informCompanion@{informCompanion}}
+\index{informCompanion@{informCompanion}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{informCompanion()}{informCompanion()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+inform\+Companion (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+(student) inform the first student to arrive about his preferences Blocks waiting for courses \mbox{\Hypertarget{classshared_regions_1_1_table_ac68d16c9aa3caab12be02e0fbae3a475}\label{classshared_regions_1_1_table_ac68d16c9aa3caab12be02e0fbae3a475}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!joinTalk@{joinTalk}}
+\index{joinTalk@{joinTalk}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{joinTalk()}{joinTalk()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+join\+Talk (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+(1ststudent) to join his companions while waiting for the courses \mbox{\Hypertarget{classshared_regions_1_1_table_a426bc9e2252a6da22eaea3935150ce76}\label{classshared_regions_1_1_table_a426bc9e2252a6da22eaea3935150ce76}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!prepareOrder@{prepareOrder}}
+\index{prepareOrder@{prepareOrder}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{prepareOrder()}{prepareOrder()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+prepare\+Order (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+(student)begin the preparation of the order, \mbox{\Hypertarget{classshared_regions_1_1_table_a23a75d273b769e2d1835707a2bda3435}\label{classshared_regions_1_1_table_a23a75d273b769e2d1835707a2bda3435}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!presentBill@{presentBill}}
+\index{presentBill@{presentBill}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{presentBill()}{presentBill()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+present\+Bill (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+waiter presents the bill to the last student to arrive \mbox{\Hypertarget{classshared_regions_1_1_table_ad454e60853c7d4bf2a9996fe2b58b7fc}\label{classshared_regions_1_1_table_ad454e60853c7d4bf2a9996fe2b58b7fc}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!readMenu@{readMenu}}
+\index{readMenu@{readMenu}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{readMenu()}{readMenu()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+read\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+(student)wakes up waiter because already reed the menu \mbox{\Hypertarget{classshared_regions_1_1_table_a1e61f38372501eb6e554eb6854f17bca}\label{classshared_regions_1_1_table_a1e61f38372501eb6e554eb6854f17bca}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!returnBar@{returnBar}}
+\index{returnBar@{returnBar}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{returnBar()}{returnBar()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+return\+Bar (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+waiter return to the bar appraising situation \mbox{\Hypertarget{classshared_regions_1_1_table_a54f62144ce73db58193e09aea2cad9ce}\label{classshared_regions_1_1_table_a54f62144ce73db58193e09aea2cad9ce}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!saluteClient@{saluteClient}}
+\index{saluteClient@{saluteClient}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{saluteClient()}{saluteClient()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+salute\+Client (\begin{DoxyParamCaption}\item[{int}]{student\+Id\+Being\+Answered }\end{DoxyParamCaption})}
+
+It is called by the waiter when a student enters the restaurant \mbox{\Hypertarget{classshared_regions_1_1_table_ab4e416645d4f27481da32e73370fbfc5}\label{classshared_regions_1_1_table_ab4e416645d4f27481da32e73370fbfc5}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!seatAtTable@{seatAtTable}}
+\index{seatAtTable@{seatAtTable}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{seatAtTable()}{seatAtTable()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+seat\+At\+Table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Student comes in the table and sits (blocks) waiting for waiter to bring him the menu Called by the student (inside enter method in the bar) \mbox{\Hypertarget{classshared_regions_1_1_table_a0e397c60db0b51fb35e192712e4086e6}\label{classshared_regions_1_1_table_a0e397c60db0b51fb35e192712e4086e6}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!setFirstToArrive@{setFirstToArrive}}
+\index{setFirstToArrive@{setFirstToArrive}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{setFirstToArrive()}{setFirstToArrive()}}
+{\footnotesize\ttfamily void shared\+Regions.\+Table.\+set\+First\+To\+Arrive (\begin{DoxyParamCaption}\item[{int}]{first\+To\+Arrive }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em first\+To\+Arrive} & id of the first student to arrive \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classshared_regions_1_1_table_afcb6ed7d40645840d9eb78606a943ff9}\label{classshared_regions_1_1_table_afcb6ed7d40645840d9eb78606a943ff9}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!setLastToArrive@{setLastToArrive}}
+\index{setLastToArrive@{setLastToArrive}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{setLastToArrive()}{setLastToArrive()}}
+{\footnotesize\ttfamily void shared\+Regions.\+Table.\+set\+Last\+To\+Arrive (\begin{DoxyParamCaption}\item[{int}]{last\+To\+Arrive }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em last\+To\+Arrive} & if of the last student to arrive to the restaurant \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classshared_regions_1_1_table_a173a84a63659f158fe773410c2e0befb}\label{classshared_regions_1_1_table_a173a84a63659f158fe773410c2e0befb}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!shouldHaveArrivedEarlier@{shouldHaveArrivedEarlier}}
+\index{shouldHaveArrivedEarlier@{shouldHaveArrivedEarlier}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{shouldHaveArrivedEarlier()}{shouldHaveArrivedEarlier()}}
+{\footnotesize\ttfamily synchronized boolean shared\+Regions.\+Table.\+should\+Have\+Arrived\+Earlier (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+(student) to check wich one was last to arrive \begin{DoxyReturn}{Returns}
+True if current student was the last to arrive, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classshared_regions_1_1_table_ac79bf896a8c8666407b86045c3c241db}\label{classshared_regions_1_1_table_ac79bf896a8c8666407b86045c3c241db}} 
+\index{sharedRegions.Table@{sharedRegions.Table}!startEating@{startEating}}
+\index{startEating@{startEating}!sharedRegions.Table@{sharedRegions.Table}}
+\doxysubsubsection{\texorpdfstring{startEating()}{startEating()}}
+{\footnotesize\ttfamily synchronized void shared\+Regions.\+Table.\+start\+Eating (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+(student) to start eating the meal 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/shared\+Regions/\mbox{\hyperlink{_table_8java}{Table.\+java}}\end{DoxyCompactItemize}

@@ -1,0 +1,88 @@
+\hypertarget{class_intervening_entities_1_1_chef}{}\doxysection{Intervening\+Entities.\+Chef Class Reference}
+\label{class_intervening_entities_1_1_chef}\index{InterveningEntities.Chef@{InterveningEntities.Chef}}
+Inheritance diagram for Intervening\+Entities.\+Chef\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_intervening_entities_1_1_chef}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_intervening_entities_1_1_chef_a025b72d8689718fed695214416411b49}{Chef}} (String name, \mbox{\hyperlink{classshared_regions_1_1_kitchen}{Kitchen}} k, \mbox{\hyperlink{classshared_regions_1_1_bar}{Bar}} b)
+\item 
+void \mbox{\hyperlink{class_intervening_entities_1_1_chef_a0ae80f6ae3cbecde803885afd4ae68ec}{run}} ()
+\item 
+void \mbox{\hyperlink{class_intervening_entities_1_1_chef_a939438816a7a84b32648b27e10d34b36}{set\+Chef\+State}} (\mbox{\hyperlink{enum_intervening_entities_1_1_chef_state}{Chef\+State}} state)
+\item 
+\mbox{\hyperlink{enum_intervening_entities_1_1_chef_state}{Chef\+State}} \mbox{\hyperlink{class_intervening_entities_1_1_chef_ad1f312ee9a1434372a4dd0e220d53abd}{get\+Chef\+State}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_intervening_entities_1_1_chef}{Chef}} thread\+: Implements the life-\/cycle of a \mbox{\hyperlink{class_intervening_entities_1_1_chef}{Chef}} and stores his internal variables and his state during his lifecycle.
+
+\begin{DoxyAuthor}{Author}
+Rafael Dias 
+
+Manuel Couto 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_intervening_entities_1_1_chef_a025b72d8689718fed695214416411b49}\label{class_intervening_entities_1_1_chef_a025b72d8689718fed695214416411b49}} 
+\index{InterveningEntities.Chef@{InterveningEntities.Chef}!Chef@{Chef}}
+\index{Chef@{Chef}!InterveningEntities.Chef@{InterveningEntities.Chef}}
+\doxysubsubsection{\texorpdfstring{Chef()}{Chef()}}
+{\footnotesize\ttfamily Intervening\+Entities.\+Chef.\+Chef (\begin{DoxyParamCaption}\item[{String}]{name,  }\item[{\mbox{\hyperlink{classshared_regions_1_1_kitchen}{Kitchen}}}]{k,  }\item[{\mbox{\hyperlink{classshared_regions_1_1_bar}{Bar}}}]{b }\end{DoxyParamCaption})}
+
+Instantiation of a \mbox{\hyperlink{class_intervening_entities_1_1_chef}{Chef}} thread.
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & thread name \\
+\hline
+{\em k} & reference to the Kitchen ~\newline
+ \\
+\hline
+{\em b} & reference to the Bar \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_intervening_entities_1_1_chef_ad1f312ee9a1434372a4dd0e220d53abd}\label{class_intervening_entities_1_1_chef_ad1f312ee9a1434372a4dd0e220d53abd}} 
+\index{InterveningEntities.Chef@{InterveningEntities.Chef}!getChefState@{getChefState}}
+\index{getChefState@{getChefState}!InterveningEntities.Chef@{InterveningEntities.Chef}}
+\doxysubsubsection{\texorpdfstring{getChefState()}{getChefState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enum_intervening_entities_1_1_chef_state}{Chef\+State}} Intervening\+Entities.\+Chef.\+get\+Chef\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get \mbox{\hyperlink{class_intervening_entities_1_1_chef}{Chef}} state.
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_intervening_entities_1_1_chef}{Chef}} state. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_intervening_entities_1_1_chef_a0ae80f6ae3cbecde803885afd4ae68ec}\label{class_intervening_entities_1_1_chef_a0ae80f6ae3cbecde803885afd4ae68ec}} 
+\index{InterveningEntities.Chef@{InterveningEntities.Chef}!run@{run}}
+\index{run@{run}!InterveningEntities.Chef@{InterveningEntities.Chef}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily void Intervening\+Entities.\+Chef.\+run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Life cycle of the \mbox{\hyperlink{class_intervening_entities_1_1_chef}{Chef}}. \mbox{\Hypertarget{class_intervening_entities_1_1_chef_a939438816a7a84b32648b27e10d34b36}\label{class_intervening_entities_1_1_chef_a939438816a7a84b32648b27e10d34b36}} 
+\index{InterveningEntities.Chef@{InterveningEntities.Chef}!setChefState@{setChefState}}
+\index{setChefState@{setChefState}!InterveningEntities.Chef@{InterveningEntities.Chef}}
+\doxysubsubsection{\texorpdfstring{setChefState()}{setChefState()}}
+{\footnotesize\ttfamily void Intervening\+Entities.\+Chef.\+set\+Chef\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{enum_intervening_entities_1_1_chef_state}{Chef\+State}}}]{state }\end{DoxyParamCaption})}
+
+Set \mbox{\hyperlink{class_intervening_entities_1_1_chef}{Chef}} state.
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & \mbox{\hyperlink{class_intervening_entities_1_1_chef}{Chef}} state \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Intervening\+Entities/\mbox{\hyperlink{_chef_8java}{Chef.\+java}}\end{DoxyCompactItemize}
