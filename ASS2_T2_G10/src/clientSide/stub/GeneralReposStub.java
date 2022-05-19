@@ -5,12 +5,17 @@
 package clientSide.stub;
 
 /**
+ *  Stub to the general repository.
  *
- * @author rafae
+ *    It instantiates a remote reference to the general repository.
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
  */
-public class BarStub {
-    /**
-   *  Name of the platform where is located the barber shop server.
+
+public class GeneralReposStub
+{
+  /**
+   *  Name of the platform where is located the general repository server.
    */
 
    private String serverHostName;
@@ -22,16 +27,15 @@ public class BarStub {
    private int serverPortNumb;
 
   /**
-   *   Instantiation of a stub to the bar.
+   *   Instantiation of a stub to the general repository.
    *
    *     @param serverHostName name of the platform where is located the barber shop server
    *     @param serverPortNumb port number for listening to service requests
    */
 
-   public BarStub (String serverHostName, int serverPortNumb)
+   public GeneralReposStub (String serverHostName, int serverPortNumb)
    {
       this.serverHostName = serverHostName;
       this.serverPortNumb = serverPortNumb;
    }
-
 }

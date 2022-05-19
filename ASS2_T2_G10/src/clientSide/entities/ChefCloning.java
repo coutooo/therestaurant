@@ -2,23 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package serverSide.entities;
-
-import clientSide.stub.*;
-
+package clientSide.entities;
 
 /**
- *   Chief thread.
  *
- *   Used to simulate the Chief life cycle.
- *   Static solution.
- *
- * @author Rafael Dias
- * @author Manuel Couto
+ * @author rafae
  */
-public interface Chef{
-    
-    
+public interface ChefCloning {
     
     /**
      *   Set Chef state.
@@ -26,11 +16,11 @@ public interface Chef{
      *     @param state Chef state
      */
     public void setChefState (ChefState state);
-
+    
     /**
-     *   Get Chef state.
+     * Get Chef state.
      *
-     *     @return Chef state.
+     * @return Chef state.
      */
-    public ChefState getChefState();  
+    public ChefState getChefState();
 }

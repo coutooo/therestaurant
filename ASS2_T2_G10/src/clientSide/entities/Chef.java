@@ -6,7 +6,6 @@ package clientSide.entities;
 
 import clientSide.stub.*;
 
-
 /**
  * Chef thread:
  * Implements the life-cycle of a Chef and stores his internal variables

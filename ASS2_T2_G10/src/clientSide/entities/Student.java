@@ -4,7 +4,7 @@
  */
 package clientSide.entities;
 
-import sharedRegions.*;
+import clientSide.stub.*;
 
 
 /**
@@ -30,12 +30,12 @@ public class Student extends Thread {
     /**
      *   Reference to Bar
      */
-    private final Bar b;
+    private final BarStub b;
     
     /**
      *   Reference to Table
      */
-    private final Table t;
+    private final TableStub t;
     
     /**
      *   Instantiation of a Student thread.
@@ -45,7 +45,7 @@ public class Student extends Thread {
      *     @param b reference to the Bar
      *     @param t reference to the Table
      */
-    public Student(String name, int student_id, Bar b, Table t){
+    public Student(String name, int student_id, BarStub b, TableStub t){
         super(name);
         this.student_id = student_id;
         this.currentState = StudentState.GOING_TO_THE_RESTAURANT;

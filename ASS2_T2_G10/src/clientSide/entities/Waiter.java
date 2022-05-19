@@ -4,7 +4,7 @@
  */
 package clientSide.entities;
 
-import sharedRegions.*;
+import clientSide.stub.*;
 
 /**
  * Waiter thread:
@@ -24,17 +24,17 @@ public class Waiter extends Thread {
     /**
      *   Reference to Kitchen
      */
-    private final Kitchen k;
+    private final KitchenStub k;
     
     /**
      *   Reference to Bar
      */
-    private final Bar b;
+    private final BarStub b;
     
     /**
      *   Reference to Table
      */
-    private final Table t;
+    private final TableStub t;
     
     /**
      *   Instantiation of a Waiter thread.
@@ -44,7 +44,7 @@ public class Waiter extends Thread {
      *     @param b reference to the Bar
      *     @param t reference to the Table
      */
-    public Waiter(String name, Kitchen k, Bar b, Table t){
+    public Waiter(String name, KitchenStub k, BarStub b, TableStub t){
         super(name);
         this.currentState = WaiterState.APPRAISING_SITUATION;
         this.k = k;
