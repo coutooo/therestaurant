@@ -2,13 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clientSide.entities;
+package serverSide.entities;
+
 
 /**
+ *   Chef thread.
  *
- * @author rafae
+ *   Used to simulate the Pilot life cycle.
+ *   Static solution.
  */
-public interface ChefCloning {
+public interface Chef{
     
     /**
      *   Set Chef state.
@@ -16,11 +19,11 @@ public interface ChefCloning {
      *     @param state Chef state
      */
     public void setChefState (ChefState state);
-    
+
     /**
-     * Get Chef state.
+     *   Get Chef state.
      *
-     * @return Chef state.
+     *     @return Chef state.
      */
-    public ChefState getChefState();
+    public ChefState getChefState ();    
 }

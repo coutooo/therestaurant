@@ -2,13 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clientSide.entities;
+package serverSide.entities;
+
 
 /**
+ *   Waiter thread.
  *
- * @author rafae
+ *   Used to simulate the Pilot life cycle.
+ *   Static solution.
  */
-public interface WaiterCloning {
+public interface Waiter{
     
     /**
      *   Set Waiter state.
@@ -16,12 +19,11 @@ public interface WaiterCloning {
      *     @param state Waiter state
      */
     public void setWaiterState (WaiterState state);
-    
+
     /**
      *   Get Waiter state.
      *
      *     @return Waiter state.
      */
     public WaiterState getWaiterState ();
-    
 }

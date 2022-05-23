@@ -2,13 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clientSide.entities;
+package serverSide.entities;
+
 
 /**
+ *   Student thread.
  *
- * @author rafae
+ *   Used to simulate the Student life cycle.
+ *   Static solution.
  */
-public interface StudentCloning {
+public interface Student{
     
     /**
      *   Set Student id.
@@ -17,7 +20,7 @@ public interface StudentCloning {
      */
     public void setStudentID(int id);
     
-     /**
+    /**
      *   Get Student id.
      *
      *     @return Student id
@@ -30,11 +33,11 @@ public interface StudentCloning {
      *     @param state Student state
      */
     public void setStudentState (StudentState state);
-    
+
     /**
-     * Get Student state.
+     *   Get Student state.
      *
-     * @return Student state.
+     *     @return Student state.
      */
-    public StudentState getStudentState();
+    public StudentState getStudentState ();
 }

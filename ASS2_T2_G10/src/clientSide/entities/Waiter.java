@@ -4,7 +4,9 @@
  */
 package clientSide.entities;
 
-import clientSide.stub.*;
+import clientSide.stubs.BarStub;
+import clientSide.stubs.TableStub;
+import clientSide.stubs.KitchenStub;
 
 /**
  * Waiter thread:

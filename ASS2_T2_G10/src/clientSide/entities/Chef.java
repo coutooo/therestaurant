@@ -4,7 +4,8 @@
  */
 package clientSide.entities;
 
-import clientSide.stub.*;
+import clientSide.stubs.BarStub;
+import clientSide.stubs.KitchenStub;
 
 /**
  * Chef thread:

@@ -4,7 +4,8 @@
  */
 package clientSide.entities;
 
-import clientSide.stub.*;
+import clientSide.stubs.BarStub;
+import clientSide.stubs.TableStub;
 
 
 /**
@@ -79,7 +80,7 @@ public class Student extends Thread {
 
                     while(!t.hasEverybodyFinishedEating());
                     System.out.println("I FINISHED MY MEAL");
-                    if(student_id == t.getLastToEat() && numCoursesEaten != therestaurant.TheRestaurant.Ncourses) {b.signalWaiter();}
+                    if(student_id == t.getLastToEat() && numCoursesEaten != clientSide.main.ExecConst.Ncourses) {b.signalWaiter();}
             }
 
             if(t.shouldHaveArrivedEarlier()) {
