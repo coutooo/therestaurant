@@ -4,14 +4,15 @@
  */
 package clientSide.entities;
 
-import clientSide.stubs.BarStub;
-import clientSide.stubs.TableStub;
-import clientSide.stubs.KitchenStub;
+import clientSide.stubs.*;
+
 
 /**
- * Waiter thread:
- * Implements the life-cycle of a waiter and stores his internal variables
- * and his state during his lifecycle.
+ *    Waiter thread.
+ * 
+ *      It simulates the waiter life cycle.
+ *      Implementation of a client-server model of type 2 (server replication).
+ *      Communication is based on a communication channel under the TCP protocol.
  * 
  * @author Rafael Dias
  * @author Manuel Couto
@@ -21,37 +22,37 @@ public class Waiter extends Thread {
     /**
      * 	Waiter state
     */
-    private WaiterState currentState;
+    private int currentState;
     
     /**
-     *   Reference to Kitchen
+     *  Reference to the stub of the kitchen.
      */
-    private final KitchenStub k;
+    private final KitchenStub kitchenStub;
     
     /**
-     *   Reference to Bar
+     *  Reference to the stub of the bar.
      */
-    private final BarStub b;
+    private final BarStub barStub;
     
     /**
-     *   Reference to Table
+     *  Reference to the stub of the table.
      */
-    private final TableStub t;
+    private final TableStub tableStub;
     
     /**
      *   Instantiation of a Waiter thread.
      *
      *     @param name thread name
-     *     @param k reference to the Kitchen
-     *     @param b reference to the Bar
-     *     @param t reference to the Table
+     *     @param kitchenStub reference to the Kitchen
+     *     @param barStub reference to the Bar
+     *     @param tableStub reference to the Table
      */
-    public Waiter(String name, KitchenStub k, BarStub b, TableStub t){
+    public Waiter(String name, KitchenStub kitchenStub, BarStub barStub, TableStub tableStub){
         super(name);
         this.currentState = WaiterState.APPRAISING_SITUATION;
-        this.k = k;
-        this.b = b;
-        this.t = t;
+        this.kitchenStub = kitchenStub;
+        this.barStub = barStub;
+        this.tableStub = tableStub;
     }
     
     /**
@@ -65,33 +66,36 @@ public class Waiter extends Thread {
         boolean stop = false;
 
         while(true){
-            request = b.lookAround();
+            request = barStub.lookAround();
 
             switch(request){
-                case 'c':	//Client arriving, needs to be presented with the menu
-                    t.saluteClient(b.getStudentBeingAnswered());
-                    t.returnBar();
-                    break;
-                case 'o':	//Order will be described to the waiter
-                    t.getThePad();
-                    k.handNoteToChef();
-                    k.returnToBar();
-                    break;
-                case 'p':	//Portions need to be collected and delivered
-                    while(!t.haveAllClientsBeenServed()) {
-                        k.collectPortion();
-                        t.deliverPortion();
+                case 'c' -> {
+                    //Client arriving, needs to be presented with the menu
+                    tableStub.saluteClient(barStub.getStudentBeingAnswered());
+                    tableStub.returnBar();
+                }
+                case 'o' -> {
+                    //Order will be described to the waiter
+                    tableStub.getThePad();
+                    kitchenStub.handNoteToChef();
+                    kitchenStub.returnToBar();
+                }
+                case 'p' -> {
+                    //Portions need to be collected and delivered
+                    while(!tableStub.haveAllClientsBeenServed()) {
+                        kitchenStub.collectPortion();
+                        tableStub.deliverPortion();
                     }
-                    t.returnBar();
-                    break;
-                case 'b':	//Bill needs to be prepared so it can be payed by the student
-                    b.preprareBill();
-                    t.presentBill();
-                    t.returnBar();
-                    break;
-                case 'g':	//Goodbye needs to be said to a student
-                    stop = b.sayGoodbye();
-                    break;
+                    tableStub.returnBar();
+                }
+                case 'b' -> {
+                    //Bill needs to be prepared so it can be payed by the student
+                    barStub.preprareBill();
+                    tableStub.presentBill();
+                    tableStub.returnBar();
+                }
+                case 'g' -> //Goodbye needs to be said to a student
+                    stop = barStub.sayGoodbye();
             }
             //If the last student has left the restaurant, life cycle may terminate
             if (stop)
@@ -104,7 +108,7 @@ public class Waiter extends Thread {
      *
      *     @param state Waiter state
      */
-    public void setWaiterState (WaiterState state)
+    public void setWaiterState (int state)
     {
         currentState = state;
     }
@@ -114,7 +118,7 @@ public class Waiter extends Thread {
      *
      *     @return Waiter state.
      */
-    public WaiterState getWaiterState ()
+    public int getWaiterState ()
     {
         return currentState;
     }

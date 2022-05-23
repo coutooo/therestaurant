@@ -5,19 +5,22 @@
 package clientSide.entities;
 
 /**
- * Enum with the possible states of the student on his lifecycle.
+ *    Definition of the internal states of the student during his life cycle.
  * @author Rafael Dias
  * @author Manuel Couto
  */
     
-public enum StudentState { 
+public final class StudentState { 
     
-    GOING_TO_THE_RESTAURANT,
-    TAKING_A_SEAT_AT_THE_TABLE,
-    SELECTING_THE_COURSES,
-    ORGANIZING_THE_ORDER,
-    CHATTING_WITH_COMPANIONS,
-    ENJOYING_THE_MEAL,
-    PAYING_THE_MEAL,
-    GOING_HOME
+    public static final int GOING_TO_THE_RESTAURANT = 0;
+    public static final int TAKING_A_SEAT_AT_THE_TABLE = 1;
+    public static final int SELECTING_THE_COURSES = 2;
+    public static final int ORGANIZING_THE_ORDER = 3;
+    public static final int CHATTING_WITH_COMPANIONS = 4;
+    public static final int ENJOYING_THE_MEAL = 5;
+    public static final int PAYING_THE_MEAL = 6;
+    public static final int GOING_HOME = 7;
+    
+    private StudentState ()
+   { }
 }

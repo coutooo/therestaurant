@@ -4,6 +4,11 @@
  */
 package clientSide.stubs;
 
+import commInfra.ClientCom;
+import commInfra.Message;
+import commInfra.MessageType;
+import genclass.GenericIO;
+
 /**
  *  Stub to the Kitchen.
  *
@@ -33,5 +38,78 @@ public class KitchenStub {
     {
        serverHostName = hostName;
        serverPortNumb = port;
+    }
+
+    public void watchTheNews() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void startPreparation() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void continuePreparation() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void proceedPreparation() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public boolean haveAllPortionsBeenDelivered() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void haveNextPortionReady() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public boolean hasOrderBeenCompleted() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void cleanUp() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    /**
+   *   Operation server shutdown.
+   *
+   *   New operation.
+   */
+
+   public void shutdown ()
+   {
+      ClientCom com;                                                 // communication channel
+      Message outMessage,                                            // outgoing message
+              inMessage;                                             // incoming message
+
+      com = new ClientCom (serverHostName, serverPortNumb);
+      while (!com.open ())
+      { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+      }
+      outMessage = new Message (MessageType.SHUT);
+      com.writeObject (outMessage);
+      inMessage = (Message) com.readObject ();
+      if (inMessage.getMsgType() != MessageType.SHUTDONE)
+         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+           GenericIO.writelnString (inMessage.toString ());
+           System.exit (1);
+         }
+      com.close ();
+   }
+
+    public void handNoteToChef() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void returnToBar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void collectPortion() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

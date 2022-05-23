@@ -5,16 +5,19 @@
 package clientSide.entities;
 
 /**
- * Enum with the possible states of the Chef on his lifecycle.
+ *    Definition of the internal states of the Chef during his life cycle. 
  * @author Rafael Dias
  * @author Manuel Couto
  */
 
-public enum ChefState { 
-    WAITING_FOR_AN_ORDER,
-    PREPARING_THE_COURSE,
-    DISHING_THE_PORTIONS,
-    DELIVERING_THE_PORTIONS,
-    CLOSING_SERVICE
+public final class ChefState { 
+    public static final int WAITING_FOR_AN_ORDER = 0;
+    public static final int PREPARING_THE_COURSE = 1;
+    public static final int DISHING_THE_PORTIONS = 2;
+    public static final int DELIVERING_THE_PORTIONS = 3;
+    public static final int CLOSING_SERVICE = 4;
+    
+    private ChefState ()
+   { }
 }
 

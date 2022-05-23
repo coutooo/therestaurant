@@ -4,13 +4,14 @@
  */
 package clientSide.entities;
 
-import clientSide.stubs.BarStub;
-import clientSide.stubs.KitchenStub;
+import clientSide.stubs.*;
 
 /**
- * Chef thread:
- * Implements the life-cycle of a Chef and stores his internal variables
- * and his state during his lifecycle.
+ *    Chef thread.
+ * 
+ *      It simulates the chef life cycle.
+ *      Implementation of a client-server model of type 2 (server replication).
+ *      Communication is based on a communication channel under the TCP protocol.
  * 
  * @author Rafael Dias
  * @author Manuel Couto
@@ -20,30 +21,30 @@ public class Chef extends Thread {
     /**
      *   Chef state
      */
-    private ChefState currentState;
+    private int currentState;
     
     /**
-     *   Reference to Bar
+     *  Reference to the stub of the bar.
      */
-    private final BarStub b;
+    private final BarStub barStub;
     
     /**
-     *   Reference to Kitchen
+     *  Reference to the stub of the kitchen.
      */
-    private final KitchenStub k;
+    private final KitchenStub kitchenStub;
     
     /**
      *   Instantiation of a Chef thread.
      *
      *     @param name thread name
-     *     @param k reference to the Kitchen     
-     *     @param b reference to the Bar
+     *     @param kitchenStub reference to the Kitchen     
+     *     @param barStub reference to the Bar
      */
-    public Chef(String name, KitchenStub k, BarStub b){
+    public Chef(String name, KitchenStub kitchenStub, BarStub barStub){
         super(name);
         this.currentState = ChefState.WAITING_FOR_AN_ORDER;
-        this.k = k;
-        this.b = b;
+        this.kitchenStub = kitchenStub;
+        this.barStub = barStub;
     }
     
     /**
@@ -53,24 +54,24 @@ public class Chef extends Thread {
     public void run (){
         boolean firstCourse = true;
 
-        k.watchTheNews();
-        k.startPreparation();
+        kitchenStub.watchTheNews();
+        kitchenStub.startPreparation();
         do
         {
             if(!firstCourse)
-                k.continuePreparation();
+                kitchenStub.continuePreparation();
             else
                 firstCourse = false;
 
-            k.proceedPreparation();
-            b.alertWaiter();
+            kitchenStub.proceedPreparation();
+            barStub.alertWaiter();
 
-            while(!k.haveAllPortionsBeenDelivered())
-                k.haveNextPortionReady();
+            while(!kitchenStub.haveAllPortionsBeenDelivered())
+                kitchenStub.haveNextPortionReady();
         }
-        while(!k.hasOrderBeenCompleted());
+        while(!kitchenStub.hasOrderBeenCompleted());
 
-        k.cleanUp();
+        kitchenStub.cleanUp();
     }
     
     /**
@@ -78,7 +79,7 @@ public class Chef extends Thread {
      *
      *     @param state Chef state
      */
-    public void setChefState (ChefState state){
+    public void setChefState (int state){
         currentState = state;
     }
 
@@ -87,7 +88,7 @@ public class Chef extends Thread {
      *
      *     @return Chef state.
      */
-    public ChefState getChefState (){
+    public int getChefState (){
         return currentState;
     }    
 }

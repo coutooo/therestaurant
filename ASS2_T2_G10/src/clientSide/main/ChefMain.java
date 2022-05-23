@@ -5,9 +5,7 @@
 package clientSide.main;
 
 import clientSide.entities.Chef;
-import clientSide.stubs.BarStub;
-import clientSide.stubs.KitchenStub;
-import clientSide.stubs.TableStub;
+import clientSide.stubs.*;
 
 /**
  *    Client side of the Assignment 2 - Chef.

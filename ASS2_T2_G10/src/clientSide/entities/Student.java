@@ -9,9 +9,11 @@ import clientSide.stubs.TableStub;
 
 
 /**
- * Student thread:
- * Implements the life-cycle of a student and stores his internal variables
- * and his state during his lifecycle.
+ *    Student thread.
+ *
+ *      It simulates the student life cycle.
+ *      Implementation of a client-server model of type 2 (server replication).
+ *      Communication is based on a communication channel under the TCP protocol.
  * 
  * @author Rafael Dias
  * @author Manuel Couto
@@ -26,32 +28,32 @@ public class Student extends Thread {
     /**
      * 	Student state
     */
-    private StudentState currentState;
+    private int currentState;
     
     /**
-     *   Reference to Bar
+     *  Reference to the stub of the bar.
      */
-    private final BarStub b;
+    private final BarStub barStub;
     
     /**
-     *   Reference to Table
+     *  Reference to the stub of the table.
      */
-    private final TableStub t;
+    private final TableStub tableStub;
     
     /**
      *   Instantiation of a Student thread.
      *
      *     @param name thread name
      *     @param student_id student id
-     *     @param b reference to the Bar
-     *     @param t reference to the Table
+     *     @param barStub reference to the Bar
+     *     @param tableStub reference to the Table
      */
-    public Student(String name, int student_id, BarStub b, TableStub t){
+    public Student(String name, int student_id, BarStub barStub, TableStub tableStub){
         super(name);
         this.student_id = student_id;
         this.currentState = StudentState.GOING_TO_THE_RESTAURANT;
-        this.b = b;
-        this.t = t;
+        this.barStub = barStub;
+        this.tableStub = tableStub;
     }
     /**
      *   Life cycle of the Student.
@@ -59,35 +61,35 @@ public class Student extends Thread {
     @Override
 	public void run (){
             walkABit();
-            b.enter();
-            t.readMenu();
+            barStub.enter();
+            tableStub.readMenu();
 
-            if(student_id == t.getFirstToArrive()){
-                    t.prepareOrder();
-                    while(!t.everybodyHasChosen())
-                            t.addUpOnesChoices();
-                    b.callWaiter();
-                    t.describeOrder();
-                    t.joinTalk();
+            if(student_id == tableStub.getFirstToArrive()){
+                    tableStub.prepareOrder();
+                    while(!tableStub.everybodyHasChosen())
+                            tableStub.addUpOnesChoices();
+                    barStub.callWaiter();
+                    tableStub.describeOrder();
+                    tableStub.joinTalk();
             }
-            else{t.informCompanion();}
+            else{tableStub.informCompanion();}
  
             int numCoursesEaten = 0;
-            while(!t.haveAllCoursesBeenEaten()){
-                    t.startEating();
-                    t.endEating();
+            while(!tableStub.haveAllCoursesBeenEaten()){
+                    tableStub.startEating();
+                    tableStub.endEating();
                     numCoursesEaten++;
 
-                    while(!t.hasEverybodyFinishedEating());
+                    while(!tableStub.hasEverybodyFinishedEating());
                     System.out.println("I FINISHED MY MEAL");
-                    if(student_id == t.getLastToEat() && numCoursesEaten != clientSide.main.ExecConst.Ncourses) {b.signalWaiter();}
+                    if(student_id == tableStub.getLastToEat() && numCoursesEaten != clientSide.main.ExecConst.Ncourses) {barStub.signalWaiter();}
             }
 
-            if(t.shouldHaveArrivedEarlier()) {
-                    b.signalWaiter();
-                    t.honourBill();
+            if(tableStub.shouldHaveArrivedEarlier()) {
+                    barStub.signalWaiter();
+                    tableStub.honourBill();
             }
-            b.exit();
+            barStub.exit();
 	}
     
     private void walkABit() {
@@ -121,7 +123,7 @@ public class Student extends Thread {
      *
      *     @param state Student state
      */
-    public void setStudentState (StudentState state)
+    public void setStudentState (int state)
     {
         currentState = state;
     }
@@ -131,7 +133,7 @@ public class Student extends Thread {
      *
      *     @return Student state.
      */
-    public StudentState getStudentState ()
+    public int getStudentState ()
     {
         return currentState;
     }
