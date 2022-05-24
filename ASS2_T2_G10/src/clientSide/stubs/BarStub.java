@@ -4,6 +4,11 @@
  */
 package clientSide.stubs;
 
+import commInfra.ClientCom;
+import commInfra.Message;
+import commInfra.MessageType;
+import genclass.GenericIO;
+
 /**
  *  Stub to the Bar.
  *
@@ -14,55 +19,33 @@ package clientSide.stubs;
 public class BarStub {
     
    /**
-    *  Name of the computational system where the server is located.
-    */
-    private String serverHostName;
+   *  Name of the platform where is located the bar server.
+   */
 
-    /**
-    *  Number of the listening port at the computational system where the server is located.
-    */
-    private int serverPortNumb;
+   private String serverHostName;
 
-    /**
-    *  Instantiation of a remote reference
-    *
-    *    @param hostName name of the computational system where the server is located
-    *    @param port number of the listening port at the computational system where the server is located
-    */
-    public BarStub (String hostName, int port)
-    {
-       serverHostName = hostName;
-       serverPortNumb = port;
-    }
+  /**
+   *  Port number for listening to service requests.
+   */
+
+   private int serverPortNumb;
+
+  /**
+   *   Instantiation of a stub to the bar.
+   *
+   *     @param serverHostName name of the platform where is located the barber shop server
+   *     @param serverPortNumb port number for listening to service requests
+   */
+
+   public BarStub (String serverHostName, int serverPortNumb)
+   {
+      this.serverHostName = serverHostName;
+      this.serverPortNumb = serverPortNumb;
+   }
     
     public void alertWaiter() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    /**
-    *
-    *Method called to shutdown the Bar server
-    *
-    */   
-    public void shutdown() {
-        CommunicationChannel com = new CommunicationChannel (serverHostName, serverPortNumb);
-        Object[] params = new Object[0];
-        Object[] state_fields = new Object[0];
-   	
-        //Message m_toServer = new Message(24, params, 0, state_fields, 0, null);                                                          
-        Message m_fromServer;            
-       
-        while (!com.open ())                                                      
-        { try
-          { Thread.currentThread ().sleep ((long) (10));
-          }
-          catch (InterruptedException e) {}
-        }
-
-        com.writeObject (m_toServer);
-
-        com.close ();
-   }   
 
     public void enter() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -91,5 +74,34 @@ public class BarStub {
     public boolean sayGoodbye() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    /**
+   *   Operation server shutdown.
+   *
+   *   New operation.
+   */
+   public void shutdown ()
+   {
+      ClientCom com;                                                 // communication channel
+      Message outMessage,                                            // outgoing message
+              inMessage;                                             // incoming message
+
+      com = new ClientCom (serverHostName, serverPortNumb);
+      while (!com.open ())
+      { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+      }
+      outMessage = new Message (MessageType.SHUT);
+      com.writeObject (outMessage);
+      inMessage = (Message) com.readObject ();
+      if (inMessage.getMsgType() != MessageType.SHUTDONE)
+         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+           GenericIO.writelnString (inMessage.toString ());
+           System.exit (1);
+         }
+      com.close ();
+   }
 
 }
