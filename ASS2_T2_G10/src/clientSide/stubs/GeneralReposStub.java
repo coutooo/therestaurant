@@ -78,7 +78,6 @@ public class GeneralReposStub
   /**
    *   Set chef state.
    *
-   *     @param id chef id
    *     @param state chef state
    */
 
@@ -109,7 +108,6 @@ public class GeneralReposStub
    /**
    *   Set waiter state.
    *
-   *     @param id waiter id
    *     @param state waiter state
    */
    
