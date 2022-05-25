@@ -25,28 +25,40 @@ public class Message implements Serializable
    private int msgType = -1;
 
   /**
-   *  Barber identification.
+   *  Chef identification.
    */
 
-   private int barbId = -1;
+   private int ChefId = -1;
 
   /**
    *  Barber state.
    */
 
-   private int barbState = -1;
+   private int ChefState = -1;
 
   /**
-   *  Customer identification.
+   *  Student identification.
    */
 
-   private int custId = -1;
+   private int studentId = -1;
 
   /**
-   *  Customer state.
+   *  Student state.
    */
 
-   private int custState = -1;
+   private int studentState = -1;
+   
+   /**
+   *  Waiter identification.
+   */
+
+   private int waiterId = -1;
+
+  /**
+   *  Waiter state.
+   */
+
+   private int waiterState = -1;
 
   /**
    *  End of operations (barber).

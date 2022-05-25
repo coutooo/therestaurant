@@ -28,20 +28,23 @@ public class BarStub {
    *  Port number for listening to service requests.
    */
 
-   private int serverPortNumb;
+    private int serverPortNumb;
 
-  /**
-   *   Instantiation of a stub to the bar.
-   *
-   *     @param serverHostName name of the platform where is located the barber shop server
-   *     @param serverPortNumb port number for listening to service requests
-   */
+    /**
+    *   Instantiation of a stub to the bar.
+    *
+    *     @param serverHostName name of the platform where is located the barber shop server
+    *     @param serverPortNumb port number for listening to service requests
+    */
 
-   public BarStub (String serverHostName, int serverPortNumb)
-   {
-      this.serverHostName = serverHostName;
-      this.serverPortNumb = serverPortNumb;
-   }
+    public BarStub (String serverHostName, int serverPortNumb)
+    {
+       this.serverHostName = serverHostName;
+       this.serverPortNumb = serverPortNumb;
+    }
+    public int getStudentBeingAnswered() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     public void alertWaiter() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

@@ -7,7 +7,7 @@
 		-Student | DONE
 		-StudentCloning | DONE
 		-StudentState | DONE
-		-Waiter
+		-Waiter | DONE
 		-WaiterCloning | DONE
 		-WaiterState | DONE
 		-package-info | DONE
@@ -49,6 +49,22 @@
 		-TableInterface
 		-package-info | DONE
 *COMMINFRA
+	-Message
 	-MessageType
 	-package-info | DONE
 
+
+
+
+
+
+
+
+
+-----> Tirar a dependencia no serverSide.sharedRegions.Bar da Table no construtor.
+
+-----> Fazer CommInfra.MessageType
+
+-----> Fazer CommInfra.Message
+
+-----> Fazer clientSide.Stubs e Fazer serverside.sharedRegions.*Interface

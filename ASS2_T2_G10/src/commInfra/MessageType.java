@@ -22,16 +22,16 @@ public class MessageType
    public static final int NFICDONE = 2;
 
   /**
-   *  Request hair cut (service request).
+   *  Alert waiter (service request).
    */
 
-   public static final int REQCUTH = 3;
+   public static final int ALERTW = 3;
 
   /**
-   *  Hair was cut (reply).
+   *  Waiter was alerted (reply).
    */
 
-   public static final int CUTHDONE = 4;
+   public static final int ALERTWDONE = 4;
 
   /**
    *  Barber shop is full (reply).
