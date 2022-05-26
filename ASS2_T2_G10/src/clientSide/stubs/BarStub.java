@@ -43,7 +43,7 @@ public class BarStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQENT, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
+	    outMessage = new Message(MessageType.ENTREQ, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -86,7 +86,7 @@ public class BarStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQCW, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
+	    outMessage = new Message(MessageType.CWREQ, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -121,7 +121,7 @@ public class BarStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQSW, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
+	    outMessage = new Message(MessageType.SWREQ, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -156,7 +156,7 @@ public class BarStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQEXIT, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
+	    outMessage = new Message(MessageType.EXITREQ, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -203,7 +203,7 @@ public class BarStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQLA, ((Waiter) Thread.currentThread()).getWaiterState());
+	    outMessage = new Message(MessageType.LAREQ, ((Waiter) Thread.currentThread()).getWaiterState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -241,7 +241,7 @@ public class BarStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQSG, ((Waiter) Thread.currentThread()).getWaiterState());
+	    outMessage = new Message(MessageType.SGREQ, ((Waiter) Thread.currentThread()).getWaiterState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -272,7 +272,7 @@ public class BarStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQPB, ((Waiter) Thread.currentThread()).getWaiterState());
+	    outMessage = new Message(MessageType.PBREQ, ((Waiter) Thread.currentThread()).getWaiterState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -314,7 +314,7 @@ public class BarStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQAL, ((Chef) Thread.currentThread()).getChefState());
+	    outMessage = new Message(MessageType.ALREQ, ((Chef) Thread.currentThread()).getChefState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();

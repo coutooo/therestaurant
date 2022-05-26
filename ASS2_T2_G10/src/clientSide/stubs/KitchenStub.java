@@ -43,7 +43,7 @@ public class KitchenStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQWTN, ((Chef) Thread.currentThread()).getChefState());
+	    outMessage = new Message(MessageType.WTNREQ, ((Chef) Thread.currentThread()).getChefState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -79,7 +79,7 @@ public class KitchenStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQSTP, ((Chef) Thread.currentThread()).getChefState());
+	    outMessage = new Message(MessageType.STPREQ, ((Chef) Thread.currentThread()).getChefState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -114,7 +114,7 @@ public class KitchenStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQPTP, ((Chef) Thread.currentThread()).getChefState());
+	    outMessage = new Message(MessageType.PTPREQ, ((Chef) Thread.currentThread()).getChefState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -149,7 +149,7 @@ public class KitchenStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQHNPR, ((Chef) Thread.currentThread()).getChefState());
+	    outMessage = new Message(MessageType.HNPRREQ, ((Chef) Thread.currentThread()).getChefState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -184,7 +184,7 @@ public class KitchenStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQCP, ((Chef) Thread.currentThread()).getChefState());
+	    outMessage = new Message(MessageType.CPREQ, ((Chef) Thread.currentThread()).getChefState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -219,7 +219,7 @@ public class KitchenStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQHAPBD, ((Chef) Thread.currentThread()).getChefState());
+	    outMessage = new Message(MessageType.HAPBDREQ, ((Chef) Thread.currentThread()).getChefState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -250,7 +250,7 @@ public class KitchenStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQHOBC, ((Chef) Thread.currentThread()).getChefState());
+	    outMessage = new Message(MessageType.HOBCREQ, ((Chef) Thread.currentThread()).getChefState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -281,7 +281,7 @@ public class KitchenStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQCU, ((Chef) Thread.currentThread()).getChefState());
+	    outMessage = new Message(MessageType.CUREQ, ((Chef) Thread.currentThread()).getChefState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -320,7 +320,7 @@ public class KitchenStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQRTB, ((Waiter) Thread.currentThread()).getWaiterState());
+	    outMessage = new Message(MessageType.RTBREQ, ((Waiter) Thread.currentThread()).getWaiterState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -355,7 +355,7 @@ public class KitchenStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQHNTC, ((Waiter) Thread.currentThread()).getWaiterState());
+	    outMessage = new Message(MessageType.HNTCREQ, ((Waiter) Thread.currentThread()).getWaiterState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -390,7 +390,7 @@ public class KitchenStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.REQCPOR, ((Waiter) Thread.currentThread()).getWaiterState());
+	    outMessage = new Message(MessageType.CPORREQ, ((Waiter) Thread.currentThread()).getWaiterState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();

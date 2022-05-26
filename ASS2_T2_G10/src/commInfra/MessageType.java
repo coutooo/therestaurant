@@ -1,5 +1,7 @@
 package commInfra;
 
+import javax.print.DocFlavor;
+
 /**
  *   Type of the exchanged messages.
  *the
@@ -25,101 +27,268 @@ public class MessageType
    *  Alert waiter (service request).
    */
 
-   public static final int ALERTW = 3;
+   public static final int ALREQ = 3;
 
   /**
    *  Waiter was alerted (reply).
    */
 
-   public static final int ALERTWDONE = 4;
+   public static final int ALDONE = 4;
 
   /**
-   *  Barber shop is full (reply).
+   *  enter(request).
    */
 
-   public static final int BSHOPF = 5;
+   public static final int ENTREQ = 5;
 
   /**
-   *  Barber goes to sleep (service request).
+   *  enter done (reply).
    */
 
-   public static final int SLEEP = 6;
+   public static final int ENTDONE = 6;
 
   /**
-   *  Barber is asleep (reply).
+   *  Call waiter (request).
    */
 
-   public static final int SLEEPDONE = 7;
+   public static final int CWREQ = 7;
 
   /**
-   *  Call a customer (service request).
+   *  Call waiter done (reply).
    */
 
-   public static final int CALLCUST = 8;
+   public static final int CWDONE = 8;
 
   /**
-   *  Customer was called (reply).
+   *  Signal waiter (request).
    */
 
-   public static final int CCUSTDONE = 9;
+   public static final int SWREQ = 9;
 
   /**
-   *  Barber receives payment (service request).
+   *  Signal waiter done (reply).
    */
 
-   public static final int RECPAY = 10;
+   public static final int SWDONE = 10;
 
   /**
-   *  Payment was received (reply).
+   *  EXIT REQUEST (REQUEST).
    */
 
-   public static final int RPAYDONE = 11;
+   public static final int EXITREQ = 11;
 
   /**
-   *  End of work - barber (service request).
+   *  EXIT DONE (REPLY)
    */
 
-   public static final int ENDOP = 12;
+   public static final int EXITDONE = 12;
+   
+   /**
+   *  LOOK AROUND  (REQUEST)
+   */
 
+   public static final int LAREQ = 13;
+   
+   /**
+   *  LOOK AROUND (REPLY)
+   */
+
+   public static final int LADONE = 14;
+   
+   /**
+   *  SAY GOODBYE (REQUEST)
+   */
+
+   public static final int SGREQ = 15;
+   
+   /**
+   *  SAY GOODBYE (REPLY)
+   */
+
+   public static final int SGDONE = 16;
+   
+   /**
+   *  PREPARE BILL (REQUEST)
+   */
+
+   public static final int PBREQ = 17;
+   
+   /**
+   *  PREPARE BILL (REPLY)
+   */
+
+   public static final int PBDONE = 18;
+   
+   /**
+   *  WHAT THE NEWS (REQUEST)
+   */
+
+   public static final int WTNREQ = 19;
+   
+   /**
+   *  WHAT THE NEWS (REPLY)
+   */
+
+   public static final int WTNDONE = 20;
+
+   /**
+   *  START PREPARATION (REQUEST)
+   */
+
+   public static final int STPREQ = 21;
+   
+   /**
+   *  START PREPARATION (REPLY)
+   */
+
+   public static final int STPDONE = 22;
+   
+   /**
+   *  PROCEED PREPARATION (REQUEST)
+   */
+
+   public static final int PTPREQ = 23;
+   
+   /**
+   *  PROCEED PREPARATION (REPLY)
+   */
+
+   public static final int PTPDONE = 24;
+   
+   /**
+   *  haveNextPortionReady (REQUEST)
+   */
+
+   public static final int HNPRREQ = 25;
+   
+   /**
+   *  haveNextPortionReady (REPLY)
+   */
+
+   public static final int HNPRDONE = 26;
+   
+   /**
+   *  continuePreparation (REQUEST)
+   */
+
+   public static final int CPREQ = 27;
+   
+   /**
+   *  continuePreparation (REPLY)
+   */
+
+   public static final int CPDONE = 28;
+   
+   /**
+   *  haveAllPortionsBeenDelivered (REQUEST)
+   */
+
+   public static final int HAPBDREQ = 29;
+   
+   /**
+   *  haveAllPortionsBeenDelivered (REPLY)
+   */
+
+   public static final int HAPBDDONE = 30;
+   
+   /**
+   *  hasOrderBeenCompleted (REQUEST)
+   */
+
+   public static final int HOBCREQ = 31;
+   
+   /**
+   *  hasOrderBeenCompleted (REPLY)
+   */
+
+   public static final int HOBCDONE = 32;
+   
+   /**
+   *  cleanUp (REQUEST)
+   */
+
+   public static final int CUREQ = 33;
+   
+   /**
+   *  cleanUp (REPLY)
+   */
+
+   public static final int CUDONE = 34;
+   
+   /**
+   *  returnToBar (REQUEST)
+   */
+
+   public static final int RTBREQ = 35;
+   
+   /**
+   *  returnToBar (REPLY)
+   */
+
+   public static final int RTBDONE = 36;   
+   /**
+   *  handNoteToChef (REQUEST)
+   */
+
+   public static final int HNTCREQ = 37;
+   
+   /**
+   *  handNoteToChef (REPLY)
+   */
+
+   public static final int HNTCDONE = 38;
+   
+   /**
+   *  collectPortion (REQUEST)
+   */
+
+   public static final int CPORREQ = 39;
+   
+   /**
+   *  collectPortion (REPLY)
+   */
+
+   public static final int CPORDONE = 40;
+   
   /**
    *  Barber goes home (reply).
    */
 
-   public static final int EOPDONE = 13;
+   public static final int EOPDONE = 41;
 
   /**
    *  Server shutdown (service request).
    */
 
-   public static final int SHUT = 14;
+   public static final int SHUT = 42;
 
   /**
    *  Server was shutdown (reply).
    */
 
-   public static final int SHUTDONE = 15;
+   public static final int SHUTDONE = 43;
 
   /**
    *  Set barber state (service request).
    */
 
-   public static final int STBST = 16;
+   public static final int STBST = 44;
 
   /**
    *  Set customer state (service request).
    */
 
-   public static final int STCST = 17;
+   public static final int STCST = 45;
 
   /**
    *  Set barber and customer states (service request).
    */
 
-   public static final int STBCST = 18;
+   public static final int STBCST = 46;
 
   /**
    *  Setting acknowledged (reply).
    */
 
-   public static final int SACK = 19;
+   public static final int SACK = 47;
 }

@@ -101,13 +101,13 @@ public class Message implements Serializable
    {
       msgType = type;
       if ((msgType == MessageType.STBST) || (msgType == MessageType.CALLCUST) || (msgType == MessageType.RPAYDONE))
-         { barbId= id;
-           barbState = state;
+         { ChefId= id;
+           ChefState = state;
          }
          else if ((msgType == MessageType.STCST) || (msgType == MessageType.REQCUTH) || (msgType == MessageType.CUTHDONE) ||
                   (msgType == MessageType.BSHOPF))
-                 { custId= id;
-                   custState = state;
+                 { studentId= id;
+                   studentState = state;
                  }
                  else { GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
                         System.exit (1);
@@ -124,7 +124,7 @@ public class Message implements Serializable
    public Message (int type, int id)
    {
       msgType = type;
-      barbId= id;
+      ChefId= id;
    }
 
   /**
@@ -138,7 +138,7 @@ public class Message implements Serializable
    public Message (int type, int id, boolean endOp)
    {
       msgType = type;
-      barbId= id;
+      ChefId= id;
       this.endOp = endOp;
    }
 
@@ -154,9 +154,9 @@ public class Message implements Serializable
    public Message (int type, int barbId, int barbState, int custId)
    {
       msgType = type;
-      this.barbId= barbId;
-      this.barbState = barbState;
-      this.custId= custId;
+      this.ChefId= barbId;
+      this.ChefState = barbState;
+      this.studentId= custId;
    }
 
   /**
@@ -172,10 +172,10 @@ public class Message implements Serializable
    public Message (int type, int barbId, int barbState, int custId, int custState)
    {
       msgType = type;
-      this.barbId= barbId;
-      this.barbState = barbState;
-      this.custId= custId;
-      this.custState = custState;
+      this.ChefId= barbId;
+      this.ChefState = barbState;
+      this.studentId= custId;
+      this.studentState = custState;
    }
 
   /**
@@ -203,51 +203,6 @@ public class Message implements Serializable
    {
       return (msgType);
    }
-
-  /**
-   *  Getting barber identification.
-   *
-   *     @return barber identification
-   */
-
-   public int getBarbId ()
-   {
-      return (barbId);
-   }
-
-  /**
-   *  Getting barber state.
-   *
-   *     @return barber state
-   */
-
-   public int getBarbState ()
-   {
-      return (barbState);
-   }
-
-  /**
-   *  Getting customer identification.
-   *
-   *     @return customer identification
-   */
-
-   public int getCustId ()
-   {
-      return (custId);
-   }
-
-  /**
-   *  Getting customer state.
-   *
-   *     @return customer state
-   */
-
-   public int getCustState ()
-   {
-      return (custState);
-   }
-
   /**
    *  Getting end of operations flag (barber).
    *
@@ -293,10 +248,12 @@ public class Message implements Serializable
    public String toString ()
    {
       return ("Message type = " + msgType +
-              "\nBarber Id = " + barbId +
-              "\nBarber State = " + barbState +
-              "\nCustomer Id = " + custId +
-              "\nCustomer State = " + custState +
+              "\nChef Id = " + ChefId +
+              "\nChef State = " + ChefState +
+              "\nStudent Id = " + studentId +
+              "\nStudent State = " + studentState +
+              "\nWaiter Id = " + waiterId +
+              "\nWaiter State = " + waiterState +
               "\nEnd of Operations (barber) = " + endOp +
               "\nName of logging file = " + fName +
               "\nNumber of iterations = " + nIter);
@@ -306,8 +263,14 @@ public class Message implements Serializable
         return (ChefState);
     }
 
+    public int getChefID(){
+        return (ChefId);
+    }
     public int getWaiterState() {
         return (waiterState);
+    }
+    public int getWaiterID(){
+        return (waiterId);
     }
 
     public int getStudentState() {
