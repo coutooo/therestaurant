@@ -63,7 +63,7 @@ public class Chef extends Thread {
             else
                 firstCourse = false;
 
-            kitchenStub.proceedPreparation();
+            kitchenStub.proceedToPreparation();   // ou continuePreparation?
             barStub.alertWaiter();
 
             while(!kitchenStub.haveAllPortionsBeenDelivered())
