@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Miinds/Documents/GitHub/therestaurant/ASS2_T2_G10/src/clientSide/stubs/BarStub.java</file>
-            <file>file:/C:/Users/Miinds/Documents/GitHub/therestaurant/ASS2_T2_G10/src/serverSide/sharedRegions/Bar.java</file>
-            <file>file:/C:/Users/Miinds/Documents/GitHub/therestaurant/ASS2_T2_G10/src/commInfra/Message.java</file>
-            <file>file:/C:/Users/Miinds/Documents/GitHub/therestaurant/ASS2_T2_G10/src/serverSide/sharedRegions/GeneralReposInterface.java</file>
-            <file>file:/C:/Users/Miinds/Documents/GitHub/therestaurant/ASS2_T2_G10/src/commInfra/MessageType.java</file>
+            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/commInfra/MessageException.java</file>
+            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/commInfra/MessageType.java</file>
+            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/commInfra/Message.java</file>
+            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/serverSide/sharedRegions/BarInterface.java</file>
+            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/serverSide/main/ServerRestaurantBar.java</file>
+            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/serverSide/sharedRegions/Bar.java</file>
+            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/serverSide/sharedRegions/Table.java</file>
         </group>
     </open-files>
 </project-private>

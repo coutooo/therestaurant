@@ -18,9 +18,9 @@
 		-ExecConst | DONE
 		-package-info | DONE
 	*STUBS
-		-BarStub
+		-BarStub | in progress
 		-GeneralReposStub
-		-KitchenStub
+		-KitchenStub | in progress
 		-TableStub
 		-package-info | DONE
 *SERVERSIDE

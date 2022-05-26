@@ -1,116 +1,446 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package clientSide.stubs;
 
+import clientSide.entities.Chef;
+import clientSide.entities.ChefState;
+import clientSide.entities.Waiter;
+import clientSide.entities.WaiterState;
 import commInfra.ClientCom;
 import commInfra.Message;
 import commInfra.MessageType;
 import genclass.GenericIO;
 
-/**
- *  Stub to the Kitchen.
- *
- *    It instantiates a remote reference to the kitchen.
- *    Implementation of a client-server model of type 2 (server replication).
- *    Communication is based on a communication channel under the TCP protocol.
- */
 public class KitchenStub {
-    
-   /**
-    *  Name of the computational system where the server is located.
-    */
-    private String serverHostName;
+	/**
+	 * Name of the platform where is located the kitchen Server
+	 */
+	private String serverHostName;
+	
+	/**
+	 * Port number for listening to service requests
+	 */
+	private int serverPortNum;
+	
+	/**
+	 * Instantiation of a stub to the kitchen
+	 * @param serverHostName name of the platform where is located the kitchen Server
+	 * @param serverPortNum port number for listening to service requests
+	 */
+	public KitchenStub(String serverHostName, int serverPortNum) {
+		this.serverHostName = serverHostName;
+		this.serverPortNum  = serverPortNum;
+	}
+	
+	public void watchTheNews() {
+		ClientCom com;                                                 // communication channel
+	    Message outMessage,                                            // outgoing message
+	            inMessage;                                             // incoming message
 
-    /**
-    *  Number of the listening port at the computational system where the server is located.
-    */
-    private int serverPortNumb;
+	    com = new ClientCom(serverHostName, serverPortNum);
+	    while(!com.open()) {
+	    	try {
+	    		Thread.currentThread().sleep((long)(10));
+	    	} catch(InterruptedException e) {}
+	    }
+	    
+	    //MESSAGES
+	    outMessage = new Message(MessageType.REQWTN, ((Chef) Thread.currentThread()).getChefState());
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    //TODO Message Types - enter
+	    if((inMessage.getMsgType() != MessageType.WTNDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    if(inMessage.getChefState() != ChefState.WAITING_FOR_AN_ORDER) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Chef State!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    ((Chef) Thread.currentThread()).setChefState(inMessage.getChefState());
+	    com.close();
+	    
+	}
+	
+	public void startPreparation() {
+		ClientCom com;                                                 // communication channel
+	    Message outMessage,                                            // outgoing message
+	            inMessage;                                             // incoming message
 
-    /**
-    *  Instantiation of a remote reference
-    *
-    *    @param hostName name of the computational system where the server is located
-    *    @param port number of the listening port at the computational system where the server is located
-    */
-    public KitchenStub (String hostName, int port)
-    {
-       serverHostName = hostName;
-       serverPortNumb = port;
-    }
+	    com = new ClientCom(serverHostName, serverPortNum);
+	    while(!com.open()) {
+	    	try {
+	    		Thread.currentThread().sleep((long)(10));
+	    	} catch(InterruptedException e) {}
+	    }
+	    
+	    //MESSAGES
+	    outMessage = new Message(MessageType.REQSTP, ((Chef) Thread.currentThread()).getChefState());
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    //TODO Message Types - enter
+	    if((inMessage.getMsgType() != MessageType.STPDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    if(inMessage.getChefState() != ChefState.PREPARING_THE_COURSE) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Chef State!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    ((Chef) Thread.currentThread()).setChefState(inMessage.getChefState());
+	    com.close();
+	}
+	
+	public void proceedToPreparation() {
+		ClientCom com;                                                 // communication channel
+	    Message outMessage,                                            // outgoing message
+	            inMessage;                                             // incoming message
 
-    public void watchTheNews() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+	    com = new ClientCom(serverHostName, serverPortNum);
+	    while(!com.open()) {
+	    	try {
+	    		Thread.currentThread().sleep((long)(10));
+	    	} catch(InterruptedException e) {}
+	    }
+	    
+	    //MESSAGES
+	    outMessage = new Message(MessageType.REQPTP, ((Chef) Thread.currentThread()).getChefState());
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    //TODO Message Types - enter
+	    if((inMessage.getMsgType() != MessageType.PTPDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    if(inMessage.getChefState() != ChefState.DISHING_THE_PORTIONS) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Chef State!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    ((Chef) Thread.currentThread()).setChefState(inMessage.getChefState());
+	    com.close();
+	}
+	
+	public void haveNextPortionReady() {
+		ClientCom com;                                                 // communication channel
+	    Message outMessage,                                            // outgoing message
+	            inMessage;                                             // incoming message
 
-    public void startPreparation() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+	    com = new ClientCom(serverHostName, serverPortNum);
+	    while(!com.open()) {
+	    	try {
+	    		Thread.currentThread().sleep((long)(10));
+	    	} catch(InterruptedException e) {}
+	    }
+	    
+	    //MESSAGES
+	    outMessage = new Message(MessageType.REQHNPR, ((Chef) Thread.currentThread()).getChefState());
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    //TODO Message Types - enter
+	    if((inMessage.getMsgType() != MessageType.HNPRDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    if((inMessage.getChefState() != ChefState.DISHING_THE_PORTIONS) || (inMessage.getChefState() != ChefState.DELIVERING_THE_PORTIONS)) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Chef State!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    ((Chef) Thread.currentThread()).setChefState(inMessage.getChefState());
+	    com.close();
+	}
+	
+	public void continuePreparation() {
+		ClientCom com;                                                 // communication channel
+	    Message outMessage,                                            // outgoing message
+	            inMessage;                                             // incoming message
 
-    public void continuePreparation() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+	    com = new ClientCom(serverHostName, serverPortNum);
+	    while(!com.open()) {
+	    	try {
+	    		Thread.currentThread().sleep((long)(10));
+	    	} catch(InterruptedException e) {}
+	    }
+	    
+	    //MESSAGES
+	    outMessage = new Message(MessageType.REQCP, ((Chef) Thread.currentThread()).getChefState());
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    //TODO Message Types - enter
+	    if((inMessage.getMsgType() != MessageType.CPDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    if(inMessage.getChefState() != ChefState.PREPARING_THE_COURSE) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Chef State!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    ((Chef) Thread.currentThread()).setChefState(inMessage.getChefState());
+	    com.close();
+	}
+	
+	public boolean haveAllPortionsBeenDelivered() {
+		ClientCom com;                                                 // communication channel
+	    Message outMessage,                                            // outgoing message
+	            inMessage;                                             // incoming message
 
-    public void proceedPreparation() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+	    com = new ClientCom(serverHostName, serverPortNum);
+	    while(!com.open()) {
+	    	try {
+	    		Thread.currentThread().sleep((long)(10));
+	    	} catch(InterruptedException e) {}
+	    }
+	    
+	    //MESSAGES
+	    outMessage = new Message(MessageType.REQHAPBD, ((Chef) Thread.currentThread()).getChefState());
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    //TODO Message Types - enter
+	    if((inMessage.getMsgType() != MessageType.HAPBDDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    ((Chef) Thread.currentThread()).setChefState(inMessage.getChefState());
+	    com.close();
+	    
+	    return (inMessage.getMsgType() == MessageType.HAPBDDONE);
+	}
+	
+	public boolean hasOrderBeenCompleted() {
+		ClientCom com;                                                 // communication channel
+	    Message outMessage,                                            // outgoing message
+	            inMessage;                                             // incoming message
 
-    public boolean haveAllPortionsBeenDelivered() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+	    com = new ClientCom(serverHostName, serverPortNum);
+	    while(!com.open()) {
+	    	try {
+	    		Thread.currentThread().sleep((long)(10));
+	    	} catch(InterruptedException e) {}
+	    }
+	    
+	    //MESSAGES
+	    outMessage = new Message(MessageType.REQHOBC, ((Chef) Thread.currentThread()).getChefState());
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    //TODO Message Types - enter
+	    if((inMessage.getMsgType() != MessageType.HOBCDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    ((Chef) Thread.currentThread()).setChefState(inMessage.getChefState());
+	    com.close();
+	    
+	    return (inMessage.getMsgType() == MessageType.HOBCDONE);
+	}
+	
+	public void cleanUp() {
+		ClientCom com;                                                 // communication channel
+	    Message outMessage,                                            // outgoing message
+	            inMessage;                                             // incoming message
 
-    public void haveNextPortionReady() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+	    com = new ClientCom(serverHostName, serverPortNum);
+	    while(!com.open()) {
+	    	try {
+	    		Thread.currentThread().sleep((long)(10));
+	    	} catch(InterruptedException e) {}
+	    }
+	    
+	    //MESSAGES
+	    outMessage = new Message(MessageType.REQCU, ((Chef) Thread.currentThread()).getChefState());
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    //TODO Message Types - enter
+	    if((inMessage.getMsgType() != MessageType.CUDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    if(inMessage.getChefState() != ChefState.CLOSING_SERVICE) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Chef State!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    ((Chef) Thread.currentThread()).setChefState(inMessage.getChefState());
+	    com.close();
+	}
+	
+	
+	
+	
+	
+	public void returnToBar() {
+		ClientCom com;                                                 // communication channel
+	    Message outMessage,                                            // outgoing message
+	            inMessage;                                             // incoming message
 
-    public boolean hasOrderBeenCompleted() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+	    com = new ClientCom(serverHostName, serverPortNum);
+	    while(!com.open()) {
+	    	try {
+	    		Thread.currentThread().sleep((long)(10));
+	    	} catch(InterruptedException e) {}
+	    }
+	    
+	    //MESSAGES
+	    outMessage = new Message(MessageType.REQRTB, ((Waiter) Thread.currentThread()).getWaiterState());
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    //TODO Message Types - enter
+	    if((inMessage.getMsgType() != MessageType.RTBDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    if(inMessage.getWaiterState() != WaiterState.APPRAISING_SITUATION) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Waiter State!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    ((Waiter) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
+	    com.close();
+	}
+	
+	public void handNoteToChef() {
+		ClientCom com;                                                 // communication channel
+	    Message outMessage,                                            // outgoing message
+	            inMessage;                                             // incoming message
 
-    public void cleanUp() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    public void handNoteToChef() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+	    com = new ClientCom(serverHostName, serverPortNum);
+	    while(!com.open()) {
+	    	try {
+	    		Thread.currentThread().sleep((long)(10));
+	    	} catch(InterruptedException e) {}
+	    }
+	    
+	    //MESSAGES
+	    outMessage = new Message(MessageType.REQHNTC, ((Waiter) Thread.currentThread()).getWaiterState());
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    //TODO Message Types - enter
+	    if((inMessage.getMsgType() != MessageType.HNTCDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    if(inMessage.getWaiterState() != WaiterState.PLACING_THE_ORDER) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Waiter State!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    ((Waiter) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
+	    com.close();
+	}
+	
+	public void collectPortion() {
+		ClientCom com;                                                 // communication channel
+	    Message outMessage,                                            // outgoing message
+	            inMessage;                                             // incoming message
 
-    public void returnToBar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void collectPortion() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    /**
-   *   Operation server shutdown.
-   *
-   *   New operation.
-   */
-
-   public void shutdown ()
-   {
-      ClientCom com;                                                 // communication channel
-      Message outMessage,                                            // outgoing message
-              inMessage;                                             // incoming message
-
-      com = new ClientCom (serverHostName, serverPortNumb);
-      while (!com.open ())
-      { try
-        { Thread.sleep ((long) (1000));
-        }
-        catch (InterruptedException e) {}
-      }
-      outMessage = new Message (MessageType.SHUT);
-      com.writeObject (outMessage);
-      inMessage = (Message) com.readObject ();
-      if (inMessage.getMsgType() != MessageType.SHUTDONE)
-         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
-           GenericIO.writelnString (inMessage.toString ());
-           System.exit (1);
-         }
-      com.close ();
-   }
+	    com = new ClientCom(serverHostName, serverPortNum);
+	    while(!com.open()) {
+	    	try {
+	    		Thread.currentThread().sleep((long)(10));
+	    	} catch(InterruptedException e) {}
+	    }
+	    
+	    //MESSAGES
+	    outMessage = new Message(MessageType.REQCPOR, ((Waiter) Thread.currentThread()).getWaiterState());
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    //TODO Message Types - enter
+	    if((inMessage.getMsgType() != MessageType.CPORDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    if(inMessage.getWaiterState() != WaiterState.WAITING_FOR_PORTION) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Waiter State!");
+	    	GenericIO.writelnString(inMessage.toString());
+	    	System.exit(1);
+	    }
+	    
+	    ((Waiter) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
+	    com.close();
+	}
+	
+	/**
+	 *   Operation server shutdown.
+	 *
+	 *   New operation.
+	 */
+	public void shutdown(){
+		ClientCom com;                                                 // communication channel
+		Message outMessage,                                            // outgoing message
+				inMessage;                                             // incoming message
+	
+		com = new ClientCom(serverHostName, serverPortNum);
+		while (!com.open ()) {
+			try {
+				Thread.sleep((long) (1000));
+	        }
+	        catch (InterruptedException e) {}
+		}
+		
+		//MESSAGES
+	    outMessage = new Message(MessageType.SHUT);
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    if (inMessage.getMsgType() != MessageType.SHUTDONE) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid message type!");
+	        GenericIO.writelnString(inMessage.toString());
+	        System.exit(1);
+	    }
+	    com.close();
+	}
 }

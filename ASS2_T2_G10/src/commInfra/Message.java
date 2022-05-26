@@ -301,4 +301,20 @@ public class Message implements Serializable
               "\nName of logging file = " + fName +
               "\nNumber of iterations = " + nIter);
    }
+
+    public int getChefState() {
+        return (ChefState);
+    }
+
+    public int getWaiterState() {
+        return (waiterState);
+    }
+
+    public int getStudentState() {
+        return (studentState);
+    }
+
+    public int getStudentID() {
+        return (studentId);
+    }
 }
