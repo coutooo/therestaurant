@@ -35,6 +35,11 @@ public class Kitchen{
     * Reference to the General Repository.
     */
     private final GeneralReposStub repos;
+    
+    /**
+    *   Number of entity groups requesting the shutdown.
+    */
+    private int nEntities;
 
     /**
      * 	Kitchen instantiation
@@ -239,5 +244,16 @@ public class Kitchen{
 
         //Signal chef that portion was delivered
         notifyAll();
+    }
+
+    /**
+    *   Operation server shutdown.
+    *
+    *   New operation.
+    */
+    public synchronized void shutdown() {
+        nEntities += 1;
+        if (nEntities >= ExecConst.Nstudents)
+           ServerRestaurantKitchen.waitConnection = false;
     }
 }

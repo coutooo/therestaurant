@@ -4,6 +4,11 @@
  */
 package serverSide.sharedRegions;
 
+import commInfra.Message;
+import commInfra.MessageException;
+import commInfra.MessageType;
+import serverSide.entities.KitchenClientProxy;
+
 /**
  *  Interface to the Kitchen.
  *
@@ -40,13 +45,13 @@ public class KitchenInterface {
    *    @throws MessageException if the incoming message is not valid
    */
    
-   /*
+
    public Message processAndReply (Message inMessage) throws MessageException
    {
       Message outMessage = null;                                     // outgoing message
 
      // validation of the incoming message 
-
+     /*
       switch (inMessage.getMsgType ())
       { case MessageType.REQCUTH:  if ((inMessage.getCustId () < 0) || (inMessage.getCustId () >= SimulPar.N))
                                       throw new MessageException ("Invalid customer id!", inMessage);
@@ -75,51 +80,80 @@ public class KitchenInterface {
                                    break;
         default:                   throw new MessageException ("Invalid message type!", inMessage);
       }
-
+     */
      // processing 
 
       switch (inMessage.getMsgType ())
 
-      { case MessageType.REQCUTH:  ((BarberShopClientProxy) Thread.currentThread ()).setCustomerId (inMessage.getCustId ());
-                                   ((BarberShopClientProxy) Thread.currentThread ()).setCustomerState (inMessage.getCustState ());
-                                   if (bShop.goCutHair ())
-                                      outMessage = new Message (MessageType.CUTHDONE,
-                                                                ((BarberShopClientProxy) Thread.currentThread ()).getCustomerId (),
-                                                                ((BarberShopClientProxy) Thread.currentThread ()).getCustomerState ());
-                                      else outMessage = new Message (MessageType.BSHOPF,
-                                                                     ((BarberShopClientProxy) Thread.currentThread ()).getCustomerId (),
-                                                                     ((BarberShopClientProxy) Thread.currentThread ()).getCustomerState ());
+      { case MessageType.WTNREQ:  ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState ());
+                                    kitchen.watchTheNews ();
+                                      outMessage = new Message (MessageType.WTNDONE,
+                                                                ((KitchenClientProxy) Thread.currentThread ()).getChefState ());
                                    break;
-        case MessageType.SLEEP:    ((BarberShopClientProxy) Thread.currentThread ()).setBarberId (inMessage.getBarbId ());
-                                   if (bShop.goToSleep ())
-                                      outMessage = new Message (MessageType.SLEEPDONE,
-                                                                ((BarberShopClientProxy) Thread.currentThread ()).getBarberId (), true);
-                                      else outMessage = new Message (MessageType.SLEEPDONE,
-                                                                     ((BarberShopClientProxy) Thread.currentThread ()).getBarberId (), false);
-                                   break;
-        case MessageType.CALLCUST: ((BarberShopClientProxy) Thread.currentThread ()).setBarberId (inMessage.getBarbId ());
-                                   ((BarberShopClientProxy) Thread.currentThread ()).setBarberState (inMessage.getBarbState ());
-                                   int custId = bShop.callACustomer ();
-                                   outMessage = new Message (MessageType.CCUSTDONE,
-                                                             ((BarberShopClientProxy) Thread.currentThread ()).getBarberId (),
-                                                             ((BarberShopClientProxy) Thread.currentThread ()).getBarberState (), custId);
-                                   break;
-        case MessageType.RECPAY:   ((BarberShopClientProxy) Thread.currentThread ()).setBarberId (inMessage.getBarbId ());
-                                   ((BarberShopClientProxy) Thread.currentThread ()).setBarberState (inMessage.getBarbState ());
-                                   bShop.receivePayment (inMessage.getCustId ());
-                                   outMessage = new Message (MessageType.RPAYDONE,
-                                                             ((BarberShopClientProxy) Thread.currentThread ()).getBarberId (),
-                                                             ((BarberShopClientProxy) Thread.currentThread ()).getBarberState ());
-                                   break;
-        case MessageType.ENDOP:    bShop.endOperation (inMessage.getBarbId ());
-                                   outMessage = new Message (MessageType.EOPDONE, inMessage.getBarbId ());
-                                   break;
-        case MessageType.SHUT:     bShop.shutdown ();
+         case MessageType.STPREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
+                                    kitchen.startPreparation ();
+                                       outMessage= new Message (MessageType.STPDONE,
+                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
+                                    break;
+         case MessageType.PTPREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
+                                    kitchen.proceedPreparation ();
+                                       outMessage= new Message (MessageType.PTPDONE,
+                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
+                                    break;
+
+         case MessageType.HNPRREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
+                                    kitchen.haveNextPortionReady ();
+                                       outMessage= new Message (MessageType.HNPRDONE,
+                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
+                                    break;
+                  
+         case MessageType.CPREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
+                                    kitchen.continuePreparation ();
+                                       outMessage= new Message (MessageType.CPDONE,
+                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
+                                    break;
+                        
+         case MessageType.HAPBDREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
+                                    if (kitchen.haveAllPortionsBeenDelivered ())
+                                       outMessage= new Message (MessageType.HAPBDDONE,
+                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
+                                    break;
+
+         case MessageType.HOBCREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
+                                    if (kitchen.hasOrderBeenCompleted ())
+                                       outMessage= new Message (MessageType.HOBCDONE,
+                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
+                                    break;
+
+         case MessageType.CUREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
+                                    kitchen.cleanUp ();
+                                       outMessage= new Message (MessageType.CUDONE,
+                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
+                                    break;
+
+         case MessageType.RTBREQ: ((KitchenClientProxy) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState());
+                                    kitchen.returnToBar ();
+                                       outMessage= new Message (MessageType.RTBDONE,
+                                                               ((KitchenClientProxy)Thread.currentThread ()).getWaiterState());
+                                    break;
+                              
+         case MessageType.HNTCREQ: ((KitchenClientProxy) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState());
+                                    kitchen.handNoteToChef ();
+                                       outMessage= new Message (MessageType.HNTCDONE,
+                                                               ((KitchenClientProxy)Thread.currentThread ()).getWaiterState());
+                                    break;
+         
+         case MessageType.CPORREQ: ((KitchenClientProxy) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState());
+                                   kitchen.collectPortion ();
+                                       outMessage= new Message (MessageType.CPORDONE,
+                                                               ((KitchenClientProxy)Thread.currentThread ()).getWaiterState());
+                                    break;
+        
+        case MessageType.SHUT:     kitchen.shutdown ();
                                    outMessage = new Message (MessageType.SHUTDONE);
                                    break;
       }
 
      return (outMessage);
    }
-   */
 }

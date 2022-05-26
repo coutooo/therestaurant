@@ -46,83 +46,126 @@ public class BarInterface {
    *    @throws MessageException if the incoming message is not valid
    */
    
-   /*
+
    public Message processAndReply (Message inMessage) throws MessageException
    {
-        Message outMessage = null;                                     // outgoing message
+        Message outMessage = null; // mensagem de resposta
 
-        // validation of the incoming message 
+        /* validation of the incoming message */
 
-        switch (inMessage.getMsgType ())
-        {   case MessageType.REQCUTH -> {
-            if ((inMessage.getStudentID()< 0) || (inMessage.getStudentID()>= ExecConst.Nstudents))
-                throw new MessageException ("Invalid student id!", inMessage);
-            else if ((inMessage.getStudentState()< StudentState.DAYBYDAYLIFE) || (inMessage.getStudentState()> StudentState.CUTTHEHAIR))
-                throw new MessageException ("Invalid student state!", inMessage);
-           }
-            case MessageType.SLEEP -> {
-                if ((inMessage.getBarbId () < 0) || (inMessage.getBarbId () >= SimulPar.M))
-                    throw new MessageException ("Invalid barber id!", inMessage);
-           }
-            case MessageType.CALLCUST -> {
-                if ((inMessage.getBarbId () < 0) || (inMessage.getBarbId () >= SimulPar.M))
-                    throw new MessageException ("Invalid barber id!", inMessage);
-                else if ((inMessage.getBarbState () < BarberStates.SLEEPING) || (inMessage.getBarbState () > BarberStates.INACTIVITY))
-                    throw new MessageException ("Invalid barber state!", inMessage);
-           }
-            case MessageType.RECPAY -> {
-                if ((inMessage.getBarbId () < 0) || (inMessage.getBarbId () >= SimulPar.M))
-                    throw new MessageException ("Invalid barber id!", inMessage);
-                else if ((inMessage.getBarbState () < BarberStates.SLEEPING) || (inMessage.getBarbState () > BarberStates.INACTIVITY))
-                    throw new MessageException ("Invalid barber state!", inMessage);
-                else if ((inMessage.getCustId () < 0) || (inMessage.getCustId () >= SimulPar.N))
-                    throw new MessageException ("Invalid customer id!", inMessage);
-           }
-            case MessageType.ENDOP -> {
-                if ((inMessage.getBarbId () < 0) || (inMessage.getBarbId () >= SimulPar.M))
-                    throw new MessageException ("Invalid barber id!", inMessage);
-           }
-            case MessageType.SHUT -> {
-           }
-            default -> throw new MessageException ("Invalid message type!", inMessage);
+        /* processing */
+        /*
+        switch (inMessage.getMsgType()) {
+            case MessageType.LAREQ:
+                if ((inMessage.getWaiterState() < 0) || (inMessage.getWaiterState() > 6))
+                    throw new MessageException("Invalid waiter state!", inMessage);
+                break;
+            case MessageType.ENTREQ:
+                if ((inMessage.getStudentState() < 0) || (inMessage.getStudentState() > 7))
+                    throw new MessageException("Invalid student state!", inMessage);
+                if ((inMessage.getStudentID() < 0) || (inMessage.getStudentID() > 6))
+                    throw new MessageException("Invalid student ID!", inMessage);
+                break;
+            case MessageType.CWREQ:
+                if ((inMessage.getStudentState() < 0) || (inMessage.getStudentState() > 7))
+                    throw new MessageException("Invalid student state!", inMessage);
+                if ((inMessage.getStudentID() < 0) || (inMessage.getStudentID() > 6))
+                    throw new MessageException("Invalid student ID!", inMessage);
+                break;
+            case MessageType.ALREQ:
+                if ((inMessage.getChefState() < 0) || (inMessage.getChefState() > 4))
+                    throw new MessageException("Invalid chef state!", inMessage);
+                break;
+            case MessageType.SWREQ:
+                if ((inMessage.getStudentState() < 0) || (inMessage.getStudentState() > 7))
+                    throw new MessageException("Invalid student state!", inMessage);
+                if ((inMessage.getStudentID() < 0) || (inMessage.getStudentID() > 6))
+                    throw new MessageException("Invalid student ID!", inMessage);
+                break;
+            case MessageType.GSBAREQ:
+                if ((inMessage.getStudentState() < 0) || (inMessage.getStudentState() > 7))
+                    throw new MessageException("Invalid student state!", inMessage);
+                if ((inMessage.getStudentID() < 0) || (inMessage.getStudentID() > 6))
+                    throw new MessageException("Invalid student ID!", inMessage);
+                break;
+            case MessageType.PBREQ:
+                if ((inMessage.getWaiterState() < 0) || (inMessage.getWaiterState() > 6))
+                    throw new MessageException("Invalid waiter state!", inMessage);
+                break;
+            case MessageType.SGREQ:
+                if ((inMessage.getWaiterState() < 0) || (inMessage.getWaiterState() > 6))
+                    throw new MessageException("Invalid waiter state!", inMessage);
+                break;
+            case MessageType.EXITREQ:
+                if ((inMessage.getStudentState() < 0) || (inMessage.getStudentState() > 7))
+                    throw new MessageException("Invalid student state!", inMessage);
+                if ((inMessage.getStudentID() < 0) || (inMessage.getStudentID() > 6))
+                    throw new MessageException("Invalid student ID!", inMessage);
+                break;
+            case MessageType.SHUT:
+                break;
+            default:
+                throw new MessageException("Invalid message type!", inMessage);
         }
+        */
        // check nothing
 
         // processing 
 
         switch (inMessage.getMsgType ())
 
-        {   case MessageType.ALREQ:  ((BarClientProxy) Thread.currentThread ()).setStudentState(inMessage.getStudentID());
-                                   ((BarClientProxy) Thread.currentThread ()).setStudentState(inMessage.getStudentID());
+        {   case MessageType.ENTREQ:((BarClientProxy) Thread.currentThread ()).setStudentId (inMessage.getStudentID ());
+                                    ((BarClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+                                    bar.enter ();
+                                    outMessage = new Message (MessageType.ENTDONE,
+                                                                ((BarClientProxy) Thread.currentThread ()).getStudentId (),
+                                                                ((BarClientProxy) Thread.currentThread ()).getStudentState ());
+                                   break;
+            case MessageType.CWREQ: ((BarClientProxy) Thread.currentThread()).setStudentId (inMessage.getStudentID ());
+                                    ((BarClientProxy) Thread.currentThread()).setStudentId (inMessage.getStudentState ());
+                                    bar.callWaiter();
+                                    outMessage = new Message (MessageType.CWDONE,
+                                                                ((BarClientProxy) Thread.currentThread ()).getStudentId (),
+                                                                ((BarClientProxy) Thread.currentThread ()).getStudentState ());
+                                    //nao sei se falta alguma coisa
+
+            case MessageType.EXITREQ: ((BarClientProxy) Thread.currentThread()).setStudentId (inMessage.getStudentID ());
+                                    ((BarClientProxy) Thread.currentThread()).setStudentId (inMessage.getStudentState ());
+                                    bar.exit ();
+                                    outMessage = new Message (MessageType.EXITDONE,
+                                                            ((BarClientProxy) Thread.currentThread ()).getStudentId (),
+                                                            ((BarClientProxy) Thread.currentThread ()).getStudentState ());      
+
+                                    //nao sei se falta alguma coisa
+
+            case MessageType.LAREQ: ((BarClientProxy) Thread.currentThread()).setWaiterState (inMessage.getWaiterState ());
+                                    bar.lookAround ();
+                                        outMessage = new Message (MessageType.LADONE,
+                                                                ((BarClientProxy) Thread.currentThread ()).getWaiterState ());     
+
+                                    //nao sei se falta alguma coisa
+
+            case MessageType.SGREQ: ((BarClientProxy) Thread.currentThread()).setWaiterState (inMessage.getWaiterState ());
+                                    if(bar.sayGoodbye ())
+                                        outMessage = new Message (MessageType.SGDONE,
+                                                                    ((BarClientProxy) Thread.currentThread ()).getWaiterState ());        
+
+                                    //nao sei se falta alguma coisa
+        
+            case MessageType.PBREQ: ((BarClientProxy) Thread.currentThread()).setWaiterState (inMessage.getWaiterState ());
+                                    bar.preprareBill();
+                                        outMessage = new Message (MessageType.PBDONE,
+                                                                    ((BarClientProxy) Thread.currentThread ()).getWaiterState ());            
+
+                                    //nao sei se falta alguma coisa
+            
+            case MessageType.ALREQ: ((BarClientProxy) Thread.currentThread()).setChefState (inMessage.getChefState ());
                                     bar.alertWaiter();
-                                    outMessage = new Message (MessageType.ALDONE,
-                                                            ((BarClientProxy) Thread.currentThread ()).getStudentId(),
-                                                            ((BarClientProxy) Thread.currentThread ()).getStudentId());
-                                   break;
-            case MessageType.SLEEP:    ((BarClientProxy) Thread.currentThread ()).setBarberId (inMessage.getBarbId ());
-                                   if (bShop.goToSleep ())
-                                      outMessage = new Message (MessageType.SLEEPDONE,
-                                                                ((BarClientProxy) Thread.currentThread ()).getBarberId (), true);
-                                      else outMessage = new Message (MessageType.SLEEPDONE,
-                                                                     ((BarClientProxy) Thread.currentThread ()).getBarberId (), false);
-                                   break;
-            case MessageType.CALLCUST: ((BarberShopClientProxy) Thread.currentThread ()).setBarberId (inMessage.getBarbId ());
-                                   ((BarberShopClientProxy) Thread.currentThread ()).setBarberState (inMessage.getBarbState ());
-                                   int custId = bShop.callACustomer ();
-                                   outMessage = new Message (MessageType.CCUSTDONE,
-                                                             ((BarberShopClientProxy) Thread.currentThread ()).getBarberId (),
-                                                             ((BarberShopClientProxy) Thread.currentThread ()).getBarberState (), custId);
-                                   break;
-            case MessageType.RECPAY:   ((BarClientProxy) Thread.currentThread ()).setBarberId (inMessage.getBarbId ());
-                                   ((BarClientProxy) Thread.currentThread ()).setBarberState (inMessage.getBarbState ());
-                                   bar.receivePayment (inMessage.getCustId ());
-                                   outMessage = new Message (MessageType.RPAYDONE,
-                                                             ((BarClientProxy) Thread.currentThread ()).getBarberId (),
-                                                             ((BarClientProxy) Thread.currentThread ()).getBarberState ());
-                                   break;
-            case MessageType.ENDOP:    bar.endOperation (inMessage.getBarbId ());
-                                   outMessage = new Message (MessageType.EOPDONE, inMessage.getBarbId ());
-                                   break;
+                                        outMessage = new Message (MessageType.ALDONE,
+                                                                    ((BarClientProxy) Thread.currentThread ()).getChefState ());           
+
+                                    //nao sei se falta alguma coisa
+
             case MessageType.SHUT:     bar.shutdown ();
                                    outMessage = new Message (MessageType.SHUTDONE);
                                    break;
@@ -130,6 +173,6 @@ public class BarInterface {
 
         return (outMessage);
     }
-   */
+  
 }
 

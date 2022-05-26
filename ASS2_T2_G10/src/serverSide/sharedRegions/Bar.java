@@ -67,6 +67,11 @@ public class Bar
      * Reference to the table
      */
     private final Table tab;
+    
+    /**
+    *   Number of entity groups requesting the shutdown.
+    */
+    private int nEntities;
 
     /**
      * Bar instantiation
@@ -76,16 +81,17 @@ public class Bar
      */
     public Bar(GeneralReposStub repo, Table tab) 
     {
+        this.nEntities = 0;
         //Initizalization of students thread
-        students = new Student[serverSide.main.ExecConst.Nstudents];
-        for(int i = 0; i < serverSide.main.ExecConst.Nstudents; i++ ) 
-            students[i] = null;
+        this.students = new Student[ExecConst.Nstudents];
+        for(int i = 0; i < ExecConst.Nstudents; i++ ) 
+            this.students[i] = null;
 
         //Initialization of the queue of pending requests
         try {
-            pendingServiceRequestQueue = new MemFIFO<> (new Request [serverSide.main.ExecConst.Nstudents * serverSide.main.ExecConst.Ncourses]);
+            this.pendingServiceRequestQueue = new MemFIFO<> (new Request [serverSide.main.ExecConst.Nstudents * serverSide.main.ExecConst.Ncourses]);
         } catch (MemException e) {
-            pendingServiceRequestQueue = null;
+            this.pendingServiceRequestQueue = null;
             System.exit (1);
         }
 
@@ -96,7 +102,7 @@ public class Bar
 
         this.studentsGreeted = new boolean[serverSide.main.ExecConst.Nstudents];
         for(int i = 0 ;i < serverSide.main.ExecConst.Nstudents; i++)
-            studentsGreeted[i] = false;
+            this.studentsGreeted[i] = false;
     }
 
 
@@ -340,7 +346,16 @@ public class Bar
         }
         System.out.println("goodbye "+studentId);		
     }
-    
+    /**
+    *   Operation server shutdown.
+    *
+    *   New operation.
+    */
+    public synchronized void shutdown() {
+        nEntities += 1;
+        if (nEntities >= ExecConst.Nstudents)
+           ServerRestaurantBar.waitConnection = false;
+    }
     
 }
 

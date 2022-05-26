@@ -6,6 +6,7 @@ import commInfra.*;
 import clientSide.stubs.GeneralReposStub;
 import clientSide.entities.*;
 import clientSide.stubs.*;
+import serverSide.main.ServerRestaurantTable;
 
 
 /**
@@ -97,6 +98,11 @@ public class Table {
      */
     private boolean studentsReadMenu[];
 
+    
+    /**
+    *   Number of entity groups requesting the shutdown.
+    */
+    private int nEntities;
 
     /**
      * Reference to the student threads
@@ -113,6 +119,7 @@ public class Table {
      */
     public Table(GeneralReposStub repos)
     {
+        this.nEntities = 0;
     	this.firstToArrive = -1;
     	this.lastToArrive = -1;
     	this.nOrders = 0;
@@ -701,4 +708,15 @@ public class Table {
     	else
             return false;
     }    
+    
+    /**
+    *   Operation server shutdown.
+    *
+    *   New operation.
+    */
+    public synchronized void shutdown() {
+        nEntities += 1;
+        if (nEntities >= ExecConst.Nstudents)
+           ServerRestaurantTable.waitConnection = false;
+    }
 }

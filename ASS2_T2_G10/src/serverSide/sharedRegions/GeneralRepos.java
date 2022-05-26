@@ -8,6 +8,8 @@ import clientSide.entities.*;
 import genclass.GenericIO;
 import genclass.TextFile;
 import java.util.Objects;
+import serverSide.main.ExecConst;
+import serverSide.main.ServerRestaurantGeneralRepos;
 
 
 /**
@@ -62,29 +64,35 @@ public class GeneralRepos {
    */
    private final int [] seatAtTable = new int[serverSide.main.ExecConst.Nstudents];
    
+   /**
+    *   Number of entity groups requesting the shutdown.
+    */
+    private int nEntities;
+   
   /**
    *   Instantiation of a general repository object.
    *
-   *     @param logFileName name of the logging file
    */
     public GeneralRepos ()
     {
-        logFileName = "logger";
+        
+        this.nEntities =  0;
+        this.logFileName = "logger";
 
 
         // inicializar students
-        studentState = new int[serverSide.main.ExecConst.Nstudents];
+        this.studentState = new int[serverSide.main.ExecConst.Nstudents];
         for (int i = 0; i < serverSide.main.ExecConst.Nstudents; i++)
-          studentState[i] = StudentState.GOING_TO_THE_RESTAURANT;
+          this.studentState[i] = StudentState.GOING_TO_THE_RESTAURANT;
 
         // iniciar chef
-        chefState = ChefState.WAITING_FOR_AN_ORDER;
+        this.chefState = ChefState.WAITING_FOR_AN_ORDER;
         // iniciar waiter
-        waiterState = WaiterState.APPRAISING_SITUATION;
+        this.waiterState = WaiterState.APPRAISING_SITUATION;
         // iniciar todos os seats a -1 para indicar que nao tem ninguem sentado
         for(int i = 0; i<serverSide.main.ExecConst.Nstudents;i++)
         {
-            seatAtTable[i] = -1;
+            this.seatAtTable[i] = -1;
         }
 
         reportInitialStatus ();
@@ -245,5 +253,15 @@ public class GeneralRepos {
    */
     void updateSeatsAtTable(int nStudentsAtRes, int studentId) {
         seatAtTable[nStudentsAtRes] = studentId;
+    }
+    /**
+    *   Operation server shutdown.
+    *
+    *   New operation.
+    */
+    public synchronized void shutdown() {
+        nEntities += 1;
+        if (nEntities >= ExecConst.Nstudents)
+           ServerRestaurantGeneralRepos.waitConnection = false;
     }
 }
