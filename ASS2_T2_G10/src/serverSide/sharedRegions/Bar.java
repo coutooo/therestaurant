@@ -51,7 +51,7 @@ public class Bar
     /**
      * Reference to the general repository
      */
-    private final GeneralRepos repo;
+    private final GeneralReposStub repo;
 
     /**
      * Auxiliary variable of the id of the student whose request is being answered
@@ -74,7 +74,7 @@ public class Bar
      * @param repo reference to the general repository 
      * @param tab reference to the Table
      */
-    public Bar(GeneralRepos repo, Table tab) 
+    public Bar(GeneralReposStub repo, Table tab) 
     {
         //Initizalization of students thread
         students = new Student[serverSide.main.ExecConst.Nstudents];

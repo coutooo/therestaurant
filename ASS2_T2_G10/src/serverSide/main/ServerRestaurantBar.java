@@ -40,6 +40,7 @@ public class ServerRestaurantBar
       Bar bar;                                              // barber shop (service to be rendered)
       BarInterface barInterface;                                // interface to the barber shop
       GeneralReposStub reposStub;                                    // stub to the general repository
+      Table table;
       ServerCom scon, sconi;                                         // communication channels
       int portNumb = -1;                                             // port number for listening to service requests
       String reposServerName;                                        // name of the platform where is located the server for the general repository
@@ -76,7 +77,8 @@ public class ServerRestaurantBar
      /* service is established */
 
       reposStub = new GeneralReposStub (reposServerName, reposPortNumb);       // communication to the general repository is instantiated
-      bar = new Bar (reposStub);                                      // service is instantiated
+      table = new Table(reposStub);
+      bar = new Bar (reposStub,table);                                      // service is instantiated
       barInterface = new BarInterface(bar);                            // interface to the service is instantiated
       scon = new ServerCom (portNumb);                                         // listening channel at the public port is established
       scon.start ();

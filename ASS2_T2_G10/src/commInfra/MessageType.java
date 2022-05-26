@@ -514,52 +514,51 @@ public class MessageType
 
    public static final int SHAEDONE = 84;
    
-   
-   
-   
-   
-   
-   
-   
-  /**
-   *  Barber goes home (reply).
+   /**
+   *  getStudentBeingAnswered (REQUEST)
    */
 
-   public static final int EOPDONE = 41;
+   public static final int GSBAREQ = 85;
+   
+   /**
+   *  getStudentBeingAnswered (REPLY)
+   */
 
+   public static final int GSBADONE = 86;
+  
   /**
    *  Server shutdown (service request).
    */
 
-   public static final int SHUT = 42;
+   public static final int SHUT = 87;
 
   /**
    *  Server was shutdown (reply).
    */
 
-   public static final int SHUTDONE = 43;
+   public static final int SHUTDONE = 88;
 
   /**
-   *  Set barber state (service request).
+   *  setStudentState (REQUEST).
    */
 
-   public static final int STBST = 44;
+   public static final int STSST = 89;
 
   /**
-   *  Set customer state (service request).
+   *  setWaiterState (REQUEST).
    */
 
-   public static final int STCST = 45;
+   public static final int STWST = 90;
 
   /**
-   *  Set barber and customer states (service request).
+   *  setChefState (REQUEST).
    */
 
-   public static final int STBCST = 46;
+   public static final int STCST = 91;
 
   /**
    *  Setting acknowledged (reply).
    */
 
-   public static final int SACK = 47;
+   public static final int SACK = 92;
 }

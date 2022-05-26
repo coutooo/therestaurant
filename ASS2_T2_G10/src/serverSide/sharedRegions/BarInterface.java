@@ -46,7 +46,7 @@ public class BarInterface {
    *    @throws MessageException if the incoming message is not valid
    */
    
-   
+   /*
    public Message processAndReply (Message inMessage) throws MessageException
    {
         Message outMessage = null;                                     // outgoing message
@@ -130,6 +130,6 @@ public class BarInterface {
 
         return (outMessage);
     }
-   
+   */
 }
 
