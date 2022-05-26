@@ -49,8 +49,8 @@
 		-TableInterface
 		-package-info | DONE
 *COMMINFRA
-	-Message
-	-MessageType
+	-Message | on going
+	-MessageType | on going
 	-package-info | DONE
 
 

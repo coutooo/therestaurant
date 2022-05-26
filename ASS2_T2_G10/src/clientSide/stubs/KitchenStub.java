@@ -49,7 +49,7 @@ public class KitchenStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.WTNDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.WTNDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -85,7 +85,7 @@ public class KitchenStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.STPDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.STPDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -120,7 +120,7 @@ public class KitchenStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.PTPDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.PTPDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -136,7 +136,7 @@ public class KitchenStub {
 	    com.close();
 	}
 	
-	public void haveNextPortionReady() {
+	public boolean haveNextPortionReady() {
 		ClientCom com;                                                 // communication channel
 	    Message outMessage,                                            // outgoing message
 	            inMessage;                                             // incoming message
@@ -155,7 +155,7 @@ public class KitchenStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.HNPRDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.HNPRDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -169,6 +169,8 @@ public class KitchenStub {
 	    
 	    ((Chef) Thread.currentThread()).setChefState(inMessage.getChefState());
 	    com.close();
+            
+            return (inMessage.getMsgType() == MessageType.HNPRDONE);
 	}
 	
 	public void continuePreparation() {
@@ -190,7 +192,7 @@ public class KitchenStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.CPDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.CPDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -225,7 +227,7 @@ public class KitchenStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.HAPBDDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.HAPBDDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -256,7 +258,7 @@ public class KitchenStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.HOBCDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.HOBCDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -287,7 +289,7 @@ public class KitchenStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.CUDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.CUDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -326,7 +328,7 @@ public class KitchenStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.RTBDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.RTBDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -361,7 +363,7 @@ public class KitchenStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.HNTCDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.HNTCDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -396,7 +398,7 @@ public class KitchenStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.CPORDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.CPORDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);

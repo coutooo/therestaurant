@@ -49,7 +49,7 @@ public class BarStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.ENTDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.ENTDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -73,7 +73,7 @@ public class BarStub {
 		//TODO table.seatAtTable
 	}
 	
-	public void callWaiter() {
+	public int callWaiter() {
 		ClientCom com;                                                 // communication channel
 	    Message outMessage,                                            // outgoing message
 	            inMessage;                                             // incoming message
@@ -92,7 +92,7 @@ public class BarStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.CWDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.CWDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -105,7 +105,8 @@ public class BarStub {
 	    }
 	    
 	    ((Student) Thread.currentThread()).setStudentState(inMessage.getStudentState());
-	    com.close();
+	    
+            return inMessage.getWaiterID();   // rever porque só ha 1 waiter
 	}
 	
 	public void signalWaiter() {
@@ -127,7 +128,7 @@ public class BarStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.SWDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.SWDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -162,7 +163,7 @@ public class BarStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.EXITDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.EXITDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -190,7 +191,7 @@ public class BarStub {
 	
 	
 	
-	public char lookAround() {
+	public boolean lookAround() {
 		ClientCom com;                                                 // communication channel
 	    Message outMessage,                                            // outgoing message
 	            inMessage;                                             // incoming message
@@ -209,7 +210,7 @@ public class BarStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.LADONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.LADONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -224,8 +225,8 @@ public class BarStub {
 	    
 	    ((Waiter) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
 	    com.close();
-	    
-	    return inMessage.getRequest();
+            
+            return (inMessage.getMsgType() == MessageType.LADONE);
 	}
 	
 	public boolean sayGoodbye() {
@@ -247,7 +248,7 @@ public class BarStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.SGDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.SGDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -278,7 +279,7 @@ public class BarStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.PBDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.PBDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -301,7 +302,7 @@ public class BarStub {
 	
 	
 	
-	public void alertWaiter() {
+	public boolean alertWaiter() {
 		ClientCom com;                                                 // communication channel
 	    Message outMessage,                                            // outgoing message
 	            inMessage;                                             // incoming message
@@ -320,7 +321,7 @@ public class BarStub {
 	    inMessage = (Message) com.readObject();
 	    
 	    //TODO Message Types - enter
-	    if((inMessage.getMsgType() != MessageType.ALDONE) && (inMessage.getMsgType() != MessageType.FALTA_DAR_NOME_A_ESTA_MERDA)) {
+	    if((inMessage.getMsgType() != MessageType.ALDONE)) {
 	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Message Type!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -334,6 +335,8 @@ public class BarStub {
 	    
 	    ((Chef) Thread.currentThread()).setChefState(inMessage.getChefState());
 	    com.close();
+            
+            return (inMessage.getMsgType() == MessageType.ALDONE);
 	}
 	
 	
