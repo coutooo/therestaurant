@@ -250,6 +250,277 @@ public class MessageType
 
    public static final int CPORDONE = 40;
    
+   /**
+   *  saluteClient (REQUEST)
+   */
+
+   public static final int SCREQ = 41;
+   
+   /**
+   *  saluteClient (REPLY)
+   */
+
+   public static final int SCDONE = 42;
+   
+   /**
+   *  returnBar (REQUEST)
+   */
+
+   public static final int RBREQ = 43;
+   
+   /**
+   *  returnBar (REPLY)
+   */
+
+   public static final int RBDONE = 44;
+   
+   /**
+   *  getThePad (REQUEST)
+   */
+
+   public static final int GBREQ = 45;
+   
+   /**
+   *  getThePad (REPLY)
+   */
+
+   public static final int GBDONE = 46;
+   
+   /**
+   *  haveAllClientsBeenServed (REQUEST)
+   */
+
+   public static final int HACBSREQ = 47;
+   
+   /**
+   *  haveAllClientsBeenServed (REPLY)
+   */
+
+   public static final int HACBSDONE = 48;
+   
+   /**
+   *  deliverPortion (REQUEST)
+   */
+
+   public static final int DPREQ = 49;
+   
+   /**
+   *  deliverPortion (REPLY)
+   */
+
+   public static final int DPDONE = 50;
+   
+   /**
+   *  presentBill (REQUEST)
+   */
+
+   public static final int PREBREQ = 51;
+   
+   /**
+   *  presentBill (REPLY)
+   */
+
+   public static final int PREBDONE = 52;
+   
+   /**
+   *  getFirstToArrive (REQUEST)
+   */
+
+   public static final int GFTAREQ = 53;
+   
+   /**
+   *  getFirstToArrive (REPLY)
+   */
+
+   public static final int GFTADONE = 54;
+   
+   /**
+   *  getLastToEat (REQUEST)
+   */
+
+   public static final int GLTEREQ = 55;
+   
+   /**
+   *  getLastToEat (REPLY)
+   */
+
+   public static final int GLTEDONE = 56;
+   
+   /**
+   *  seatAtTable (REQUEST)
+   */
+
+   public static final int SATREQ = 57;
+   
+   /**
+   *  seatAtTable (REPLY)
+   */
+
+   public static final int SATDONE = 58;
+   
+   /**
+   *  readMenu (REQUEST)
+   */
+
+   public static final int RMREQ = 59;
+   
+   /**
+   *  readMenu (REPLY)
+   */
+
+   public static final int RMDONE = 60;
+   
+   /**
+   *  prepareOrder (REQUEST)
+   */
+
+   public static final int POREQ = 61;
+   
+   /**
+   *  prepareOrder (REPLY)
+   */
+
+   public static final int PODONE = 62;
+   
+   /**
+   *  everybodyHasChosen (REQUEST)
+   */
+
+   public static final int EHCREQ = 63;
+   
+   /**
+   *  everybodyHasChosen (REPLY)
+   */
+
+   public static final int EHCDONE = 64;
+   
+   /**
+   *  addUpOnesChoices (REQUEST)
+   */
+
+   public static final int AUOCREQ = 65;
+   
+   /**
+   *  addUpOnesChoices (REPLY)
+   */
+
+   public static final int AUOCDONE = 66;
+   
+   /**
+   *  describeOrder (REQUEST)
+   */
+
+   public static final int DOREQ = 67;
+   
+   /**
+   *  describeOrder (REPLY)
+   */
+
+   public static final int DODONE = 68;
+
+   /**
+   *  joinTalk (REQUEST)
+   */
+
+   public static final int JTREQ = 69;
+   
+   /**
+   *  joinTalk (REPLY)
+   */
+
+   public static final int JTDONE = 70;
+
+   /**
+   *  informCompanion (REQUEST)
+   */
+
+   public static final int ICREQ = 71;
+   
+   /**
+   *  informCompanion (REPLY)
+   */
+
+   public static final int ICDONE = 72;
+
+   /**
+   *  startEating (REQUEST)
+   */
+
+   public static final int SEREQ = 73;
+   
+   /**
+   *  startEating (REPLY)
+   */
+
+   public static final int SEDONE = 74;
+   
+   /**
+   *  endEating (REQUEST)
+   */
+
+   public static final int EEREQ = 75;
+   
+   /**
+   *  endEating (REPLY)
+   */
+
+   public static final int EEDONE = 76;
+   
+   /**
+   *  hasEverybodyFinishedEating (REQUEST)
+   */
+
+   public static final int HEFEREQ = 77;
+   
+   /**
+   *  hasEverybodyFinishedEating (REPLY)
+   */
+
+   public static final int HEFEDONE = 78;
+   
+   /**
+   *  honourBill (REQUEST)
+   */
+
+   public static final int HBREQ = 79;
+   
+   /**
+   *  honourBill (REPLY)
+   */
+
+   public static final int HBDONE = 80;
+   
+   /**
+   *  haveAllCoursesBeenEaten (REQUEST)
+   */
+
+   public static final int HACBEREQ = 81;
+   
+   /**
+   *  haveAllCoursesBeenEaten (REPLY)
+   */
+
+   public static final int HACBEDONE = 82;
+   
+   /**
+   *  shouldHaveArrivedEarlier (REQUEST)
+   */
+
+   public static final int SHAEREQ = 83;
+   
+   /**
+   *  shouldHaveArrivedEarlier (REPLY)
+   */
+
+   public static final int SHAEDONE = 84;
+   
+   
+   
+   
+   
+   
+   
+   
   /**
    *  Barber goes home (reply).
    */
