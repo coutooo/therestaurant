@@ -55,10 +55,10 @@ public class BarInterface {
 
         switch (inMessage.getMsgType ())
         {   case MessageType.REQCUTH -> {
-            if ((inMessage.getCustId () < 0) || (inMessage.getCustId () >= ExecConst.Nstudents))
-                throw new MessageException ("Invalid customer id!", inMessage);
-            else if ((inMessage.getCustState () < CustomerStates.DAYBYDAYLIFE) || (inMessage.getCustState () > CustomerStates.CUTTHEHAIR))
-                throw new MessageException ("Invalid customer state!", inMessage);
+            if ((inMessage.getStudentID()< 0) || (inMessage.getStudentID()>= ExecConst.Nstudents))
+                throw new MessageException ("Invalid student id!", inMessage);
+            else if ((inMessage.getStudentState()< StudentState.DAYBYDAYLIFE) || (inMessage.getStudentState()> StudentState.CUTTHEHAIR))
+                throw new MessageException ("Invalid student state!", inMessage);
            }
             case MessageType.SLEEP -> {
                 if ((inMessage.getBarbId () < 0) || (inMessage.getBarbId () >= SimulPar.M))
@@ -92,22 +92,19 @@ public class BarInterface {
 
         switch (inMessage.getMsgType ())
 
-        {   case MessageType.REQCUTH:  ((BarberShopClientProxy) Thread.currentThread ()).setCustomerId (inMessage.getCustId ());
-                                   ((BarberShopClientProxy) Thread.currentThread ()).setCustomerState (inMessage.getCustState ());
-                                   if (bShop.goCutHair ())
-                                      outMessage = new Message (MessageType.CUTHDONE,
-                                                                ((BarberShopClientProxy) Thread.currentThread ()).getCustomerId (),
-                                                                ((BarberShopClientProxy) Thread.currentThread ()).getCustomerState ());
-                                      else outMessage = new Message (MessageType.BSHOPF,
-                                                                     ((BarberShopClientProxy) Thread.currentThread ()).getCustomerId (),
-                                                                     ((BarberShopClientProxy) Thread.currentThread ()).getCustomerState ());
+        {   case MessageType.ALREQ:  ((BarClientProxy) Thread.currentThread ()).setStudentState(inMessage.getStudentID());
+                                   ((BarClientProxy) Thread.currentThread ()).setStudentState(inMessage.getStudentID());
+                                    bar.alertWaiter();
+                                    outMessage = new Message (MessageType.ALDONE,
+                                                            ((BarClientProxy) Thread.currentThread ()).getStudentId(),
+                                                            ((BarClientProxy) Thread.currentThread ()).getStudentId());
                                    break;
-            case MessageType.SLEEP:    ((BarberShopClientProxy) Thread.currentThread ()).setBarberId (inMessage.getBarbId ());
+            case MessageType.SLEEP:    ((BarClientProxy) Thread.currentThread ()).setBarberId (inMessage.getBarbId ());
                                    if (bShop.goToSleep ())
                                       outMessage = new Message (MessageType.SLEEPDONE,
-                                                                ((BarberShopClientProxy) Thread.currentThread ()).getBarberId (), true);
+                                                                ((BarClientProxy) Thread.currentThread ()).getBarberId (), true);
                                       else outMessage = new Message (MessageType.SLEEPDONE,
-                                                                     ((BarberShopClientProxy) Thread.currentThread ()).getBarberId (), false);
+                                                                     ((BarClientProxy) Thread.currentThread ()).getBarberId (), false);
                                    break;
             case MessageType.CALLCUST: ((BarberShopClientProxy) Thread.currentThread ()).setBarberId (inMessage.getBarbId ());
                                    ((BarberShopClientProxy) Thread.currentThread ()).setBarberState (inMessage.getBarbState ());
@@ -116,17 +113,17 @@ public class BarInterface {
                                                              ((BarberShopClientProxy) Thread.currentThread ()).getBarberId (),
                                                              ((BarberShopClientProxy) Thread.currentThread ()).getBarberState (), custId);
                                    break;
-            case MessageType.RECPAY:   ((BarberShopClientProxy) Thread.currentThread ()).setBarberId (inMessage.getBarbId ());
-                                   ((BarberShopClientProxy) Thread.currentThread ()).setBarberState (inMessage.getBarbState ());
-                                   bShop.receivePayment (inMessage.getCustId ());
+            case MessageType.RECPAY:   ((BarClientProxy) Thread.currentThread ()).setBarberId (inMessage.getBarbId ());
+                                   ((BarClientProxy) Thread.currentThread ()).setBarberState (inMessage.getBarbState ());
+                                   bar.receivePayment (inMessage.getCustId ());
                                    outMessage = new Message (MessageType.RPAYDONE,
-                                                             ((BarberShopClientProxy) Thread.currentThread ()).getBarberId (),
-                                                             ((BarberShopClientProxy) Thread.currentThread ()).getBarberState ());
+                                                             ((BarClientProxy) Thread.currentThread ()).getBarberId (),
+                                                             ((BarClientProxy) Thread.currentThread ()).getBarberState ());
                                    break;
-            case MessageType.ENDOP:    bShop.endOperation (inMessage.getBarbId ());
+            case MessageType.ENDOP:    bar.endOperation (inMessage.getBarbId ());
                                    outMessage = new Message (MessageType.EOPDONE, inMessage.getBarbId ());
                                    break;
-            case MessageType.SHUT:     bShop.shutdown ();
+            case MessageType.SHUT:     bar.shutdown ();
                                    outMessage = new Message (MessageType.SHUTDONE);
                                    break;
         }

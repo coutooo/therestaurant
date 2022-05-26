@@ -28,13 +28,13 @@ public class Message implements Serializable
    *  Chef identification.
    */
 
-   private int ChefId = -1;
+   private int chefId = -1;
 
   /**
    *  Barber state.
    */
 
-   private int ChefState = -1;
+   private int chefState = -1;
 
   /**
    *  Student identification.
@@ -99,16 +99,23 @@ public class Message implements Serializable
 
    public Message (int type, int id, int state)
    {
-      msgType = type;
-      if ((msgType == MessageType.STBST) || (msgType == MessageType.CALLCUST) || (msgType == MessageType.RPAYDONE))
-         { ChefId= id;
-           ChefState = state;
-         }
-         else if ((msgType == MessageType.STCST) || (msgType == MessageType.REQCUTH) || (msgType == MessageType.CUTHDONE) ||
-                  (msgType == MessageType.BSHOPF))
-                 { studentId= id;
-                   studentState = state;
-                 }
+         msgType = type;
+        if ((msgType == MessageType.STSST) || (msgType == MessageType.) || (msgType == MessageType.))
+            { studentId= id;
+                studentId = state;
+            }
+            else if ((msgType == MessageType.STCST) || (msgType == MessageType.) || (msgType == MessageType.) ||
+                    (msgType == MessageType.))
+                {   
+                    chefId= id;
+                    chefState = state;
+                }
+            else if ((msgType == MessageType.STWST) || (msgType == MessageType.) || (msgType == MessageType.) ||
+                    (msgType == MessageType.))
+                { 
+                    waiterId= id;
+                    waiterState = state;
+                }
                  else { GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
                         System.exit (1);
                       }
@@ -248,8 +255,8 @@ public class Message implements Serializable
    public String toString ()
    {
       return ("Message type = " + msgType +
-              "\nChef Id = " + ChefId +
-              "\nChef State = " + ChefState +
+              "\nChef Id = " + chefId +
+              "\nChef State = " + chefState +
               "\nStudent Id = " + studentId +
               "\nStudent State = " + studentState +
               "\nWaiter Id = " + waiterId +
@@ -260,11 +267,11 @@ public class Message implements Serializable
    }
 
     public int getChefState() {
-        return (ChefState);
+        return (chefState);
     }
 
     public int getChefID(){
-        return (ChefId);
+        return (chefId);
     }
     public int getWaiterState() {
         return (waiterState);
