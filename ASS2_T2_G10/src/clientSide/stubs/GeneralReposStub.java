@@ -30,6 +30,16 @@ public class GeneralReposStub
    */
 
    private int serverPortNumb;
+   
+    /**
+    *  Number of portions that have been served, in each course;
+    */
+   private int nPortions;
+   
+    /**
+    *  Number of courses that have been served
+    */
+   private int nCourses;
 
   /**
    *   Instantiation of a stub to the general repository.
@@ -210,6 +220,14 @@ public class GeneralReposStub
 	    }
 	    com.close();
 	}
+
+    public void setnPortions(int numberOfPortionsDelivered) {
+        nPortions = numberOfPortionsDelivered;
+    }
+
+    public void setnCourses(int i) {
+        nCourses = i;
+    }
 
     
 

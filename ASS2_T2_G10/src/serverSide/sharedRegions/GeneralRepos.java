@@ -31,10 +31,17 @@ import serverSide.main.ServerRestaurantGeneralRepos;
  *    There are no internal synchronization points.
  */
 public class GeneralRepos {
-   /**
+     /**
    *  Name of the logging file.
    */
-   private final String logFileName;
+
+   private String logFileName;
+
+  /**
+   *  Number of iterations of the customer life cycle.
+   */
+
+   private int nIter;
   /**
    *  Number of portions served.
    */
@@ -263,5 +270,13 @@ public class GeneralRepos {
         nEntities += 1;
         if (nEntities >= ExecConst.Nstudents)
            ServerRestaurantGeneralRepos.waitConnection = false;
+    }
+
+    public synchronized void initSimul (String logFileName, int nIter)
+    {
+      if (!Objects.equals (logFileName, ""))
+         this.logFileName = logFileName;
+      this.nIter = nIter;
+      reportInitialStatus ();
     }
 }

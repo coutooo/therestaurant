@@ -55,6 +55,18 @@ public class Message implements Serializable
        
    private ServiceRequest request = null;
    
+   /**
+   *  Name of the logging file.
+   */
+
+   private String fName = null;
+
+  /**
+   *  Number of iterations of the customer life cycle.
+   */
+
+   private int nIter = -1;
+   
    
   /**
    *  Message instantiation .
@@ -137,7 +149,21 @@ public class Message implements Serializable
         this.var1 = var1;
         this.var2 = var2;
     }
+    
+/**
+   *  Message instantiation (form 7).
+   *
+   *     @param type message type
+   *     @param name name of the logging file
+   *     @param nIter number of iterations of the customer life cycle
+   */
 
+    public Message (int type, String name, int nIter)
+    {
+       msgType = type;
+       fName= name;
+       this.nIter = nIter;
+    }
   
 
   /**
@@ -150,6 +176,44 @@ public class Message implements Serializable
    {
       return (msgType);
    }
+     /**
+   *  Getting name of logging file.
+   *
+   *     @return name of the logging file
+   */
+
+   public String getLogFName ()
+   {
+      return (fName);
+   }
+
+  /**
+   *  Getting the number of iterations of the customer life cycle.
+   *
+   *     @return number of iterations of the customer life cycle
+   */
+
+   public int getNIter ()
+   {
+      return (nIter);
+   }
+
+   
+    public int getChefState() {
+        return (chefState);
+    }
+
+    public int getWaiterState() {
+        return (waiterState);
+    }
+
+    public int getStudentState() {
+        return (studentState);
+    }
+
+    public int getStudentID() {
+        return (studentId);
+    }
 
   /**
    *  Printing the values of the internal fields.
@@ -168,24 +232,4 @@ public class Message implements Serializable
               "\nStudent State = " + studentState +
               "\nWaiter State = " + waiterState);
    }
-
-    public int getChefState() {
-        return (chefState);
-    }
-
-    public int getWaiterState() {
-        return (waiterState);
-    }
-
-    public int getStudentState() {
-        return (studentState);
-    }
-
-    public int getStudentID() {
-        return (studentId);
-    }
-
-    public char getRequest() {
-        
-    }
 }
