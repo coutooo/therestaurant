@@ -239,9 +239,6 @@ public class Kitchen{
         if(numberOfPortionsDelivered > serverSide.main.ExecConst.Nstudents)
             numberOfPortionsDelivered = 1;
 
-        repos.setnPortions(numberOfPortionsDelivered);
-        repos.setnCourses(numberOfCoursesDelivered+1);
-
         //Signal chef that portion was delivered
         notifyAll();
     }

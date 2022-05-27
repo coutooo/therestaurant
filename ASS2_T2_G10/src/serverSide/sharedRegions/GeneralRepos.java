@@ -13,15 +13,6 @@ import serverSide.main.ServerRestaurantGeneralRepos;
 
 
 /**
- * 
- * 
- * @author Rafael Dias
- * @author Manuel Couto
- */
-
-
-
-/**
  *  General Repository.
  *
  *    It is responsible to keep the visible internal state of the problem and to provide means for it
@@ -29,6 +20,9 @@ import serverSide.main.ServerRestaurantGeneralRepos;
  *    It is implemented using semaphores for synchronization.
  *    All public methods are executed in mutual exclusion.
  *    There are no internal synchronization points.
+ * 
+ * @author Rafael Dias
+ * @author Manuel Couto
  */
 public class GeneralRepos {
      /**
@@ -104,6 +98,12 @@ public class GeneralRepos {
 
         reportInitialStatus ();
     }
+    
+    public synchronized void initSimulation(String logFileName) {
+		   if(!Objects.equals(logFileName, ""))
+			   this.logFileName = logFileName;
+		   reportInitialStatus();
+	   }
       
   /**
    *  Print header.

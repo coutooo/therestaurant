@@ -15,6 +15,9 @@ import commInfra.MessageType;
  *    General Repository and generate the outgoing message.
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
+ * 
+ * @author Rafael Dias
+ * @author Manuel Couto
  */
 public class GeneralReposInterface
 {
@@ -88,7 +91,7 @@ public class GeneralReposInterface
 
       switch (inMessage.getMsgType ())
 
-      { case MessageType.SETNFIC:  repos.initSimul (inMessage.getLogFName (), inMessage.getNIter ());
+      { case MessageType.SETNFIC:  repos.initSimulation (inMessage.getLogFName());
                                    outMessage = new Message (MessageType.NFICDONE);
                                    break;
         case MessageType.STSST:    repos.setStudentState(inMessage.getStudentID(), inMessage.getStudentState ());

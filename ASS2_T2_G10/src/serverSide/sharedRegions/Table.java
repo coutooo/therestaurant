@@ -18,7 +18,9 @@ import serverSide.main.ServerRestaurantTable;
  *		Student blocks waiting for the course to be served
  *		Last student to arrive blocks waiting for bill to be presented
  *		Waiter blocks waiting for student to pay the bill
- *
+ * 
+ * @author Rafael Dias
+ * @author Manuel Couto
  */
 
 public class Table {

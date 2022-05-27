@@ -1,7 +1,5 @@
 package commInfra;
 
-import javax.print.DocFlavor;
-
 /**
  *   Type of the exchanged messages.
  *the

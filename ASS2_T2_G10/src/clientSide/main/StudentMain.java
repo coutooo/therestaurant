@@ -7,7 +7,6 @@ package clientSide.main;
 import clientSide.entities.Student;
 import clientSide.stubs.BarStub;
 import clientSide.stubs.GeneralReposStub;
-import clientSide.stubs.KitchenStub;
 import clientSide.stubs.TableStub;
 import genclass.GenericIO;
 
@@ -16,6 +15,9 @@ import genclass.GenericIO;
  *    Static solution Attempt (number of threads controlled by global constants - ExecConst)
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
+ * 
+ *  @author Rafael Dias
+ *  @author Manuel Couto
  */
 public class StudentMain {
 		

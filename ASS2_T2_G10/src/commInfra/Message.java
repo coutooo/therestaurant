@@ -46,28 +46,22 @@ public class Message implements Serializable
    */
 
    private int waiterState = -1;
-
-   private int var1 = -1;
-
-   private int var2 = -1;
-
+   
+   /**
+   *  Boolean check.
+   */
    private Boolean check = null;
-       
-   private ServiceRequest request = null;
+   /**
+   *  Request.
+   */    
+   private Request request = null;
    
    /**
    *  Name of the logging file.
    */
 
-   private String fName = null;
-
-  /**
-   *  Number of iterations of the customer life cycle.
-   */
-
-   private int nIter = -1;
-   
-   
+   private String logFileName;
+  
   /**
    *  Message instantiation .
    *
@@ -98,7 +92,13 @@ public class Message implements Serializable
             this.chefState = state;
         }
    }
-
+    /**
+    *  Message instantiation.
+    *
+    *     @param type message type
+    *     @param check bolean 
+    *     @param state state
+    */
     public Message(int type, Boolean check, int state) {
         this.msgType = type;
         this.check = check;
@@ -112,14 +112,26 @@ public class Message implements Serializable
         }
 
     }
-
-    public Message(int type, ServiceRequest request, int state) {
+    /**
+    *  Message instantiation.
+    *
+    *     @param type message type
+    *     @param request request 
+    *     @param state state
+    */
+    public Message(int type, Request request, int state) {
         this.msgType = type;
         this.request = request;
         if (type >= 40 && type <= 59)
             this.waiterState = state;
     }
-
+    /**
+    *  Message instantiation.
+    *
+    *     @param type message type
+    *     @param studentID student id 
+    *     @param state state
+    */
     public Message(int type, int studentID, int state) {
         this.msgType = type;
         this.studentId = studentID;
@@ -128,7 +140,14 @@ public class Message implements Serializable
         else if (type >= 40 && type <= 59)
             this.waiterState = state;
     }
-
+    /**
+    *  Message instantiation.
+    *
+    *     @param type message type
+    *     @param check bolean 
+    *     @param studentID student id 
+    *     @param state state
+    */
     public Message(int type, Boolean check, int studentID, int state) {
         this.msgType = type;
         this.studentId = studentID;
@@ -138,31 +157,18 @@ public class Message implements Serializable
             this.waiterState = state;
         this.check = check;
     }
-
-    public Message(int type, int var1, String fileName) {
-        this.msgType = type;
-        this.var1 = var1;
-    }
-
-    public Message(int type, int var1, int var2, String fileName) {
-        this.msgType = type;
-        this.var1 = var1;
-        this.var2 = var2;
-    }
     
 /**
-   *  Message instantiation (form 7).
+   *  Message instantiation.
    *
    *     @param type message type
    *     @param name name of the logging file
-   *     @param nIter number of iterations of the customer life cycle
    */
 
-    public Message (int type, String name, int nIter)
+    public Message (int type, String name)
     {
        msgType = type;
-       fName= name;
-       this.nIter = nIter;
+       this.logFileName = name;
     }
   
 
@@ -176,7 +182,7 @@ public class Message implements Serializable
    {
       return (msgType);
    }
-     /**
+   /**
    *  Getting name of logging file.
    *
    *     @return name of the logging file
@@ -184,35 +190,55 @@ public class Message implements Serializable
 
    public String getLogFName ()
    {
-      return (fName);
+      return (logFileName);
    }
-
-  /**
-   *  Getting the number of iterations of the customer life cycle.
+   /**
+   *  Getting chef state.
    *
-   *     @return number of iterations of the customer life cycle
+   *     @return chef state
    */
-
-   public int getNIter ()
-   {
-      return (nIter);
-   }
-
-   
     public int getChefState() {
         return (chefState);
     }
-
+    /**
+    *  Getting waiter state.
+    *
+    *     @return waiter state
+    */
     public int getWaiterState() {
         return (waiterState);
     }
-
+    /**
+    *  Getting student state.
+    *
+    *     @return student state
+    */
     public int getStudentState() {
         return (studentState);
     }
-
+    /**
+    *  Getting student id.
+    *
+    *     @return student id
+    */
     public int getStudentID() {
         return (studentId);
+    }
+    /**
+    *  Getting request.
+    *
+    *     @return request
+    */
+    public char getRequest() {
+        return request.type;
+    }
+    /**
+    *  Getting boolean to check.
+    *
+    *     @return boolean check
+    */
+    public Boolean getCheck() {
+        return check;
     }
 
   /**
@@ -226,10 +252,12 @@ public class Message implements Serializable
    @Override
    public String toString ()
    {
-      return ("Message type = " + msgType +
-              "\nChef State = " + chefState +
-              "\nStudent Id = " + studentId +
-              "\nStudent State = " + studentState +
-              "\nWaiter State = " + waiterState);
+      return ("Message type: " + msgType
+                + "\nCheck: " + check
+                + "\nRequest: " + request
+                + "\nStudent ID: " + studentId
+                + "\nStudent State: " + studentState
+                + "\nWaiter State: " + waiterState
+                + "\nChef State: " + chefState);
    }
 }

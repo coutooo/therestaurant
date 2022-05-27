@@ -2,22 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/clientSide/entities/ChefState.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/serverSide/sharedRegions/BarInterface.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/clientSide/stubs/BarStub.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/serverSide/entities/GeneralReposClientProxy.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/clientSide/entities/StudentCloning.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/commInfra/Message.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/serverSide/sharedRegions/GeneralRepos.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/serverSide/sharedRegions/GeneralReposInterface.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/serverSide/sharedRegions/Kitchen.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/clientSide/stubs/GeneralReposStub.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/serverSide/entities/BarClientProxy.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/clientSide/entities/WaiterCloning.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/clientSide/entities/Waiter.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/commInfra/MessageException.java</file>
-            <file>file:/C:/Users/couto/Documents/NetBeansProjects/therestaurant/ASS2_T2_G10/src/clientSide/entities/ChefCloning.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -11,7 +11,15 @@ import clientSide.stubs.KitchenStub;
 import clientSide.stubs.TableStub;
 import genclass.GenericIO;
 
-
+/**
+ *    Client side of the Assignment 2 - Waiter.
+ *    Static solution Attempt (number of threads controlled by global constants - ExecConst)
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
+ * 
+ *  @author Rafael Dias
+ *  @author Manuel Couto
+ */
 public class WaiterMain {
 	
     public static void main(String[] args) {
@@ -96,7 +104,7 @@ public class WaiterMain {
         genReposStub = new GeneralReposStub(genReposServerHostName, genReposServerPortNum);
 
 
-        waiter = new Waiter("Waiter", kitchen, bar, table);
+        waiter = new Waiter("Waiter_1", kitchen, bar, table);
 
 
         // Start of simulation

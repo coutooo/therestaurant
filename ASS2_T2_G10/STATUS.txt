@@ -1,70 +1,20 @@
 *CLIENTSIDE
 	-package-info | DONE
-	*ENTITIES
-		-Chef | DONE
-		-ChefCloning | DONE
-		-ChefState | DONE
-		-Student | DONE
-		-StudentCloning | DONE
-		-StudentState | DONE
-		-Waiter | in progress
-		-WaiterCloning | DONE
-		-WaiterState | DONE
-		-package-info | DONE
-	*MAIN
-		-ChefMain | DONE
-		-StudentMain | DONE
-		-WaiterMain | DONE
-		-ExecConst | DONE
-		-package-info | DONE
+	*ENTITIES | DONE
+	*MAIN | DONE
 	*STUBS
-		-BarStub | in progress
-		-GeneralReposStub | in progress
-		-KitchenStub | in progress
-		-TableStub | in progress
+		-BarStub | DONE
+		-GeneralReposStub | DONE
+		-KitchenStub | DONE MAS FALTA COMENTARIOS
+		-TableStub | DONE MAS FALTA COMENTARIOS
 		-package-info | DONE
 *SERVERSIDE
 	-package-info DONE
-	*ENTITIES
-		-BarClientProxy | DONE
-		-GeneralReposClientProxy | DONE
-		-KitchenClientProxy | DONE
-		-TableClientProxy | DONE
-		-package-info | DONE
-	*MAIN
-		-ServerRestaurantBar | DONE
-		-ServerRestaurantGeneralRepos | DONE
-		-ServerRestaurantKitchen | DONE
-		-ServerRestaurantTable | DONE
-		-ExecConst | DONE
-		-package-info | DONE
-	*SHAREDREGIONS
-		-Bar | DONE
-		-BarInterface | in progress
-		-GeneralRepos | DONE
-		-GeneralReposInterface | in progress
-		-Kitchen | DONE
-		-KitchenInterface | in progress
-		-Table | DONE
-		-TableInterface | in progress
-		-package-info | DONE
+	*ENTITIES | DONE
+	*MAIN | DONE
+	*SHAREDREGIONS | DONE
 *COMMINFRA
-	-Message | in progress
-	-MessageType | DONE
+	-Message | DONE
+	-MessageType | VER SE AS MENSAGENS DAS ENTIDADES ESTÃO SEGUIDAS
 	-package-info | DONE
 
-
-
-
-
-
-
-
-
------> Tirar a dependencia no serverSide.sharedRegions.Bar da Table no construtor.
-
------> Fazer CommInfra.MessageType
-
------> Fazer CommInfra.Message
-
------> Fazer clientSide.Stubs e Fazer serverside.sharedRegions.*Interface

@@ -13,6 +13,9 @@ import genclass.GenericIO;
  *    Static solution Attempt (number of threads controlled by global constants - ExecConst)
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
+ * 
+ *  @author Rafael Dias
+ *  @author Manuel Couto
  */
 
 public class ChefMain {
@@ -23,16 +26,16 @@ public class ChefMain {
      *    @param args runtime arguments
      */	
     public static void main(String[] args) {
-        String barServerHostName;                               // name of the platform where is located the barber shop server
+        String barServerHostName;                              // name of the platform where is located the barber shop server
         int barServerPortNum = -1;                             // port number for listening to service requests
-        String genReposServerHostName;                                 // name of the platform where is located the general repository server
-        int genReposServerPortNum = -1;                               // port number for listening to service requests
-        String kitchenServerHostName;                                 // name of the platform where is located the kitchen server
-        int kitchenServerPortNum = -1;                               // port number for listening to service requests
-        Chef chef;                   									// array of barber threads                                     
-        BarStub bar;													// remote reference to the bar
-        KitchenStub kitchen;
-        GeneralReposStub genReposStub;
+        String genReposServerHostName;                         // name of the platform where is located the general repository server
+        int genReposServerPortNum = -1;                        // port number for listening to service requests
+        String kitchenServerHostName;                          // name of the platform where is located the kitchen server
+        int kitchenServerPortNum = -1;                         // port number for listening to service requests
+        Chef chef;                                             // remote reference to the chef                                     
+        BarStub bar;                                           // remote reference to the bar
+        KitchenStub kitchen;                                   // remote reference to the kitchen
+        GeneralReposStub genReposStub;                         // remote reference to the genReposStub
         
         /* getting problem runtime parameters */
 	
@@ -85,7 +88,7 @@ public class ChefMain {
         kitchen = new KitchenStub(kitchenServerHostName, kitchenServerPortNum);
         genReposStub = new GeneralReposStub(genReposServerHostName, genReposServerPortNum);
 
-        chef = new Chef("Chef", kitchen, bar);
+        chef = new Chef("Chef_1", kitchen, bar);
 
 
         // Start of simulation

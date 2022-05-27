@@ -15,46 +15,44 @@ import genclass.GenericIO;
  *    It instantiates a remote reference to the general repository.
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
+ * 
+ *  @author Rafael Dias
+ *  @author Manuel Couto
  */
 
 public class GeneralReposStub
 {
-  /**
-   *  Name of the platform where is located the general repository server.
-   */
+    /**
+     *  Name of the platform where is located the general repository server.
+     */
 
-   private String serverHostName;
+    private String serverHostName;
 
-  /**
-   *  Port number for listening to service requests.
-   */
+    /**
+     *  Port number for listening to service requests.
+     */
 
-   private int serverPortNumb;
+    private int serverPortNumb; 
+
+   /**
+    *   Instantiation of a stub to the general repository.
+    *
+    *     @param serverHostName name of the platform where is located the barber shop server
+    *     @param serverPortNumb port number for listening to service requests
+    */
+
+    public GeneralReposStub (String serverHostName, int serverPortNumb)
+    {
+       this.serverHostName = serverHostName;
+       this.serverPortNumb = serverPortNumb;
+    }
    
     /**
-    *  Number of portions that have been served, in each course;
+    *   Operation initialization of the simulation.
+    *
+    *     @param fileName logging file name
     */
-   private int nPortions;
-   
-    /**
-    *  Number of courses that have been served
-    */
-   private int nCourses;
-
-  /**
-   *   Instantiation of a stub to the general repository.
-   *
-   *     @param serverHostName name of the platform where is located the barber shop server
-   *     @param serverPortNumb port number for listening to service requests
-   */
-
-   public GeneralReposStub (String serverHostName, int serverPortNumb)
-   {
-      this.serverHostName = serverHostName;
-      this.serverPortNumb = serverPortNumb;
-   }
-   
-    public void initSimulation(String fileName, int nIter) {
+    public void initSimulation(String fileName) {
         ClientCom com;                                                 // communication channel
         Message outMessage, // outgoing message
                 inMessage;                                             // incoming message
@@ -66,7 +64,7 @@ public class GeneralReposStub
             } catch (InterruptedException e) {
             }
         }
-        outMessage = new Message(MessageType.SETNFIC, fileName, nIter);
+        outMessage = new Message(MessageType.SETNFIC, fileName);
         com.writeObject(outMessage);
         inMessage = (Message) com.readObject();
         if (inMessage.getMsgType() != MessageType.NFICDONE) {
@@ -146,29 +144,34 @@ public class GeneralReposStub
    
    public void setWaiterState (int state)
    {
-      ClientCom com;                                                 // communication channel
-      Message outMessage,                                            // outgoing message
-              inMessage;                                             // incoming message
+        ClientCom com;                                                 // communication channel
+        Message outMessage,                                            // outgoing message
+                inMessage;                                             // incoming message
 
-      com = new ClientCom (serverHostName, serverPortNumb);
-      while (!com.open ())
-      { try
-        { Thread.sleep ((long) (1000));
+        com = new ClientCom (serverHostName, serverPortNumb);
+        while (!com.open ())
+        { try
+          { Thread.sleep ((long) (1000));
+          }
+          catch (InterruptedException e) {}
         }
-        catch (InterruptedException e) {}
-      }
-      outMessage = new Message (MessageType.STWST, state);
-      com.writeObject (outMessage);
-      inMessage = (Message) com.readObject ();
-      if (inMessage.getMsgType() != MessageType.SACK)
-         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
-           GenericIO.writelnString (inMessage.toString ());
-           System.exit (1);
-         }
-      com.close ();
+        outMessage = new Message (MessageType.STWST, state);
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType() != MessageType.SACK)
+           { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+             GenericIO.writelnString (inMessage.toString ());
+             System.exit (1);
+           }
+        com.close ();
    }
    
-   
+    /**
+    *   update who is seated at the table.
+    *
+    *     @param i number of students at the restaurant
+    *     @param studentId student id
+    */
    public void updateSeatsAtTable(int i, int studentId) {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
@@ -193,42 +196,35 @@ public class GeneralReposStub
         }
         com.close ();
     }
-   
+    /**
+     *   Operation server shutdown.
+     *
+     *   New operation.
+     */
     public void shutdown(){
-		ClientCom com;                                                 // communication channel
-		Message outMessage,                                            // outgoing message
-				inMessage;                                             // incoming message
-	
-		com = new ClientCom(serverHostName, serverPortNumb);
-		while (!com.open ()) {
-			try {
-				Thread.sleep((long) (1000));
-	        }
-	        catch (InterruptedException e) {}
-		}
-		
-		//MESSAGES
-	    outMessage = new Message(MessageType.SHUT);
-	    
-	    com.writeObject(outMessage);
-	    inMessage = (Message) com.readObject();
-	    
-	    if (inMessage.getMsgType() != MessageType.SHUTDONE) {
-	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid message type!");
-	        GenericIO.writelnString(inMessage.toString());
-	        System.exit(1);
-	    }
-	    com.close();
-	}
+        ClientCom com;                                                 // communication channel
+        Message outMessage,                                            // outgoing message
+                        inMessage;                                             // incoming message
 
-    public void setnPortions(int numberOfPortionsDelivered) {
-        nPortions = numberOfPortionsDelivered;
+        com = new ClientCom(serverHostName, serverPortNumb);
+        while (!com.open ()) {
+                try {
+                        Thread.sleep((long) (1000));
+        }
+        catch (InterruptedException e) {}
+        }
+
+        //MESSAGES
+        outMessage = new Message(MessageType.SHUT);
+
+        com.writeObject(outMessage);
+        inMessage = (Message) com.readObject();
+
+        if (inMessage.getMsgType() != MessageType.SHUTDONE) {
+            GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid message type!");
+            GenericIO.writelnString(inMessage.toString());
+            System.exit(1);
+        }
+        com.close();
     }
-
-    public void setnCourses(int i) {
-        nCourses = i;
-    }
-
-    
-
 }

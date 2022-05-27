@@ -6,6 +6,7 @@ package clientSide.entities;
 
 /**
  *    Definition of the internal states of the Chef during his life cycle. 
+ * 
  * @author Rafael Dias
  * @author Manuel Couto
  */
