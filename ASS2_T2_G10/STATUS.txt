@@ -7,21 +7,21 @@
 		-Student | DONE
 		-StudentCloning | DONE
 		-StudentState | DONE
-		-Waiter | DONE
+		-Waiter | in progress
 		-WaiterCloning | DONE
 		-WaiterState | DONE
 		-package-info | DONE
 	*MAIN
-		-ChefMain | VER SÓ NO FIM
-		-StudentMain | VER SÓ NO FIM
-		-WaiterMain | VER SÓ NO FIM
+		-ChefMain | DONE
+		-StudentMain | DONE
+		-WaiterMain | DONE
 		-ExecConst | DONE
 		-package-info | DONE
 	*STUBS
 		-BarStub | in progress
-		-GeneralReposStub
+		-GeneralReposStub | in progress
 		-KitchenStub | in progress
-		-TableStub
+		-TableStub | in progress
 		-package-info | DONE
 *SERVERSIDE
 	-package-info DONE
@@ -39,18 +39,18 @@
 		-ExecConst | DONE
 		-package-info | DONE
 	*SHAREDREGIONS
-		-Bar
-		-BarInterface
-		-GeneralRepos
-		-GeneralReposInterface
+		-Bar | DONE
+		-BarInterface | in progress
+		-GeneralRepos | DONE
+		-GeneralReposInterface | in progress
 		-Kitchen | DONE
-		-KitchenInterface
+		-KitchenInterface | in progress
 		-Table | DONE
-		-TableInterface
+		-TableInterface | in progress
 		-package-info | DONE
 *COMMINFRA
-	-Message | on going
-	-MessageType | on going
+	-Message | in progress
+	-MessageType | DONE
 	-package-info | DONE
 
 

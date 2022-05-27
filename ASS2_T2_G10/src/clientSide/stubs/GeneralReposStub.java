@@ -44,6 +44,29 @@ public class GeneralReposStub
       this.serverPortNumb = serverPortNumb;
    }
    
+    public void initSimulation(String fileName, int nIter) {
+        ClientCom com;                                                 // communication channel
+        Message outMessage, // outgoing message
+                inMessage;                                             // incoming message
+
+        com = new ClientCom(serverHostName, serverPortNumb);
+        while (!com.open()) {
+            try {
+                Thread.sleep((long) (1000));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.SETNFIC, fileName, nIter);
+        com.writeObject(outMessage);
+        inMessage = (Message) com.readObject();
+        if (inMessage.getMsgType() != MessageType.NFICDONE) {
+            GenericIO.writelnString("Thread " + Thread.currentThread().getName() + ": Invalid message type!");
+            GenericIO.writelnString(inMessage.toString());
+            System.exit(1);
+        }
+        com.close();
+    }
+   
   /**
    *   Set student state.
    *
@@ -134,5 +157,60 @@ public class GeneralReposStub
          }
       com.close ();
    }
+   
+   
+   public void updateSeatsAtTable(int i, int studentId) {
+        ClientCom com;                                                 // communication channel
+        Message outMessage,                                            // outgoing message
+                inMessage;                                             // incoming message
+
+        com = new ClientCom(serverHostName, serverPortNumb);
+        while(!com.open()){
+            try{
+                    Thread.sleep((long) (1000));
+            }
+            catch (InterruptedException e) {}
+        }
+        outMessage = new Message(MessageType.USSEATREQ, i, studentId);
+
+        com.writeObject(outMessage);
+        inMessage = (Message) com.readObject();
+
+        if(inMessage.getMsgType() != MessageType.USSEATDONE) {
+            GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid message type!");
+            GenericIO.writelnString(inMessage.toString());
+            System.exit(1);
+        }
+        com.close ();
+    }
+   
+    public void shutdown(){
+		ClientCom com;                                                 // communication channel
+		Message outMessage,                                            // outgoing message
+				inMessage;                                             // incoming message
+	
+		com = new ClientCom(serverHostName, serverPortNumb);
+		while (!com.open ()) {
+			try {
+				Thread.sleep((long) (1000));
+	        }
+	        catch (InterruptedException e) {}
+		}
+		
+		//MESSAGES
+	    outMessage = new Message(MessageType.SHUT);
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    if (inMessage.getMsgType() != MessageType.SHUTDONE) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid message type!");
+	        GenericIO.writelnString(inMessage.toString());
+	        System.exit(1);
+	    }
+	    com.close();
+	}
+
+    
 
 }

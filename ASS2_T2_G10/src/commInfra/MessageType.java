@@ -561,4 +561,16 @@ public class MessageType
    */
 
    public static final int SACK = 92;
+   
+   /**
+   *  updateSeatsAtTable (REQUEST).
+   */
+
+   public static final int USSEATREQ = 93;
+   
+   /**
+   *  updateSeatsAtTable (REPLY).
+   */
+
+   public static final int USSEATDONE = 94;
 }
