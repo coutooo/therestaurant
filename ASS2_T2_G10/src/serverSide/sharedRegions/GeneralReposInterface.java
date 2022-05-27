@@ -4,6 +4,10 @@
  */
 package serverSide.sharedRegions;
 
+import commInfra.Message;
+import commInfra.MessageException;
+import commInfra.MessageType;
+
 /**
  *  Interface to the General Repository of Information.
  *
@@ -42,11 +46,11 @@ public class GeneralReposInterface
    *    @throws MessageException if the incoming message is not valid
    */
    
-   /*
+   
    public Message processAndReply (Message inMessage) throws MessageException
    {
       Message outMessage = null;                                     // mensagem de resposta
-
+/*
      // validation of the incoming message 
 
       switch (inMessage.getMsgType ())
@@ -80,20 +84,21 @@ public class GeneralReposInterface
       }
 
      // processing 
+      * 
+      */
 
       switch (inMessage.getMsgType ())
 
       { case MessageType.SETNFIC:  repos.initSimul (inMessage.getLogFName (), inMessage.getNIter ());
                                    outMessage = new Message (MessageType.NFICDONE);
                                    break;
-        case MessageType.STBST:    repos.setBarberState (inMessage.getBarbId (), inMessage.getBarbState ());
+        case MessageType.STSST:    repos.setStudentState (inMessage.getStudentID (), inMessage.getStudentState ());
                                    outMessage = new Message (MessageType.SACK);
                                    break;
-        case MessageType.STCST:    repos.setCustomerState (inMessage.getCustId (), inMessage.getCustState ());
+        case MessageType.STCST:    repos.setChefState (inMessage.getChefState ());
                                    outMessage = new Message (MessageType.SACK);
                                    break;
-        case MessageType.STBCST:   repos.setBarberCustomerState (inMessage.getBarbId (), inMessage.getBarbState (),
-                                                                 inMessage.getCustId (), inMessage.getCustState ());
+        case MessageType.STWST:   repos.setWaiterState (inMessage.getWaiterState ());                              
                                    outMessage = new Message (MessageType.SACK);
                                    break;
         case MessageType.SHUT:     repos.shutdown ();
@@ -103,5 +108,5 @@ public class GeneralReposInterface
 
      return (outMessage);
    }
-   */
+   
 }

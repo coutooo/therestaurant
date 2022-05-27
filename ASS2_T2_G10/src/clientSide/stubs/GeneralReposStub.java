@@ -94,7 +94,7 @@ public class GeneralReposStub
         }
         catch (InterruptedException e) {}
       }
-      outMessage = new Message (MessageType.STCST, 1, state);
+      outMessage = new Message (MessageType.STCST, state);
       com.writeObject (outMessage);
       inMessage = (Message) com.readObject ();
       if (inMessage.getMsgType() != MessageType.SACK)
@@ -124,7 +124,7 @@ public class GeneralReposStub
         }
         catch (InterruptedException e) {}
       }
-      outMessage = new Message (MessageType.STWST, 1, state);
+      outMessage = new Message (MessageType.STWST, state);
       com.writeObject (outMessage);
       inMessage = (Message) com.readObject ();
       if (inMessage.getMsgType() != MessageType.SACK)
