@@ -1,7 +1,6 @@
 package commInfra;
 
 import java.io.*;
-import genclass.GenericIO;
 
 /**
  *   Internal structure of the exchanged messages.
@@ -50,9 +49,11 @@ public class Message implements Serializable
 
    private int var1 = -1;
 
-    private int var2 = -1;
+   private int var2 = -1;
 
-    private Boolean check = null;
+   private Boolean check = null;
+       
+   private ServiceRequest request = null;
    
    
   /**
@@ -86,14 +87,7 @@ public class Message implements Serializable
         }
    }
 
-  /**
-   *  Message instantiation (form 4).
-   *
-   *     @param type message type
-   *     @param check boolean
-   *     @param state state
-   */
-   public Message(int type, Boolean check, int state) {
+    public Message(int type, Boolean check, int state) {
         this.msgType = type;
         this.check = check;
         if (type >= 40 && type <= 59)
@@ -104,8 +98,45 @@ public class Message implements Serializable
             this.waiterState = state;
             this.chefState = state;
         }
+
     }
- 
+
+    public Message(int type, ServiceRequest request, int state) {
+        this.msgType = type;
+        this.request = request;
+        if (type >= 40 && type <= 59)
+            this.waiterState = state;
+    }
+
+    public Message(int type, int studentID, int state) {
+        this.msgType = type;
+        this.studentId = studentID;
+        if (type >= 0 && type <= 39)
+            this.studentState = state;
+        else if (type >= 40 && type <= 59)
+            this.waiterState = state;
+    }
+
+    public Message(int type, Boolean check, int studentID, int state) {
+        this.msgType = type;
+        this.studentId = studentID;
+        if (type >= 0 && type <= 39)
+            this.studentState = state;
+        else if (type >= 40 && type <= 59)
+            this.waiterState = state;
+        this.check = check;
+    }
+
+    public Message(int type, int var1, String fileName) {
+        this.msgType = type;
+        this.var1 = var1;
+    }
+
+    public Message(int type, int var1, int var2, String fileName) {
+        this.msgType = type;
+        this.var1 = var1;
+        this.var2 = var2;
+    }
 
   
 
@@ -152,5 +183,9 @@ public class Message implements Serializable
 
     public int getStudentID() {
         return (studentId);
+    }
+
+    public char getRequest() {
+        
     }
 }

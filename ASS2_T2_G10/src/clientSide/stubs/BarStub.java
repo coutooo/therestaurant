@@ -73,7 +73,7 @@ public class BarStub {
 		//TODO table.seatAtTable
 	}
 	
-	public int callWaiter() {
+	public void callWaiter() {
 		ClientCom com;                                                 // communication channel
 	    Message outMessage,                                            // outgoing message
 	            inMessage;                                             // incoming message
@@ -106,7 +106,7 @@ public class BarStub {
 	    
 	    ((Student) Thread.currentThread()).setStudentState(inMessage.getStudentState());
 	    
-            return inMessage.getWaiterID();   // rever porque só ha 1 waiter
+            com.close();   // rever porque só ha 1 waiter
 	}
 	
 	public void signalWaiter() {
@@ -191,7 +191,7 @@ public class BarStub {
 	
 	
 	
-	public boolean lookAround() {
+	public char lookAround() {
 		ClientCom com;                                                 // communication channel
 	    Message outMessage,                                            // outgoing message
 	            inMessage;                                             // incoming message
@@ -226,7 +226,7 @@ public class BarStub {
 	    ((Waiter) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
 	    com.close();
             
-            return (inMessage.getMsgType() == MessageType.LADONE);
+            return inMessage.getRequest();;
 	}
 	
 	public boolean sayGoodbye() {

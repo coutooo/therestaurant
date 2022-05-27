@@ -86,7 +86,7 @@ public class TableInterface {
       switch (inMessage.getMsgType ())
 
       { case MessageType.SCREQ:  ((TableClientProxy) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
-                                   table.saluteClient();
+                                   table.saluteClient(inMessage.getStudentID());
                                       outMessage = new Message (MessageType.SCDONE,
                                                                 ((TableClientProxy) Thread.currentThread ()).getWaiterState ());
                                    break;

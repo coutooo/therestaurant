@@ -16,7 +16,6 @@ import commInfra.MessageType;
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
  */
-
 public class GeneralReposInterface
 {
   /**
@@ -92,10 +91,10 @@ public class GeneralReposInterface
       { case MessageType.SETNFIC:  repos.initSimul (inMessage.getLogFName (), inMessage.getNIter ());
                                    outMessage = new Message (MessageType.NFICDONE);
                                    break;
-        case MessageType.STSST:    repos.setStudentState (inMessage.getStudentID (), inMessage.getStudentState ());
+        case MessageType.STSST:    repos.setStudentState(inMessage.getStudentID(), inMessage.getStudentState ());
                                    outMessage = new Message (MessageType.SACK);
                                    break;
-        case MessageType.STCST:    repos.setChefState (inMessage.getChefState ());
+        case MessageType.STCST:    repos.setChefState (inMessage.getChefState());
                                    outMessage = new Message (MessageType.SACK);
                                    break;
         case MessageType.STWST:   repos.setWaiterState (inMessage.getWaiterState ());                              
