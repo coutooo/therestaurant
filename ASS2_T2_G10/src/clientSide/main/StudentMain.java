@@ -68,11 +68,11 @@ public class StudentMain {
         { genReposServerPortNum = Integer.parseInt (args[5]);
         }
         catch (NumberFormatException e)
-        { GenericIO.writelnString ("args[3] is not a number!");
+        { GenericIO.writelnString ("args[5] is not a number!");
           System.exit (1);
         }
         if ((genReposServerPortNum < 4000) || (genReposServerPortNum >= 65536)) {
-            GenericIO.writelnString ("args[3] is not a valid port number!");
+            GenericIO.writelnString ("args[5] is not a valid port number!");
             System.exit (1);
         }
 
