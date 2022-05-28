@@ -6,6 +6,7 @@ import commInfra.*;
 import clientSide.stubs.GeneralReposStub;
 import clientSide.entities.*;
 import clientSide.stubs.*;
+import genclass.GenericIO;
 import serverSide.main.ServerRestaurantTable;
 
 
@@ -391,7 +392,7 @@ public class Table {
     		repos.updateStudentState(studentID, StudentState.SELECTING_THE_COURSES);
 		}
     	
-		GenericIO.writelnString("After: "+((TableClientProxy) Thread.currentThread()).getStudentState()+" - ID: "+student.getStudentID());
+		GenericIO.writelnString("After: "+((TableClientProxy) Thread.currentThread()).getStudentState()+" - ID: "+student.getStudentId());
 		
     	studentsReadMenu[studentID] = true;
     	notifyAll();
