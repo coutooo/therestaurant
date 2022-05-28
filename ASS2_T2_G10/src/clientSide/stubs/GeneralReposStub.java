@@ -189,7 +189,7 @@ public class GeneralReposStub
         com.writeObject(outMessage);
         inMessage = (Message) com.readObject();
 
-        if(inMessage.getMsgType() != MessageType.USSEATDONE) {
+        if(inMessage.getMsgType() != MessageType.SACK) {
             GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid message type!");
             GenericIO.writelnString(inMessage.toString());
             System.exit(1);

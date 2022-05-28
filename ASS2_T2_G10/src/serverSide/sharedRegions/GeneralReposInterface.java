@@ -91,7 +91,7 @@ public class GeneralReposInterface
 
       switch (inMessage.getMsgType ())
 
-      { case MessageType.SETNFIC:  repos.initSimulation (inMessage.getLogFName());
+      { case MessageType.SETNFIC:  repos.initSimulation (inMessage.getLogFileName());
                                    outMessage = new Message (MessageType.NFICDONE);
                                    break;
         case MessageType.STSST:    repos.setStudentState(inMessage.getStudentID(), inMessage.getStudentState ());

@@ -66,7 +66,7 @@ public class Bar
     /**
      * Reference to the table
      */
-    private final Table tab;
+    private final TableStub tab;
     
     /**
     *   Number of entity groups requesting the shutdown.
@@ -79,7 +79,7 @@ public class Bar
      * @param repo reference to the general repository 
      * @param tab reference to the Table
      */
-    public Bar(GeneralReposStub repo, Table tab) 
+    public Bar(GeneralReposStub repo, TableStub tab) 
     {
         this.nEntities = 0;
         //Initizalization of students thread
