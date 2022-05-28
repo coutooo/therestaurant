@@ -59,6 +59,8 @@ public class BarStub {
 
         com.writeObject(outMessage);
         inMessage = (Message) com.readObject();
+        
+        GenericIO.writelnString(inMessage.toString());
 
         //TODO Message Types - enter
         if((inMessage.getMsgType() != MessageType.ENTDONE)) {
@@ -73,7 +75,7 @@ public class BarStub {
             System.exit(1);
         }
 
-        if((inMessage.getStudentState() != StudentState.GOING_TO_THE_RESTAURANT)) {
+        if((inMessage.getStudentState() != StudentState.TAKING_A_SEAT_AT_THE_TABLE)) {
             GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid Student State!");
             GenericIO.writelnString(inMessage.toString());
             System.exit(1);

@@ -215,4 +215,8 @@ public class BarClientProxy extends Thread implements StudentCloning, WaiterClon
     {
        return chefState;
     }
+
+    public int getStudentID() {
+        return studentId;
+    }
 }

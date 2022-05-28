@@ -263,7 +263,7 @@ public class TableInterface {
          case MessageType.SLTAREQ:
         	 ((TableClientProxy) Thread.currentThread()).setStudentId(inMessage.getStudentID());
         	 //((TableClientProxy) Thread.currentThread()).setStudentState(inMessage.getStudentState());
-        	 table.setFirstToArrive(inMessage.getStudentID());
+        	 table.setLastToArrive(inMessage.getStudentID());
         	 outMessage = new Message(MessageType.SLTADONE, ((TableClientProxy) Thread.currentThread()).getStudentId());
         	 break;
 

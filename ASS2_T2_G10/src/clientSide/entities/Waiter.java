@@ -39,6 +39,8 @@ public class Waiter extends Thread {
      */
     private final TableStub tableStub;
     
+    
+    
     /**
      *   Instantiation of a Waiter thread.
      *
@@ -107,7 +109,7 @@ public class Waiter extends Thread {
      */
     public void setWaiterState (int state)
     {
-        currentState = state;
+        this.currentState = state;
     }
 
     /**
@@ -117,6 +119,6 @@ public class Waiter extends Thread {
      */
     public int getWaiterState ()
     {
-        return currentState;
+        return this.currentState;
     }
 }

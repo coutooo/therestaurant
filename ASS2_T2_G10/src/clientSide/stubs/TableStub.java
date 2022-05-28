@@ -12,6 +12,7 @@ import commInfra.ClientCom;
 import commInfra.Message;
 import commInfra.MessageType;
 import genclass.GenericIO;
+import serverSide.entities.BarClientProxy;
 
 /**
  *  Stub to the Table.
@@ -55,7 +56,7 @@ public class TableStub {
 	    }
 	    
 	    //MESSAGES
-	    outMessage = new Message(MessageType.SFTAREQ, studentID, "");
+	    outMessage = new Message(MessageType.SATREQ, ((BarClientProxy) Thread.currentThread()).getStudentID(), ((BarClientProxy) Thread.currentThread()).getStudentState());
 	    
 	    com.writeObject(outMessage);
 	    inMessage = (Message) com.readObject();
@@ -67,7 +68,7 @@ public class TableStub {
 	    	System.exit(1);
 	    }
 	    
-	    if(inMessage.getStudentID() != studentID) {
+	    if(inMessage.getStudentID() != ((BarClientProxy) Thread.currentThread()).getStudentID()) {
 	    	GenericIO.writelnString("Thread Student"+inMessage.getStudentID()+": Invalid Student ID!");
 	    	GenericIO.writelnString(inMessage.toString());
 	    	System.exit(1);
@@ -416,7 +417,7 @@ public class TableStub {
 	    	System.exit(1);
 	    }
 	    
-	    ((Student) Thread.currentThread()).setStudentState(inMessage.getStudentState());
+	    ((BarClientProxy) Thread.currentThread()).setStudentState(inMessage.getStudentState());
 	    com.close();
 	}
 	

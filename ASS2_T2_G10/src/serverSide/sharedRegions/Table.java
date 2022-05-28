@@ -380,17 +380,23 @@ public class Table {
      */
     public synchronized void readMenu()
     {   
-    	int studentId = ((TableClientProxy) Thread.currentThread()).getStudentId();
+        TableClientProxy student = ((TableClientProxy) Thread.currentThread());
     	
-    	//Update student state
-    	students[studentId].setStudentState(StudentState.SELECTING_THE_COURSES);
-    	repos.setStudentState(studentId, ((TableClientProxy) Thread.currentThread()).getStudentState());
+    	int studentID = ((TableClientProxy) Thread.currentThread()).getStudentId();
     	
-    	studentsReadMenu[studentId] = true;
-    	//Signal waiter that menu was already read
+    	GenericIO.writelnString("Before: "+((TableClientProxy) Thread.currentThread()).getStudentState()+" - ID: "+student.getStudentId());
+    	
+		if(((TableClientProxy) Thread.currentThread()).getStudentState() != StudentState.SELECTING_THE_COURSES) {
+    		students[studentID].setStudentState(StudentState.SELECTING_THE_COURSES);
+    		repos.updateStudentState(studentID, StudentState.SELECTING_THE_COURSES);
+		}
+    	
+		GenericIO.writelnString("After: "+((TableClientProxy) Thread.currentThread()).getStudentState()+" - ID: "+student.getStudentID());
+		
+    	studentsReadMenu[studentID] = true;
     	notifyAll();
     	
-    	System.out.println("Student "+studentId+ " read the menu ("+studentBeingAnswered+")");
+    	System.out.println("Student "+studentID+ " read the menu ("+studentBeingAnswered+")");
     }    
     
     

@@ -227,4 +227,31 @@ public class GeneralReposStub
         }
         com.close();
     }
+
+    public void updateStudentState(int studentID, int studentState) {
+	ClientCom com;                                                 // communication channel
+	    Message outMessage,                                            // outgoing message
+	            inMessage;                                             // incoming message
+
+	    com = new ClientCom(serverHostName, serverPortNumb);
+	    while(!com.open()){
+	    	try{
+	    		Thread.sleep((long) (1000));
+	        }
+	        catch (InterruptedException e) {}
+	    }
+	    
+	    GenericIO.writelnString("READ MENU Student State: "+studentState);
+	    
+	    outMessage = new Message(MessageType.STSST, studentID, studentState);
+	    
+	    com.writeObject(outMessage);
+	    inMessage = (Message) com.readObject();
+	    
+	    if(inMessage.getMsgType() != MessageType.SACK) {
+	    	GenericIO.writelnString("Thread "+Thread.currentThread().getName()+": Invalid message type!");
+	        GenericIO.writelnString(inMessage.toString());
+	        System.exit(1);
+	    }
+	    com.close ();    }
 }

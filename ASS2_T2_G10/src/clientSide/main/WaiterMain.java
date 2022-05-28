@@ -39,6 +39,7 @@ public class WaiterMain {
         Waiter waiter;
         GeneralReposStub genReposStub;								// remote reference to the general repository
 
+        String fileName;
 
         /* getting problem runtime parameters */
 
@@ -95,6 +96,8 @@ public class WaiterMain {
             GenericIO.writelnString ("args[7] is not a valid port number!");
             System.exit (1);
         }
+        
+        fileName = args[8];
 
         //Initialization
 
@@ -105,6 +108,8 @@ public class WaiterMain {
 
 
         waiter = new Waiter("Waiter_1", kitchen, bar, table);
+        
+        genReposStub.initSimulation(fileName);
 
 
         // Start of simulation
