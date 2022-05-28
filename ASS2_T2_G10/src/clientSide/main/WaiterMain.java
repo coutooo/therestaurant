@@ -1,4 +1,4 @@
-/*
+	/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -43,7 +43,7 @@ public class WaiterMain {
 
         /* getting problem runtime parameters */
 
-        if (args.length != 8)
+        if (args.length != 9)
            { GenericIO.writelnString("Wrong number of parameters!");
              System.exit (1);
            }
