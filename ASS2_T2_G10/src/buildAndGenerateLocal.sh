@@ -93,13 +93,13 @@ echo "  Students"
 rm -f  Students.zip
 zip -rq Students.zip dirStudents
 echo "Deploying and decompressing execution environments."
-mkdir -p /home/ruib/test/theRestaurant
-rm -rf /home/ruib/test/theRestaurant/*
-cp dirGeneralRepos.zip /home/ruib/test/theRestaurant
-cp dirBarberShop.zip /home/ruib/test/theRestaurant
-cp dirBarbers.zip /home/ruib/test/theRestaurant
-cp dirCustomers.zip /home/ruib/test/theRestaurant
-cd /home/ruib/test/theRestaurant
+mkdir -p /home/couto/test/theRestaurant
+rm -rf /home/couto/test/theRestaurant/*
+cp dirGeneralRepos.zip /home/couto/test/theRestaurant
+cp dirBarberShop.zip /home/couto/test/theRestaurant
+cp dirBarbers.zip /home/couto/test/theRestaurant
+cp dirCustomers.zip /home/couto/test/theRestaurant
+cd /home/couto/test/theRestaurant
 unzip -q dirGeneralRepos.zip
 unzip -q dirBar.zip
 unzip -q dirTable.zip
