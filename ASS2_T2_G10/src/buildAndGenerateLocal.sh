@@ -96,9 +96,12 @@ echo "Deploying and decompressing execution environments."
 mkdir -p /home/couto/test/theRestaurant
 rm -rf /home/couto/test/theRestaurant/*
 cp dirGeneralRepos.zip /home/couto/test/theRestaurant
-cp dirBarberShop.zip /home/couto/test/theRestaurant
-cp dirBarbers.zip /home/couto/test/theRestaurant
-cp dirCustomers.zip /home/couto/test/theRestaurant
+cp dirBar.zip /home/couto/test/theRestaurant
+cp dirTable.zip /home/couto/test/theRestaurant
+cp dirKitchen.zip /home/couto/test/theRestaurant
+cp dirChef.zip /home/couto/test/theRestaurant
+cp dirWaiter.zip /home/couto/test/theRestaurant
+cp dirStudents.zip /home/couto/test/theRestaurant
 cd /home/couto/test/theRestaurant
 unzip -q dirGeneralRepos.zip
 unzip -q dirBar.zip
