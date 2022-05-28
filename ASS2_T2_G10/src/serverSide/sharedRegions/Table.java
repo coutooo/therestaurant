@@ -109,7 +109,7 @@ public class Table {
     /**
      * Reference to the student threads
      */
-    private final Student [] students;
+    private final TableClientProxy [] students;
 
     /**
      * Reference to the General Repository.
@@ -148,7 +148,7 @@ public class Table {
     	}
     	
             //Initizalization of students thread
-            students = new Student[serverSide.main.ExecConst.Nstudents];
+            students = new TableClientProxy[serverSide.main.ExecConst.Nstudents];
             for(int i = 0; i < serverSide.main.ExecConst.Nstudents; i++ ) 
                     students[i] = null;
     }
@@ -188,8 +188,8 @@ public class Table {
     	studentBeingAnswered = studentIdBeingAnswered;
     	
     	//Update Waiter state
-    	((Waiter) Thread.currentThread()).setWaiterState(WaiterState.PRESENTING_THE_MENU);
-    	repos.setWaiterState(((Waiter) Thread.currentThread()).getWaiterState());
+    	((TableClientProxy) Thread.currentThread()).setWaiterState(WaiterState.PRESENTING_THE_MENU);
+    	repos.setWaiterState(((TableClientProxy) Thread.currentThread()).getWaiterState());
     	
     	presentingTheMenu = true;
     	
@@ -235,8 +235,8 @@ public class Table {
     public synchronized void returnBar()
     {
     	//Update Waiter state
-    	((Waiter) Thread.currentThread()).setWaiterState(WaiterState.APPRAISING_SITUATION);
-    	repos.setWaiterState(((Waiter) Thread.currentThread()).getWaiterState());    	
+    	((TableClientProxy) Thread.currentThread()).setWaiterState(WaiterState.APPRAISING_SITUATION);
+    	repos.setWaiterState(((TableClientProxy) Thread.currentThread()).getWaiterState());    	
     }
     
     
@@ -250,8 +250,8 @@ public class Table {
     public synchronized void getThePad()
     {
     	//Update Waiter state
-    	((Waiter) Thread.currentThread()).setWaiterState(WaiterState.TAKING_THE_ORDER);
-    	repos.setWaiterState(((Waiter) Thread.currentThread()).getWaiterState());
+    	((TableClientProxy) Thread.currentThread()).setWaiterState(WaiterState.TAKING_THE_ORDER);
+    	repos.setWaiterState(((TableClientProxy) Thread.currentThread()).getWaiterState());
     	
     	takingTheOrder = true;
     	
@@ -322,8 +322,8 @@ public class Table {
     	//Signal student the he can pay
     	notifyAll();
     	
-    	((Waiter) Thread.currentThread()).setWaiterState(WaiterState.RECEIVING_PAYMENT);
-    	repos.setWaiterState(((Waiter) Thread.currentThread()).getWaiterState());
+    	((TableClientProxy) Thread.currentThread()).setWaiterState(WaiterState.RECEIVING_PAYMENT);
+    	repos.setWaiterState(((TableClientProxy) Thread.currentThread()).getWaiterState());
     	//Block waiting for his payment
     	try {
             wait();
@@ -343,9 +343,9 @@ public class Table {
      */
     public synchronized void seatAtTable()
     {
-    	int studentId = ((Student) Thread.currentThread()).getStudentID();
+    	int studentId = ((TableClientProxy) Thread.currentThread()).getStudentId();
     	
-            students[studentId] = ((Student) Thread.currentThread());
+            students[studentId] = ((TableClientProxy) Thread.currentThread());
             students[studentId].setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
     	
     	System.out.println("Student"+ studentId+" took a seat");
@@ -380,11 +380,11 @@ public class Table {
      */
     public synchronized void readMenu()
     {   
-    	int studentId = ((Student) Thread.currentThread()).getStudentID();
+    	int studentId = ((TableClientProxy) Thread.currentThread()).getStudentId();
     	
     	//Update student state
     	students[studentId].setStudentState(StudentState.SELECTING_THE_COURSES);
-    	repos.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
+    	repos.setStudentState(studentId, ((TableClientProxy) Thread.currentThread()).getStudentState());
     	
     	studentsReadMenu[studentId] = true;
     	//Signal waiter that menu was already read
@@ -409,7 +409,7 @@ public class Table {
     	
     	//Update student state
     	students[firstToArrive].setStudentState(StudentState.ORGANIZING_THE_ORDER);
-    	repos.setStudentState(firstToArrive, ((Student) Thread.currentThread()).getStudentState());
+    	repos.setStudentState(firstToArrive, ((TableClientProxy) Thread.currentThread()).getStudentState());
     	
     }
     
@@ -497,7 +497,7 @@ public class Table {
     {
     	//Update student state
     	students[firstToArrive].setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
-    	repos.setStudentState(firstToArrive, ((Student) Thread.currentThread()).getStudentState());   
+    	repos.setStudentState(firstToArrive, ((TableClientProxy) Thread.currentThread()).getStudentState());   
     }
     
     
@@ -511,7 +511,7 @@ public class Table {
      */
     public synchronized void informCompanion()
     {
-    	int studentId = ((Student) Thread.currentThread()).getStudentID();
+    	int studentId = ((TableClientProxy) Thread.currentThread()).getStudentId();
     	
     	//If some other student is informing about his order then wait must be done
     	while(informingCompanion)
@@ -530,7 +530,7 @@ public class Table {
     	
     	//Update student state
     	students[studentId].setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
-    	repos.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
+    	repos.setStudentState(studentId, ((TableClientProxy) Thread.currentThread()).getStudentState());
     	
     }
     
@@ -543,11 +543,11 @@ public class Table {
      */    
     public synchronized void startEating()
     {
-    	int studentId = ((Student) Thread.currentThread()).getStudentID();
+    	int studentId = ((TableClientProxy) Thread.currentThread()).getStudentId();
     	 
     	//Update student state
     	students[studentId].setStudentState(StudentState.ENJOYING_THE_MEAL);
-    	repos.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
+    	repos.setStudentState(studentId, ((TableClientProxy) Thread.currentThread()).getStudentState());
     	
     	//Enjoy meal during random time
         try
@@ -564,7 +564,7 @@ public class Table {
      */
     public synchronized void endEating()
     {
-    	int studentId = ((Student) Thread.currentThread()).getStudentID();
+    	int studentId = ((TableClientProxy) Thread.currentThread()).getStudentId();
     	
     	//Update numstudents finished course
     	nStudentsFinishedCourse++;
@@ -580,7 +580,7 @@ public class Table {
     	
     	//Update student state
     	students[studentId].setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
-    	repos.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
+    	repos.setStudentState(studentId, ((TableClientProxy) Thread.currentThread()).getStudentState());
     }
     
     
@@ -593,7 +593,7 @@ public class Table {
      */
     public synchronized boolean hasEverybodyFinishedEating()
     {
-    	int studentId = ((Student) Thread.currentThread()).getStudentID();
+    	int studentId = ((TableClientProxy) Thread.currentThread()).getStudentId();
     	
     	//Notify all students that the last one to eat has already finished
     	if(studentId == lastToEat)
@@ -699,12 +699,12 @@ public class Table {
      */
     public synchronized boolean shouldHaveArrivedEarlier()
     {
-    	int studentId = ((Student) Thread.currentThread()).getStudentID();
+    	int studentId = ((TableClientProxy) Thread.currentThread()).getStudentId();
 
     	if(studentId == lastToArrive) {
             //Update student state
             students[studentId].setStudentState(StudentState.PAYING_THE_MEAL);
-            repos.setStudentState(studentId, ((Student) Thread.currentThread()).getStudentState());
+            repos.setStudentState(studentId, ((TableClientProxy) Thread.currentThread()).getStudentState());
             return true;
     	}
     	else
