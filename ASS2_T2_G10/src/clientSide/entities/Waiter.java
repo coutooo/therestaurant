@@ -69,33 +69,30 @@ public class Waiter extends Thread {
             request = barStub.lookAround();
 
             switch(request){
-                case 'c' -> {
-                    //Client arriving, needs to be presented with the menu
+                case 'c':	//Client arriving, needs to be presented with the menu
                     tableStub.saluteClient(barStub.getStudentBeingAnswered());
                     tableStub.returnBar();
-                }
-                case 'o' -> {
-                    //Order will be described to the waiter
+                    break;
+                case 'o':	//Order will be described to the waiter
                     tableStub.getThePad();
                     kitchenStub.handNoteToChef();
                     kitchenStub.returnToBar();
-                }
-                case 'p' -> {
-                    //Portions need to be collected and delivered
+                    break;
+                case 'p':	//Portions need to be collected and delivered
                     while(!tableStub.haveAllClientsBeenServed()) {
                         kitchenStub.collectPortion();
                         tableStub.deliverPortion();
                     }
                     tableStub.returnBar();
-                }
-                case 'b' -> {
-                    //Bill needs to be prepared so it can be payed by the student
+                    break;
+                case 'b':	//Bill needs to be prepared so it can be payed by the student
                     barStub.preprareBill();
                     tableStub.presentBill();
                     tableStub.returnBar();
-                }
-                case 'g' -> //Goodbye needs to be said to a student
+                    break;
+                case 'g':	//Goodbye needs to be said to a student
                     stop = barStub.sayGoodbye();
+                    break;
             }
             //If the last student has left the restaurant, life cycle may terminate
             if (stop)
