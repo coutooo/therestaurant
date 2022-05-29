@@ -247,7 +247,7 @@ public class GeneralRepos {
    *
    *     @param nPortionsDelivered number of portions delivered
    */
-    void setnPortions(int nPortionsDelivered) {
+    public synchronized void setnPortions(int nPortionsDelivered) {
         nPortions = nPortionsDelivered;
     }
   /**
@@ -255,7 +255,7 @@ public class GeneralRepos {
    *
    *     @param setnCourses number of courses
    */
-    void setnCourses(int i) {
+    public synchronized void setnCourses(int i) {
         nCourses = i;
     }
   /**
@@ -264,7 +264,7 @@ public class GeneralRepos {
    *     @param nStudentAtRes number of students at the restaurant
    *     @param studentId student id
    */
-    void updateSeatsAtTable(int nStudentsAtRes, int studentId) {
+    public synchronized void updateSeatsAtTable(int nStudentsAtRes, int studentId) {
         seatAtTable[nStudentsAtRes] = studentId;
         reportStatus();
     }

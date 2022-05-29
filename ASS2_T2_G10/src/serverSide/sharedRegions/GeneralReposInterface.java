@@ -103,11 +103,11 @@ public class GeneralReposInterface
         case MessageType.USSTREQ1:
         case MessageType.USSTREQ2:
                 if (inMessage.getMsgType() == MessageType.USSTREQ1) {
-                        repos.updateStudentState(inMessage.getStudentID(), inMessage.getStudentState());
+                        repos.updateStudentState(inMessage.getStudentId(), inMessage.getStudentState());
                         outMessage = new Message(MessageType.USSTDONE1);
                         break;
                 } else { 
-                        repos.updateStudentState(inMessage.getStudentID(), inMessage.getStudentState(), inMessage.getHold());
+                        repos.updateStudentState(inMessage.getStudentId(), inMessage.getStudentState(), inMessage.getHold());
                         outMessage = new Message(MessageType.USSTDONE2);
                 }
                 break;
@@ -122,11 +122,11 @@ public class GeneralReposInterface
                 outMessage = new Message(MessageType.SETNPDONE);
                 break;
         case MessageType.USATREQ:
-                repos.updateSeatsAtTable(inMessage.getSeatAtTable(), inMessage.getStudentID());
+                repos.updateSeatsAtTable(inMessage.getSeatAtTable(), inMessage.getStudentId());
                 outMessage = new Message(MessageType.USATDONE);
                 break;
         case MessageType.USALREQ:
-                repos.updateSeatsAtTable(inMessage.getStudentID(), -1);
+                repos.updateSeatsAtLeaving(inMessage.getStudentId());
                 outMessage = new Message(MessageType.USALDONE);
                 break;
         case MessageType.GRSHUTREQ:

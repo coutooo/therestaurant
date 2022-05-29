@@ -6,8 +6,6 @@
 		-TableStub
 *SERVERSIDE
 	*SHAREDREGIONS | DONE
-*COMMINFRA
-	-Message 
-	-MessageType 
+
 
 

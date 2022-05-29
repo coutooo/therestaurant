@@ -105,7 +105,7 @@ public class Student extends Thread {
      *
      *     @param id Student id
      */
-    public void setStudentID(int id){
+    public void setStudentId(int id){
         student_id = id;
     }
     
@@ -114,7 +114,7 @@ public class Student extends Thread {
      *
      *     @return Student id
      */
-    public int getStudentID() {
+    public int getStudentId() {
         return student_id;
     }
     

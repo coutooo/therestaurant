@@ -14,7 +14,7 @@ public class Message implements Serializable {
 
     private int waiterState = -1;
 
-    private int studentID = -1;
+    private int studentId = -1;
 
     private int studentState = -1;
     /**
@@ -126,7 +126,7 @@ public class Message implements Serializable {
                 waiterState = state;
         else if (entitie == 3) { //Student message
                 if(msgType == MessageType.CWREQ || msgType == MessageType.CWDONE || msgType == MessageType.HEFEREQ)
-                        studentID = state;
+                        studentId = state;
                 else if(msgType == MessageType.POREQ || msgType == MessageType.PODONE || 
                             msgType == MessageType.JTREQ || msgType == MessageType.JTDONE)
                         studentState = state;
@@ -167,7 +167,7 @@ public class Message implements Serializable {
                                 GenericIO.writelnString ("Invalid student id");
                                 System.exit (1);
                         }
-                        studentID = state;
+                        studentId = state;
                 }
         }
         else { 
@@ -240,7 +240,7 @@ public class Message implements Serializable {
                     GenericIO.writelnString ("Invalid student id");
                     System.exit (1);
             }
-            studentID = id;
+            studentId = id;
     }
 
 
@@ -254,7 +254,7 @@ public class Message implements Serializable {
     public Message (int type, int id, boolean everybodyEaten)
     {
             msgType = type;
-            studentID = id;
+            studentId = id;
             everybodyHasEaten = everybodyEaten;	
 
     }
@@ -278,7 +278,7 @@ public class Message implements Serializable {
             }
 
             msgType = type;
-            studentID = id;
+            studentId = id;
             studentState = state;
             if(msgType == MessageType.SHAEDONE)
                     shouldArrivedEarlier = bValue;
@@ -303,8 +303,8 @@ public class Message implements Serializable {
     }
 
 
-    public int getStudentID() { 
-        return studentID;
+    public int getStudentId() { 
+        return studentId;
     }
 
     public int getStudentState() {
@@ -499,7 +499,7 @@ public class Message implements Serializable {
             return ("Message type = " + msgType +
                     "\nChef State = " + chefState +
                     "\nWaiter State = " + waiterState +
-                    "\nStudentId = " + studentID + " StudentState = " + studentState + 
+                    "\nStudentId = " + studentId + " StudentState = " + studentState + 
                     "\nStudentIdBeingAnswered = " + studentIdBeingAnswered +
                     "\nNumber of studentsAtRestaurant = " + studentsAtRestaurant +
                     "\nAll Portions Been Delivered = " + allPortionsDelivered + 
