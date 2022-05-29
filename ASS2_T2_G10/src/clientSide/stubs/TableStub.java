@@ -295,12 +295,12 @@ public class TableStub {
 			catch (InterruptedException e) {}
 		}
 		
-		outMessage = new Message (MessageType.GBREQ, ((Waiter) Thread.currentThread()).getWaiterState());
+		outMessage = new Message (MessageType.GPREQ, ((Waiter) Thread.currentThread()).getWaiterState());
 		com.writeObject (outMessage); 			//Write outGoing message in the communication channel
 		inMessage = (Message) com.readObject(); //Read inGoing message
 		
 		//Validate inGoing message type and arguments
-		if(inMessage.getMsgType() != MessageType.GBDONE)
+		if(inMessage.getMsgType() != MessageType.GPDONE)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
 			GenericIO.writelnString (inMessage.toString ());

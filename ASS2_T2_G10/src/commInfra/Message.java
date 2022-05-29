@@ -482,80 +482,80 @@ public class Message implements Serializable
 	 * @return 1 if called by chef, 2 if called bye waiter and 3 if called by student
 	 */
 	public int getEntitieFromMessageType(int messageType)
-	{
-		///FALTAM AQUI MENSAGENS
-		switch(messageType)
-		{
-			// Chef messages
-			case MessageType.REQWATTNWS: 		case MessageType.REPWATTNWS:
-			case MessageType.REQSTRPR: 			case MessageType.REPSTRPR:
-			case MessageType.REQPROCPREP: 		case MessageType.REPPROCPREP:
-			case MessageType.REQHVPRTDLVD: 		case MessageType.REPHVPRTDLVD:
-			case MessageType.REQHORDCOMPL: 		case MessageType.REPHORDCOMPL:
-			case MessageType.REQCONTPREP: 		case MessageType.REPCONTPREP :
-			case MessageType.REQHAVNEXPORRD: 	case MessageType.REPHAVNEXPORRD:
-			case MessageType.REQCLEANUP: 		case MessageType.REPCLEANUP:
-			case MessageType.REQALRTWAIT: 		case MessageType.REPALRTWAIT:
-				return 1;
-			// Waiter messages
-			case MessageType.REQHNDNOTCHEF:		case MessageType.REPHNDNOTCHEF:
-			case MessageType.REQRETURNTOBAR: 	case MessageType.REPRETURNTOBAR:
-			case MessageType.REQCOLLPORT: 		case MessageType.REPCOLLPORT:
-			case MessageType.REQLOOKARND:		case MessageType.REPLOOKARND:
-			case MessageType.REQPRPREBILL: 		case MessageType.REPPRPREBILL:
-			case MessageType.REQSAYGDBYE: 		case MessageType.REPSAYGDBYE:
-			case MessageType.REQSALUTCLI: 		case MessageType.REPSALUTCLI:
-			case MessageType.REQRTRNBAR:		case MessageType.REPRTRNBAR:
-			case MessageType.REQGETPAD:			case MessageType.REPGETPAD:
-			case MessageType.REQALLCLISERVED:	case MessageType.REPALLCLISERVED:
-			case MessageType.REQDELPOR:			case MessageType.REPDELPOR:
-			case MessageType.REQPRESBILL:		case MessageType.REPPRESBILL:
-				return 2;
-			// Student messages
-			case MessageType.REQENTER: 				case MessageType.REPENTER:
-			case MessageType.REQCALLWAI: 			case MessageType.REPCALLWAI:
-			case MessageType.REQSIGWAI: 			case MessageType.REPSIGWAI:
-			case MessageType.REQEXIT: 				case MessageType.REPEXIT:
-			case MessageType.REQSEATTABLE:			case MessageType.REPSEATTABLE:
-			case MessageType.REQRDMENU:				case MessageType.REPRDMENU:
-			case MessageType.REQPREPORDER:			case MessageType.REPPREPORDER:
-			case MessageType.REQEVERYBDYCHO:		case MessageType.REPEVERYBDYCHO:
-			case MessageType.REQADDUP1CHOI:			case MessageType.REPADDUP1CHOI:
-			case MessageType.REQDESCRORDER:			case MessageType.REPDESCRORDER:
-			case MessageType.REQJOINTALK:			case MessageType.REPJOINTALK:
-			case MessageType.REQINFORMCOMP:			case MessageType.REPINFORMCOMP:
-			case MessageType.REQSRTEATING:			case MessageType.REPSRTEATING:
-			case MessageType.REQENDEATING:			case MessageType.REPENDEATING:
-			case MessageType.REQEVERYBDFINISHEAT:	case MessageType.REPEVERYBDFINISHEAT:
-			case MessageType.REQHONBILL:			case MessageType.REPHONBILL:
-			case MessageType.REQALLCOURBEENEAT:		case MessageType.REPALLCOURBEENEAT:
-			case MessageType.REQSHOULDARREARLY:		case MessageType.REPSHOULDARREARLY:
-				return 3;
-			//Additional Messages
-			case MessageType.REQGETSTDBEIANSW:	case MessageType.REPGETSTDBEIANSW:
-			case MessageType.REQGETFRSTARR:		case MessageType.REPGETFRSTARR:
-			case MessageType.REQGETLSTEAT:		case MessageType.REPGETLSTEAT:
-			case MessageType.REQSETFRSTARR:		case MessageType.REPSETFRSTARR:
-			case MessageType.REQSETLSTARR:		case MessageType.REPSETLSTARR:
-			case MessageType.REQKITSHUT:		case MessageType.REPKITSHUT:
-			case MessageType.REQBARSHUT:		case MessageType.REPBARSHUT:
-			case MessageType.REQTABSHUT:		case MessageType.REPTABSHUT:
-				return 4;
-			//GeneralRepo Message
-			case MessageType.REQSETCHST:		 case MessageType.REPSETCHST:
-			case MessageType.REQSETWAIST:		 case MessageType.REPSETWAIST:
-			case MessageType.REQUPDTSTUST1:		 case MessageType.REPUPDTSTUST1:
-			case MessageType.REQUPDTSTUST2:		 case MessageType.REPUPDTSTUST2:
-			case MessageType.REQSETNCOURSES:	 case MessageType.REPSETNCOURSES:
-			case MessageType.REQSETNPORTIONS:	 case MessageType.REPSETNPORTIONS:
-			case MessageType.REQUPDSEATSTABLE:	 case MessageType.REPUPDSEATSTABLE:
-			case MessageType.REQUPDSEATSTABLELV: case MessageType.REPUPDSEATSTABLELV:
-			case MessageType.REQGENERALREPOSHUT: case MessageType.REPGENERALREPOSHUT:
-				return 5;
-			default:
-				return -1;
-		}
-	}
+        {
+            ///FALTAM AQUI MENSAGENS
+            switch(messageType)
+            {
+                // Chef messages
+                case MessageType.WTNREQ: 		case MessageType.WTNDONE:
+                case MessageType.STPREQ: 		case MessageType.STPDONE:
+                case MessageType.PTPREQ: 		case MessageType.PTPDONE:
+                case MessageType.HAPBDREQ: 		case MessageType.HAPBDDONE:
+                case MessageType.HOBCREQ: 		case MessageType.HOBCDONE:
+                case MessageType.CPREQ: 		case MessageType.CPDONE :
+                case MessageType.HNPRREQ:               case MessageType.HNPRDONE:
+                case MessageType.CUREQ: 		case MessageType.CUDONE:
+                case MessageType.ALREQ: 		case MessageType.ALDONE:
+                        return 1;
+                // Waiter messages
+                case MessageType.HNTCREQ:		case MessageType.HNTCDONE:
+                case MessageType.RTBREQ:                case MessageType.RTBDONE:
+                case MessageType.CPORREQ: 		case MessageType.CPORDONE:
+                case MessageType.LAREQ:                 case MessageType.LADONE:
+                case MessageType.PBREQ: 		case MessageType.PBDONE:
+                case MessageType.SGREQ: 		case MessageType.SGDONE:
+                case MessageType.SCREQ: 		case MessageType.SCDONE:
+                case MessageType.RBREQ:                 case MessageType.RBDONE:
+                case MessageType.GPREQ:			case MessageType.GPDONE:
+                case MessageType.HACBSREQ:              case MessageType.HACBSDONE:
+                case MessageType.DPREQ:                 case MessageType.DPDONE:
+                case MessageType.PREBREQ:		case MessageType.PREBDONE:
+                        return 2;
+                // Student messages
+                case MessageType.ENTREQ: 		case MessageType.ENTDONE:
+                case MessageType.CWREQ: 		case MessageType.CWDONE:
+                case MessageType.SWREQ: 		case MessageType.SWDONE:
+                case MessageType.EXITREQ: 		case MessageType.EXITDONE:
+                case MessageType.SATREQ:		case MessageType.SATDONE:
+                case MessageType.RMREQ:                 case MessageType.RMDONE:
+                case MessageType.POREQ:                 case MessageType.PODONE:
+                case MessageType.EHCREQ:                case MessageType.EHCDONE:
+                case MessageType.AUOCREQ:		case MessageType.AUOCDONE:
+                case MessageType.DOREQ:                 case MessageType.DODONE:
+                case MessageType.JTREQ:                 case MessageType.JTDONE:
+                case MessageType.ICREQ:                 case MessageType.ICDONE:
+                case MessageType.SEREQ:                 case MessageType.SEDONE:
+                case MessageType.EEREQ:                 case MessageType.EEDONE:
+                case MessageType.HEFEREQ:               case MessageType.HEFEDONE:
+                case MessageType.HBREQ:                 case MessageType.HBDONE:
+                case MessageType.HACBEREQ:              case MessageType.HACBEDONE:
+                case MessageType.SHAEREQ:               case MessageType.SHAEDONE:
+                        return 3;
+                //Additional Messages
+                case MessageType.GSBAREQ:               case MessageType.GSBADONE:
+                case MessageType.GFTAREQ:		case MessageType.GFTADONE:
+                case MessageType.GLTEREQ:		case MessageType.GLTEDONE:
+                case MessageType.SFTAREQ:		case MessageType.SFTADONE:
+                case MessageType.SLTAREQ:		case MessageType.SLTADONE:
+                case MessageType.KSHUTREQ:		case MessageType.KSHUTDONE:
+                case MessageType.BSHUTREQ:		case MessageType.BSHUTDONE:
+                case MessageType.TSHUTREQ:		case MessageType.TSHUTDONE:
+                        return 4;
+                //GeneralRepo Message
+                case MessageType.STCSTREQ:		case MessageType.STCSTDONE:
+                case MessageType.STWSTREQ:		case MessageType.STWSTDONE:
+                case MessageType.USSTREQ1:		case MessageType.USSTDONE1:
+                case MessageType.USSTREQ2:		case MessageType.USSTDONE2:
+                case MessageType.SETNCREQ:              case MessageType.SETNCDONE:
+                case MessageType.SETNPREQ:              case MessageType.SETNPDONE:
+                case MessageType.USATREQ:               case MessageType.USATDONE:       
+                case MessageType.USALREQ:               case MessageType.USALDONE:        
+                case MessageType.GRSHUTREQ:             case MessageType.GRSHUTDONE:
+                        return 5;
+                default:
+                        return -1;
+            }
+        }
 
 
 	/**
