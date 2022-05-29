@@ -161,44 +161,44 @@ public class Message implements Serializable
 		else if (entitie == 2) //Waiter message
 			waiterState = stateOrId;
 		else if (entitie == 3) { //Student message
-			if(msgType == MessageType.REQCALLWAI || msgType == MessageType.REPCALLWAI || msgType == MessageType.REQEVERYBDFINISHEAT)
+			if(msgType == MessageType.CWREQ || msgType == MessageType.CWDONE || msgType == MessageType.HEFEREQ)
 				studentId = stateOrId;
-			else if(msgType == MessageType.REQPREPORDER || msgType == MessageType.REPPREPORDER || 
-				    msgType == MessageType.REQJOINTALK || msgType == MessageType.REPJOINTALK)
+			else if(msgType == MessageType.POREQ || msgType == MessageType.PODONE || 
+				    msgType == MessageType.JTREQ || msgType == MessageType.JTDONE)
 				studentState = stateOrId;
 		}
 		else if (entitie == 4) {  //Additional message
-			if (msgType == MessageType.REPGETFRSTARR)
+			if (msgType == MessageType.GFTAREQ)
 				firstToArrive = stateOrId;
-			else if (msgType == MessageType.REPGETLSTEAT)
+			else if (msgType == MessageType.GLTEDONE)
 				lastToEat = stateOrId;
-			else if (msgType == MessageType.REQSETFRSTARR)
+			else if (msgType == MessageType.SFTAREQ)
 				firstToArrive = stateOrId;
-			else if (msgType == MessageType.REQSETLSTARR)
+			else if (msgType == MessageType.SLTAREQ)
 				lastToArrive = stateOrId;
-			else if (msgType == MessageType.REPGETSTDBEIANSW)
+			else if (msgType == MessageType.GSBADONE)
 				studentBeingAnswered = stateOrId;
 		}
 		else if (entitie == 5) {	//General repository messages
-			if (msgType == MessageType.REQSETCHST)
+			if (msgType == MessageType.STCSTREQ)
 				chefState = stateOrId;
-			else if (msgType == MessageType.REQSETWAIST)
+			else if (msgType == MessageType.STWSTREQ)
 				waiterState = stateOrId;
-			else if (msgType == MessageType.REQSETNCOURSES) {
+			else if (msgType == MessageType.SETNCREQ) {
 				if ( stateOrId < 0 || stateOrId  > ExecuteConst.M) {	// Not a valid number of courses
 					GenericIO.writelnString ("Invalid number of courses");
 					System.exit (1);
 				} 
 				nCourses = stateOrId;
 			}
-			else if (msgType == MessageType.REQSETNPORTIONS) {
+			else if (msgType == MessageType.SETNPREQ) {
 				if ( stateOrId < 0 || stateOrId  > ExecuteConst.N) {	// Not a valid number of portions
 					GenericIO.writelnString ("Invalid number of portions");
 					System.exit (1);
 				}
 				nPortions = stateOrId;
 			}
-			else if (msgType == MessageType.REQUPDSEATSTABLELV){
+			else if (msgType == MessageType.USALREQ){
 				if ( stateOrId < 0 || stateOrId  >= ExecuteConst.N) {	// Not a valid Student id
 					GenericIO.writelnString ("Invalid student id");
 					System.exit (1);
@@ -223,19 +223,19 @@ public class Message implements Serializable
 	public Message(int type, boolean bValue)
 	{
 		msgType = type;
-		if (msgType == MessageType.REPHVPRTDLVD)
+		if (msgType == MessageType.HAPBDDONE)
 			allPortionsDelivered = bValue;
-		else if (msgType == MessageType.REPHORDCOMPL)
+		else if (msgType == MessageType.HOBCDONE)
 			orderCompleted = bValue;   
-		else if (msgType == MessageType.REPSAYGDBYE)
+		else if (msgType == MessageType.SGDONE)
 			studentsAtRestaurant = bValue;
-		else if (msgType == MessageType.REPALLCLISERVED)
+		else if (msgType == MessageType.HACBSDONE)
 			allClientsBeenServed = bValue;
-		else if (msgType == MessageType.REPEVERYBDYCHO)
+		else if (msgType == MessageType.EHCDONE)
 			everybodyHasChosen = bValue;
-		else if (msgType == MessageType.REPALLCOURBEENEAT)
+		else if (msgType == MessageType.HACBEDONE)
 			haveAllCoursesBeenEaten = bValue;
-		else if (msgType == MessageType.REPEVERYBDFINISHEAT)
+		else if (msgType == MessageType.HEFEDONE)
 			everybodyHasEaten = bValue;
 
 			
@@ -255,17 +255,17 @@ public class Message implements Serializable
 		int entity = getEntitieFromMessageType(type);
 		
 		//Update seats at the table (general repos)
-		if (msgType == MessageType.REQUPDSEATSTABLE)
+		if (msgType == MessageType.USATREQ)
 			seatAtTable = stateOrSeat;
 		//salute a client (waiter in the table)
-		else if (msgType == MessageType.REQSALUTCLI || msgType == MessageType.REPSALUTCLI){
+		else if (msgType == MessageType.SCREQ || msgType == MessageType.SCDONE){
 			studentBeingAnswered = id;
 			waiterState = stateOrSeat;
 			return;
 		}
 		else 
 		{
-			if ((entity != 3) && msgType != MessageType.REQUPDTSTUST1) {	// Not a Student entity Type Message
+			if ((entity != 3) && msgType != MessageType.USSTREQ1) {	// Not a Student entity Type Message
 				GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation on Student!");
 				System.exit (1);
 			}
@@ -317,9 +317,9 @@ public class Message implements Serializable
 		msgType = type;
 		studentId = id;
 		studentState = state;
-		if(msgType == MessageType.REPSHOULDARREARLY)
+		if(msgType == MessageType.SHAEDONE)
 			shouldArrivedEarlier = bValue;
-		else if (msgType == MessageType.REQUPDTSTUST2)
+		else if (msgType == MessageType.USSTREQ2)
 			hold = bValue;
 	}
 	
