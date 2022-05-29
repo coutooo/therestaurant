@@ -39,101 +39,84 @@ public class WaiterMain {
         Waiter waiter;
         GeneralReposStub genReposStub;								// remote reference to the general repository
 
-        String fileName;
 
-        /* getting problem runtime parameters */
-
-        if (args.length != 9)
-           { GenericIO.writelnString("Wrong number of parameters!");
-             System.exit (1);
-           }
-        barServerHostName = args[0];
-        try
-        { barServerPortNum = Integer.parseInt (args[1]);
+        /* Getting problem runtime parameters */
+        if(args.length != 8) {
+                GenericIO.writelnString ("Wrong number of parameters!");
+                System.exit(1);
         }
-        catch (NumberFormatException e)
-        { GenericIO.writelnString ("args[1] is not a number!");
-          System.exit (1);
-        }
-        if ((barServerPortNum < 4000) || (barServerPortNum >= 65536))
-           { GenericIO.writelnString ("args[1] is not a valid port number!");
-             System.exit(1);
-           }
-
-        tableServerHostName = args[2];
+        //Get kitchen parameters
+        kitchenServerHostName = args[0];
         try {
-            tableServerPortNum = Integer.parseInt(args[3]);
-        } catch(NumberFormatException e) {
-            GenericIO.writelnString("args[3] is not a valid port number!");
-            System.exit(1);
+                kitchenServerPortNum = Integer.parseInt (args[1]);
+        } catch (NumberFormatException e) {
+                GenericIO.writelnString ("args[1] is not a number!");
+                System.exit(1);
         }
-        if ((tableServerPortNum < 4000) || (tableServerPortNum >= 65536)) {
-            GenericIO.writelnString ("args[3] is not a valid port number!");
-            System.exit (1);
+        if( (kitchenServerPortNum < 22110) || (kitchenServerPortNum > 22119) ) {
+                GenericIO.writelnString ("args[1] is not a valid port number!");
+                System.exit(1);			
         }
 
-        kitchenServerHostName = args[4];
+        //Get bar parameters
+        barServerHostName = args[2];
         try {
-            kitchenServerPortNum = Integer.parseInt(args[5]);
-        } catch(NumberFormatException e) {
-            GenericIO.writelnString("args[5] is not a valid port number!");
-            System.exit(1);
+                barServerPortNum = Integer.parseInt (args[3]);
+        } catch (NumberFormatException e) {
+                GenericIO.writelnString ("args[3] is not a number!");
+                System.exit(1);
         }
-        if ((kitchenServerPortNum < 4000) || (kitchenServerPortNum >= 65536)) {
-                  GenericIO.writelnString ("args[5] is not a valid port number!");
-                  System.exit (1);
-            }
+        if( (barServerPortNum < 22110) || (barServerPortNum > 22119) ) {
+                GenericIO.writelnString ("args[3] is not a valid port number!");
+                System.exit(1);			
+        }
 
+        //Get table parameters
+        tableServerHostName = args[4];
+        try {
+                tableServerPortNum = Integer.parseInt (args[5]);
+        } catch (NumberFormatException e) {
+                GenericIO.writelnString ("args[5] is not a number!");
+                System.exit(1);
+        }
+        if( (tableServerPortNum < 22110) || (tableServerPortNum > 22119) ) {
+                GenericIO.writelnString ("args[5] is not a valid port number!");
+                System.exit(1);			
+        }
+
+
+        //Get general repo parameters
         genReposServerHostName = args[6];
-        try
-        { genReposServerPortNum = Integer.parseInt (args[7]);
+        try {
+                genReposServerPortNum = Integer.parseInt (args[7]);
+        } catch (NumberFormatException e) {
+                GenericIO.writelnString ("args[7] is not a number!");
+                System.exit(1);
         }
-        catch (NumberFormatException e)
-        { GenericIO.writelnString ("args[7] is not a number!");
-          System.exit (1);
+        if( (genReposServerPortNum < 22110) || (genReposServerPortNum > 22119) ) {
+                GenericIO.writelnString ("args[7] is not a valid port number!");
+                System.exit(1);			
         }
-        if ((genReposServerPortNum < 4000) || (genReposServerPortNum >= 65536)) {
-            GenericIO.writelnString ("args[7] is not a valid port number!");
-            System.exit (1);
-        }
-        
-        fileName = args[8];
 
-        //Initialization
 
+        /* problem initialisation */
+        kitchen = new KitchenStub(kitchenServerHostName, kitchenServerPortNum);
         bar = new BarStub(barServerHostName, barServerPortNum);
         table = new TableStub(tableServerHostName, tableServerPortNum);
-        kitchen = new KitchenStub(kitchenServerHostName, kitchenServerPortNum);
         genReposStub = new GeneralReposStub(genReposServerHostName, genReposServerPortNum);
+        waiter = new Waiter("waiter", kitchen, bar, table);
 
-
-        waiter = new Waiter("Waiter_1", kitchen, bar, table);
-        
-        genReposStub.initSimulation(fileName);
-
-
-        // Start of simulation
+        /* start simulation */
+        GenericIO.writelnString ("Launching Waiter Thread");
         waiter.start();
 
-        GenericIO.writelnString();
-        while(waiter.isAlive()) {
-
-//          kitchen.endOperation();
-//          bar.endOperation();
-//          table.endOperation();
-            Thread.yield();
-
-            try {
+        /* waiting for the end of the simulation */
+        try {
                 waiter.join();
-            } catch (InterruptedException e) {
-                System.out.print("Error occured while executing Waiter");
-            }
-            GenericIO.writelnString("The waiter has terminated.");
-        }
-        GenericIO.writelnString();
-        kitchen.shutdown();
-        table.shutdown();
+        }catch(InterruptedException e) {}
+        GenericIO.writelnString ("The waiter thread has terminated.");
         bar.shutdown();
+        table.shutdown();
         genReposStub.shutdown();
 
     }

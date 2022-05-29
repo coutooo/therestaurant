@@ -6,6 +6,7 @@ package clientSide.main;
 
 import clientSide.entities.Student;
 import clientSide.stubs.BarStub;
+import clientSide.stubs.GeneralReposStub;
 import clientSide.stubs.TableStub;
 import genclass.GenericIO;
 
@@ -28,65 +29,79 @@ public class StudentMain {
         BarStub bar;													// remote reference to the bar
         TableStub table;
         Student[] students = new Student[ExecConst.Nstudents];
+        GeneralReposStub genReposStub;						//remote reference to the general repository
+        int genRepoServerPortNumb = -1;
+        String genRepoServerHostName;
+        
 
 
-        /* getting problem runtime parameters */
-
-        if (args.length != 4) {
-            GenericIO.writelnString("Wrong number of parameters!");
-            System.exit (1);
+        /* Getting problem runtime parameters */
+        if(args.length != 6) {
+                GenericIO.writelnString ("Wrong number of parameters!");
+                System.exit(1);
         }
+        //Get bar parameters
         barServerHostName = args[0];
         try {
-            barServerPortNum = Integer.parseInt (args[1]);
+                barServerPortNum = Integer.parseInt (args[1]);
         } catch (NumberFormatException e) {
-            GenericIO.writelnString ("args[1] is not a number!");
-            System.exit (1);
+                GenericIO.writelnString ("args[1] is not a number!");
+                System.exit(1);
         }
-        if ((barServerPortNum < 4000) || (barServerPortNum >= 65536)) {
-            GenericIO.writelnString ("args[1] is not a valid port number!");
-            System.exit(1);
+        if( (barServerPortNum < 22110) || (barServerPortNum > 22119) ) {
+                GenericIO.writelnString ("args[1] is not a valid port number!");
+                System.exit(1);			
         }
 
+        //Get tab parameters
         tableServerHostName = args[2];
         try {
-            tableServerPortNum = Integer.parseInt(args[3]);
-        } catch(NumberFormatException e) {
-            GenericIO.writelnString("args[3] is not a valid port number!");
-            System.exit(1);
+                tableServerPortNum = Integer.parseInt (args[3]);
+        } catch (NumberFormatException e) {
+                GenericIO.writelnString ("args[3] is not a number!");
+                System.exit(1);
         }
-        if ((tableServerPortNum < 4000) || (tableServerPortNum >= 65536)) {
+        if( (tableServerPortNum < 22110) || (tableServerPortNum > 22119) ) {
                 GenericIO.writelnString ("args[3] is not a valid port number!");
-                System.exit (1);
+                System.exit(1);			
+        }
+
+        //Get general repo parameters
+        genRepoServerHostName = args[4];
+        try {
+                genRepoServerPortNumb = Integer.parseInt (args[5]);
+        } catch (NumberFormatException e) {
+                GenericIO.writelnString ("args[5] is not a number!");
+                System.exit(1);
+        }
+        if( (genRepoServerPortNumb < 22110) || (genRepoServerPortNumb > 22119) ) {
+                GenericIO.writelnString ("args[5] is not a valid port number!");
+                System.exit(1);			
         }
 
 
-        //Initialization
-
+        /* problem initialisation */
         bar = new BarStub(barServerHostName, barServerPortNum);
         table = new TableStub(tableServerHostName, tableServerPortNum);
+        genReposStub = new GeneralReposStub(genRepoServerHostName, genRepoServerPortNumb);
+        for (int i = 0; i < ExecConst.Nstudents; i++)
+                students[i] = new Student ("student_" + (i+1), i, bar, table);
 
-        for(int i=0; i<ExecConst.Nstudents; i++){
-            students[i] = new Student("Student_"+i, i, bar, table);
+        /* start simulation */
+        for (int i = 0; i < ExecConst.Nstudents; i++) {
+                GenericIO.writelnString ("Launching Student Thread "+i);
+                students[i].start();
         }
 
-
-        // Start of simulation
-        for(int i=0; i<ExecConst.Nstudents; i++){
-            students[i].start();
-            GenericIO.writelnString("Student thread "+i+" Started");
+        /* waiting for the end of the simulation */
+        for(int i = 0; i < ExecConst.Nstudents; i++)
+        {
+                try {
+                        students[i].join();
+                }catch(InterruptedException e) {}
+                GenericIO.writelnString ("The student"+(i+1)+" thread has terminated.");
         }
+        genReposStub.shutdown();
 
-
-        for (int i=0; i<ExecConst.Nstudents; i++){
-            try {
-                students[i].join();
-            } catch (InterruptedException e) {
-            e.printStackTrace();
-            }
-        }
-
-        bar.shutdown();
-        table.shutdown();
     }
 }

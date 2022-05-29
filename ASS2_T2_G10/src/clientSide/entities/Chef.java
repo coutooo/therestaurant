@@ -80,7 +80,7 @@ public class Chef extends Thread {
      *     @param state Chef state
      */
     public void setChefState (int state){
-        currentState = state;
+        this.currentState = state;
     }
 
     /**
