@@ -162,7 +162,7 @@ public class Message implements Serializable {
                         }
                         nPortions = state;
                 }
-                else if (msgType == MessageType.USSEATREQ){
+                else if (msgType == MessageType.USATREQ){
                         if ( state < 0 || state  >= ExecConst.Nstudents) {	// Not a valid Student id
                                 GenericIO.writelnString ("Invalid student id");
                                 System.exit (1);
@@ -218,7 +218,7 @@ public class Message implements Serializable {
             int entity = getEntitieFromMessageType(type);
 
             //Update seats at the table (general repos)
-            if (msgType == MessageType.USSEATREQ)
+            if (msgType == MessageType.USATREQ)
                     seatAtTable = stateOrSeat;
             //salute a client (waiter in the table)
             else if (msgType == MessageType.SCREQ || msgType == MessageType.SCDONE){
@@ -484,7 +484,7 @@ public class Message implements Serializable {
                 case MessageType.USSTREQ2:		case MessageType.USSTDONE2:
                 case MessageType.SETNCREQ:              case MessageType.SETNCDONE:
                 case MessageType.SETNPREQ:              case MessageType.SETNPDONE:
-                case MessageType.USSEATREQ:             case MessageType.USSEATDONE:       
+                case MessageType.USATREQ:               case MessageType.USATDONE:       
                 case MessageType.USALREQ:               case MessageType.USALDONE:        
                 case MessageType.GRSHUTREQ:             case MessageType.GRSHUTDONE:
                         return 5;
