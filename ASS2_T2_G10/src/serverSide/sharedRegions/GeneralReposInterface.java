@@ -1,8 +1,8 @@
 package serverSide.sharedRegions;
 
-import clientSide.entities.ChefStates;
-import clientSide.entities.StudentStates;
-import clientSide.entities.WaiterStates;
+import clientSide.entities.ChefState;
+import clientSide.entities.StudentState;
+import clientSide.entities.WaiterState;
 import commInfra.Message;
 import commInfra.MessageException;
 import commInfra.MessageType;
@@ -48,27 +48,27 @@ public class GeneralReposInterface {
 		switch(inMessage.getMsgType())
 		{
 		// verify Chef state
-		case MessageType.REQSETCHST:
-			if (inMessage.getChefState() < ChefStates.WAITING_FOR_AN_ORDER || inMessage.getChefState() > ChefStates.CLOSING_SERVICE)
+		case MessageType.STCSTREQ:
+			if (inMessage.getChefState() < ChefState.WAITING_FOR_AN_ORDER || inMessage.getChefState() > ChefState.CLOSING_SERVICE)
 				throw new MessageException ("Invalid Chef state!", inMessage);
 			break;
 		// verify Waiter state
-		case MessageType.REQSETWAIST:
-			if (inMessage.getWaiterState() < WaiterStates.APRAISING_SITUATION || inMessage.getWaiterState() > WaiterStates.RECEIVING_PAYMENT)
+		case MessageType.STWSTREQ:
+			if (inMessage.getWaiterState() < WaiterState.APPRAISING_SITUATION || inMessage.getWaiterState() > WaiterState.RECEIVING_PAYMENT)
 				throw new MessageException("Invalid Waiter state!", inMessage);
 			break;
 		// verify Student state
-		case MessageType.REQUPDTSTUST1:
-		case MessageType.REQUPDTSTUST2:
-			if (inMessage.getStudentState() < StudentStates.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentStates.GOING_HOME)
+		case MessageType.USSTREQ1:
+		case MessageType.USSTREQ2:
+			if (inMessage.getStudentState() < StudentState.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentState.GOING_HOME)
 				throw new MessageException("Invalid Student state!", inMessage);
 			break;
 		// verify only message type
-		case MessageType.REQSETNCOURSES:
-		case MessageType.REQSETNPORTIONS:
-		case MessageType.REQUPDSEATSTABLE:
-		case MessageType.REQUPDSEATSTABLELV:
-		case MessageType.REQGENERALREPOSHUT:
+		case MessageType.SETNCREQ:
+		case MessageType.SETNPREQ:
+		case MessageType.USATREQ:
+		case MessageType.USALREQ:
+		case MessageType.GRSHUTREQ:
 			break;
 		default:
 			throw new MessageException ("Invalid message type!", inMessage);
@@ -78,46 +78,46 @@ public class GeneralReposInterface {
 
 		switch(inMessage.getMsgType())
 		{
-		case MessageType.REQSETCHST:
+		case MessageType.STCSTREQ:
 			repos.setChefState(inMessage.getChefState());
-			outMessage = new Message(MessageType.REPSETCHST);
+			outMessage = new Message(MessageType.STCSTDONE);
 			break;
-		case MessageType.REQSETWAIST:
+		case MessageType.STWSTREQ:
 			repos.setWaiterState(inMessage.getWaiterState());
-			outMessage = new Message(MessageType.REPSETWAIST);
+			outMessage = new Message(MessageType.STWSTDONE);
 			break;
-		case MessageType.REQUPDTSTUST1:
-		case MessageType.REQUPDTSTUST2:
-			if (inMessage.getMsgType() == MessageType.REQUPDTSTUST1) {
+		case MessageType.USSTREQ1:
+		case MessageType.USSTREQ2:
+			if (inMessage.getMsgType() == MessageType.USSTREQ1) {
 				repos.updateStudentState(inMessage.getStudentId(), inMessage.getStudentState());
-				outMessage = new Message(MessageType.REPUPDTSTUST1);
+				outMessage = new Message(MessageType.USSTDONE1);
 				break;
 			} else { 
 				repos.updateStudentState(inMessage.getStudentId(), inMessage.getStudentState(), inMessage.getHold());
-				outMessage = new Message(MessageType.REPUPDTSTUST2);
+				outMessage = new Message(MessageType.USSTDONE2);
 			}
 			break;
-		case MessageType.REQSETNCOURSES:
+		case MessageType.SETNCREQ:
 			((GeneralReposClientProxy) Thread.currentThread()).setValue(inMessage.getNCourses());
 			repos.setnCourses(((GeneralReposClientProxy) Thread.currentThread()).getValue());
-			outMessage = new Message(MessageType.REPSETNCOURSES);
+			outMessage = new Message(MessageType.SETNCDONE);
 			break;
-		case MessageType.REQSETNPORTIONS:
+		case MessageType.SETNPREQ:
 			((GeneralReposClientProxy) Thread.currentThread()).setValue(inMessage.getNPortions());
 			repos.setnPortions(((GeneralReposClientProxy) Thread.currentThread()).getValue());
-			outMessage = new Message(MessageType.REPSETNPORTIONS);
+			outMessage = new Message(MessageType.SETNPDONE);
 			break;
-		case MessageType.REQUPDSEATSTABLE:
+		case MessageType.USATREQ:
 			repos.updateSeatsAtTable(inMessage.getSeatAtTable(), inMessage.getStudentId());
-			outMessage = new Message(MessageType.REPUPDSEATSTABLE);
+			outMessage = new Message(MessageType.USATDONE);
 			break;
-		case MessageType.REQUPDSEATSTABLELV:
+		case MessageType.USALREQ:
 			repos.updateSeatsAtTable(inMessage.getStudentId(), -1);
-			outMessage = new Message(MessageType.REPUPDSEATSTABLELV);
+			outMessage = new Message(MessageType.USALDONE);
 			break;
-		case MessageType.REQGENERALREPOSHUT:
+		case MessageType.GRSHUTREQ:
 			repos.shutdown();
-			outMessage = new Message(MessageType.REPGENERALREPOSHUT);
+			outMessage = new Message(MessageType.GRSHUTDONE);
 			break;
 		}
 		return (outMessage);

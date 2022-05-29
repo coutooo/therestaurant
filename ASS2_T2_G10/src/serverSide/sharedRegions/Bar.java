@@ -2,9 +2,9 @@ package serverSide.sharedRegions;
 
 import commInfra.*;
 import serverSide.main.*;
-import clientSide.entities.ChefStates;
-import clientSide.entities.WaiterStates;
-import clientSide.entities.StudentStates;
+import clientSide.entities.ChefState;
+import clientSide.entities.WaiterState;
+import clientSide.entities.StudentState;
 import serverSide.entities.BarClientProxy;
 import clientSide.stubs.GeneralReposStub;
 import clientSide.stubs.TableStub;
@@ -151,7 +151,7 @@ public class Bar
 		courseFinished = false;
 		
 		//Update chefs state
-		((BarClientProxy) Thread.currentThread()).setChefState(ChefStates.DELIVERING_THE_PORTIONS);
+		((BarClientProxy) Thread.currentThread()).setChefState(ChefState.DELIVERING_THE_PORTIONS);
 		reposStub.setChefState(((BarClientProxy) Thread.currentThread()).getChefState());
 		
 		//Signal waiter that there is a pending request
@@ -216,7 +216,7 @@ public class Bar
 	public synchronized void prepareBill()
 	{
 		//Update Waiter state
-		((BarClientProxy) Thread.currentThread()).setWaiterState(WaiterStates.PROCESSING_THE_BILL);
+		((BarClientProxy) Thread.currentThread()).setWaiterState(WaiterState.PROCESSING_THE_BILL);
 		reposStub.setWaiterState(((BarClientProxy) Thread.currentThread()).getWaiterState());
 	}
 	
@@ -264,8 +264,8 @@ public class Bar
 
 			//Update student state
 			students[studentId] = ((BarClientProxy) Thread.currentThread());
-			students[studentId].setStudentState(StudentStates.GOING_TO_THE_RESTAURANT);
-			((BarClientProxy) Thread.currentThread()).setStudentState(StudentStates.GOING_TO_THE_RESTAURANT);
+			students[studentId].setStudentState(StudentState.GOING_TO_THE_RESTAURANT);
+			((BarClientProxy) Thread.currentThread()).setStudentState(StudentState.GOING_TO_THE_RESTAURANT);
 
 			numberOfStudentsAtRestaurant++;
 
@@ -286,8 +286,8 @@ public class Bar
 			numberOfPendingRequests++;
 			
 			//Update student state
-			students[studentId].setStudentState(StudentStates.TAKING_A_SEAT_AT_THE_TABLE);
-			((BarClientProxy) Thread.currentThread()).setStudentState(StudentStates.TAKING_A_SEAT_AT_THE_TABLE);
+			students[studentId].setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
+			((BarClientProxy) Thread.currentThread()).setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
 			reposStub.updateStudentState(studentId, students[studentId].getStudentState(), true);
 			//register seat at the general repo
 			reposStub.updateSeatsAtTable(numberOfStudentsAtRestaurant-1, studentId);
@@ -344,7 +344,7 @@ public class Bar
 	{
 		int studentId = ((BarClientProxy) Thread.currentThread()).getStudentId();
 
-		if(((BarClientProxy) Thread.currentThread()).getStudentState() == StudentStates.PAYING_THE_BILL)
+		if(((BarClientProxy) Thread.currentThread()).getStudentState() == StudentState.PAYING_THE_MEAL)
 		{
 			//Add a new pending requests to the queue
 			try {
@@ -393,8 +393,8 @@ public class Bar
 		//Update number of pending requests
 		numberOfPendingRequests++;
 		//Update student state
-		students[studentId].setStudentState(StudentStates.GOING_HOME);
-		((BarClientProxy) Thread.currentThread()).setStudentState(StudentStates.GOING_HOME);
+		students[studentId].setStudentState(StudentState.GOING_HOME);
+		((BarClientProxy) Thread.currentThread()).setStudentState(StudentState.GOING_HOME);
 		reposStub.updateStudentState(studentId, students[studentId].getStudentState());
 		//notify waiter that there is a pending request
 		notifyAll();

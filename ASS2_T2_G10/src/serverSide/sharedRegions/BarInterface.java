@@ -1,8 +1,8 @@
 package serverSide.sharedRegions;
 
-import clientSide.entities.ChefStates;
-import clientSide.entities.StudentStates;
-import clientSide.entities.WaiterStates;
+import clientSide.entities.ChefState;
+import clientSide.entities.StudentState;
+import clientSide.entities.WaiterState;
 import commInfra.Message;
 import commInfra.MessageException;
 import commInfra.MessageType;
@@ -53,35 +53,35 @@ public class BarInterface {
 		switch(inMessage.getMsgType())
 		{
 			// Chef Messages that require type and state verification
-			case MessageType.REQALRTWAIT: 		// Alert the Waiter Request
-				if (inMessage.getChefState() < ChefStates.WAITING_FOR_AN_ORDER || inMessage.getChefState() > ChefStates.CLOSING_SERVICE)
+			case MessageType.ALREQ: 		// Alert the Waiter Request
+				if (inMessage.getChefState() < ChefState.WAITING_FOR_AN_ORDER || inMessage.getChefState() > ChefState.CLOSING_SERVICE)
 					throw new MessageException ("Invalid Chef state!", inMessage);
 				break;
 			
 			//Waiter Messages that require only type verification
-			case MessageType.REQLOOKARND: 		// Look around Request
-			case MessageType.REQBARSHUT:		// Bar shutdown 
+			case MessageType.LAREQ: 		// Look around Request
+			case MessageType.BSHUTREQ:		// Bar shutdown 
 				break;
 			// Waiter Messages that require type and state verification
-			case MessageType.REQPRPREBILL: 		// Prepare the bill Request
-			case MessageType.REQSAYGDBYE: 		// Say goodbye Request
-				if (inMessage.getWaiterState() < WaiterStates.APRAISING_SITUATION || inMessage.getWaiterState() > WaiterStates.RECEIVING_PAYMENT)
+			case MessageType.PBREQ: 		// Prepare the bill Request
+			case MessageType.SGREQ: 		// Say goodbye Request
+				if (inMessage.getWaiterState() < WaiterState.APPRAISING_SITUATION || inMessage.getWaiterState() > WaiterState.RECEIVING_PAYMENT)
 					throw new MessageException("Inavlid Waiter state!", inMessage);
 				break;
 			
 			//Student Messages that require only type and id verification (already done in Message Constructor)
-			case MessageType.REQCALLWAI:		// Call the waiter Request
+			case MessageType.CWREQ:		// Call the waiter Request
 				break;
 			// Student Messages that require type, state and id verification (done in Message Constructor)
-			case MessageType.REQENTER:			// Enter Request
-			case MessageType.REQSIGWAI:			// Signal the waiter Request
-			case MessageType.REQEXIT:			// exit Request
-				if (inMessage.getStudentState() < StudentStates.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentStates.GOING_HOME)
+			case MessageType.ENTREQ:			// Enter Request
+			case MessageType.SWREQ:			// Signal the waiter Request
+			case MessageType.EXITREQ:			// exit Request
+				if (inMessage.getStudentState() < StudentState.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentState.GOING_HOME)
 					throw new MessageException("Invalid Student state!", inMessage);
 				break;
 			
 			//Additional Messages
-			case MessageType.REQGETSTDBEIANSW:
+			case MessageType.GSBAREQ:
 				break;
 			default:
 				throw new MessageException ("Invalid message type!", inMessage);
@@ -91,55 +91,55 @@ public class BarInterface {
 
 		switch(inMessage.getMsgType())
 		{
-			case MessageType.REQALRTWAIT:
+			case MessageType.ALREQ:
 				((BarClientProxy) Thread.currentThread()).setChefState(inMessage.getChefState());
 				bar.alertWaiter();
-				outMessage = new Message(MessageType.REPALRTWAIT, ((BarClientProxy) Thread.currentThread()).getChefState());
+				outMessage = new Message(MessageType.ALDONE, ((BarClientProxy) Thread.currentThread()).getChefState());
 				break;
-			case MessageType.REQLOOKARND:
+			case MessageType.LAREQ:
 				char c = bar.lookAround();
-				outMessage = new Message(MessageType.REPLOOKARND, c);
+				outMessage = new Message(MessageType.LADONE, c);
 				break;
-			case MessageType.REQPRPREBILL:
+			case MessageType.PBREQ:
 				((BarClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
 				bar.prepareBill();
-				outMessage = new Message(MessageType.REPPRPREBILL, ((BarClientProxy) Thread.currentThread()).getWaiterState());
+				outMessage = new Message(MessageType.PBDONE, ((BarClientProxy) Thread.currentThread()).getWaiterState());
 				break;
-			case MessageType.REQSAYGDBYE:
+			case MessageType.SGREQ:
 				((BarClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
 				boolean b = bar.sayGoodbye();
-				outMessage = new Message(MessageType.REPSAYGDBYE, b);
+				outMessage = new Message(MessageType.SGDONE, b);
 				break;
-			case MessageType.REQENTER:
+			case MessageType.ENTREQ:
 				((BarClientProxy) Thread.currentThread()).setStudentId(inMessage.getStudentId());
 				((BarClientProxy) Thread.currentThread()).setStudentState(inMessage.getStudentState());
 				bar.enter();
-				outMessage = new Message(MessageType.REPENTER, ((BarClientProxy) Thread.currentThread()).getStudentId(), ((BarClientProxy) Thread.currentThread()).getStudentState());
+				outMessage = new Message(MessageType.ENTDONE, ((BarClientProxy) Thread.currentThread()).getStudentId(), ((BarClientProxy) Thread.currentThread()).getStudentState());
 				break;
-			case MessageType.REQCALLWAI:
+			case MessageType.CWREQ:
 				((BarClientProxy) Thread.currentThread()).setStudentId(inMessage.getStudentId());
 				bar.callWaiter();
-				outMessage = new Message(MessageType.REPCALLWAI, ((BarClientProxy) Thread.currentThread()).getStudentId());
+				outMessage = new Message(MessageType.CWDONE, ((BarClientProxy) Thread.currentThread()).getStudentId());
 				break;
-			case MessageType.REQSIGWAI:
+			case MessageType.SWREQ:
 				((BarClientProxy) Thread.currentThread()).setStudentId(inMessage.getStudentId());
 				((BarClientProxy) Thread.currentThread()).setStudentState(inMessage.getStudentState());
 				bar.signalWaiter();
-				outMessage = new Message(MessageType.REPSIGWAI, ((BarClientProxy) Thread.currentThread()).getStudentId(), ((BarClientProxy) Thread.currentThread()).getStudentState());
+				outMessage = new Message(MessageType.SWDONE, ((BarClientProxy) Thread.currentThread()).getStudentId(), ((BarClientProxy) Thread.currentThread()).getStudentState());
 				break;
-			case MessageType.REQEXIT:
+			case MessageType.EXITREQ:
 				((BarClientProxy) Thread.currentThread()).setStudentState(inMessage.getStudentState());
 				((BarClientProxy) Thread.currentThread()).setStudentId(inMessage.getStudentId());
 				bar.exit();
-				outMessage = new Message(MessageType.REPEXIT, ((BarClientProxy) Thread.currentThread()).getStudentId(), ((BarClientProxy) Thread.currentThread()).getStudentState());
+				outMessage = new Message(MessageType.EXITDONE, ((BarClientProxy) Thread.currentThread()).getStudentId(), ((BarClientProxy) Thread.currentThread()).getStudentState());
 				break;
-			case MessageType.REQGETSTDBEIANSW:
+			case MessageType.GSBAREQ:
 				int id = bar.getStudentBeingAnswered();
-				outMessage = new Message(MessageType.REPGETSTDBEIANSW, id);
+				outMessage = new Message(MessageType.GSBADONE, id);
 				break;
-			case MessageType.REQBARSHUT:
+			case MessageType.BSHUTREQ:
 				bar.shutdown();
-				outMessage = new Message(MessageType.REPBARSHUT);
+				outMessage = new Message(MessageType.BSHUTDONE);
 				break;
 		}
 

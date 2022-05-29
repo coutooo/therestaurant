@@ -1,7 +1,7 @@
 package serverSide.sharedRegions;
 
-import clientSide.entities.StudentStates;
-import clientSide.entities.WaiterStates;
+import clientSide.entities.StudentState;
+import clientSide.entities.WaiterState;
 import commInfra.Message;
 import commInfra.MessageException;
 import commInfra.MessageType;
@@ -51,43 +51,43 @@ public class TableInterface {
 		switch(inMessage.getMsgType())
 		{
 			//Waiter Messages that require only type verification
-			case MessageType.REQALLCLISERVED:		// Have all clients been served
-			case MessageType.REQDELPOR:				// Deliver portion
-			case MessageType.REQTABSHUT:			// Table shutdown
+			case MessageType.HACBSREQ:		// Have all clients been served
+			case MessageType.DPREQ:				// Deliver portion
+			case MessageType.TSHUTREQ:			// Table shutdown
 				break;
 			// Waiter Messages that require type and state verification
-			case MessageType.REQSALUTCLI:			// Salute the clients
-			case MessageType.REQRTRNBAR:			// Return to the bar
-			case MessageType.REQGETPAD:				// Get the pad
-			case MessageType.REQPRESBILL:			// Present the bill
-				if (inMessage.getWaiterState() < WaiterStates.APRAISING_SITUATION || inMessage.getWaiterState() > WaiterStates.RECEIVING_PAYMENT)
+			case MessageType.SCREQ:			// Salute the clients
+			case MessageType.RTBREQ:			// Return to the bar
+			case MessageType.GPREQ:				// Get the pad
+			case MessageType.PREBREQ:			// Present the bill
+				if (inMessage.getWaiterState() < WaiterState.APPRAISING_SITUATION || inMessage.getWaiterState() > WaiterState.RECEIVING_PAYMENT)
 					throw new MessageException("Invalid Waiter state!", inMessage);
 				break;
 			//Student Messages that require only type verification
-			case MessageType.REQEVERYBDYCHO:		// Has everybody chosen
-			case MessageType.REQADDUP1CHOI:			// Add up ones choices
-			case MessageType.REQDESCRORDER:			// Describe order
-			case MessageType.REQEVERYBDFINISHEAT:	// Has everybody finished eating
-			case MessageType.REQHONBILL:			// Honour the bill
-			case MessageType.REQALLCOURBEENEAT:		// Have all courses been eaten
+			case MessageType.EHCREQ:		// Has everybody chosen
+			case MessageType.AUOCREQ:			// Add up ones choices
+			case MessageType.DOREQ:			// Describe order
+			case MessageType.HEFEREQ:	// Has everybody finished eating
+			case MessageType.HBREQ:			// Honour the bill
+			case MessageType.HACBEREQ:		// Have all courses been eaten
 				break;
 			// Student Messages that require type, state and id verification (done in Message Constructor)
-			case MessageType.REQSEATTABLE:			// Seat at table
-			case MessageType.REQRDMENU:				// Read menu
-			case MessageType.REQPREPORDER:			// Prepare the order
-			case MessageType.REQJOINTALK:			// Join the talk
-			case MessageType.REQINFORMCOMP:			// Inform companion
-			case MessageType.REQSRTEATING:			// Start eating
-			case MessageType.REQENDEATING:			// End eating
-			case MessageType.REQSHOULDARREARLY:		// Should have arrived earlier
-				if (inMessage.getStudentState() < StudentStates.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentStates.GOING_HOME)
+			case MessageType.SATREQ:			// Seat at table
+			case MessageType.RMREQ:				// Read menu
+			case MessageType.POREQ:			// Prepare the order
+			case MessageType.JTREQ:			// Join the talk
+			case MessageType.ICREQ:			// Inform companion
+			case MessageType.SEREQ:			// Start eating
+			case MessageType.EEREQ:			// End eating
+			case MessageType.SHAEREQ:		// Should have arrived earlier
+				if (inMessage.getStudentState() < StudentState.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentState.GOING_HOME)
 					throw new MessageException("Inavlid Student state!", inMessage);
 				break;
 			//Aditional messages that require type verification
-			case MessageType.REQGETFRSTARR:			//Get first to arrive
-			case MessageType.REQGETLSTEAT:			//Get last to eat
-			case MessageType.REQSETFRSTARR:			//Set first to arrive
-			case MessageType.REQSETLSTARR:			//Set last to arrive
+			case MessageType.GFTAREQ:			//Get first to arrive
+			case MessageType.GLTEREQ:			//Get last to eat
+			case MessageType.SFTAREQ:			//Set first to arrive
+			case MessageType.SLTAREQ:			//Set last to arrive
 				break;
 			default:
 				throw new MessageException ("Invalid message type!", inMessage);
@@ -97,126 +97,126 @@ public class TableInterface {
 		
 		switch(inMessage.getMsgType())
 		{
-			case MessageType.REQSALUTCLI:
+			case MessageType.SCREQ:
 				((TableClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
 				((TableClientProxy) Thread.currentThread()).setStudentBeingAnswered(inMessage.getStudentIdBeingAnswered());
 				int i = inMessage.getStudentBeingAnswered();
 				tab.saluteClient(i);
-				outMessage = new Message(MessageType.REPSALUTCLI,  ((TableClientProxy) Thread.currentThread()).getStudentBeingAnswered(), ((TableClientProxy) Thread.currentThread()).getWaiterState());
+				outMessage = new Message(MessageType.SCDONE,  ((TableClientProxy) Thread.currentThread()).getStudentBeingAnswered(), ((TableClientProxy) Thread.currentThread()).getWaiterState());
 				break;
-			case MessageType.REQRTRNBAR:
+			case MessageType.RTBREQ:
 				((TableClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
 				tab.returnBar();
-				outMessage = new Message(MessageType.REPRTRNBAR, ((TableClientProxy) Thread.currentThread()).getWaiterState());
+				outMessage = new Message(MessageType.RTBDONE, ((TableClientProxy) Thread.currentThread()).getWaiterState());
 				break;
-			case MessageType.REQGETPAD:
+			case MessageType.GPREQ:
 				((TableClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
 				tab.getThePad();
-				outMessage = new Message(MessageType.REPGETPAD, ((TableClientProxy) Thread.currentThread()).getWaiterState());
+				outMessage = new Message(MessageType.GPDONE, ((TableClientProxy) Thread.currentThread()).getWaiterState());
 				break;
-			case MessageType.REQALLCLISERVED:
+			case MessageType.HACBSREQ:
 				boolean b = tab.haveAllClientsBeenServed();
-				outMessage = new Message(MessageType.REPALLCLISERVED, b);
+				outMessage = new Message(MessageType.HACBSDONE, b);
 				break;
-			case MessageType.REQDELPOR:
+			case MessageType.DPREQ:
 				tab.deliverPortion();
-				outMessage = new Message(MessageType.REPDELPOR);
+				outMessage = new Message(MessageType.DPDONE);
 				break;
-			case MessageType.REQPRESBILL:
+			case MessageType.PREBREQ:
 				((TableClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
 				tab.presentBill();
-				outMessage = new Message(MessageType.REPPRESBILL, ((TableClientProxy) Thread.currentThread()).getWaiterState());
+				outMessage = new Message(MessageType.PREBDONE, ((TableClientProxy) Thread.currentThread()).getWaiterState());
 				break;
-			case MessageType.REQSEATTABLE:
+			case MessageType.SATREQ:
 				((TableClientProxy) Thread.currentThread()).setStudentState(inMessage.getStudentState());
 				((TableClientProxy) Thread.currentThread()).setStudentId(inMessage.getStudentId());
 				tab.seatAtTable();
-				outMessage = new Message(MessageType.REPSEATTABLE, ((TableClientProxy) Thread.currentThread()).getStudentId(), ((TableClientProxy) Thread.currentThread()).getStudentState());
+				outMessage = new Message(MessageType.SATDONE, ((TableClientProxy) Thread.currentThread()).getStudentId(), ((TableClientProxy) Thread.currentThread()).getStudentState());
 				break;
-			case MessageType.REQRDMENU:
+			case MessageType.RMREQ:
 				((TableClientProxy) Thread.currentThread()).setStudentId( inMessage.getStudentId() );
 				((TableClientProxy) Thread.currentThread()).setStudentState(inMessage.getStudentState());
 				tab.readMenu();
-				outMessage = new Message(MessageType.REPRDMENU, ((TableClientProxy) Thread.currentThread()).getStudentId(), ((TableClientProxy) Thread.currentThread()).getStudentState());
+				outMessage = new Message(MessageType.RMDONE, ((TableClientProxy) Thread.currentThread()).getStudentId(), ((TableClientProxy) Thread.currentThread()).getStudentState());
 				break;
-			case MessageType.REQPREPORDER:
+			case MessageType.POREQ:
 				((TableClientProxy) Thread.currentThread()).setStudentState(inMessage.getStudentState());
 				tab.prepareOrder();
-				outMessage = new Message(MessageType.REPPREPORDER, ((TableClientProxy) Thread.currentThread()).getStudentState());
+				outMessage = new Message(MessageType.PODONE, ((TableClientProxy) Thread.currentThread()).getStudentState());
 				break;
-			case MessageType.REQEVERYBDYCHO:
+			case MessageType.EHCREQ:
 				boolean everyBodyChose = tab.everybodyHasChosen();
-				outMessage = new Message(MessageType.REPEVERYBDYCHO, everyBodyChose);
+				outMessage = new Message(MessageType.EHCDONE, everyBodyChose);
 				break;
-			case MessageType.REQADDUP1CHOI:
+			case MessageType.AUOCREQ:
 				tab.addUpOnesChoices();
-				outMessage = new Message(MessageType.REPADDUP1CHOI);
+				outMessage = new Message(MessageType.AUOCDONE);
 				break;
-			case MessageType.REQDESCRORDER:
+			case MessageType.DOREQ:
 				tab.describeOrder();
-				outMessage = new Message(MessageType.REPDESCRORDER);
+				outMessage = new Message(MessageType.DODONE);
 				break;
-			case MessageType.REQJOINTALK:
+			case MessageType.JTREQ:
 				((TableClientProxy) Thread.currentThread()).setStudentState(inMessage.getStudentState());
 				tab.joinTalk();
-				outMessage = new Message(MessageType.REPJOINTALK, ((TableClientProxy) Thread.currentThread()).getStudentState());
+				outMessage = new Message(MessageType.JTDONE, ((TableClientProxy) Thread.currentThread()).getStudentState());
 				break;
-			case MessageType.REQINFORMCOMP:
+			case MessageType.ICREQ:
 				((TableClientProxy) Thread.currentThread()).setStudentState(inMessage.getStudentState());
 				((TableClientProxy) Thread.currentThread()).setStudentId(inMessage.getStudentId());
 				tab.informCompanion();
-				outMessage = new Message(MessageType.REPINFORMCOMP, ((TableClientProxy) Thread.currentThread()).getStudentId(), ((TableClientProxy) Thread.currentThread()).getStudentState());
+				outMessage = new Message(MessageType.ICDONE, ((TableClientProxy) Thread.currentThread()).getStudentId(), ((TableClientProxy) Thread.currentThread()).getStudentState());
 				break;
-			case MessageType.REQSRTEATING:
+			case MessageType.SEREQ:
 				((TableClientProxy) Thread.currentThread()).setStudentState(inMessage.getStudentState());
 				((TableClientProxy) Thread.currentThread()).setStudentId(inMessage.getStudentId());
 				tab.startEating();
-				outMessage = new Message(MessageType.REPSRTEATING, ((TableClientProxy) Thread.currentThread()).getStudentId(), ((TableClientProxy) Thread.currentThread()).getStudentState());
+				outMessage = new Message(MessageType.SEDONE, ((TableClientProxy) Thread.currentThread()).getStudentId(), ((TableClientProxy) Thread.currentThread()).getStudentState());
 				break;
-			case MessageType.REQENDEATING:
+			case MessageType.EEREQ:
 				((TableClientProxy) Thread.currentThread()).setStudentState(inMessage.getStudentState());
 				((TableClientProxy) Thread.currentThread()).setStudentId(inMessage.getStudentId());
 				tab.endEating();
-				outMessage = new Message(MessageType.REPENDEATING, ((TableClientProxy) Thread.currentThread()).getStudentId(), ((TableClientProxy) Thread.currentThread()).getStudentState());
+				outMessage = new Message(MessageType.EEDONE, ((TableClientProxy) Thread.currentThread()).getStudentId(), ((TableClientProxy) Thread.currentThread()).getStudentState());
 				break;
-			case MessageType.REQEVERYBDFINISHEAT:
+			case MessageType.HEFEREQ:
 				((TableClientProxy) Thread.currentThread()).setStudentId(inMessage.getStudentId());
 				boolean everybodyEaten = tab.hasEverybodyFinishedEating();
-				outMessage = new Message(MessageType.REPEVERYBDFINISHEAT, ((TableClientProxy) Thread.currentThread()).getStudentId(), everybodyEaten);
+				outMessage = new Message(MessageType.HEFEDONE, ((TableClientProxy) Thread.currentThread()).getStudentId(), everybodyEaten);
 				break;
-			case MessageType.REQHONBILL:
+			case MessageType.HBREQ:
 				tab.honourBill();
-				outMessage = new Message(MessageType.REPHONBILL);
+				outMessage = new Message(MessageType.HBDONE);
 				break;
-			case MessageType.REQALLCOURBEENEAT:
+			case MessageType.HACBEREQ:
 				boolean haveAllCoursesBeenEaten = tab.haveAllCoursesBeenEaten();
-				outMessage = new Message(MessageType.REPALLCOURBEENEAT, haveAllCoursesBeenEaten);
+				outMessage = new Message(MessageType.HACBEDONE, haveAllCoursesBeenEaten);
 				break;
-			case MessageType.REQSHOULDARREARLY:
+			case MessageType.SHAEREQ:
 				((TableClientProxy) Thread.currentThread()).setStudentState(inMessage.getStudentState());
 				((TableClientProxy) Thread.currentThread()).setStudentId(inMessage.getStudentId());
 				boolean shouldHaveArrived = tab.shouldHaveArrivedEarlier();
-				outMessage = new Message(MessageType.REPSHOULDARREARLY, ((TableClientProxy) Thread.currentThread()).getStudentId(), ((TableClientProxy) Thread.currentThread()).getStudentState(), shouldHaveArrived);
+				outMessage = new Message(MessageType.SHAEDONE, ((TableClientProxy) Thread.currentThread()).getStudentId(), ((TableClientProxy) Thread.currentThread()).getStudentState(), shouldHaveArrived);
 				break;
-			case MessageType.REQGETFRSTARR:
+			case MessageType.GFTAREQ:
 				int idFirst = tab.getFirstToArrive();
-				outMessage = new Message(MessageType.REPGETFRSTARR, idFirst);
+				outMessage = new Message(MessageType.GFTADONE, idFirst);
 				break;
-			case MessageType.REQGETLSTEAT:
+			case MessageType.GLTEREQ:
 				int idLast = tab.getFirstToArrive();
-				outMessage = new Message(MessageType.REPGETLSTEAT, idLast);
+				outMessage = new Message(MessageType.GLTEDONE, idLast);
 				break;
-			case MessageType.REQSETFRSTARR:
+			case MessageType.SFTAREQ:
 				tab.setFirstToArrive(inMessage.getFirstToArrive());
-				outMessage = new Message(MessageType.REPSETFRSTARR);
+				outMessage = new Message(MessageType.SFTADONE);
 				break;
-			case MessageType.REQSETLSTARR:	
+			case MessageType.SLTAREQ:	
 				tab.setLastToArrive(inMessage.getLastToArrive());
-				outMessage = new Message(MessageType.REPSETLSTARR);
+				outMessage = new Message(MessageType.SLTADONE);
 				break;
-			case MessageType.REQTABSHUT:
+			case MessageType.TSHUTREQ:
 				tab.shutdown();
-				outMessage = new Message(MessageType.REPTABSHUT);
+				outMessage = new Message(MessageType.TSHUTDONE);
 				break;				
 		}
 		

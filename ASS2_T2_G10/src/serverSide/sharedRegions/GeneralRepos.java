@@ -86,11 +86,11 @@ public class GeneralRepos
 		if ((logFileName == null) || Objects.equals (logFileName, ""))
 			this.logFileName = "logger";
 		else this.logFileName = logFileName;  		
-		chefState = ChefStates.WAITING_FOR_AN_ORDER;
-		waiterState = WaiterStates.APRAISING_SITUATION;
+		chefState = ChefState.WAITING_FOR_AN_ORDER;
+		waiterState = WaiterState.APPRAISING_SITUATION;
 		studentState = new int[ExecuteConst.N];
 		for (int i = 0; i < ExecuteConst.N; i++)
-			studentState[i] = StudentStates.GOING_TO_THE_RESTAURANT;
+			studentState[i] = StudentState.GOING_TO_THE_RESTAURANT;
 		nCourses = 0;
 		nPortions = 0;
 		seatsAtTable = new int[ExecuteConst.N];
@@ -144,36 +144,36 @@ public class GeneralRepos
 		}
 		switch(chefState)
 		{
-		case ChefStates.WAITING_FOR_AN_ORDER: line += "WAFOR "; break;
-		case ChefStates.PREPARING_THE_COURSE: line += "PRPCS "; break;
-		case ChefStates.DISHING_THE_PORTIONS: line += "DSHPT "; break;
-		case ChefStates.DELIVERING_THE_PORTIONS: line += "DLVPT "; break;
-		case ChefStates.CLOSING_SERVICE: line += "CLSSV "; break;
+		case ChefState.WAITING_FOR_AN_ORDER: line += "WAFOR "; break;
+		case ChefState.PREPARING_THE_COURSE: line += "PRPCS "; break;
+		case ChefState.DISHING_THE_PORTIONS: line += "DSHPT "; break;
+		case ChefState.DELIVERING_THE_PORTIONS: line += "DLVPT "; break;
+		case ChefState.CLOSING_SERVICE: line += "CLSSV "; break;
 		}
 
 		switch(waiterState)
 		{
-		case WaiterStates.APRAISING_SITUATION: line += "APPST  "; break;
-		case WaiterStates.PRESENTING_THE_MENU: line += "PRSMN  "; break;
-		case WaiterStates.TAKING_THE_ORDER: line += "TKODR  "; break;
-		case WaiterStates.PLACING_ODER: line += "PCODR  "; break;
-		case WaiterStates.WAITING_FOR_PORTION: line += "WTFPT  "; break;
-		case WaiterStates.PROCESSING_THE_BILL: line += "PRCBL  "; break;
-		case WaiterStates.RECEIVING_PAYMENT: line += "RECPM  "; break;
+		case WaiterState.APPRAISING_SITUATION: line += "APPST  "; break;
+		case WaiterState.PRESENTING_THE_MENU: line += "PRSMN  "; break;
+		case WaiterState.TAKING_THE_ORDER: line += "TKODR  "; break;
+		case WaiterState.PLACING_THE_ORDER: line += "PCODR  "; break;
+		case WaiterState.WAITING_FOR_PORTION: line += "WTFPT  "; break;
+		case WaiterState.PROCESSING_THE_BILL: line += "PRCBL  "; break;
+		case WaiterState.RECEIVING_PAYMENT: line += "RECPM  "; break;
 		}
 
 		for(int i = 0; i < ExecuteConst.N; i++)
 		{
 			switch(studentState[i])
 			{
-			case StudentStates.GOING_TO_THE_RESTAURANT: line += "GGTRT "; break;
-			case StudentStates.TAKING_A_SEAT_AT_THE_TABLE: line += "TKSTT "; break;
-			case StudentStates.SELECTING_THE_COURSES: line += "SELCS "; break;
-			case StudentStates.ORGANIZING_THE_ORDER: line += "OGODR "; break;
-			case StudentStates.CHATING_WITH_COMPANIONS: line += "CHTWC "; break;
-			case StudentStates.ENJOYING_THE_MEAL: line += "EJYML "; break;
-			case StudentStates.PAYING_THE_BILL: line += "PYTBL "; break;
-			case StudentStates.GOING_HOME: line += "GGHOM "; break;
+			case StudentState.GOING_TO_THE_RESTAURANT: line += "GGTRT "; break;
+			case StudentState.TAKING_A_SEAT_AT_THE_TABLE: line += "TKSTT "; break;
+			case StudentState.SELECTING_THE_COURSES: line += "SELCS "; break;
+			case StudentState.ORGANIZING_THE_ORDER: line += "OGODR "; break;
+			case StudentState.CHATTING_WITH_COMPANIONS: line += "CHTWC "; break;
+			case StudentState.ENJOYING_THE_MEAL: line += "EJYML "; break;
+			case StudentState.PAYING_THE_MEAL: line += "PYTBL "; break;
+			case StudentState.GOING_HOME: line += "GGHOM "; break;
 			}
 		}
 

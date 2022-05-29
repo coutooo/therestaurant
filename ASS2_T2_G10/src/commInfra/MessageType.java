@@ -280,12 +280,12 @@ public class MessageType {
     /**
      * getThePad (REQUEST)
      */
-    public static final int GBREQ = 64;
+    public static final int GPREQ = 64;
 
     /**
      * getThePad (REPLY)
      */
-    public static final int GBDONE = 65;
+    public static final int GPDONE = 65;
 
     /**
      * haveAllClientsBeenServed (REQUEST)
