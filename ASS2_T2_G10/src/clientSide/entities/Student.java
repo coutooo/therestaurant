@@ -6,6 +6,7 @@ package clientSide.entities;
 
 import clientSide.stubs.BarStub;
 import clientSide.stubs.TableStub;
+import serverSide.main.ExecConst;
 
 
 /**
@@ -81,7 +82,7 @@ public class Student extends Thread {
                     numCoursesEaten++;
 
                     while(!tableStub.hasEverybodyFinishedEating());
-                    if(student_id == tableStub.getLastToEat() && numCoursesEaten != clientSide.main.ExecConst.Ncourses) {barStub.signalWaiter();}
+                    if(student_id == tableStub.getLastToEat() && numCoursesEaten != ExecConst.Ncourses) {barStub.signalWaiter();}
             }
 
             if(tableStub.shouldHaveArrivedEarlier()) {

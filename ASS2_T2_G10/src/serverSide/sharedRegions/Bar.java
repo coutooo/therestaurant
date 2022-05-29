@@ -126,7 +126,7 @@ public class Bar
             }
         }
 
-        Request r = new Request(serverSide.main.ExecConst.Nstudents+1,'p');
+        Request r = new Request(ExecConst.Nstudents+1,'p');
 
         //Add a new service request to queue of pending requests (portion to be collected)
         try {
@@ -208,14 +208,17 @@ public class Bar
         //Wake up student that is waiting to be greeted by waiter
         notifyAll();
 
+        //Update number of students at the restaurant
         numberOfStudentsAtRestaurant--;
-        
+        // seat at table becomes empty after waiter greets the student
         repo.updateSeatsAtLeaving(studentBeingAnswered);
         studentBeingAnswered = -1;
-        
-        if(numberOfStudentsAtRestaurant == 0)
-            return true;
+
+        if(numberOfStudentsAtRestaurant == 0){
+                return true;
+        }
         return false;
+
     }
 
     /**
@@ -226,37 +229,44 @@ public class Bar
         synchronized(this)
         {
             int studentId = ((BarClientProxy) Thread.currentThread()).getStudentId();
+
+            //Update student state
             students[studentId] = ((BarClientProxy) Thread.currentThread());
             students[studentId].setStudentState(StudentState.GOING_TO_THE_RESTAURANT);
             ((BarClientProxy) Thread.currentThread()).setStudentState(StudentState.GOING_TO_THE_RESTAURANT);
+
             numberOfStudentsAtRestaurant++;
 
+            //Register first and last to arrive
             if(numberOfStudentsAtRestaurant == 1)
-                tab.setFirstToArrive(studentId);
-            else if (numberOfStudentsAtRestaurant == serverSide.main.ExecConst.Nstudents)
-                tab.setLastToArrive(studentId);
+                    tab.setFirstToArrive(studentId);
+            else if (numberOfStudentsAtRestaurant == ExecConst.Nstudents)
+                    tab.setLastToArrive(studentId);
 
+            //Add a new pending requests to the queue
             try {
-                pendingServiceRequestQueue.write(new Request(studentId, 'c'));
+                    pendingServiceRequestQueue.write(new Request(studentId, 'c'));
             } catch (MemException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
             }
+            //Update number of pending requests
             numberOfPendingRequests++;
 
+            //Update student state
             students[studentId].setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
             ((BarClientProxy) Thread.currentThread()).setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
-
             repo.updateStudentState(studentId, students[studentId].getStudentState(), true);
+            //register seat at the general repo
             repo.updateSeatsAtTable(numberOfStudentsAtRestaurant-1, studentId);
-
 
             //Signal waiter that there is a pending request
             notifyAll();
         }
         //Seat student at table and block it
         tab.seatAtTable();
-    }
+
+	}
 
     /**
      * Operation call the waiter
@@ -318,43 +328,41 @@ public class Bar
         int studentId = ((BarClientProxy) Thread.currentThread()).getStudentId();
         Request r = new Request(studentId,'g');
 
-        //Add a new service request to queue of pending requests
+        //Add a new service request to queue of pending requests (portion to be collected)
         try {
-            pendingServiceRequestQueue.write(r);
+                pendingServiceRequestQueue.write(r);
         } catch (MemException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+                // TODO Auto-generated catch block
+                e.printStackTrace();
         }
 
+        //Update number of pending requests
         numberOfPendingRequests++;
-        //notify waiter that there is a pending request
-        notifyAll();
-
+        //Update student state
         students[studentId].setStudentState(StudentState.GOING_HOME);
         ((BarClientProxy) Thread.currentThread()).setStudentState(StudentState.GOING_HOME);
         repo.updateStudentState(studentId, students[studentId].getStudentState());
-
+        //notify waiter that there is a pending request
+        notifyAll();
 
         //Block until waiter greets the student goodbye
         while(studentsGreeted[studentId] == false) {
             try {
-                wait();
+                    wait();
             } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
-                e.printStackTrace();
+                    e.printStackTrace();
             }
-            System.out.println("Student "+studentId+" is leaving");
         }
-        System.out.println("goodbye "+studentId);		
     }
     /**
-    *   Operation server shutdown.
-    *
-    *   New operation.
-    */
+     * Operation bar server shutdown
+     */
     public synchronized void shutdown() {
         nEntities += 1;
-        if (nEntities >= ExecConst.Nstudents)
-           ServerRestaurantBar.waitConnection = false;
+        if (nEntities >= ExecConst.NentitiesToShutKBT) {
+            ServerRestaurantBar.waitConnection = false;
+        }
+        notifyAll();
     }
 }

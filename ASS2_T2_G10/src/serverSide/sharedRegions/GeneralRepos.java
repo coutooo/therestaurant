@@ -80,32 +80,23 @@ public class GeneralRepos {
    */
     public GeneralRepos (String logFileName)
     {
-        
-        this.nEntities =  0;
+        nEntities = 0;
         if ((logFileName == null) || Objects.equals (logFileName, ""))
-            this.logFileName = "logger";
-        else this.logFileName = logFileName; 
-
-        // iniciar chef
+                this.logFileName = "logger";
+        else this.logFileName = logFileName;  		
         chefState = ChefState.WAITING_FOR_AN_ORDER;
-        // iniciar waiter
         waiterState = WaiterState.APPRAISING_SITUATION;
-
-        // inicializar students
-        studentState = new int[serverSide.main.ExecConst.Nstudents];
-        for (int i = 0; i < serverSide.main.ExecConst.Nstudents; i++)
-          studentState[i] = StudentState.GOING_TO_THE_RESTAURANT;
-
+        studentState = new int[ExecConst.Nstudents];
+        for (int i = 0; i < ExecConst.Nstudents; i++)
+                studentState[i] = StudentState.GOING_TO_THE_RESTAURANT;
         nCourses = 0;
         nPortions = 0;
         seatAtTable = new int[ExecConst.Nstudents];
-        // iniciar todos os seats a -1 para indicar que nao tem ninguem sentado
-        for(int i = 0; i<serverSide.main.ExecConst.Nstudents;i++)
+        for(int i = 0; i < ExecConst.Nstudents; i++)
         {
-            this.seatAtTable[i] = -1;
+                seatAtTable[i] = -1;
         }
-
-        reportInitialStatus();
+        reportInitialStatus ();
     }
       
   /**
