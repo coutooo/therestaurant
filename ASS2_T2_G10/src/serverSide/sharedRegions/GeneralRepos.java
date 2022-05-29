@@ -247,7 +247,7 @@ public class GeneralRepos {
    *     @param state state
    *     @param hold specifies if prints line of report status
    */
-    public synchronized void setStudentState(int studentId, int state, boolean hold) {
+    public synchronized void updateStudentState(int studentId, int state, boolean hold) {
         this.studentState[studentId] = state;
     }
     

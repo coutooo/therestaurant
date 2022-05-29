@@ -596,62 +596,67 @@ public class MessageType {
 
    public static final int USSEATREQ = 103;
    
+    /**
+     * updateSeatsAtTable (REPLY).
+     */
+    public static final int USSEATDONE = 104;
+   
    /**	
    *  setNCourses (REQUEST).
    */
    
-    public static final int SETNCREQ = 104;
+    public static final int SETNCREQ = 105;
     
    /**	
    *  setNCourses (REPLY).
    */
     
-    public static final int SETNCDONE = 105;
+    public static final int SETNCDONE = 106;
 	
    /**
    * setNPortions (REQUEST).
    */
     
-    public static final int SETNPREQ = 106;
+    public static final int SETNPREQ = 107;
     
    /**
     * setNPortions (REPLY).
     */
     
-    public static final int SETNPDONE = 107;
+    public static final int SETNPDONE = 108;
 
    /**
    * seatAtTable (REQUEST).
    */
     
-    public static final int USATREQ = 108;
+    public static final int USATREQ = 109;
     
    /**
     * seatAtTable (REPLY).
     */
     
-    public static final int USATDONE = 109;    
+    public static final int USATDONE = 110;    
     
     /**
      * seatAtLeaving (REQUEST).
      */
-    public static final int USALREQ = 110;
+    public static final int USALREQ = 111;
 
     /**
      * seatAtLeaving (REPLY).
      */
-    public static final int USALDONE = 111;
+    public static final int USALDONE = 112;
 	
    /**
    * SHUTDOWN GENERAL REPOSITORY (REQUEST).
    */
     
-    public static final int GRSHUTREQ = 112;
+    public static final int GRSHUTREQ = 113;
     
    /**
     * SHUTDOWN GENERAL REPOSITORY (REPLY).
     */
     
-    public static final int GRSHUTDONE = 113;  
+    public static final int GRSHUTDONE = 114;  
 
 }

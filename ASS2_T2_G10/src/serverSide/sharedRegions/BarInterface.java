@@ -67,7 +67,7 @@ public class BarInterface {
 
                 //Waiter Messages that require only type verification
                 case MessageType.LAREQ: 		// Look around Request
-                case MessageType.REQBARSHUT:		// Bar shutdown 
+                case MessageType.BSHUTREQ:		// Bar shutdown 
                         break;
                 // Waiter Messages that require type and state verification
                 case MessageType.PBREQ: 		// Prepare the bill Request
@@ -88,7 +88,7 @@ public class BarInterface {
                         break;
 
                 //Additional Messages
-                case MessageType.REQGETSTDBEIANSW:
+                case MessageType.GSBAREQ:
                         break;
                 default:
                         throw new MessageException ("Invalid message type!", inMessage);
@@ -140,13 +140,13 @@ public class BarInterface {
                     bar.exit();
                     outMessage = new Message(MessageType.EXITDONE, ((BarClientProxy) Thread.currentThread()).getStudentId(), ((BarClientProxy) Thread.currentThread()).getStudentState());
                     break;
-            case MessageType.REQGETSTDBEIANSW:
+            case MessageType.GSBAREQ:
                     int id = bar.getStudentBeingAnswered();
-                    outMessage = new Message(MessageType.REPGETSTDBEIANSW, id);
+                    outMessage = new Message(MessageType.GSBADONE, id);
                     break;
-            case MessageType.REQBARSHUT:
+            case MessageType.BSHUTREQ:
                     bar.shutdown();
-                    outMessage = new Message(MessageType.REPBARSHUT);
+                    outMessage = new Message(MessageType.BSHUTDONE);
                     break;
         }
 
