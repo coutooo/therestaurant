@@ -615,7 +615,7 @@ public class MessageType {
     public static final int SETNPREQ = 106;
     
    /**
-    * setNCourses (REPLY).
+    * setNPortions (REPLY).
     */
     
     public static final int SETNPDONE = 107;

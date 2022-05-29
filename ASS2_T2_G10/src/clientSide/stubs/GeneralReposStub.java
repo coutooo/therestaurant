@@ -46,35 +46,6 @@ public class GeneralReposStub
        this.serverHostName = serverHostName;
        this.serverPortNumb = serverPortNumb;
     }
-   
-    /**
-    *   Operation initialization of the simulation.
-    *
-    *     @param fileName logging file name
-    */
-    public void initSimulation(String fileName) {
-        ClientCom com;                                                 // communication channel
-        Message outMessage, // outgoing message
-                inMessage;                                             // incoming message
-
-        com = new ClientCom(serverHostName, serverPortNumb);
-        while (!com.open()) {
-            try {
-                Thread.sleep((long) (1000));
-            } catch (InterruptedException e) {
-            }
-        }
-        outMessage = new Message(MessageType.SETNFIC, fileName);
-        com.writeObject(outMessage);
-        inMessage = (Message) com.readObject();
-        if (inMessage.getMsgType() != MessageType.NFICDONE) {
-            GenericIO.writelnString("Thread " + Thread.currentThread().getName() + ": Invalid message type!");
-            GenericIO.writelnString(inMessage.toString());
-            System.exit(1);
-        }
-        com.close();
-    }
-
   /**
    *   Set chef state.
    *
@@ -96,12 +67,12 @@ public class GeneralReposStub
             catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.STCST, state);
+        outMessage = new Message (MessageType.STCSTREQ, state);
         com.writeObject (outMessage); 			//Write outGoing message in the communication channel
         inMessage = (Message) com.readObject(); //Read inGoing message
 
         //Validate inGoing message type and arguments
-        if(inMessage.getMsgType() != MessageType.SACK)
+        if(inMessage.getMsgType() != MessageType.STCSTDONE)
         {
                 GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                 GenericIO.writelnString (inMessage.toString ());
@@ -131,12 +102,12 @@ public class GeneralReposStub
                 catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.STWST, state);
+        outMessage = new Message (MessageType.STWSTREQ, state);
         com.writeObject (outMessage); 			//Write outGoing message in the communication channel
         inMessage = (Message) com.readObject(); //Read inGoing message
 
         //Validate inGoing message type and arguments
-        if(inMessage.getMsgType() != MessageType.SACK)
+        if(inMessage.getMsgType() != MessageType.STWSTDONE)
         {
                 GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                 GenericIO.writelnString (inMessage.toString ());
@@ -165,12 +136,12 @@ public class GeneralReposStub
                 catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.USSEATREQ, studentId, i);
+        outMessage = new Message (MessageType.USATREQ, studentId, i);
         com.writeObject (outMessage); 			//Write outGoing message in the communication channel
         inMessage = (Message) com.readObject(); //Read inGoing message
 
         //Validate inGoing message type and arguments
-        if(inMessage.getMsgType() != MessageType.SACK)
+        if(inMessage.getMsgType() != MessageType.USATDONE)
         {
                 GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                 GenericIO.writelnString (inMessage.toString ());
@@ -226,12 +197,12 @@ public class GeneralReposStub
                 catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.STCST, studentID, studentState);
+        outMessage = new Message (MessageType.USSTREQ1, studentID, studentState);
         com.writeObject (outMessage); 			//Write outGoing message in the communication channel
         inMessage = (Message) com.readObject(); //Read inGoing message
 
         //Validate inGoing message type and arguments
-        if(inMessage.getMsgType() != MessageType.SACK)
+        if(inMessage.getMsgType() != MessageType.USSTDONE1)
         {
                 GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                 GenericIO.writelnString (inMessage.toString ());
@@ -261,12 +232,12 @@ public class GeneralReposStub
                 catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.STCST, studentid, studentstate, hold);
+        outMessage = new Message (MessageType.USSTREQ2, studentid, studentstate, hold);
         com.writeObject (outMessage); 			//Write outGoing message in the communication channel
         inMessage = (Message) com.readObject(); //Read inGoing message
 
         //Validate inGoing message type and arguments
-        if(inMessage.getMsgType() != MessageType.SACK)
+        if(inMessage.getMsgType() != MessageType.USSTDONE2)
         {
                 GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                 GenericIO.writelnString (inMessage.toString ());
@@ -293,12 +264,12 @@ public class GeneralReposStub
                 catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.SNCREQ, value);
+        outMessage = new Message (MessageType.SETNCREQ, value);
         com.writeObject (outMessage); 			//Write outGoing message in the communication channel
         inMessage = (Message) com.readObject(); //Read inGoing message
 
         //Validate inGoing message type and arguments
-        if(inMessage.getMsgType() != MessageType.SNCDONE)
+        if(inMessage.getMsgType() != MessageType.SETNCDONE)
         {
                 GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                 GenericIO.writelnString (inMessage.toString ());
@@ -325,12 +296,12 @@ public class GeneralReposStub
                 catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.SNPREQ, value);
+        outMessage = new Message (MessageType.SETNPREQ, value);
         com.writeObject (outMessage); 			//Write outGoing message in the communication channel
         inMessage = (Message) com.readObject(); //Read inGoing message
 
         //Validate inGoing message type and arguments
-        if(inMessage.getMsgType() != MessageType.SNPDONE)
+        if(inMessage.getMsgType() != MessageType.SETNPDONE)
         {
                 GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                 GenericIO.writelnString (inMessage.toString ());
@@ -357,12 +328,12 @@ public class GeneralReposStub
                 catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.SHUT);
+        outMessage = new Message (MessageType.GRSHUTREQ);
         com.writeObject (outMessage); 			//Write outGoing message in the communication channel
         inMessage = (Message) com.readObject(); //Read inGoing message
 
         //Validate inGoing message type and arguments
-        if(inMessage.getMsgType() != MessageType.SHUTDONE)
+        if(inMessage.getMsgType() != MessageType.GRSHUTDONE)
         {
                 GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                 GenericIO.writelnString (inMessage.toString ());

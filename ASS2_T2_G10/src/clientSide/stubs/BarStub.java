@@ -408,12 +408,12 @@ public class BarStub {
                 catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.SHUT);
+        outMessage = new Message (MessageType.BSHUTREQ);
         com.writeObject (outMessage); 			//Write outGoing message in the communication channel
         inMessage = (Message) com.readObject(); //Read inGoing message
 
         //Validate inGoing message type and arguments
-        if(inMessage.getMsgType() != MessageType.SHUTDONE)
+        if(inMessage.getMsgType() != MessageType.BSHUTDONE)
         {
                 GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                 GenericIO.writelnString (inMessage.toString ());

@@ -1,5 +1,6 @@
 package commInfra;
 
+import genclass.GenericIO;
 import java.io.Serializable;
 import serverSide.main.ExecConst;
 
@@ -128,44 +129,44 @@ public class Message implements Serializable {
         else if (entitie == 2) //Waiter message
                 waiterState = state;
         else if (entitie == 3) { //Student message
-                if(msgType == MessageType.CWREQ || msgType == MessageType.CWDONE || msgType == MessageType.REQEVERYBDFINISHEAT)
+                if(msgType == MessageType.CWREQ || msgType == MessageType.CWDONE || msgType == MessageType.HEFEREQ)
                         studentID = state;
                 else if(msgType == MessageType.POREQ || msgType == MessageType.PODONE || 
                             msgType == MessageType.JTREQ || msgType == MessageType.JTDONE)
                         studentState = state;
         }
         else if (entitie == 4) {  //Additional message
-                if (msgType == MessageType.REPGETFRSTARR)
+                if (msgType == MessageType.GFTADONE)
                         firstToArrive = state;
-                else if (msgType == MessageType.REPGETLSTEAT)
+                else if (msgType == MessageType.GLTEDONE)
                         lastToEat = state;
-                else if (msgType == MessageType.REQSETFRSTARR)
+                else if (msgType == MessageType.SFTAREQ)
                         firstToArrive = state;
-                else if (msgType == MessageType.REQSETLSTARR)
+                else if (msgType == MessageType.SLTAREQ)
                         lastToArrive = state;
-                else if (msgType == MessageType.REPGETSTDBEIANSW)
+                else if (msgType == MessageType.GSBADONE)
                         studentBeingAnswered = state;
         }
         else if (entitie == 5) {	//General repository messages
-                if (msgType == MessageType.REQSETCHST)
+                if (msgType == MessageType.STCSTREQ)
                         chefState = state;
-                else if (msgType == MessageType.REQSETWAIST)
+                else if (msgType == MessageType.STWSTREQ)
                         waiterState = state;
-                else if (msgType == MessageType.REQSETNCOURSES) {
+                else if (msgType == MessageType.SETNCREQ) {
                         if ( state < 0 || state  > ExecConst.Ncourses) {	// Not a valid number of courses
                                 GenericIO.writelnString ("Invalid number of courses");
                                 System.exit (1);
                         } 
                         nCourses = state;
                 }
-                else if (msgType == MessageType.REQSETNPORTIONS) {
+                else if (msgType == MessageType.SETNPREQ) {
                         if ( state < 0 || state  > ExecConst.Nstudents) {	// Not a valid number of portions
                                 GenericIO.writelnString ("Invalid number of portions");
                                 System.exit (1);
                         }
                         nPortions = state;
                 }
-                else if (msgType == MessageType.REQUPDSEATSTABLELV){
+                else if (msgType == MessageType.USSEATREQ){
                         if ( state < 0 || state  >= ExecConst.Nstudents) {	// Not a valid Student id
                                 GenericIO.writelnString ("Invalid student id");
                                 System.exit (1);
@@ -189,19 +190,19 @@ public class Message implements Serializable {
     public Message(int type, boolean bValue)
     {
         msgType = type;
-        if (msgType == MessageType.REPHVPRTDLVD)
+        if (msgType == MessageType.HAPBDDONE)
                 allPortionsDelivered = bValue;
-        else if (msgType == MessageType.REPHORDCOMPL)
+        else if (msgType == MessageType.HOBCDONE)
                 orderCompleted = bValue;   
         else if (msgType == MessageType.SGDONE)
                 studentsAtRestaurant = bValue;
-        else if (msgType == MessageType.REPALLCLISERVED)
+        else if (msgType == MessageType.HACBSDONE)
                 allClientsBeenServed = bValue;
-        else if (msgType == MessageType.REPEVERYBDYCHO)
+        else if (msgType == MessageType.HACBEDONE)
                 everybodyHasChosen = bValue;
-        else if (msgType == MessageType.REPALLCOURBEENEAT)
+        else if (msgType == MessageType.HACBEDONE)
                 haveAllCoursesBeenEaten = bValue;
-        else if (msgType == MessageType.REPEVERYBDFINISHEAT)
+        else if (msgType == MessageType.HEFEDONE)
                 everybodyHasEaten = bValue;
 
 
@@ -221,17 +222,17 @@ public class Message implements Serializable {
             int entity = getEntitieFromMessageType(type);
 
             //Update seats at the table (general repos)
-            if (msgType == MessageType.REQUPDSEATSTABLE)
+            if (msgType == MessageType.USSEATREQ)
                     seatAtTable = stateOrSeat;
             //salute a client (waiter in the table)
-            else if (msgType == MessageType.REQSALUTCLI || msgType == MessageType.REPSALUTCLI){
+            else if (msgType == MessageType.SCREQ || msgType == MessageType.SCDONE){
                     studentBeingAnswered = id;
                     waiterState = stateOrSeat;
                     return;
             }
             else 
             {
-                    if ((entity != 3) && msgType != MessageType.REQUPDTSTUST1) {	// Not a Student entity Type Message
+                    if ((entity != 3) && msgType != MessageType.USSTDONE1) {	// Not a Student entity Type Message
                             GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation on Student!");
                             System.exit (1);
                     }
@@ -283,9 +284,9 @@ public class Message implements Serializable {
             msgType = type;
             studentID = id;
             studentState = state;
-            if(msgType == MessageType.REPSHOULDARREARLY)
+            if(msgType == MessageType.SHAEDONE)
                     shouldArrivedEarlier = bValue;
-            else if (msgType == MessageType.REQUPDTSTUST2)
+            else if (msgType == MessageType.USSTREQ2)
                     hold = bValue;
     }
 
@@ -433,70 +434,70 @@ public class Message implements Serializable {
             switch(messageType)
             {
                 // Chef messages
-                case MessageType.REQWATTNWS: 		case MessageType.REPWATTNWS:
-                case MessageType.REQSTRPR: 		case MessageType.REPSTRPR:
-                case MessageType.REQPROCPREP: 		case MessageType.REPPROCPREP:
-                case MessageType.REQHVPRTDLVD: 		case MessageType.REPHVPRTDLVD:
+                case MessageType.WTNREQ: 		case MessageType.WTNDONE:
+                case MessageType.STPREQ: 		case MessageType.STPDONE:
+                case MessageType.PTPREQ: 		case MessageType.PTPDONE:
+                case MessageType.HAPBDREQ: 		case MessageType.HAPBDDONE:
                 case MessageType.HOBCREQ: 		case MessageType.HOBCDONE:
-                case MessageType.REQCONTPREP: 		case MessageType.REPCONTPREP :
-                case MessageType.REQHAVNEXPORRD: 	case MessageType.REPHAVNEXPORRD:
+                case MessageType.CPREQ: 		case MessageType.CPDONE :
+                case MessageType.HNPRREQ:               case MessageType.HNPRDONE:
                 case MessageType.CUREQ: 		case MessageType.CUDONE:
                 case MessageType.ALREQ: 		case MessageType.ALDONE:
                         return 1;
                 // Waiter messages
-                case MessageType.REQHNDNOTCHEF:		case MessageType.REPHNDNOTCHEF:
-                case MessageType.REQRETURNTOBAR: 	case MessageType.REPRETURNTOBAR:
-                case MessageType.REQCOLLPORT: 		case MessageType.REPCOLLPORT:
-                case MessageType.REQLOOKARND:		case MessageType.REPLOOKARND:
-                case MessageType.REQPRPREBILL: 		case MessageType.REPPRPREBILL:
-                case MessageType.REQSAYGDBYE: 		case MessageType.REPSAYGDBYE:
-                case MessageType.REQSALUTCLI: 		case MessageType.REPSALUTCLI:
-                case MessageType.REQRTRNBAR:		case MessageType.REPRTRNBAR:
-                case MessageType.REQGETPAD:			case MessageType.REPGETPAD:
-                case MessageType.REQALLCLISERVED:	case MessageType.REPALLCLISERVED:
-                case MessageType.REQDELPOR:			case MessageType.REPDELPOR:
-                case MessageType.REQPRESBILL:		case MessageType.REPPRESBILL:
+                case MessageType.HNTCREQ:		case MessageType.HNTCDONE:
+                case MessageType.RTBREQ:                case MessageType.RTBDONE:
+                case MessageType.CPORREQ: 		case MessageType.CPORDONE:
+                case MessageType.LAREQ:                 case MessageType.LADONE:
+                case MessageType.PBREQ: 		case MessageType.PBDONE:
+                case MessageType.SGREQ: 		case MessageType.SGDONE:
+                case MessageType.SCREQ: 		case MessageType.SCDONE:
+                case MessageType.RBREQ:                 case MessageType.RBDONE:
+                case MessageType.GBREQ:			case MessageType.GBDONE:
+                case MessageType.HACBSREQ:              case MessageType.HACBSDONE:
+                case MessageType.DPREQ:                 case MessageType.DPDONE:
+                case MessageType.PREBREQ:		case MessageType.PREBDONE:
                         return 2;
                 // Student messages
-                case MessageType.ENTREQ: 			case MessageType.ENTDONE:
-                case MessageType.CWREQ: 			case MessageType.CWDONE:
-                case MessageType.SWREQ: 			case MessageType.SWDONE:
-                case MessageType.EXITREQ: 			case MessageType.EXITDONE:
-                case MessageType.SATREQ:			case MessageType.SATDONE:
-                case MessageType.RMREQ:                         case MessageType.RMDONE:
-                case MessageType.POREQ:                         case MessageType.PODONE:
-                case MessageType.EHCREQ:                        case MessageType.EHCDONE:
-                case MessageType.REQADDUP1CHOI:			case MessageType.REPADDUP1CHOI:
-                case MessageType.DOREQ:                         case MessageType.DODONE:
-                case MessageType.REQJOINTALK:			case MessageType.REPJOINTALK:
-                case MessageType.REQINFORMCOMP:			case MessageType.REPINFORMCOMP:
-                case MessageType.REQSRTEATING:			case MessageType.REPSRTEATING:
-                case MessageType.REQENDEATING:			case MessageType.REPENDEATING:
-                case MessageType.HEFEREQ:                       case MessageType.HEFEDONE:
-                case MessageType.HBREQ:                         case MessageType.HBDONE:
-                case MessageType.HACBEREQ:                      case MessageType.HACBEDONE:
-                case MessageType.SHAEREQ:                       case MessageType.SHAEDONE:
+                case MessageType.ENTREQ: 		case MessageType.ENTDONE:
+                case MessageType.CWREQ: 		case MessageType.CWDONE:
+                case MessageType.SWREQ: 		case MessageType.SWDONE:
+                case MessageType.EXITREQ: 		case MessageType.EXITDONE:
+                case MessageType.SATREQ:		case MessageType.SATDONE:
+                case MessageType.RMREQ:                 case MessageType.RMDONE:
+                case MessageType.POREQ:                 case MessageType.PODONE:
+                case MessageType.EHCREQ:                case MessageType.EHCDONE:
+                case MessageType.AUOCREQ:		case MessageType.AUOCDONE:
+                case MessageType.DOREQ:                 case MessageType.DODONE:
+                case MessageType.JTREQ:                 case MessageType.JTDONE:
+                case MessageType.ICREQ:                 case MessageType.ICDONE:
+                case MessageType.SEREQ:                 case MessageType.SEDONE:
+                case MessageType.EEREQ:                 case MessageType.EEDONE:
+                case MessageType.HEFEREQ:               case MessageType.HEFEDONE:
+                case MessageType.HBREQ:                 case MessageType.HBDONE:
+                case MessageType.HACBEREQ:              case MessageType.HACBEDONE:
+                case MessageType.SHAEREQ:               case MessageType.SHAEDONE:
                         return 3;
                 //Additional Messages
-                case MessageType.REQGETSTDBEIANSW:	case MessageType.REPGETSTDBEIANSW:
-                case MessageType.REQGETFRSTARR:		case MessageType.REPGETFRSTARR:
-                case MessageType.REQGETLSTEAT:		case MessageType.REPGETLSTEAT:
-                case MessageType.REQSETFRSTARR:		case MessageType.REPSETFRSTARR:
-                case MessageType.REQSETLSTARR:		case MessageType.REPSETLSTARR:
-                case MessageType.REQKITSHUT:		case MessageType.REPKITSHUT:
-                case MessageType.REQBARSHUT:		case MessageType.REPBARSHUT:
-                case MessageType.REQTABSHUT:		case MessageType.REPTABSHUT:
+                case MessageType.GSBAREQ:               case MessageType.GSBADONE:
+                case MessageType.GFTAREQ:		case MessageType.GFTADONE:
+                case MessageType.GLTEREQ:		case MessageType.GLTEDONE:
+                case MessageType.SFTAREQ:		case MessageType.SFTADONE:
+                case MessageType.SLTAREQ:		case MessageType.SLTADONE:
+                case MessageType.KSHUTREQ:		case MessageType.KSHUTDONE:
+                case MessageType.BSHUTREQ:		case MessageType.BSHUTDONE:
+                case MessageType.TSHUTREQ:		case MessageType.TSHUTDONE:
                         return 4;
                 //GeneralRepo Message
-                case MessageType.REQSETCHST:		 case MessageType.REPSETCHST:
-                case MessageType.REQSETWAIST:		 case MessageType.REPSETWAIST:
-                case MessageType.REQUPDTSTUST1:		 case MessageType.REPUPDTSTUST1:
-                case MessageType.REQUPDTSTUST2:		 case MessageType.REPUPDTSTUST2:
-                case MessageType.REQSETNCOURSES:	 case MessageType.REPSETNCOURSES:
-                case MessageType.REQSETNPORTIONS:	 case MessageType.REPSETNPORTIONS:
-                case MessageType.REQUPDSEATSTABLE:	 case MessageType.REPUPDSEATSTABLE:
-                case MessageType.REQUPDSEATSTABLELV: case MessageType.REPUPDSEATSTABLELV:
-                case MessageType.REQGENERALREPOSHUT: case MessageType.REPGENERALREPOSHUT:
+                case MessageType.STCSTREQ:		case MessageType.STCSTDONE:
+                case MessageType.STWSTREQ:		case MessageType.STWSTDONE:
+                case MessageType.USSTREQ1:		case MessageType.USSTDONE1:
+                case MessageType.USSTREQ2:		case MessageType.USSTDONE2:
+                case MessageType.SETNCREQ:              case MessageType.SETNCDONE:
+                case MessageType.SETNPREQ:              case MessageType.SETNPDONE:
+                case MessageType.USSEATREQ:             case MessageType.USSEATDONE:        // update seat at table DONE
+                case MessageType.USALREQ:               case MessageType.USALDONE:        // update seat at table at leaving
+                case MessageType.GRSHUTREQ:             case MessageType.GRSHUTDONE:
                         return 5;
                 default:
                         return -1;

@@ -57,7 +57,7 @@ public class TableStub {
                     catch (InterruptedException e) {}
             }
 
-            outMessage = new Message (MessageType.SATREQ, studentIDt);
+            outMessage = new Message (MessageType.SATREQ, studentID);
             com.writeObject (outMessage); 			//Write outGoing message in the communication channel
             inMessage = (Message) com.readObject(); //Read inGoing message
 
@@ -701,12 +701,12 @@ public class TableStub {
                     catch (InterruptedException e) {}
             }
 
-            outMessage = new Message (MessageType.SEREQ, ((Student) Thread.currentThread()).getStudentID(),((Student) Thread.currentThread()).getStudentState());
+            outMessage = new Message (MessageType.EEREQ, ((Student) Thread.currentThread()).getStudentID(),((Student) Thread.currentThread()).getStudentState());
             com.writeObject (outMessage); 			//Write outGoing message in the communication channel
             inMessage = (Message) com.readObject(); //Read inGoing message
 
             //Validate inGoing message type and arguments
-            if(inMessage.getMsgType() != MessageType.SEDONE)
+            if(inMessage.getMsgType() != MessageType.EEDONE)
             {
                     GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                     GenericIO.writelnString (inMessage.toString ());
@@ -881,12 +881,12 @@ public class TableStub {
                     catch (InterruptedException e) {}
             }
 
-            outMessage = new Message (MessageType.SHUT);
+            outMessage = new Message (MessageType.TSHUTREQ);
             com.writeObject (outMessage); 			//Write outGoing message in the communication channel
             inMessage = (Message) com.readObject(); //Read inGoing message
 
             //Validate inGoing message type and arguments
-            if(inMessage.getMsgType() != MessageType.SHUTDONE)
+            if(inMessage.getMsgType() != MessageType.TSHUTDONE)
             {
                     GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                     GenericIO.writelnString (inMessage.toString ());

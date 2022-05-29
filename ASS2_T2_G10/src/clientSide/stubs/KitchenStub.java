@@ -134,7 +134,7 @@ public class KitchenStub {
             com.close ();
 	}
 	
-	public boolean haveNextPortionReady() {
+	public void haveNextPortionReady() {
             ClientCom com;					//Client communication
             Message outMessage, inMessage; 	//outGoing and inGoing messages
 
@@ -427,12 +427,12 @@ public class KitchenStub {
                     catch (InterruptedException e) {}
             }
 
-            outMessage = new Message (MessageType.SHUT);
+            outMessage = new Message (MessageType.KSHUTREQ);
             com.writeObject (outMessage); 			//Write outGoing message in the communication channel
             inMessage = (Message) com.readObject(); //Read inGoing message
 
             //Validate inGoing message type and arguments
-            if(inMessage.getMsgType() != MessageType.SHUTDONE)
+            if(inMessage.getMsgType() != MessageType.KSHUTDONE)
             {
                     GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                     GenericIO.writelnString (inMessage.toString ());
