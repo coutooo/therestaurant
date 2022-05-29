@@ -5,8 +5,6 @@
 		-KitchenStub 
 		-TableStub
 *SERVERSIDE
-	*ENTITIES | DONE
-	*MAIN | DONE
 	*SHAREDREGIONS | DONE
 *COMMINFRA
 	-Message 
