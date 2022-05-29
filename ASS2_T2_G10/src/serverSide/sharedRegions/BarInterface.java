@@ -83,9 +83,9 @@ public class BarInterface {
                 case MessageType.ENTREQ:			// Enter Request
                 case MessageType.SWREQ:			// Signal the waiter Request
                 case MessageType.EXITREQ:			// exit Request
-                        if (inMessage.getStudentState() < StudentState.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentState.GOING_HOME)
-                                throw new MessageException("Invalid Student state!", inMessage);
-                        break;
+                    if (inMessage.getStudentState() < StudentState.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentState.GOING_HOME)
+                            throw new MessageException("Invalid Student state!", inMessage);
+                    break;
 
                 //Additional Messages
                 case MessageType.GSBAREQ:

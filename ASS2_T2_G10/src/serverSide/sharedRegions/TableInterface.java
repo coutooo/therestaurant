@@ -67,7 +67,7 @@ public class TableInterface {
                         break;
                 // Waiter Messages that require type and state verification
                 case MessageType.SCREQ:			// Salute the clients
-                case MessageType.RBREQ:			// Return to the bar
+                case MessageType.RTBREQ:			// Return to the bar
                 case MessageType.GBREQ:				// Get the pad
                 case MessageType.PREBREQ:			// Present the bill
                         if (inMessage.getWaiterState() < WaiterState.APPRAISING_SITUATION || inMessage.getWaiterState() > WaiterState.RECEIVING_PAYMENT)
@@ -114,10 +114,10 @@ public class TableInterface {
                         table.saluteClient(i);
                         outMessage = new Message(MessageType.SCDONE,  ((TableClientProxy) Thread.currentThread()).getStudentBeingAnswered(), ((TableClientProxy) Thread.currentThread()).getWaiterState());
                         break;
-                case MessageType.RBREQ:
+                case MessageType.RTBREQ:
                         ((TableClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
                         table.returnBar();
-                        outMessage = new Message(MessageType.RBDONE, ((TableClientProxy) Thread.currentThread()).getWaiterState());
+                        outMessage = new Message(MessageType.RTBDONE, ((TableClientProxy) Thread.currentThread()).getWaiterState());
                         break;
                 case MessageType.GBREQ:
                         ((TableClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
@@ -213,7 +213,7 @@ public class TableInterface {
                         outMessage = new Message(MessageType.GFTADONE, idFirst);
                         break;
                 case MessageType.GLTEREQ:
-                        int idLast = table.getLastToEat();
+                        int idLast = table.getFirstToArrive();
                         outMessage = new Message(MessageType.GLTEDONE, idLast);
                         break;
                 case MessageType.SFTAREQ:
