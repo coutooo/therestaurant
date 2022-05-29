@@ -30,6 +30,11 @@ public class Kitchen{
      *	Number of courses delivered
      */
     private int numberOfCoursesDelivered;
+    
+    /**
+     * Number of portions prepared by the chef
+     */
+    private int numberOfPortionsPrepared;
 
     /**
     * Reference to the General Repository.
@@ -43,12 +48,15 @@ public class Kitchen{
 
     /**
      * 	Kitchen instantiation
+     * @param repos reference to general repository
      */
     public Kitchen(GeneralReposStub repos){
         this.numberOfPortionsReady = 0;
         this.numberOfPortionsDelivered = 0;
         this.numberOfCoursesDelivered = 0;
         this.repos = repos;
+        this.nEntities = 0;
+
     }
 
     /**
@@ -78,6 +86,7 @@ public class Kitchen{
      * 	It is called by the chef after waiter has notified him of the order to be prepared
      */
     public synchronized void startPreparation(){
+        repos.setnCourses(numberOfCoursesDelivered + 1);
         //Update new Chef State
         ((KitchenClientProxy) Thread.currentThread()).setChefState(ChefState.PREPARING_THE_COURSE);
         repos.setChefState(((KitchenClientProxy) Thread.currentThread()).getChefState());
@@ -93,6 +102,8 @@ public class Kitchen{
      */
     public synchronized void proceedPreparation(){
         //Update new Chef state
+        numberOfPortionsPrepared++;
+        repos.setnPortions(numberOfPortionsPrepared);
         ((KitchenClientProxy) Thread.currentThread()).setChefState(ChefState.DISHING_THE_PORTIONS);
         repos.setChefState(((KitchenClientProxy) Thread.currentThread()).getChefState());
 
@@ -105,6 +116,7 @@ public class Kitchen{
      * 
      * 	It is called by the chef when he finishes a portion and checks if another one needs to be prepared or not.
      * 	It is also here were the chef blocks waiting for waiter do deliver the current portion
+     *  @return true if all portions have been delivered, false otherwise
      */
     public synchronized boolean haveAllPortionsBeenDelivered(){
         //Wait for waiter to collect the portion
@@ -129,9 +141,9 @@ public class Kitchen{
      * 	Operation has order been completed
      * 
      * 	It is called by the chef when he finishes preparing all courses
+     * 	@return true if all courses have been completed, false or not
      */
     public synchronized boolean hasOrderBeenCompleted(){
-        System.out.println("Courses delivered: "+numberOfCoursesDelivered);
         //Check if all courses have been delivered
         if (numberOfCoursesDelivered == serverSide.main.ExecConst.Ncourses)
             return true;
@@ -144,6 +156,9 @@ public class Kitchen{
      * 	It is called by the chef when not all portions have been delivered
      */
     public synchronized void continuePreparation(){
+        repos.setnCourses(numberOfCoursesDelivered+1);
+        numberOfPortionsPrepared = 0;
+        repos.setnPortions(numberOfPortionsPrepared);
         //Update chefs state
         ((KitchenClientProxy) Thread.currentThread()).setChefState(ChefState.PREPARING_THE_COURSE);
         repos.setChefState(((KitchenClientProxy) Thread.currentThread()).getChefState());
@@ -155,6 +170,8 @@ public class Kitchen{
      * It is called by the chef after a portion has been delivered and another one needs to be prepared
      */
     public synchronized void haveNextPortionReady(){	
+        numberOfPortionsPrepared++;
+        repos.setnPortions(numberOfPortionsPrepared);
         //Update chefs state
         ((KitchenClientProxy) Thread.currentThread()).setChefState(ChefState.DISHING_THE_PORTIONS);
         repos.setChefState(((KitchenClientProxy) Thread.currentThread()).getChefState());
@@ -239,6 +256,9 @@ public class Kitchen{
         if(numberOfPortionsDelivered > serverSide.main.ExecConst.Nstudents)
             numberOfPortionsDelivered = 1;
 
+        //Update portion number and course number in general repository
+        repos.setnPortions(numberOfPortionsDelivered);
+        repos.setnCourses(numberOfCoursesDelivered+1);
         //Signal chef that portion was delivered
         notifyAll();
     }
@@ -250,7 +270,8 @@ public class Kitchen{
     */
     public synchronized void shutdown() {
         nEntities += 1;
-        if (nEntities >= ExecConst.Nstudents)
+        if (nEntities >= ExecConst.NentitiesToShutKBT)
            ServerRestaurantKitchen.waitConnection = false;
+        notifyAll ();
     }
 }

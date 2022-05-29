@@ -4,6 +4,9 @@
  */
 package serverSide.sharedRegions;
 
+import clientSide.entities.ChefState;
+import clientSide.entities.StudentState;
+import clientSide.entities.WaiterState;
 import commInfra.Message;
 import commInfra.MessageException;
 import commInfra.MessageType;
@@ -49,66 +52,88 @@ public class GeneralReposInterface
    */
    
    
-   public Message processAndReply (Message inMessage) throws MessageException
-   {
-      Message outMessage = null;                                     // mensagem de resposta
-/*
-     // validation of the incoming message 
+    public Message processAndReply(Message inMessage) throws MessageException {
+        //outGoing message
+        Message outMessage = null;
 
-      switch (inMessage.getMsgType ())
-      { case MessageType.SETNFIC:  if (inMessage.getLogFName () == null)
-                                      throw new MessageException ("Name of the logging file is not present!", inMessage);
-                                      else if (inMessage.getNIter () <= 0)
-                                              throw new MessageException ("Wrong number of iterations!", inMessage);
-                                   break;
-        case MessageType.STBST:    if ((inMessage.getBarbId () < 0) || (inMessage.getBarbId () >= SimulPar.M))
-                                      throw new MessageException ("Invalid barber id!", inMessage);
-                                      else if ((inMessage.getBarbState () != BarberStates.SLEEPING) && (inMessage.getBarbState () != BarberStates.INACTIVITY))
-                                              throw new MessageException ("Invalid barber state!", inMessage);
-                                   break;
-        case MessageType.STCST:    if ((inMessage.getCustId () < 0) || (inMessage.getCustId () >= SimulPar.N))
-                                      throw new MessageException ("Invalid customer id!", inMessage);
-                                      else if ((inMessage.getCustState () < CustomerStates.DAYBYDAYLIFE) || (inMessage.getCustState () > CustomerStates.CUTTHEHAIR))
-                                              throw new MessageException ("Invalid customer state!", inMessage);
-                                   break;
-        case MessageType.STBCST:   if ((inMessage.getBarbId () < 0) || (inMessage.getBarbId () >= SimulPar.M))
-                                      throw new MessageException ("Invalid barber id!", inMessage);
-                                      else if ((inMessage.getBarbState () != BarberStates.SLEEPING) && (inMessage.getBarbState () != BarberStates.INACTIVITY))
-                                              throw new MessageException ("Invalid barber state!", inMessage);
-                                   if ((inMessage.getCustId () < 0) || (inMessage.getCustId () >= SimulPar.N))
-                                      throw new MessageException ("Invalid customer id!", inMessage);
-                                      else if ((inMessage.getCustState () < CustomerStates.DAYBYDAYLIFE) || (inMessage.getCustState () > CustomerStates.CUTTHEHAIR))
-                                              throw new MessageException ("Invalid customer state!", inMessage);
-                                   break;
-        case MessageType.SHUT:     // check nothing
-                                   break;
-        default:                   throw new MessageException ("Invalid message type!", inMessage);
-      }
+        /* Validation of the incoming message */
 
-     // processing 
-      * 
-      */
+        switch(inMessage.getMsgType())
+        {
+        // verify Chef state
+        case MessageType.REQSETCHST:
+                if (inMessage.getChefState() < ChefState.WAITING_FOR_AN_ORDER || inMessage.getChefState() > ChefState.CLOSING_SERVICE)
+                        throw new MessageException ("Invalid Chef state!", inMessage);
+                break;
+        // verify Waiter state
+        case MessageType.REQSETWAIST:
+                if (inMessage.getWaiterState() < WaiterState.APRAISING_SITUATION || inMessage.getWaiterState() > WaiterState.RECEIVING_PAYMENT)
+                        throw new MessageException("Invalid Waiter state!", inMessage);
+                break;
+        // verify Student state
+        case MessageType.REQUPDTSTUST1:
+        case MessageType.REQUPDTSTUST2:
+                if (inMessage.getStudentState() < StudentState.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentState.GOING_HOME)
+                        throw new MessageException("Invalid Student state!", inMessage);
+                break;
+        // verify only message type
+        case MessageType.REQSETNCOURSES:
+        case MessageType.REQSETNPORTIONS:
+        case MessageType.REQUPDSEATSTABLE:
+        case MessageType.REQUPDSEATSTABLELV:
+        case MessageType.REQGENERALREPOSHUT:
+                break;
+        default:
+                throw new MessageException ("Invalid message type!", inMessage);
+        }
 
-      switch (inMessage.getMsgType ())
+        /* Processing of the incoming message */
 
-      { case MessageType.SETNFIC:  repos.initSimulation (inMessage.getLogFileName());
-                                   outMessage = new Message (MessageType.NFICDONE);
-                                   break;
-        case MessageType.STSST:    repos.setStudentState(inMessage.getStudentID(), inMessage.getStudentState ());
-                                   outMessage = new Message (MessageType.SACK);
-                                   break;
-        case MessageType.STCST:    repos.setChefState (inMessage.getChefState());
-                                   outMessage = new Message (MessageType.SACK);
-                                   break;
-        case MessageType.STWST:   repos.setWaiterState (inMessage.getWaiterState ());                              
-                                   outMessage = new Message (MessageType.SACK);
-                                   break;
-        case MessageType.SHUT:     repos.shutdown ();
-                                   outMessage = new Message (MessageType.SHUTDONE);
-                                   break;
-      }
-
-     return (outMessage);
-   }
+        switch(inMessage.getMsgType())
+        {
+        case MessageType.REQSETCHST:
+                repos.setChefState(inMessage.getChefState());
+                outMessage = new Message(MessageType.REPSETCHST);
+                break;
+        case MessageType.REQSETWAIST:
+                repos.setWaiterState(inMessage.getWaiterState());
+                outMessage = new Message(MessageType.REPSETWAIST);
+                break;
+        case MessageType.REQUPDTSTUST1:
+        case MessageType.REQUPDTSTUST2:
+                if (inMessage.getMsgType() == MessageType.REQUPDTSTUST1) {
+                        repos.updateStudentState(inMessage.getStudentID(), inMessage.getStudentState());
+                        outMessage = new Message(MessageType.REPUPDTSTUST1);
+                        break;
+                } else { 
+                        repos.updateStudentState(inMessage.getStudentID(), inMessage.getStudentState(), inMessage.getHold());
+                        outMessage = new Message(MessageType.REPUPDTSTUST2);
+                }
+                break;
+        case MessageType.REQSETNCOURSES:
+                ((GeneralReposClientProxy) Thread.currentThread()).setValue(inMessage.getNCourses());
+                repos.setnCourses(((GeneralReposClientProxy) Thread.currentThread()).getValue());
+                outMessage = new Message(MessageType.REPSETNCOURSES);
+                break;
+        case MessageType.REQSETNPORTIONS:
+                ((GeneralReposClientProxy) Thread.currentThread()).setValue(inMessage.getNPortions());
+                repos.setnPortions(((GeneralReposClientProxy) Thread.currentThread()).getValue());
+                outMessage = new Message(MessageType.REPSETNPORTIONS);
+                break;
+        case MessageType.REQUPDSEATSTABLE:
+                repos.updateSeatsAtTable(inMessage.getSeatAtTable(), inMessage.getStudentId());
+                outMessage = new Message(MessageType.REPUPDSEATSTABLE);
+                break;
+        case MessageType.REQUPDSEATSTABLELV:
+                repos.updateSeatsAtTable(inMessage.getStudentId(), -1);
+                outMessage = new Message(MessageType.REPUPDSEATSTABLELV);
+                break;
+        case MessageType.REQGENERALREPOSHUT:
+                repos.shutdown();
+                outMessage = new Message(MessageType.REPGENERALREPOSHUT);
+                break;
+        }
+        return (outMessage);
+    }
    
 }

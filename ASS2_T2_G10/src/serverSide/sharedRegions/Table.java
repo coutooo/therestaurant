@@ -148,10 +148,10 @@ public class Table {
             studentsReadMenu[i] = false;
     	}
     	
-            //Initizalization of students thread
-            students = new TableClientProxy[serverSide.main.ExecConst.Nstudents];
-            for(int i = 0; i < serverSide.main.ExecConst.Nstudents; i++ ) 
-                    students[i] = null;
+        //Initizalization of students thread
+        students = new TableClientProxy[serverSide.main.ExecConst.Nstudents];
+        for(int i = 0; i < serverSide.main.ExecConst.Nstudents; i++ ) 
+                students[i] = null;
     }
     
     
@@ -205,11 +205,9 @@ public class Table {
                     e1.printStackTrace();
             }
     	}
-    	System.out.println("Saluting");
     	
     	//Waiter wakes student that has just arrived in order to greet him
     	notifyAll();
-    	System.out.println("Waiter Saluting student "+studentBeingAnswered+ " "+presentingTheMenu);
     	//Block waiting for student to read the menu
     	while(studentsReadMenu[studentBeingAnswered] == false)
     	{
@@ -270,9 +268,7 @@ public class Table {
                 e.printStackTrace();
             }
     	}
-    	
-    	System.out.println("Waiter Got the order");
-    	
+    	    	
     }
     
     
@@ -349,7 +345,6 @@ public class Table {
             students[studentId] = ((TableClientProxy) Thread.currentThread());
             students[studentId].setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
     	
-    	System.out.println("Student"+ studentId+" took a seat");
     	//Register that student took a seat
     	studentsSeated[studentId] = true;
     	//notify waiter that student took a seat (waiter may be waiting)
@@ -357,20 +352,16 @@ public class Table {
     	
     	//Block waiting for waiter to bring menu specifically to him
     	// Student also blocks if he wakes up when waiter is bringing the menu to another student
-    	while (true)
+    	do
     	{
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            if (studentId == studentBeingAnswered && presentingTheMenu == true) {
-                System.out.println("Student "+studentId+" Can Proceed");
-                break;
-            }
-        }
-    	System.out.println("Student "+studentId+ " has received the menu ("+studentBeingAnswered+")");
+	    	try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+    	while(studentId != studentBeingAnswered && presentingTheMenu == false);
     }
     
     
@@ -381,23 +372,18 @@ public class Table {
      */
     public synchronized void readMenu()
     {   
-        TableClientProxy student = ((TableClientProxy) Thread.currentThread());
     	
     	int studentID = ((TableClientProxy) Thread.currentThread()).getStudentId();
     	
-    	GenericIO.writelnString("Before: "+((TableClientProxy) Thread.currentThread()).getStudentState()+" - ID: "+student.getStudentId());
     	
-		if(((TableClientProxy) Thread.currentThread()).getStudentState() != StudentState.SELECTING_THE_COURSES) {
-    		students[studentID].setStudentState(StudentState.SELECTING_THE_COURSES);
-    		repos.updateStudentState(studentID, StudentState.SELECTING_THE_COURSES);
-		}
-    	
-		GenericIO.writelnString("After: "+((TableClientProxy) Thread.currentThread()).getStudentState()+" - ID: "+student.getStudentId());
-		
+        
+        students[studentID].setStudentState(StudentState.SELECTING_THE_COURSES);
+	((TableClientProxy) Thread.currentThread()).setStudentState(StudentState.SELECTING_THE_COURSES);
+        repos.updateStudentState(studentID, StudentState.SELECTING_THE_COURSES);
+				
     	studentsReadMenu[studentID] = true;
     	notifyAll();
     	
-    	System.out.println("Student "+studentID+ " read the menu ("+studentBeingAnswered+")");
     }    
     
     
@@ -416,6 +402,7 @@ public class Table {
     	
     	//Update student state
     	students[firstToArrive].setStudentState(StudentState.ORGANIZING_THE_ORDER);
+        ((TableClientProxy) Thread.currentThread()).setStudentState(StudentState.ORGANIZING_THE_ORDER);
     	repos.setStudentState(firstToArrive, ((TableClientProxy) Thread.currentThread()).getStudentState());
     	
     }
@@ -485,8 +472,6 @@ public class Table {
                 e.printStackTrace();
             }
     	}
-    	
-    	System.out.println("Student "+firstToArrive+" requested the order");
     	takingTheOrder = false;
     	//Wake waiter to describe him the order
     	notifyAll();
@@ -504,7 +489,9 @@ public class Table {
     {
     	//Update student state
     	students[firstToArrive].setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
-    	repos.setStudentState(firstToArrive, ((TableClientProxy) Thread.currentThread()).getStudentState());   
+    	((TableClientProxy) Thread.currentThread()).setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
+
+        repos.setStudentState(firstToArrive, students[firstToArrive].getStudentState());  
     }
     
     
@@ -537,7 +524,9 @@ public class Table {
     	
     	//Update student state
     	students[studentId].setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
-    	repos.setStudentState(studentId, ((TableClientProxy) Thread.currentThread()).getStudentState());
+        ((TableClientProxy) Thread.currentThread()).setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
+
+    	repos.updateStudentState(studentId, students[studentId].getStudentState());
     	
     }
     
@@ -554,7 +543,9 @@ public class Table {
     	 
     	//Update student state
     	students[studentId].setStudentState(StudentState.ENJOYING_THE_MEAL);
-    	repos.setStudentState(studentId, ((TableClientProxy) Thread.currentThread()).getStudentState());
+        ((TableClientProxy) Thread.currentThread()).setStudentState(StudentState.ENJOYING_THE_MEAL);
+
+    	repos.updateStudentState(studentId, students[studentId].getStudentState());
     	
     	//Enjoy meal during random time
         try
@@ -575,7 +566,6 @@ public class Table {
     	
     	//Update numstudents finished course
     	nStudentsFinishedCourse++;
-    	System.out.println(studentId+" finished"+nStudentsFinishedCourse);
     	
     	//If all students have finished means that one more course was eaten
     	if(nStudentsFinishedCourse == serverSide.main.ExecConst.Nstudents)
@@ -587,6 +577,7 @@ public class Table {
     	
     	//Update student state
     	students[studentId].setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
+        ((TableClientProxy) Thread.currentThread()).setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
     	repos.setStudentState(studentId, ((TableClientProxy) Thread.currentThread()).getStudentState());
     }
     
@@ -657,7 +648,6 @@ public class Table {
                 e.printStackTrace();
             }
     	}
-    	System.out.println("I PAYED THE MEAL");
 	    	
     	//After waiter presents the bill, student signals waiter so he can wake up and receive it
     	notifyAll();
@@ -678,8 +668,8 @@ public class Table {
     {
     	if(nOfCoursesEaten == serverSide.main.ExecConst.Ncourses)
             return true;
-            else {
-            //Student blocks waiting for all companions to be served
+        else {
+        //Student blocks waiting for all companions to be served
             while(nStudentsServed != serverSide.main.ExecConst.Nstudents)
             {
                 try {
@@ -711,7 +701,8 @@ public class Table {
     	if(studentId == lastToArrive) {
             //Update student state
             students[studentId].setStudentState(StudentState.PAYING_THE_MEAL);
-            repos.setStudentState(studentId, ((TableClientProxy) Thread.currentThread()).getStudentState());
+            ((TableClientProxy) Thread.currentThread()).setStudentState(StudentState.PAYING_THE_MEAL);
+            repos.updateStudentState(studentId, students[studentId].getStudentState());
             return true;
     	}
     	else
@@ -725,7 +716,8 @@ public class Table {
     */
     public synchronized void shutdown() {
         nEntities += 1;
-        if (nEntities >= ExecConst.Nstudents)
+        if (nEntities >= ExecConst.NentitiesToShutKBT)
            ServerRestaurantTable.waitConnection = false;
+        notifyAll ();
     }
 }

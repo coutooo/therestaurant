@@ -32,11 +32,6 @@ public class GeneralRepos {
    private String logFileName;
 
   /**
-   *  Number of iterations of the customer life cycle.
-   */
-
-   private int nIter;
-  /**
    *  Number of portions served.
    */
    private int nPortions;
@@ -63,47 +58,55 @@ public class GeneralRepos {
   /**
    *  seat where each student is.
    */
-   private final int [] seatAtTable = new int[serverSide.main.ExecConst.Nstudents];
+   private int[] seatAtTable;
    
    /**
     *   Number of entity groups requesting the shutdown.
     */
     private int nEntities;
    
-  /**
+    /**
    *   Instantiation of a general repository object.
    *
    */
     public GeneralRepos ()
     {
+	this("");
+    }
+  /**
+   *   Instantiation of a general repository object.
+   *
+   *	@param logFileName name of the logging file
+   */
+    public GeneralRepos (String logFileName)
+    {
         
         this.nEntities =  0;
-        this.logFileName = "logger";
-
-
-        // inicializar students
-        this.studentState = new int[serverSide.main.ExecConst.Nstudents];
-        for (int i = 0; i < serverSide.main.ExecConst.Nstudents; i++)
-          this.studentState[i] = StudentState.GOING_TO_THE_RESTAURANT;
+        if ((logFileName == null) || Objects.equals (logFileName, ""))
+            this.logFileName = "logger";
+        else this.logFileName = logFileName; 
 
         // iniciar chef
-        this.chefState = ChefState.WAITING_FOR_AN_ORDER;
+        chefState = ChefState.WAITING_FOR_AN_ORDER;
         // iniciar waiter
-        this.waiterState = WaiterState.APPRAISING_SITUATION;
+        waiterState = WaiterState.APPRAISING_SITUATION;
+
+        // inicializar students
+        studentState = new int[serverSide.main.ExecConst.Nstudents];
+        for (int i = 0; i < serverSide.main.ExecConst.Nstudents; i++)
+          studentState[i] = StudentState.GOING_TO_THE_RESTAURANT;
+
+        nCourses = 0;
+        nPortions = 0;
+        seatAtTable = new int[ExecConst.Nstudents];
         // iniciar todos os seats a -1 para indicar que nao tem ninguem sentado
         for(int i = 0; i<serverSide.main.ExecConst.Nstudents;i++)
         {
             this.seatAtTable[i] = -1;
         }
 
-        reportInitialStatus ();
+        reportInitialStatus();
     }
-    
-    public synchronized void initSimulation(String logFileName) {
-		   if(!Objects.equals(logFileName, ""))
-			   this.logFileName = logFileName;
-		   reportInitialStatus();
-	   }
       
   /**
    *  Print header.
@@ -213,7 +216,7 @@ public class GeneralRepos {
    *
    *     @param state chef state
    */
-    void setChefState(int state) {
+    public synchronized void setChefState(int state) {
         this.chefState = state;
         reportStatus ();
     }
@@ -222,7 +225,7 @@ public class GeneralRepos {
    *
    *     @param state waiter state
    */
-    void setWaiterState(int state) {
+    public synchronized void setWaiterState(int state) {
         waiterState = state;
         reportStatus ();
     }
@@ -232,10 +235,22 @@ public class GeneralRepos {
    *     @param studentId student id
    *     @param state state
    */
-    void setStudentState(int studentId, int state) {
+    public synchronized void setStudentState(int studentId, int state) {
         this.studentState[studentId] = state;
         reportStatus ();
     }
+    
+    /**
+   *   Set student state.
+   *
+   *     @param studentId student id
+   *     @param state state
+   *     @param hold specifies if prints line of report status
+   */
+    public synchronized void setStudentState(int studentId, int state, boolean hold) {
+        this.studentState[studentId] = state;
+    }
+    
   /**
    *   Set number of portions.
    *
@@ -260,7 +275,25 @@ public class GeneralRepos {
    */
     void updateSeatsAtTable(int nStudentsAtRes, int studentId) {
         seatAtTable[nStudentsAtRes] = studentId;
+        reportStatus();
     }
+    
+    /**
+    * Update the leaving of a student in the seats of the table
+    * 
+    * @param id student id to leave table
+    */
+    public synchronized void updateSeatsAtLeaving(int id) {
+           int seat = 0;
+
+           for(int i=0; i < this.seatAtTable.length; i++) {
+                   if(this.seatAtTable[i] == id)
+                           seat = i;
+           }
+
+           this.seatAtTable[seat] = -1;
+    }	
+        
     /**
     *   Operation server shutdown.
     *
@@ -268,15 +301,8 @@ public class GeneralRepos {
     */
     public synchronized void shutdown() {
         nEntities += 1;
-        if (nEntities >= ExecConst.Nstudents)
+        if (nEntities >= ExecConst.NentitiesToShutG)
            ServerRestaurantGeneralRepos.waitConnection = false;
-    }
-
-    public synchronized void initSimul (String logFileName, int nIter)
-    {
-      if (!Objects.equals (logFileName, ""))
-         this.logFileName = logFileName;
-      this.nIter = nIter;
-      reportInitialStatus ();
-    }
+        notifyAll();
+    }      
 }

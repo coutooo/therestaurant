@@ -18,7 +18,7 @@ import genclass.GenericIO;
  * @author Rafael Dias
  * @author Manuel Couto
  */
-public class KitchenClientProxy extends Thread implements StudentCloning, WaiterCloning, ChefCloning  {
+public class KitchenClientProxy extends Thread implements WaiterCloning, ChefCloning  {
     
     /**
    *  Number of instantiayed threads.
@@ -37,18 +37,6 @@ public class KitchenClientProxy extends Thread implements StudentCloning, Waiter
    */
 
    private KitchenInterface kitchenInter;
-
-  /**
-   *  Student identification.
-   */
-
-   private int studentId;
-
-  /**
-   *  Student state.
-   */
-
-   private int studentState;
 
   /**
    *  Chef state.
@@ -129,55 +117,10 @@ public class KitchenClientProxy extends Thread implements StudentCloning, Waiter
     }
     
     /**
-    *   Set student id.
-    *
-    *     @param id student id
-    */
-
-    public void setStudentId (int id)
-    {
-       studentId = id;
-    }
-    
-    /**
-    *   Get student id.
-    *
-    *     @return student id
-    */
-
-    public int getStudentId ()
-    {
-       return studentId;
-    }
-    
-    /**
-    *   Set student state.
-    *
-    *     @param state new student state
-    */
-
-    public void setStudentState (int state)
-    {
-       studentState = state;
-    }
-    
-    /**
-    *   Get student state.
-    *
-    *     @return student state
-    */
-
-    public int getStudentState ()
-    {
-       return studentState;
-    }
-    
-    /**
     *   Set waiter state.
     *
     *     @param state new waiter state
     */
-    
     public void setWaiterState (int state)
     {
        waiterState = state;

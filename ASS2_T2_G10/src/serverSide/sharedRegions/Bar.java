@@ -83,7 +83,7 @@ public class Bar
     {
         this.nEntities = 0;
         //Initizalization of students thread
-        this.students = new BarClientProxy[ExecConst.Nstudents];
+        students = new BarClientProxy[ExecConst.Nstudents];
         for(int i = 0; i < ExecConst.Nstudents; i++ ) 
             this.students[i] = null;
 
@@ -184,9 +184,7 @@ public class Bar
             return 0;
         }		
         //Register student id in studentBeingAnswered
-        System.out.println("Waiter attends student "+r.id+ " request");
         studentBeingAnswered = r.id;
-
         return r.type;
     }
 
@@ -211,10 +209,10 @@ public class Bar
         notifyAll();
 
         numberOfStudentsAtRestaurant--;
+        
+        repo.updateSeatsAtLeaving(studentBeingAnswered);
         studentBeingAnswered = -1;
-
-        repo.setWaiterState(((BarClientProxy) Thread.currentThread()).getWaiterState());
-
+        
         if(numberOfStudentsAtRestaurant == 0)
             return true;
         return false;
@@ -230,7 +228,7 @@ public class Bar
             int studentId = ((BarClientProxy) Thread.currentThread()).getStudentId();
             students[studentId] = ((BarClientProxy) Thread.currentThread());
             students[studentId].setStudentState(StudentState.GOING_TO_THE_RESTAURANT);
-
+            ((BarClientProxy) Thread.currentThread()).setStudentState(StudentState.GOING_TO_THE_RESTAURANT);
             numberOfStudentsAtRestaurant++;
 
             if(numberOfStudentsAtRestaurant == 1)
@@ -247,7 +245,9 @@ public class Bar
             numberOfPendingRequests++;
 
             students[studentId].setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
-            repo.setStudentState(studentId, ((BarClientProxy) Thread.currentThread()).getStudentState());
+            ((BarClientProxy) Thread.currentThread()).setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
+
+            repo.setStudentState(studentId, students[studentId].getStudentState(), true);
             repo.updateSeatsAtTable(numberOfStudentsAtRestaurant-1, studentId);
 
 
@@ -331,7 +331,8 @@ public class Bar
         notifyAll();
 
         students[studentId].setStudentState(StudentState.GOING_HOME);
-        repo.setStudentState(studentId, ((BarClientProxy) Thread.currentThread()).getStudentState());
+        ((BarClientProxy) Thread.currentThread()).setStudentState(StudentState.GOING_HOME);
+        repo.setStudentState(studentId, students[studentId].getStudentState());
 
 
         //Block until waiter greets the student goodbye
@@ -356,37 +357,4 @@ public class Bar
         if (nEntities >= ExecConst.Nstudents)
            ServerRestaurantBar.waitConnection = false;
     }
-    
 }
-
-/**
- * 
- * Request Data type
- *
- */
-class Request {
-	
-    /**
-     * Id of the author of the request
-     */
-    public int id;
-
-    /**
-     * Request type
-     */
-    public char type;
-
-
-    /**
-     * Request Instantiation
-     * @param id of the request
-     * @param type of the request
-     */
-    public Request(int id, char type)
-    {
-        this.id = id;
-        this.type = type;
-    }
-}
-
-

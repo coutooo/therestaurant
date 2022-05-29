@@ -88,7 +88,7 @@ public class Waiter extends Thread {
                     tableStub.returnBar();
                     break;
                 case 'b':	//Bill needs to be prepared so it can be payed by the student
-                    barStub.preprareBill();
+                    barStub.prepareBill();
                     tableStub.presentBill();
                     tableStub.returnBar();
                     break;

@@ -33,15 +33,17 @@ public class ServerRestaurantBar
    *  Main method.
    *
    *    @param args runtime arguments
-   *        args[0] - port nunber for listening to service requests
+   *        args[0] - port number for listening to service requests
    *        args[1] - name of the platform where is located the server for the general repository
-   *        args[2] - port nunber where the server for the general repository is listening to service requests
+   *        args[2] - port number where the server for the general repository is listening to service requests
+   *        args[3] - name of the platform where is located the server for the table
+   *        args[4] - port number where the server for the table is listening to service requests
    */
 
     public static void main (String [] args)
     {
-        Bar bar;                                              // barber shop (service to be rendered)
-        BarInterface barInterface;                                // interface to the barber shop
+        Bar bar;                                              // bar (service to be rendered)
+        BarInterface barInterface;                                // interface to the bar
         GeneralReposStub reposStub;                                    // stub to the general repository
         TableStub table;
         ServerCom scon, sconi;                                         // communication channels
@@ -51,45 +53,32 @@ public class ServerRestaurantBar
         String tableServerName;                                       // name of the platform where is located the server for the general repository
         int tablePortNumb = -1;                                       // port nunber where the server for the general repository is listening to service requests
 
-        if (args.length != 5) {
-            GenericIO.writelnString ("Wrong number of parameters!");
-            System.exit (1);
+        if (args.length != 5)
+        { GenericIO.writelnString ("Wrong number of parameters!");
+        System.exit (1);
         }
-
-        try {
-            portNumb = Integer.parseInt (args[0]);
-        } catch(NumberFormatException e) {
-            GenericIO.writelnString ("args[0] is not a number!");
+        for(int i = 0; i < args.length; i = i + 2) {
+            try
+            { portNumb = Integer.parseInt (args[i]);
+            }
+            catch (NumberFormatException e)
+            {   GenericIO.writeString ("args[");
+                GenericIO.writeInt(i);
+                GenericIO.writelnString("] is not a number!");
+                System.exit (1);
+            }
+            if ((portNumb < 4000) || (portNumb >= 65536))
+            { GenericIO.writeInt(portNumb);
+            GenericIO.writelnString ("is not a valid port number!");
             System.exit (1);
+            }
         }
-        if((portNumb < 4000) || (portNumb >= 65536)) {
-            GenericIO.writelnString ("args[0] is not a valid port number!");
-            System.exit (1);
-        }
-
+        
+        portNumb = Integer.parseInt (args[0]);
+        reposPortNumb = Integer.parseInt (args[2]);
+        tablePortNumb = Integer.parseInt (args[4]);
         reposServerName = args[1];
-        try {
-            reposPortNumb = Integer.parseInt (args[2]);
-        } catch (NumberFormatException e) {
-            GenericIO.writelnString ("args[2] is not a number!");
-            System.exit (1);
-        }
-        if((reposPortNumb < 4000) || (reposPortNumb >= 65536)) {
-            GenericIO.writelnString ("args[2] is not a valid port number!");
-            System.exit (1);
-        }
-
         tableServerName = args[3];
-        try {
-            tablePortNumb = Integer.parseInt (args[4]);
-        } catch (NumberFormatException e) {
-            GenericIO.writelnString ("args[2] is not a number!");
-            System.exit (1);
-        }
-        if((tablePortNumb < 4000) || (tablePortNumb >= 65536)) {
-            GenericIO.writelnString ("args[2] is not a valid port number!");
-            System.exit (1);
-        }
 
         /* service is established */
 
@@ -109,9 +98,9 @@ public class ServerRestaurantBar
         waitConnection = true;
         while (waitConnection) {
             try {
-                    sconi = scon.accept ();                                    // enter listening procedure
-                    cliProxy = new BarClientProxy (sconi, barInterface);    // start a service provider agent to address
-                    cliProxy.start ();                                         //   the request of service
+                sconi = scon.accept ();                                    // enter listening procedure
+                cliProxy = new BarClientProxy (sconi, barInterface);    // start a service provider agent to address
+                cliProxy.start ();                                         //   the request of service
             } catch(SocketTimeoutException e) {}
         }
         scon.end();                                                   // operations termination

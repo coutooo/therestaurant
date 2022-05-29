@@ -21,6 +21,16 @@ public final class ExecConst{
     public static final int Ncourses = 3;
 
     /**
+     * Number of entities that request shutdown in kitchen, bar or table
+     */
+    public static final int NentitiesToShutKBT = 1;
+
+    /**
+     * Number of entities that request shutdown on general repository
+     */
+    public static final int NentitiesToShutG = 3;
+    
+    /**
      *   It can not be instantiated.
      */  
     private ExecConst ()

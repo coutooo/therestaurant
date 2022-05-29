@@ -18,7 +18,7 @@ import genclass.GenericIO;
  * @author Rafael Dias
  * @author Manuel Couto
  */
-public class TableClientProxy extends Thread implements StudentCloning, WaiterCloning, ChefCloning  {
+public class TableClientProxy extends Thread implements StudentCloning, WaiterCloning{
     
     /**
    *  Number of instantiayed threads.
@@ -50,17 +50,16 @@ public class TableClientProxy extends Thread implements StudentCloning, WaiterCl
 
    private int studentState;
 
-  /**
-   *  Chef state.
-   */
-
-   private int chefState;
-   
    /**
    *  Waiter state.
    */
 
    private int waiterState;
+   
+    /**
+     * Id of the student whose request the waiter is taking care of
+     */
+    private int studentBeingAnswered;
     
 
     /**
@@ -195,25 +194,22 @@ public class TableClientProxy extends Thread implements StudentCloning, WaiterCl
     }
     
     /**
-    *   Set chef state.
-    *
-    *     @param state new chef state
-    */
-    
-    public void setChefState (int state)
-    {
-       chefState = state;
+     * Set studentBeingAnswered Id
+     *
+     * @param id studentBeingAnswered ID
+     */
+    public void setStudentBeingAnswered(int id) {
+        studentBeingAnswered = id;
     }
-    
-    /**
-    *   Get chef state.
-    *
-    *     @return chef state
-    */
 
-    public int getChefState ()
-    {
-       return chefState;
+    /**
+     * Get studentBeingAnswered Id
+     *
+     * @return id studentBeingAnswered
+     */
+    public int getStudentBeingAnswered() {
+        return studentBeingAnswered;
     }
+
     
 }
