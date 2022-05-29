@@ -403,7 +403,7 @@ public class Table {
     	//Update student state
     	students[firstToArrive].setStudentState(StudentState.ORGANIZING_THE_ORDER);
         ((TableClientProxy) Thread.currentThread()).setStudentState(StudentState.ORGANIZING_THE_ORDER);
-    	repos.setStudentState(firstToArrive, ((TableClientProxy) Thread.currentThread()).getStudentState());
+    	repos.updateStudentState(firstToArrive, students[firstToArrive].getStudentState());
     	
     }
     
@@ -491,7 +491,7 @@ public class Table {
     	students[firstToArrive].setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
     	((TableClientProxy) Thread.currentThread()).setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
 
-        repos.setStudentState(firstToArrive, students[firstToArrive].getStudentState());  
+	repos.updateStudentState(firstToArrive, students[firstToArrive].getStudentState());
     }
     
     
@@ -578,7 +578,7 @@ public class Table {
     	//Update student state
     	students[studentId].setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
         ((TableClientProxy) Thread.currentThread()).setStudentState(StudentState.CHATTING_WITH_COMPANIONS);
-    	repos.setStudentState(studentId, ((TableClientProxy) Thread.currentThread()).getStudentState());
+    	repos.updateStudentState(studentId, students[studentId].getStudentState());
     }
     
     

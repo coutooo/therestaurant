@@ -61,13 +61,13 @@ public class GeneralReposInterface
         switch(inMessage.getMsgType())
         {
         // verify Chef state
-        case MessageType.REQSETCHST:
+        case MessageType.STCST:
                 if (inMessage.getChefState() < ChefState.WAITING_FOR_AN_ORDER || inMessage.getChefState() > ChefState.CLOSING_SERVICE)
                         throw new MessageException ("Invalid Chef state!", inMessage);
                 break;
         // verify Waiter state
-        case MessageType.REQSETWAIST:
-                if (inMessage.getWaiterState() < WaiterState.APRAISING_SITUATION || inMessage.getWaiterState() > WaiterState.RECEIVING_PAYMENT)
+        case MessageType.STWST:
+                if (inMessage.getWaiterState() < WaiterState.APPRAISING_SITUATION || inMessage.getWaiterState() > WaiterState.RECEIVING_PAYMENT)
                         throw new MessageException("Invalid Waiter state!", inMessage);
                 break;
         // verify Student state

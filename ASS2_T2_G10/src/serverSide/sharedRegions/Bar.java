@@ -247,7 +247,7 @@ public class Bar
             students[studentId].setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
             ((BarClientProxy) Thread.currentThread()).setStudentState(StudentState.TAKING_A_SEAT_AT_THE_TABLE);
 
-            repo.setStudentState(studentId, students[studentId].getStudentState(), true);
+            repo.updateStudentState(studentId, students[studentId].getStudentState(), true);
             repo.updateSeatsAtTable(numberOfStudentsAtRestaurant-1, studentId);
 
 
@@ -332,7 +332,7 @@ public class Bar
 
         students[studentId].setStudentState(StudentState.GOING_HOME);
         ((BarClientProxy) Thread.currentThread()).setStudentState(StudentState.GOING_HOME);
-        repo.setStudentState(studentId, students[studentId].getStudentState());
+        repo.updateStudentState(studentId, students[studentId].getStudentState());
 
 
         //Block until waiter greets the student goodbye

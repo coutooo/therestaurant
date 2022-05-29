@@ -50,113 +50,103 @@ public class KitchenInterface {
    
 
    public Message processAndReply (Message inMessage) throws MessageException
-   {
-      Message outMessage = null;                                     // outgoing message
+    {
+        //outGoing message
+        Message outMessage = null;
 
-     // validation of the incoming message 
-     /*
-      switch (inMessage.getMsgType ())
-      { case MessageType.REQCUTH:  if ((inMessage.getCustId () < 0) || (inMessage.getCustId () >= SimulPar.N))
-                                      throw new MessageException ("Invalid customer id!", inMessage);
-                                      else if ((inMessage.getCustState () < CustomerStates.DAYBYDAYLIFE) || (inMessage.getCustState () > CustomerStates.CUTTHEHAIR))
-                                              throw new MessageException ("Invalid customer state!", inMessage);
-                                   break;
-        case MessageType.SLEEP:    if ((inMessage.getBarbId () < 0) || (inMessage.getBarbId () >= SimulPar.M))
-                                      throw new MessageException ("Invalid barber id!", inMessage);
-                                   break;
-        case MessageType.CALLCUST: if ((inMessage.getBarbId () < 0) || (inMessage.getBarbId () >= SimulPar.M))
-                                      throw new MessageException ("Invalid barber id!", inMessage);
-                                      else if ((inMessage.getBarbState () < BarberStates.SLEEPING) || (inMessage.getBarbState () > BarberStates.INACTIVITY))
-                                              throw new MessageException ("Invalid barber state!", inMessage);
-                                   break;
-        case MessageType.RECPAY:   if ((inMessage.getBarbId () < 0) || (inMessage.getBarbId () >= SimulPar.M))
-                                      throw new MessageException ("Invalid barber id!", inMessage);
-                                      else if ((inMessage.getBarbState () < BarberStates.SLEEPING) || (inMessage.getBarbState () > BarberStates.INACTIVITY))
-                                              throw new MessageException ("Invalid barber state!", inMessage);
-                                              else if ((inMessage.getCustId () < 0) || (inMessage.getCustId () >= SimulPar.N))
-                                                      throw new MessageException ("Invalid customer id!", inMessage);
-                                   break;
-        case MessageType.ENDOP:    if ((inMessage.getBarbId () < 0) || (inMessage.getBarbId () >= SimulPar.M))
-                                      throw new MessageException ("Invalid barber id!", inMessage);
-                                   break;
-        case MessageType.SHUT:     // check nothing
-                                   break;
-        default:                   throw new MessageException ("Invalid message type!", inMessage);
-      }
-     */
-     // processing 
+        /* Validation of the incoming message */
+        switch(inMessage.getMsgType())
+        {
+        // Chef Messages that require type and state verification
+        case MessageType.WTNREQ: 		// Watching the news request
+        case MessageType.REQSTRPR: 			// Start preparation of a course request
+        case MessageType.REQPROCPREP: 		// Proceed to presentation request
+        case MessageType.REQHAVNEXPORRD:	// Have next portion ready
+        case MessageType.REQCONTPREP: 		// Continue preparation
+        case MessageType.REQCLEANUP: 		// Clean up
+                if ((inMessage.getChefState() < ChefStates.WAITING_FOR_AN_ORDER) || (inMessage.getChefState() > ChefStates.CLOSING_SERVICE))
+                        throw new MessageException ("Invalid Chef state!", inMessage);
+                break;
 
-      switch (inMessage.getMsgType ())
+        // Chef Messages that require only type verification
+        case MessageType.REQHVPRTDLVD: 		// Have all portions been delivered
+        case MessageType.REQHORDCOMPL: 		// Has the order been completed
+        case MessageType.REQKITSHUT:		//Kitchen shutdown
+                break;
 
-      { case MessageType.WTNREQ:  ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState ());
-                                    kitchen.watchTheNews ();
-                                      outMessage = new Message (MessageType.WTNDONE,
-                                                                ((KitchenClientProxy) Thread.currentThread ()).getChefState ());
-                                   break;
-         case MessageType.STPREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
-                                    kitchen.startPreparation ();
-                                       outMessage= new Message (MessageType.STPDONE,
-                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
-                                    break;
-         case MessageType.PTPREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
-                                    kitchen.proceedPreparation ();
-                                       outMessage= new Message (MessageType.PTPDONE,
-                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
-                                    break;
+        // Waiter Messages that require type and state verification	
+        case MessageType.REQHNDNOTCHEF: 	// Hand note to chef
+        case MessageType.REQRETURNTOBAR: 	// Return to bar
+        case MessageType.REQCOLLPORT: 		// Collect portion
+                if(inMessage.getWaiterState() < WaiterStates.APRAISING_SITUATION || inMessage.getWaiterState() > WaiterStates.RECEIVING_PAYMENT)
+                        throw new MessageException ("Invalid Waiter state!", inMessage);
+                break;
+        default:
+                throw new MessageException ("Invalid message type!", inMessage);
+        }
 
-         case MessageType.HNPRREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
-                                    kitchen.haveNextPortionReady ();
-                                       outMessage= new Message (MessageType.HNPRDONE,
-                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
-                                    break;
-                  
-         case MessageType.CPREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
-                                    kitchen.continuePreparation ();
-                                       outMessage= new Message (MessageType.CPDONE,
-                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
-                                    break;
-                        
-         case MessageType.HAPBDREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
-                                    if (kitchen.haveAllPortionsBeenDelivered ())
-                                       outMessage= new Message (MessageType.HAPBDDONE,
-                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
-                                    break;
+        /* Processing */
+        switch(inMessage.getMsgType())
+        {
+        case MessageType.REQWATTNWS: //Watching the news request
+                ((KitchenClientProxy) Thread.currentThread()).setChefState(inMessage.getChefState());
+                kitchen.watchTheNews();
+                outMessage = new Message(MessageType.REPWATTNWS, ((KitchenClientProxy) Thread.currentThread()).getChefState());
+                break;
+        case MessageType.REQSTRPR: //Start preparation of a course request
+                ((KitchenClientProxy) Thread.currentThread()).setChefState(inMessage.getChefState());
+                kitchen.startPreparation();
+                outMessage = new Message(MessageType.REPSTRPR, ((KitchenClientProxy) Thread.currentThread()).getChefState());
+                break;
+        case MessageType.REQPROCPREP: //Proceed to presentation request
+                ((KitchenClientProxy) Thread.currentThread()).setChefState(inMessage.getChefState());
+                kitchen.proceedPreparation();
+                outMessage = new Message(MessageType.REPPROCPREP, ((KitchenClientProxy) Thread.currentThread()).getChefState());
+                break;	
+        case MessageType.REQHVPRTDLVD: //Have all portions been delivered request
+                boolean portionsDelivered = kit.haveAllPortionsBeenDelivered();
+                outMessage = new Message(MessageType.REPHVPRTDLVD, portionsDelivered);
+                break;
+        case MessageType.REQHORDCOMPL: //Has the order been completed request
+                boolean orderCompleted = kit.hasOrderBeenCompleted();
+                outMessage = new Message(MessageType.REPHORDCOMPL, orderCompleted);
+                break;
+        case MessageType.REQCONTPREP: //Continue preparation
+                ((KitchenClientProxy) Thread.currentThread()).setChefState(inMessage.getChefState());
+                kitchen.continuePreparation();
+                outMessage = new Message(MessageType.REPCONTPREP, ((KitchenClientProxy) Thread.currentThread()).getChefState());
+                break;
+        case MessageType.REQHAVNEXPORRD: //Have next portion ready
+                ((KitchenClientProxy) Thread.currentThread()).setChefState(inMessage.getChefState());
+                kitchen.haveNextPortionReady();
+                outMessage = new Message(MessageType.REPHAVNEXPORRD, ((KitchenClientProxy) Thread.currentThread()).getChefState());
+                break;
+        case MessageType.REQCLEANUP: //clean up
+                ((KitchenClientProxy) Thread.currentThread()).setChefState(inMessage.getChefState());
+                kitchen.cleanUp();
+                outMessage = new Message(MessageType.REPCLEANUP, ((KitchenClientProxy) Thread.currentThread()).getChefState());
+                break;
+        case MessageType.REQHNDNOTCHEF: //hand note to chef
+                ((KitchenClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
+                kitchen.handNoteToChef();
+                outMessage = new Message(MessageType.REPHNDNOTCHEF, ((KitchenClientProxy) Thread.currentThread()).getWaiterState());
+                break;
+        case MessageType.REQRETURNTOBAR: //return to bar
+                ((KitchenClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
+                kitchen.returnToBar();
+                outMessage = new Message(MessageType.REPRETURNTOBAR, ((KitchenClientProxy) Thread.currentThread()).getWaiterState());
+                break;
+        case MessageType.REQCOLLPORT: //collect portion
+                ((KitchenClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
+                kitchen.collectPortion();
+                outMessage = new Message(MessageType.REPCOLLPORT, ((KitchenClientProxy) Thread.currentThread()).getWaiterState());
+                break;
+        case MessageType.REQKITSHUT: //Kitchen shutdown
+                kitchen.shutdown();
+                outMessage = new Message(MessageType.REPKITSHUT);
+                break;
+        }
 
-         case MessageType.HOBCREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
-                                    if (kitchen.hasOrderBeenCompleted ())
-                                       outMessage= new Message (MessageType.HOBCDONE,
-                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
-                                    break;
-
-         case MessageType.CUREQ: ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState());
-                                    kitchen.cleanUp ();
-                                       outMessage= new Message (MessageType.CUDONE,
-                                                               ((KitchenClientProxy)Thread.currentThread ()).getChefState());
-                                    break;
-
-         case MessageType.RTBREQ: ((KitchenClientProxy) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState());
-                                    kitchen.returnToBar ();
-                                       outMessage= new Message (MessageType.RTBDONE,
-                                                               ((KitchenClientProxy)Thread.currentThread ()).getWaiterState());
-                                    break;
-                              
-         case MessageType.HNTCREQ: ((KitchenClientProxy) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState());
-                                    kitchen.handNoteToChef ();
-                                       outMessage= new Message (MessageType.HNTCDONE,
-                                                               ((KitchenClientProxy)Thread.currentThread ()).getWaiterState());
-                                    break;
-         
-         case MessageType.CPORREQ: ((KitchenClientProxy) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState());
-                                   kitchen.collectPortion ();
-                                       outMessage= new Message (MessageType.CPORDONE,
-                                                               ((KitchenClientProxy)Thread.currentThread ()).getWaiterState());
-                                    break;
-        
-        case MessageType.SHUT:     kitchen.shutdown ();
-                                   outMessage = new Message (MessageType.SHUTDONE);
-                                   break;
-      }
-
-     return (outMessage);
-   }
+        return (outMessage);
+    }
 }

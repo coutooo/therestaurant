@@ -548,31 +548,44 @@ public class MessageType {
    *  setStudentState (REQUEST).
    */
 
-   public static final int STSST = 89;
+   public static final int STSSTREQ = 89;
+   
+   /**
+   *  setStudentState (REPLY).
+   */
+
+   public static final int STSSTDONE = 90;
 
   /**
    *  setWaiterState (REQUEST).
    */
 
-   public static final int STWST = 90;
+   public static final int STWSTREQ = 91;
 
+   /**
+   *  setWaiterState (REPLY).
+   */
+
+   public static final int STWSTDONE = 92;
+   
   /**
    *  setChefState (REQUEST).
    */
 
-   public static final int STCST = 91;
+   public static final int STCSTREQ = 93;
 
-  /**
-   *  Setting acknowledged (reply).
+   /**
+   *  setChefState (REPLY).
    */
 
-   public static final int SACK = 92;
+   public static final int STCSTDONE = 94;
+  
    
    /**
    *  updateSeatsAtTable (REQUEST).
    */
 
-   public static final int USSEATREQ = 93;
+   public static final int USSEATREQ = 95;
    
 ///////////// TABLE TYPES /////////////
 	
