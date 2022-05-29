@@ -1,0 +1,11 @@
+*CLIENTSIDE
+	*STUBS
+		-BarStub 
+		-GeneralReposStub 
+		-KitchenStub 
+		-TableStub
+*SERVERSIDE
+	*SHAREDREGIONS | DONE
+
+
+
