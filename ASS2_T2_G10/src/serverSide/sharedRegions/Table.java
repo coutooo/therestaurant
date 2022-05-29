@@ -379,7 +379,7 @@ public class Table {
         
         students[studentID].setStudentState(StudentState.SELECTING_THE_COURSES);
 	((TableClientProxy) Thread.currentThread()).setStudentState(StudentState.SELECTING_THE_COURSES);
-        repos.updateStudentState(studentID, StudentState.SELECTING_THE_COURSES);
+    	repos.updateStudentState(studentID, students[studentID].getStudentState());
 				
     	studentsReadMenu[studentID] = true;
     	notifyAll();
