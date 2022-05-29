@@ -107,10 +107,6 @@ public class Message implements Serializable {
      */
     private boolean hold;
 
-    private Boolean check = null;
-
-    private Request request = null;
-
     /**
      *  Message constructor
      *
@@ -200,7 +196,7 @@ public class Message implements Serializable {
                 allClientsBeenServed = bValue;
         else if (msgType == MessageType.HACBEDONE)
                 everybodyHasChosen = bValue;
-        else if (msgType == MessageType.HACBEDONE)
+        else if (msgType == MessageType.EHCREQ)
                 haveAllCoursesBeenEaten = bValue;
         else if (msgType == MessageType.HEFEDONE)
                 everybodyHasEaten = bValue;
@@ -306,13 +302,6 @@ public class Message implements Serializable {
         return msgType;
     }
 
-    public Boolean getCheck() {
-        return check;
-    }
-
-    public char getRequest() {
-        return request.type;
-    }
 
     public int getStudentID() { 
         return studentID;
@@ -505,16 +494,27 @@ public class Message implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return ("Message type: " + msgType
-                + "\nCheck: " + check
-                + "\nRequest: " + request
-                + "\nStudent ID: " + studentID
-                + "\nStudent State: " + studentState
-                + "\nWaiter State: " + waiterState
-                + "\nChef State: " + chefState);
-//                + "\nVar 1: " + var1
-//                + "\nVar 2: " + var2);
-    }
+	public String toString ()
+	{
+            return ("Message type = " + msgType +
+                    "\nChef State = " + chefState +
+                    "\nWaiter State = " + waiterState +
+                    "\nStudentId = " + studentID + " StudentState = " + studentState + 
+                    "\nStudentIdBeingAnswered = " + studentIdBeingAnswered +
+                    "\nNumber of studentsAtRestaurant = " + studentsAtRestaurant +
+                    "\nAll Portions Been Delivered = " + allPortionsDelivered + 
+                    "\nHas the Order been completed = " + orderCompleted + 
+                    "\nRequest type = " + requestType + 
+                    "\nHave all clients been served = " + allClientsBeenServed +
+                    "\nEverybody has chosen = " + everybodyHasChosen +
+                    "\nEverybody has eaten = " + everybodyHasEaten + 
+                    "\nHave all courses been eaten = " + haveAllCoursesBeenEaten +
+                    "\nShould have arrived earlier = " + shouldArrivedEarlier +
+                    "\nFirst to arrive = " + firstToArrive + " Lat to arrive = " +lastToArrive +
+                    "\nLast to eat = " + lastToEat +
+                    "\nnCourses = " + nCourses + " nPortions = "+ nPortions +
+                    "\nHold = " + hold + " Seat at the table = " + seatAtTable +
+                    "");
+	}
 
 }
