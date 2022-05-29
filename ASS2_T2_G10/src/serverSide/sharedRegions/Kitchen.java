@@ -71,10 +71,10 @@ public class Kitchen{
 
         //Block waiting for waiter to notify of the order
         try {
-            wait();
+                wait();
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+                // TODO Auto-generated catch block
+                e.printStackTrace();
         }
     }
 
@@ -87,7 +87,6 @@ public class Kitchen{
      */
     public synchronized void startPreparation(){
         repos.setnCourses(numberOfCoursesDelivered + 1);
-        //Update new Chef State
         ((KitchenClientProxy) Thread.currentThread()).setChefState(ChefState.PREPARING_THE_COURSE);
         repos.setChefState(((KitchenClientProxy) Thread.currentThread()).getChefState());
 
@@ -122,17 +121,19 @@ public class Kitchen{
         //Wait for waiter to collect the portion
         while( numberOfPortionsReady != 0) {
             try {
-                wait();
+                    wait();
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
             }
         }
+
         //Check if all portions of the course have been delivered or not
-        if(numberOfPortionsDelivered == serverSide.main.ExecConst.Nstudents){
-            //If all portions have beend delivered means that a course was completed
-            numberOfCoursesDelivered++;
-            return true;
+        if(numberOfPortionsDelivered == ExecConst.Nstudents) 
+        {
+                //If all portions have been delivered means that a course was completed
+                numberOfCoursesDelivered++;
+                return true;
         }
         return false;
     }
@@ -145,7 +146,7 @@ public class Kitchen{
      */
     public synchronized boolean hasOrderBeenCompleted(){
         //Check if all courses have been delivered
-        if (numberOfCoursesDelivered == serverSide.main.ExecConst.Ncourses)
+        if (numberOfCoursesDelivered == ExecConst.Ncourses)
             return true;
         return false;
     }
@@ -159,7 +160,7 @@ public class Kitchen{
         repos.setnCourses(numberOfCoursesDelivered+1);
         numberOfPortionsPrepared = 0;
         repos.setnPortions(numberOfPortionsPrepared);
-        //Update chefs state
+
         ((KitchenClientProxy) Thread.currentThread()).setChefState(ChefState.PREPARING_THE_COURSE);
         repos.setChefState(((KitchenClientProxy) Thread.currentThread()).getChefState());
     }
@@ -170,9 +171,8 @@ public class Kitchen{
      * It is called by the chef after a portion has been delivered and another one needs to be prepared
      */
     public synchronized void haveNextPortionReady(){	
-        numberOfPortionsPrepared++;
+        numberOfPortionsPrepared++;		
         repos.setnPortions(numberOfPortionsPrepared);
-        //Update chefs state
         ((KitchenClientProxy) Thread.currentThread()).setChefState(ChefState.DISHING_THE_PORTIONS);
         repos.setChefState(((KitchenClientProxy) Thread.currentThread()).getChefState());
 
@@ -193,7 +193,7 @@ public class Kitchen{
      * It is called by the chef when he finishes the order
      */
     public synchronized void cleanUp(){	
-        //Update chefs state to terminate lifecycle
+        //Update chefs state to terminate life cycle
         ((KitchenClientProxy) Thread.currentThread()).setChefState(ChefState.CLOSING_SERVICE);
         repos.setChefState(((KitchenClientProxy) Thread.currentThread()).getChefState());
     }
@@ -213,10 +213,10 @@ public class Kitchen{
 
         //Block waiting for chef to start the preparation of the order
         try {
-            wait();
+                wait();
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+                // TODO Auto-generated catch block
+                e.printStackTrace();
         }
     }
     
@@ -236,12 +236,13 @@ public class Kitchen{
      * 
      * Called by the waiter when there is a portion to be delivered. Signal chef that the portion was delivered
      */
-    public synchronized void collectPortion(){
+    public synchronized void collectPortion()
+    {
         ((KitchenClientProxy) Thread.currentThread()).setWaiterState(WaiterState.WAITING_FOR_PORTION);
         repos.setWaiterState(((KitchenClientProxy) Thread.currentThread()).getWaiterState());
 
         //If there are no portions to deliver waiter must block
-        while ( numberOfPortionsReady == 0) {
+        while (numberOfPortionsReady == 0) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -253,16 +254,20 @@ public class Kitchen{
         //Update number of portions ready and delivered
         numberOfPortionsReady--;
         numberOfPortionsDelivered++;
-        if(numberOfPortionsDelivered > serverSide.main.ExecConst.Nstudents)
+
+        //If a new course is being delivered then numberOfPortionsDelivered must be "reseted"
+        if (numberOfPortionsDelivered > ExecConst.Nstudents) {
             numberOfPortionsDelivered = 1;
+        }
 
         //Update portion number and course number in general repository
         repos.setnPortions(numberOfPortionsDelivered);
-        repos.setnCourses(numberOfCoursesDelivered+1);
+        repos.setnCourses(numberOfCoursesDelivered + 1);
+
         //Signal chef that portion was delivered
         notifyAll();
-    }
 
+    }
     /**
     *   Operation server shutdown.
     *

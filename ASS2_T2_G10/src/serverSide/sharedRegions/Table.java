@@ -122,7 +122,6 @@ public class Table {
      */
     public Table(GeneralReposStub repos)
     {
-        this.nEntities = 0;
     	this.firstToArrive = -1;
     	this.lastToArrive = -1;
     	this.nOrders = 0;
@@ -137,9 +136,10 @@ public class Table {
     	this.informingCompanion = false;
     	this.payingTheBill = false;
     	this.repos = repos;
+        this.nEntities = 0;
     	
-    	studentsSeated = new boolean[serverSide.main.ExecConst.Nstudents];
-    	studentsReadMenu = new boolean[serverSide.main.ExecConst.Nstudents];
+    	studentsSeated = new boolean[ExecConst.Nstudents];
+    	studentsReadMenu = new boolean[ExecConst.Nstudents];
     	
         // initiliaze the booleans at false of seated and readmenu
     	for(int i = 0; i < serverSide.main.ExecConst.Nstudents; i++)
@@ -149,8 +149,8 @@ public class Table {
     	}
     	
         //Initizalization of students thread
-        students = new TableClientProxy[serverSide.main.ExecConst.Nstudents];
-        for(int i = 0; i < serverSide.main.ExecConst.Nstudents; i++ ) 
+        students = new TableClientProxy[ExecConst.Nstudents];
+        for(int i = 0; i < ExecConst.Nstudents; i++ ) 
                 students[i] = null;
     }
     
@@ -172,13 +172,13 @@ public class Table {
      * 
      * @param firstToArrive id of the first student to arrive
      */
-    public void setFirstToArrive(int firstToArrive) { this.firstToArrive = firstToArrive; }
+    public synchronized void setFirstToArrive(int firstToArrive) { this.firstToArrive = firstToArrive; }
     
     /**
      * 
      * @param lastToArrive if of the last student to arrive to the restaurant
      */
-    public void setLastToArrive(int lastToArrive) { this.lastToArrive = lastToArrive; }
+    public synchronized void setLastToArrive(int lastToArrive) { this.lastToArrive = lastToArrive; }
     
     /**
      * 
@@ -257,7 +257,6 @@ public class Table {
     	//notify student that he can describe the order 
     	notifyAll();
     	
-    	System.out.println("Waiter is now waiting for order description");
     	//Waiter blocks waiting for first student to arrive to describe him the order
     	while(takingTheOrder)
     	{
@@ -624,7 +623,7 @@ public class Table {
     	if(nStudentsWokeUp == serverSide.main.ExecConst.Nstudents)
             notifyAll();
     	
-    	return true;
+        return true;
     }
     
     
@@ -679,7 +678,6 @@ public class Table {
                     e.printStackTrace();
                 }
             }
-            System.out.println("All served!!! Course "+ nOfCoursesEaten);
             return false;
     	}
     	

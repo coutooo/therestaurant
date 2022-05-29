@@ -81,17 +81,16 @@ public class Bar
      */
     public Bar(GeneralReposStub repo, TableStub tab) 
     {
-        this.nEntities = 0;
-        //Initizalization of students thread
+        //Initizalization of students threads
         students = new BarClientProxy[ExecConst.Nstudents];
         for(int i = 0; i < ExecConst.Nstudents; i++ ) 
-            this.students[i] = null;
+                students[i] = null;
 
-        //Initialization of the queue of pending requests
+        //Initialisation of the queue of pending requests
         try {
-            this.pendingServiceRequestQueue = new MemFIFO<> (new Request [serverSide.main.ExecConst.Nstudents * serverSide.main.ExecConst.Ncourses]);
+                pendingServiceRequestQueue = new MemFIFO<> (new Request [ExecConst.Nstudents * ExecConst.Ncourses]);
         } catch (MemException e) {
-            this.pendingServiceRequestQueue = null;
+                pendingServiceRequestQueue = null;
             System.exit (1);
         }
 
@@ -99,10 +98,11 @@ public class Bar
         this.studentBeingAnswered = -1;
         this.repo = repo;
         this.tab = tab;
+        this.nEntities = 0;
 
-        this.studentsGreeted = new boolean[serverSide.main.ExecConst.Nstudents];
-        for(int i = 0 ;i < serverSide.main.ExecConst.Nstudents; i++)
-            this.studentsGreeted[i] = false;
+        this.studentsGreeted = new boolean[ExecConst.Nstudents];
+        for(int i = 0 ;i < ExecConst.Nstudents; i++)
+                studentsGreeted[i] = false;
     }
 
 
@@ -141,8 +141,8 @@ public class Bar
 
         //Update chefs state
         ((BarClientProxy) Thread.currentThread()).setChefState(ChefState.DELIVERING_THE_PORTIONS);
-        repo.setChefState(((BarClientProxy) Thread.currentThread()).getChefState());
-
+	repo.setChefState(((BarClientProxy) Thread.currentThread()).getChefState());
+                
         //Signal waiter that there is a pending request
         notifyAll();
     }
@@ -263,8 +263,8 @@ public class Bar
             //Signal waiter that there is a pending request
             notifyAll();
         }
-        //Seat student at table and block it
-        tab.seatAtTable();
+            //Seat student at table and block it
+            tab.seatAtTable();
 
 	}
 
@@ -274,8 +274,8 @@ public class Bar
     public synchronized void callWaiter()
     {
         int studentId = ((BarClientProxy) Thread.currentThread()).getStudentId();
-        Request r = new Request(studentId,'o');
-
+        Request r = new Request(studentId, 'o');
+        
         //Add a new service request to queue of pending requests (portion to be collected)
         try {
             pendingServiceRequestQueue.write(r);
