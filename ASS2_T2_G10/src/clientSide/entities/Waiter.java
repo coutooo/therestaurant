@@ -42,7 +42,7 @@ public class Waiter extends Thread{
 	 */
 	public Waiter(String name, KitchenStub kitStub, BarStub barStub, TableStub tabStub) {
 		super(name);
-		this.waiterState = WaiterStates.APRAISING_SITUATION;
+		this.waiterState = WaiterState.APPRAISING_SITUATION;
 		this.kitStub = kitStub;
 		this.barStub = barStub;
 		this.tabStub = tabStub;

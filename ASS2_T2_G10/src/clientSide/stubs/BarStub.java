@@ -56,12 +56,12 @@ public class BarStub {
 			catch (InterruptedException e) {}
 		}
 		
-		outMessage = new Message (MessageType.REQGETSTDBEIANSW);
+		outMessage = new Message (MessageType.GSBAREQ);
 		com.writeObject (outMessage); 			//Write outGoing message in the communication channel
 		inMessage = (Message) com.readObject(); //Read inGoing message
 		
 		//Validate inGoing message type and arguments
-		if(inMessage.getMsgType() != MessageType.REPGETSTDBEIANSW)
+		if(inMessage.getMsgType() != MessageType.GSBADONE)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
 			GenericIO.writelnString (inMessage.toString ());
@@ -95,18 +95,18 @@ public class BarStub {
 			catch (InterruptedException e) {}
 		}
 		
-		outMessage = new Message (MessageType.REQALRTWAIT, ((Chef) Thread.currentThread()).getChefState());
+		outMessage = new Message (MessageType.ALREQ, ((Chef) Thread.currentThread()).getChefState());
 		com.writeObject (outMessage); 			//Write outGoing message in the communication channel
 		inMessage = (Message) com.readObject(); //Read inGoing message
 		
 		//Validate inGoing message type and arguments
-		if(inMessage.getMsgType() != MessageType.REPALRTWAIT)
+		if(inMessage.getMsgType() != MessageType.ALDONE)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
 			GenericIO.writelnString (inMessage.toString ());
 			System.exit (1);
 		}
-		if(inMessage.getChefState() < ChefStates.WAITING_FOR_AN_ORDER || inMessage.getChefState() > ChefStates.CLOSING_SERVICE)
+		if(inMessage.getChefState() < ChefState.WAITING_FOR_AN_ORDER || inMessage.getChefState() > ChefState.CLOSING_SERVICE)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
 			GenericIO.writelnString (inMessage.toString ());
@@ -144,12 +144,12 @@ public class BarStub {
 			catch (InterruptedException e) {}
 		}
 		
-		outMessage = new Message (MessageType.REQLOOKARND);
+		outMessage = new Message (MessageType.LAREQ);
 		com.writeObject (outMessage); 			//Write outGoing message in the communication channel
 		inMessage = (Message) com.readObject(); //Read inGoing message
 		
 		//Validate inGoing message type and arguments
-		if(inMessage.getMsgType() != MessageType.REPLOOKARND)
+		if(inMessage.getMsgType() != MessageType.LAREQ)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
 			GenericIO.writelnString (inMessage.toString ());
@@ -181,18 +181,18 @@ public class BarStub {
 			catch (InterruptedException e) {}
 		}
 		
-		outMessage = new Message (MessageType.REQPRPREBILL, ((Waiter) Thread.currentThread()).getWaiterState());
+		outMessage = new Message (MessageType.PBREQ, ((Waiter) Thread.currentThread()).getWaiterState());
 		com.writeObject (outMessage); 			//Write outGoing message in the communication channel
 		inMessage = (Message) com.readObject(); //Read inGoing message
 		
 		//Validate inGoing message type and arguments
-		if(inMessage.getMsgType() != MessageType.REPPRPREBILL)
+		if(inMessage.getMsgType() != MessageType.PBDONE)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
 			GenericIO.writelnString (inMessage.toString ());
 			System.exit (1);
 		}
-		if(inMessage.getWaiterState() < WaiterStates.APRAISING_SITUATION || inMessage.getWaiterState() > WaiterStates.RECEIVING_PAYMENT)
+		if(inMessage.getWaiterState() < WaiterState.APPRAISING_SITUATION || inMessage.getWaiterState() > WaiterState.RECEIVING_PAYMENT)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
 			GenericIO.writelnString (inMessage.toString ());
@@ -225,12 +225,12 @@ public class BarStub {
 			catch (InterruptedException e) {}
 		}
 		
-		outMessage = new Message (MessageType.REQSAYGDBYE, ((Waiter) Thread.currentThread()).getWaiterState());
+		outMessage = new Message (MessageType.SGREQ, ((Waiter) Thread.currentThread()).getWaiterState());
 		com.writeObject (outMessage); 			//Write outGoing message in the communication channel
 		inMessage = (Message) com.readObject(); //Read inGoing message
 		
 		//Validate inGoing message type and arguments
-		if(inMessage.getMsgType() != MessageType.REPSAYGDBYE)
+		if(inMessage.getMsgType() != MessageType.SGDONE)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
 			GenericIO.writelnString (inMessage.toString ());
@@ -264,12 +264,12 @@ public class BarStub {
 			catch (InterruptedException e) {}
 		}
 
-		outMessage = new Message (MessageType.REQENTER, ((Student) Thread.currentThread()).getStudentId(),((Student) Thread.currentThread()).getStudentState());
+		outMessage = new Message (MessageType.ENTREQ, ((Student) Thread.currentThread()).getStudentId(),((Student) Thread.currentThread()).getStudentState());
 		com.writeObject (outMessage); 			//Write outGoing message in the communication channel
 		inMessage = (Message) com.readObject(); //Read inGoing message		
 		
 		//Validate inGoing message type and arguments
-		if(inMessage.getMsgType() != MessageType.REPENTER)
+		if(inMessage.getMsgType() != MessageType.ENTDONE)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
 			GenericIO.writelnString (inMessage.toString ());
@@ -281,7 +281,7 @@ public class BarStub {
 			GenericIO.writelnString (inMessage.toString ());
 	        System.exit (1);
 		}
-		if(inMessage.getStudentState() < StudentStates.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentStates.GOING_HOME)
+		if(inMessage.getStudentState() < StudentState.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentState.GOING_HOME)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
 			GenericIO.writelnString (inMessage.toString ());
@@ -316,12 +316,12 @@ public class BarStub {
 			catch (InterruptedException e) {}
 		}
 		
-		outMessage = new Message (MessageType.REQCALLWAI, ((Student) Thread.currentThread()).getStudentId());
+		outMessage = new Message (MessageType.CWREQ, ((Student) Thread.currentThread()).getStudentId());
 		com.writeObject (outMessage); 			//Write outGoing message in the communication channel
 		inMessage = (Message) com.readObject(); //Read inGoing message
 		
 		//Validate inGoing message type and arguments
-		if(inMessage.getMsgType() != MessageType.REPCALLWAI)
+		if(inMessage.getMsgType() != MessageType.CWDONE)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
 			GenericIO.writelnString (inMessage.toString ());
@@ -360,12 +360,12 @@ public class BarStub {
 			catch (InterruptedException e) {}
 		}
 		
-		outMessage = new Message (MessageType.REQSIGWAI, ((Student) Thread.currentThread()).getStudentId(),((Student) Thread.currentThread()).getStudentState());
+		outMessage = new Message (MessageType.SWREQ, ((Student) Thread.currentThread()).getStudentId(),((Student) Thread.currentThread()).getStudentState());
 		com.writeObject (outMessage); 			//Write outGoing message in the communication channel
 		inMessage = (Message) com.readObject(); //Read inGoing message
 		
 		//Validate inGoing message type and arguments
-		if(inMessage.getMsgType() != MessageType.REPSIGWAI)
+		if(inMessage.getMsgType() != MessageType.SWDONE)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
 			GenericIO.writelnString (inMessage.toString ());
@@ -377,7 +377,7 @@ public class BarStub {
 			GenericIO.writelnString (inMessage.toString ());
 	        System.exit (1);
 		}
-		if(inMessage.getStudentState() < StudentStates.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentStates.GOING_HOME)
+		if(inMessage.getStudentState() < StudentState.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentState.GOING_HOME)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
 			GenericIO.writelnString (inMessage.toString ());
@@ -409,12 +409,12 @@ public class BarStub {
 			catch (InterruptedException e) {}
 		}
 		
-		outMessage = new Message (MessageType.REQEXIT, ((Student) Thread.currentThread()).getStudentId(),((Student) Thread.currentThread()).getStudentState());
+		outMessage = new Message (MessageType.EXITREQ, ((Student) Thread.currentThread()).getStudentId(),((Student) Thread.currentThread()).getStudentState());
 		com.writeObject (outMessage); 			//Write outGoing message in the communication channel
 		inMessage = (Message) com.readObject(); //Read inGoing message
 		
 		//Validate inGoing message type and arguments
-		if(inMessage.getMsgType() != MessageType.REPEXIT)
+		if(inMessage.getMsgType() != MessageType.EXITDONE)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
 			GenericIO.writelnString (inMessage.toString ());
@@ -426,7 +426,7 @@ public class BarStub {
 			GenericIO.writelnString (inMessage.toString ());
 	        System.exit (1);
 		}
-		if(inMessage.getStudentState() < StudentStates.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentStates.GOING_HOME)
+		if(inMessage.getStudentState() < StudentState.GOING_TO_THE_RESTAURANT || inMessage.getStudentState() > StudentState.GOING_HOME)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
 			GenericIO.writelnString (inMessage.toString ());
@@ -455,12 +455,12 @@ public class BarStub {
 			catch (InterruptedException e) {}
 		}
 		
-		outMessage = new Message (MessageType.REQBARSHUT);
+		outMessage = new Message (MessageType.BSHUTREQ);
 		com.writeObject (outMessage); 			//Write outGoing message in the communication channel
 		inMessage = (Message) com.readObject(); //Read inGoing message
 		
 		//Validate inGoing message type and arguments
-		if(inMessage.getMsgType() != MessageType.REPBARSHUT)
+		if(inMessage.getMsgType() != MessageType.BSHUTDONE)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
 			GenericIO.writelnString (inMessage.toString ());

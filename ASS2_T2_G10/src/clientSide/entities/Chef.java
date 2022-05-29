@@ -56,7 +56,7 @@ public class Chef extends Thread{
 	 */
 	public Chef(String name, KitchenStub kitStub, BarStub barStub) {
 		super(name);
-		this.chefState = ChefStates.WAITING_FOR_AN_ORDER;
+		this.chefState = ChefState.WAITING_FOR_AN_ORDER;
 		this.kitStub = kitStub;
 		this.barStub = barStub;
 	}

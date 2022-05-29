@@ -46,7 +46,7 @@ public class Student extends Thread{
 	public Student(String name, int studentId, BarStub barStub, TableStub tabStub) {
 		super(name);
 		this.studentId = studentId;
-		this.studentState = StudentStates.GOING_TO_THE_RESTAURANT;
+		this.studentState = StudentState.GOING_TO_THE_RESTAURANT;
 		this.barStub = barStub;
 		this.tabStub = tabStub;
 	}
