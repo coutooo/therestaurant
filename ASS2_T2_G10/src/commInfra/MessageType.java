@@ -626,13 +626,13 @@ public class MessageType {
     public static final int SETNPDONE = 108;
 
    /**
-   * seatAtTable (REQUEST).
+   * update seatAtTable (REQUEST).
    */
     
     public static final int USATREQ = 109;
     
    /**
-    * seatAtTable (REPLY).
+    * update seatAtTable (REPLY).
     */
     
     public static final int USATDONE = 110;    

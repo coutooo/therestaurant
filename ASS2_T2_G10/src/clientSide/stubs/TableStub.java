@@ -57,12 +57,12 @@ public class TableStub {
                     catch (InterruptedException e) {}
             }
 
-            outMessage = new Message (MessageType.SATREQ, studentID);
+            outMessage = new Message (MessageType.SFTAREQ, studentID);
             com.writeObject (outMessage); 			//Write outGoing message in the communication channel
             inMessage = (Message) com.readObject(); //Read inGoing message
 
             //Validate inGoing message type and arguments
-            if(inMessage.getMsgType() != MessageType.SATDONE)
+            if(inMessage.getMsgType() != MessageType.SFTADONE)
             {
                     GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                     GenericIO.writelnString (inMessage.toString ());
