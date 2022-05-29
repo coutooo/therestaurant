@@ -44,68 +44,68 @@ public class ChefMain {
         String genRepoServerHostName;
         
         
-        	/* Getting problem runtime parameters */
-		if(args.length != 6) {
-			GenericIO.writelnString ("Wrong number of parameters!");
-			System.exit(1);
-		}
-		//Get kitchen parameters
-		kitchenServerHostName = args[0];
-		try {
-			kitchenServerPortNum = Integer.parseInt (args[1]);
-		} catch (NumberFormatException e) {
-			GenericIO.writelnString ("args[1] is not a number!");
-			System.exit(1);
-		}
-		if( (kitchenServerPortNum < 22110) || (kitchenServerPortNum > 22119) ) {
-			GenericIO.writelnString ("args[1] is not a valid port number!");
-			System.exit(1);			
-		}
-		
-		//Get bar parameters
-		barServerHostName = args[2];
-		try {
-			barServerPortNum = Integer.parseInt (args[3]);
-		} catch (NumberFormatException e) {
-			GenericIO.writelnString ("args[3] is not a number!");
-			System.exit(1);
-		}
-		if( (barServerPortNum < 22110) || (barServerPortNum > 22119) ) {
-			GenericIO.writelnString ("args[3] is not a valid port number!");
-			System.exit(1);			
-		}
-		
-		//Get general repo parameters
-		genRepoServerHostName = args[4];
-		try {
-			genRepoServerPortNum = Integer.parseInt (args[5]);
-		} catch (NumberFormatException e) {
-			GenericIO.writelnString ("args[5] is not a number!");
-			System.exit(1);
-		}
-		if( (genRepoServerPortNum < 22110) || (genRepoServerPortNum > 22119) ) {
-			GenericIO.writelnString ("args[5] is not a valid port number!");
-			System.exit(1);			
-		}
-		
-		
-		/* problem initialisation */
-		kitchen = new KitchenStub(kitchenServerHostName, kitchenServerPortNum);
-		bar = new BarStub(barServerHostName, barServerPortNum);
-		genReposStub = new GeneralReposStub(genRepoServerHostName, genRepoServerPortNum);
-		chef = new Chef("chef", kitchen, bar);
-		
-		/* start simulation */
-		GenericIO.writelnString ("Launching Chef Thread ");
-		chef.start();
-		
-		/* waiting for the end of the simulation */
-		try {
-                    chef.join();
-		}catch(InterruptedException e) {}
-		GenericIO.writelnString ("The chef thread has terminated.");
-		kitchen.shutdown();
-		genReposStub.shutdown();
-		
-	}
+            /* Getting problem runtime parameters */
+            if(args.length != 6) {
+                    GenericIO.writelnString ("Wrong number of parameters!");
+                    System.exit(1);
+            }
+            //Get kitchen parameters
+            kitchenServerHostName = args[0];
+            try {
+                    kitchenServerPortNum = Integer.parseInt (args[1]);
+            } catch (NumberFormatException e) {
+                    GenericIO.writelnString ("args[1] is not a number!");
+                    System.exit(1);
+            }
+            if( (kitchenServerPortNum < 22110) || (kitchenServerPortNum > 22119) ) {
+                    GenericIO.writelnString ("args[1] is not a valid port number!");
+                    System.exit(1);			
+            }
+
+            //Get bar parameters
+            barServerHostName = args[2];
+            try {
+                    barServerPortNum = Integer.parseInt (args[3]);
+            } catch (NumberFormatException e) {
+                    GenericIO.writelnString ("args[3] is not a number!");
+                    System.exit(1);
+            }
+            if( (barServerPortNum < 22110) || (barServerPortNum > 22119) ) {
+                    GenericIO.writelnString ("args[3] is not a valid port number!");
+                    System.exit(1);			
+            }
+
+            //Get general repo parameters
+            genRepoServerHostName = args[4];
+            try {
+                    genRepoServerPortNum = Integer.parseInt (args[5]);
+            } catch (NumberFormatException e) {
+                    GenericIO.writelnString ("args[5] is not a number!");
+                    System.exit(1);
+            }
+            if( (genRepoServerPortNum < 22110) || (genRepoServerPortNum > 22119) ) {
+                    GenericIO.writelnString ("args[5] is not a valid port number!");
+                    System.exit(1);			
+            }
+
+
+            /* problem initialisation */
+            kitchen = new KitchenStub(kitchenServerHostName, kitchenServerPortNum);
+            bar = new BarStub(barServerHostName, barServerPortNum);
+            genReposStub = new GeneralReposStub(genRepoServerHostName, genRepoServerPortNum);
+            chef = new Chef("chef", kitchen, bar);
+
+            /* start simulation */
+            GenericIO.writelnString ("Launching Chef Thread ");
+            chef.start();
+
+            /* waiting for the end of the simulation */
+            try {
+                chef.join();
+            }catch(InterruptedException e) {}
+            GenericIO.writelnString ("The chef thread has terminated.");
+            kitchen.shutdown();
+            genReposStub.shutdown();
+
+    }
 }
