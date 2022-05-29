@@ -398,12 +398,12 @@ public class KitchenStub {
                     catch (InterruptedException e) {}
             }
 
-            outMessage = new Message (MessageType.CPREQ, ((Waiter) Thread.currentThread()).getWaiterState());
+            outMessage = new Message (MessageType.CPORREQ, ((Waiter) Thread.currentThread()).getWaiterState());
             com.writeObject (outMessage); 			//Write outGoing message in the communication channel
             inMessage = (Message) com.readObject(); //Read inGoing message
 
             //Validate inGoing message type and arguments
-            if(inMessage.getMsgType() != MessageType.CPDONE)
+            if(inMessage.getMsgType() != MessageType.CPORDONE)
             {
                     GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
                     GenericIO.writelnString (inMessage.toString ());
