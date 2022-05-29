@@ -86,49 +86,49 @@ public class GeneralReposClientProxy extends Thread
    */
 
    private static int getProxyId ()
-   {
-      Class<?> cl = null;                                            // representation of the GeneralReposClientProxy object in JVM
-      int proxyId;                                                   // instantiation identifier
+    {
+        Class<?> cl = null;		// representation of the GeneralReposClientProxy object in JVM
+        int proxyId;				// instantiation identifier
 
-      try
-      { cl = Class.forName ("serverSide.entities.GeneralReposClientProxy");
-      }
-      catch (ClassNotFoundException e)
-      { GenericIO.writelnString ("Data type GeneralReposClientProxy was not found!");
+        try
+        { cl = Class.forName ("serverSide.entities.GeneralReposClientProxy");
+        }
+        catch (ClassNotFoundException e)
+        { GenericIO.writelnString ("Data type GeneralReposClientProxy was not found!");
         e.printStackTrace ();
         System.exit (1);
-      }
-      synchronized (cl)
-      { proxyId = nProxy;
+        }
+        synchronized (cl)
+        { proxyId = nProxy;
         nProxy += 1;
-      }
-      return proxyId;
-   }
+        }
+        return proxyId;
+    }
 
   /**
    *  Life cycle of the service provider agent.
    */
 
    @Override
-   public void run ()
-   {
-      Message inMessage = null,                                      // service request
-              outMessage = null;                                     // service reply
+    public void run ()
+    {
+        Message inMessage = null,                                      // service request
+                        outMessage = null;                                     // service reply
 
-     /* service providing */
+        /* service providing */
 
-      inMessage = (Message) sconi.readObject ();                     // get service request
-      try
-      { outMessage = reposInter.processAndReply (inMessage);         // process it
-      }
-      catch (MessageException e)
-      { GenericIO.writelnString ("Thread " + getName () + ": " + e.getMessage () + "!");
+        inMessage = (Message) sconi.readObject ();                     // get service request
+        try
+        { outMessage = reposInter.processAndReply (inMessage);         // process it
+        }
+        catch (MessageException e)
+        { GenericIO.writelnString ("Thread " + getName () + ": " + e.getMessage () + "!");
         GenericIO.writelnString (e.getMessageVal ().toString ());
         System.exit (1);
-      }
-      sconi.writeObject (outMessage);                                // send service reply
-      sconi.close ();                                                // close the communication channel
-   }
+        }
+        sconi.writeObject (outMessage);                                // send service reply
+        sconi.close ();                                                // close the communication channel
+    }
    
    /**
     * Get chef state

@@ -22,6 +22,19 @@ import genclass.GenericIO;
  */
 public class WaiterMain {
 	
+    /**
+     *  Main method.
+     *
+     *    @param args runtime arguments
+     *        args[0] - name of the platform where is located the kitchen server
+     *        args[1] - port number for listening to service requests
+     *        args[2] - name of the platform where is located the bar server
+     *        args[3] - port number for listening to service requests
+     *        args[4] - name of the platform where is located the table server
+     *        args[5] - port number for listening to service requests
+     *	      args[6] - name of the platform where is located the general repository server
+     *        args[7] - port number for listening to service requests
+     */
     public static void main(String[] args) {
 
 
@@ -41,61 +54,60 @@ public class WaiterMain {
 
 
         /* Getting problem runtime parameters */
-        if(args.length != 8) {
-                GenericIO.writelnString ("Wrong number of parameters!");
-                System.exit(1);
+        if (args.length != 8) {
+            GenericIO.writelnString("Wrong number of parameters!");
+            System.exit(1);
         }
         //Get kitchen parameters
         kitchenServerHostName = args[0];
         try {
-                kitchenServerPortNum = Integer.parseInt (args[1]);
+            kitchenServerPortNum = Integer.parseInt(args[1]);
         } catch (NumberFormatException e) {
-                GenericIO.writelnString ("args[1] is not a number!");
-                System.exit(1);
+            GenericIO.writelnString("args[1] is not a number!");
+            System.exit(1);
         }
-        if( (kitchenServerPortNum < 22110) || (kitchenServerPortNum > 22119) ) {
-                GenericIO.writelnString ("args[1] is not a valid port number!");
-                System.exit(1);			
+        if ((kitchenServerPortNum < 22110) || (kitchenServerPortNum > 22119)) {
+            GenericIO.writelnString("args[1] is not a valid port number!");
+            System.exit(1);
         }
 
         //Get bar parameters
         barServerHostName = args[2];
         try {
-                barServerPortNum = Integer.parseInt (args[3]);
+            barServerPortNum = Integer.parseInt(args[3]);
         } catch (NumberFormatException e) {
-                GenericIO.writelnString ("args[3] is not a number!");
-                System.exit(1);
+            GenericIO.writelnString("args[3] is not a number!");
+            System.exit(1);
         }
-        if( (barServerPortNum < 22110) || (barServerPortNum > 22119) ) {
-                GenericIO.writelnString ("args[3] is not a valid port number!");
-                System.exit(1);			
+        if ((barServerPortNum < 22110) || (barServerPortNum > 22119)) {
+            GenericIO.writelnString("args[3] is not a valid port number!");
+            System.exit(1);
         }
 
         //Get table parameters
         tableServerHostName = args[4];
         try {
-                tableServerPortNum = Integer.parseInt (args[5]);
+            tableServerPortNum = Integer.parseInt(args[5]);
         } catch (NumberFormatException e) {
-                GenericIO.writelnString ("args[5] is not a number!");
-                System.exit(1);
+            GenericIO.writelnString("args[5] is not a number!");
+            System.exit(1);
         }
-        if( (tableServerPortNum < 22110) || (tableServerPortNum > 22119) ) {
-                GenericIO.writelnString ("args[5] is not a valid port number!");
-                System.exit(1);			
+        if ((tableServerPortNum < 22110) || (tableServerPortNum > 22119)) {
+            GenericIO.writelnString("args[5] is not a valid port number!");
+            System.exit(1);
         }
-
 
         //Get general repo parameters
         genReposServerHostName = args[6];
         try {
-                genReposServerPortNum = Integer.parseInt (args[7]);
+            genReposServerPortNum = Integer.parseInt(args[7]);
         } catch (NumberFormatException e) {
-                GenericIO.writelnString ("args[7] is not a number!");
-                System.exit(1);
+            GenericIO.writelnString("args[7] is not a number!");
+            System.exit(1);
         }
-        if( (genReposServerPortNum < 22110) || (genReposServerPortNum > 22119) ) {
-                GenericIO.writelnString ("args[7] is not a valid port number!");
-                System.exit(1);			
+        if ((genReposServerPortNum < 22110) || (genReposServerPortNum > 22119)) {
+            GenericIO.writelnString("args[7] is not a valid port number!");
+            System.exit(1);
         }
 
 

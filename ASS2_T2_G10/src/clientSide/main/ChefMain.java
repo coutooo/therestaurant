@@ -21,10 +21,16 @@ import genclass.GenericIO;
 public class ChefMain {
 	
     /**
-     *    Main method.
-     *
-     *    @param args runtime arguments
-     */	
+	 *  Main method.
+	 *
+	 *    @param args runtime arguments
+	 *        args[0] - name of the platform where is located the Kitchen server
+	 *        args[1] - port number for listening to service requests
+         *        args[2] - name of the platform where is located the Bar server
+	 *        args[3] - port number for listening to service requests
+	 *        args[4] - name of the platform where is located the General Repository server
+	 *        args[5] - port number for listening to service requests
+	 */
     public static void main(String[] args) {
         String barServerHostName;                              // name of the platform where is located the barber shop server
         int barServerPortNum = -1;                             // port number for listening to service requests
@@ -38,7 +44,7 @@ public class ChefMain {
         String genRepoServerHostName;
         
         
-        		/* Getting problem runtime parameters */
+        	/* Getting problem runtime parameters */
 		if(args.length != 6) {
 			GenericIO.writelnString ("Wrong number of parameters!");
 			System.exit(1);
@@ -95,7 +101,7 @@ public class ChefMain {
 		
 		/* waiting for the end of the simulation */
 		try {
-			chef.join();
+                    chef.join();
 		}catch(InterruptedException e) {}
 		GenericIO.writelnString ("The chef thread has terminated.");
 		kitchen.shutdown();

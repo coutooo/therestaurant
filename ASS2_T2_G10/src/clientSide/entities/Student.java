@@ -81,7 +81,6 @@ public class Student extends Thread {
                     numCoursesEaten++;
 
                     while(!tableStub.hasEverybodyFinishedEating());
-                    System.out.println("I FINISHED MY MEAL");
                     if(student_id == tableStub.getLastToEat() && numCoursesEaten != clientSide.main.ExecConst.Ncourses) {barStub.signalWaiter();}
             }
 

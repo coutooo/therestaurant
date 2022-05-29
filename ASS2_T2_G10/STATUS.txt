@@ -1,20 +1,15 @@
 *CLIENTSIDE
-	-package-info | DONE
-	*ENTITIES | DONE
-	*MAIN | DONE
 	*STUBS
-		-BarStub | DONE
-		-GeneralReposStub | DONE
-		-KitchenStub | DONE MAS FALTA COMENTARIOS
-		-TableStub | DONE MAS FALTA COMENTARIOS
-		-package-info | DONE
+		-BarStub 
+		-GeneralReposStub 
+		-KitchenStub 
+		-TableStub
 *SERVERSIDE
-	-package-info DONE
 	*ENTITIES | DONE
 	*MAIN | DONE
 	*SHAREDREGIONS | DONE
 *COMMINFRA
-	-Message | DONE
-	-MessageType | VER SE AS MENSAGENS DAS ENTIDADES ESTÃO SEGUIDAS
-	-package-info | DONE
+	-Message 
+	-MessageType 
+
 

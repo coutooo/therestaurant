@@ -73,22 +73,22 @@ public class KitchenClientProxy extends Thread implements WaiterCloning, ChefClo
 
     private static int getProxyId ()
     {
-       Class<?> cl = null;                                            // representation of the KitchenProxy object in JVM
-       int proxyId;                                                   // instantiation identifier
+        Class<?> cl = null;			// representation of the KitchenClientProxy object in JVM
+        int proxyId;				// instantiation identifier
 
-       try
-       { cl = Class.forName ("serverSide.entities.KitchenClientProxy");
-       }
-       catch (ClassNotFoundException e)
-       { GenericIO.writelnString ("Data type KitchenClientProxy was not found!");
-         e.printStackTrace ();
-         System.exit (1);
-       }
-       synchronized (cl)
-       { proxyId = nProxy;
-         nProxy += 1;
-       }
-       return proxyId;
+        try
+        { cl = Class.forName ("serverSide.entities.KitchenClientProxy");
+        }
+        catch (ClassNotFoundException e)
+        { GenericIO.writelnString ("Data type KitchenClientProxy was not found!");
+        e.printStackTrace ();
+        System.exit (1);
+        }
+        synchronized (cl)
+        { proxyId = nProxy;
+        nProxy += 1;
+        }
+        return proxyId;
     }
 
     /**
@@ -98,22 +98,22 @@ public class KitchenClientProxy extends Thread implements WaiterCloning, ChefClo
     @Override
     public void run ()
     {
-       Message inMessage = null,                                      // service request
-               outMessage = null;                                     // service reply
+        Message inMessage = null,                                      // service request
+                outMessage = null;                                     // service reply
 
-      /* service providing */
+        /* service providing */
 
-       inMessage = (Message) sconi.readObject ();                     // get service request
-       try
-       { outMessage = kitchenInter.processAndReply (inMessage);         // process it
-       }
-       catch (MessageException e)
-       { GenericIO.writelnString ("Thread " + getName () + ": " + e.getMessage () + "!");
-         GenericIO.writelnString (e.getMessageVal ().toString ());
-         System.exit (1);
-       }
-       sconi.writeObject (outMessage);                                // send service reply
-       sconi.close ();                                                // close the communication channel
+        inMessage = (Message) sconi.readObject ();                     // get service request
+        try
+        { outMessage = kitchenInter.processAndReply (inMessage);         // process it
+        }
+        catch (MessageException e)
+        { GenericIO.writelnString ("Thread " + getName () + ": " + e.getMessage () + "!");
+        GenericIO.writelnString (e.getMessageVal ().toString ());
+        System.exit (1);
+        }
+        sconi.writeObject (outMessage);                                // send service reply
+        sconi.close ();                                                // close the communication channel
     }
     
     /**

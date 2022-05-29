@@ -496,7 +496,7 @@ public class Message implements Serializable {
                 case MessageType.SETNCREQ:              case MessageType.SETNCDONE:
                 case MessageType.SETNPREQ:              case MessageType.SETNPDONE:
                 case MessageType.USSEATREQ:             case MessageType.USSEATDONE:       
-                case MessageType.USALREQ:               case MessageType.USALDONE:        // update seat at table at leaving
+                case MessageType.USALREQ:               case MessageType.USALDONE:        
                 case MessageType.GRSHUTREQ:             case MessageType.GRSHUTDONE:
                         return 5;
                 default:
