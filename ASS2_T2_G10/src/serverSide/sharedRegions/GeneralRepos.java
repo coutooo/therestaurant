@@ -230,12 +230,12 @@ public class GeneralRepos {
         reportStatus ();
     }
   /**
-   *   Set student state.
+   *   Update student state.
    *
    *     @param studentId student id
    *     @param state state
    */
-    public synchronized void setStudentState(int studentId, int state) {
+    public synchronized void updateStudentState(int studentId, int state) {
         this.studentState[studentId] = state;
         reportStatus ();
     }
