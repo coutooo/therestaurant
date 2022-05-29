@@ -187,19 +187,19 @@ public class Message implements Serializable {
     {
         msgType = type;
         if (msgType == MessageType.HAPBDDONE)
-                allPortionsDelivered = bValue;
+            allPortionsDelivered = bValue;
         else if (msgType == MessageType.HOBCDONE)
-                orderCompleted = bValue;   
+            orderCompleted = bValue;   
         else if (msgType == MessageType.SGDONE)
-                studentsAtRestaurant = bValue;
+            studentsAtRestaurant = bValue;
         else if (msgType == MessageType.HACBSDONE)
-                allClientsBeenServed = bValue;
+            allClientsBeenServed = bValue;
+        else if (msgType == MessageType.EHCDONE)
+            everybodyHasChosen = bValue;
         else if (msgType == MessageType.HACBEDONE)
-                everybodyHasChosen = bValue;
-        else if (msgType == MessageType.EHCREQ)
-                haveAllCoursesBeenEaten = bValue;
+            haveAllCoursesBeenEaten = bValue;
         else if (msgType == MessageType.HEFEDONE)
-                everybodyHasEaten = bValue;
+            everybodyHasEaten = bValue;
 
 
     }
