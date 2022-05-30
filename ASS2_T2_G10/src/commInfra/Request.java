@@ -4,6 +4,8 @@ package commInfra;
  * 
  * Request Data type
  *
+ * @author Rafael Dias
+ * @author Manuel Couto
  */
 public class Request {
 	
