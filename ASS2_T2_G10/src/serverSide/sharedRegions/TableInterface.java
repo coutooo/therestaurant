@@ -57,7 +57,7 @@ public class TableInterface {
 				break;
 			// Waiter Messages that require type and state verification
 			case MessageType.SCREQ:			// Salute the clients
-			case MessageType.RTBREQ:			// Return to the bar
+			case MessageType.RBREQ:			// Return to the bar
 			case MessageType.GPREQ:				// Get the pad
 			case MessageType.PREBREQ:			// Present the bill
 				if (inMessage.getWaiterState() < WaiterState.APPRAISING_SITUATION || inMessage.getWaiterState() > WaiterState.RECEIVING_PAYMENT)
@@ -104,7 +104,7 @@ public class TableInterface {
 				tab.saluteClient(i);
 				outMessage = new Message(MessageType.SCDONE,  ((TableClientProxy) Thread.currentThread()).getStudentBeingAnswered(), ((TableClientProxy) Thread.currentThread()).getWaiterState());
 				break;
-			case MessageType.RTBREQ:
+			case MessageType.RBREQ:
 				((TableClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
 				tab.returnBar();
 				outMessage = new Message(MessageType.RTBDONE, ((TableClientProxy) Thread.currentThread()).getWaiterState());
