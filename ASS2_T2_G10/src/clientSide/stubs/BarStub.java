@@ -132,7 +132,7 @@ public class BarStub {
 	 */
 	public char lookAround() 
 	{
-    	ClientCom com;					//Client communication
+            ClientCom com;					//Client communication
 		Message outMessage, inMessage; 	//outGoing and inGoing messages
 		
 		com = new ClientCom (serverHostName, serverPortNumb);
@@ -149,7 +149,7 @@ public class BarStub {
 		inMessage = (Message) com.readObject(); //Read inGoing message
 		
 		//Validate inGoing message type and arguments
-		if(inMessage.getMsgType() != MessageType.LAREQ)
+		if(inMessage.getMsgType() != MessageType.LADONE)
 		{
 			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
 			GenericIO.writelnString (inMessage.toString ());
