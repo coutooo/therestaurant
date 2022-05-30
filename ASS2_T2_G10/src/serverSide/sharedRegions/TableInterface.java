@@ -107,7 +107,7 @@ public class TableInterface {
 			case MessageType.RBREQ:
 				((TableClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
 				tab.returnBar();
-				outMessage = new Message(MessageType.RTBDONE, ((TableClientProxy) Thread.currentThread()).getWaiterState());
+				outMessage = new Message(MessageType.RBDONE, ((TableClientProxy) Thread.currentThread()).getWaiterState());
 				break;
 			case MessageType.GPREQ:
 				((TableClientProxy) Thread.currentThread()).setWaiterState(inMessage.getWaiterState());
