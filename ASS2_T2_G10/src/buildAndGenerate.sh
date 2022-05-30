@@ -11,7 +11,7 @@ mkdir -p dirGeneralRepos dirGeneralRepos/serverSide dirGeneralRepos/serverSide/m
 cp serverSide/main/ExecConst.class serverSide/main/ServerRestaurantGeneralRepos.class dirGeneralRepos/serverSide/main
 cp serverSide/entities/GeneralReposClientProxy.class dirGeneralRepos/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/GeneralRepos.class dirGeneralRepos/serverSide/sharedRegions
-cp clientSide/entities/ChefStates.class clientSide/entities/WaiterStates.class clientSide/entities/StudentStates.class dirGeneralRepos/clientSide/entities
+cp clientSide/entities/ChefState.class clientSide/entities/WaiterState.class clientSide/entities/StudentState.class dirGeneralRepos/clientSide/entities
 cp commInfra/Message.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ServerCom.class dirGeneralRepos/commInfra
 
 
@@ -23,7 +23,7 @@ mkdir -p dirKitchen dirKitchen/serverSide dirKitchen/serverSide/main dirKitchen/
 cp serverSide/main/ExecConst.class serverSide/main/ServerRestaurantKitchen.class dirKitchen/serverSide/main
 cp serverSide/entities/KitchenClientProxy.class dirKitchen/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/KitchenInterface.class serverSide/sharedRegions/Kitchen.class dirKitchen/serverSide/sharedRegions
-cp clientSide/entities/ChefStates.class clientSide/entities/WaiterStates.class clientSide/entities/ChefCloning.class clientSide/entities/WaiterCloning.class dirKitchen/clientSide/entities
+cp clientSide/entities/ChefState.class clientSide/entities/WaiterState.class clientSide/entities/ChefCloning.class clientSide/entities/WaiterCloning.class dirKitchen/clientSide/entities
 cp clientSide/stubs/GeneralReposStub.class dirKitchen/clientSide/stubs
 cp commInfra/*.class dirKitchen/commInfra
 
@@ -36,7 +36,7 @@ mkdir -p dirBar dirBar/serverSide dirBar/serverSide/main dirBar/serverSide/entit
 cp serverSide/main/ExecConst.class serverSide/main/ServerRestaurantBar.class dirBar/serverSide/main
 cp serverSide/entities/BarClientProxy.class dirBar/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/TableInterface.class serverSide/sharedRegions/BarInterface.class serverSide/sharedRegions/Bar.class dirBar/serverSide/sharedRegions
-cp clientSide/entities/ChefStates.class clientSide/entities/WaiterStates.class clientSide/entities/StudentStates.class clientSide/entities/ChefCloning.class clientSide/entities/WaiterCloning.class clientSide/entities/StudentCloning.class dirBar/clientSide/entities
+cp clientSide/entities/ChefState.class clientSide/entities/WaiterState.class clientSide/entities/StudentState.class clientSide/entities/ChefCloning.class clientSide/entities/WaiterCloning.class clientSide/entities/StudentCloning.class dirBar/clientSide/entities
 cp clientSide/stubs/GeneralReposStub.class clientSide/stubs/TableStub.class dirBar/clientSide/stubs
 cp commInfra/*.class dirBar/commInfra
 
@@ -49,7 +49,7 @@ mkdir -p dirTable dirTable/serverSide dirTable/serverSide/main dirTable/serverSi
 cp serverSide/main/ExecConst.class serverSide/main/ServerRestaurantTable.class dirTable/serverSide/main
 cp serverSide/entities/TableClientProxy.class dirTable/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/TableInterface.class serverSide/sharedRegions/Table.class dirTable/serverSide/sharedRegions
-cp clientSide/entities/WaiterStates.class clientSide/entities/StudentStates.class clientSide/entities/WaiterCloning.class clientSide/entities/StudentCloning.class dirTable/clientSide/entities
+cp clientSide/entities/WaiterState.class clientSide/entities/StudentState.class clientSide/entities/WaiterCloning.class clientSide/entities/StudentCloning.class dirTable/clientSide/entities
 cp clientSide/stubs/GeneralReposStub.class dirTable/clientSide/stubs
 cp commInfra/*.class dirTable/commInfra
 
@@ -60,7 +60,7 @@ mkdir -p dirChef dirChef/serverSide dirChef/serverSide/main dirChef/clientSide d
         dirChef/clientSide/stubs dirChef/commInfra
 cp serverSide/main/ExecConst.class dirChef/serverSide/main
 cp clientSide/main/ClientChef.class dirChef/clientSide/main
-cp clientSide/entities/Chef.class clientSide/entities/ChefStates.class dirChef/clientSide/entities
+cp clientSide/entities/Chef.class clientSide/entities/ChefState.class dirChef/clientSide/entities
 cp clientSide/stubs/GeneralReposStub.class clientSide/stubs/KitchenStub.class clientSide/stubs/BarStub.class dirChef/clientSide/stubs
 cp commInfra/Message.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ClientCom.class dirChef/commInfra
 
@@ -71,7 +71,7 @@ mkdir -p dirWaiter dirWaiter/serverSide dirWaiter/serverSide/main dirWaiter/clie
         dirWaiter/clientSide/stubs dirWaiter/commInfra
 cp serverSide/main/ExecConst.class dirWaiter/serverSide/main
 cp clientSide/main/ClientWaiter.class dirWaiter/clientSide/main
-cp clientSide/entities/Waiter.class clientSide/entities/WaiterStates.class dirWaiter/clientSide/entities
+cp clientSide/entities/Waiter.class clientSide/entities/WaiterState.class dirWaiter/clientSide/entities
 cp clientSide/stubs/GeneralReposStub.class clientSide/stubs/KitchenStub.class clientSide/stubs/BarStub.class clientSide/stubs/TableStub.class dirWaiter/clientSide/stubs
 cp commInfra/Message.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ClientCom.class dirWaiter/commInfra
 
@@ -82,7 +82,7 @@ mkdir -p dirStudent dirStudent/serverSide dirStudent/serverSide/main dirStudent/
         dirStudent/clientSide/stubs dirStudent/commInfra
 cp serverSide/main/ExecConst.class dirStudent/serverSide/main
 cp clientSide/main/ClientStudent.class dirStudent/clientSide/main
-cp clientSide/entities/Student.class clientSide/entities/StudentStates.class dirStudent/clientSide/entities
+cp clientSide/entities/Student.class clientSide/entities/StudentState.class dirStudent/clientSide/entities
 cp clientSide/stubs/GeneralReposStub.class clientSide/stubs/BarStub.class clientSide/stubs/TableStub.class dirStudent/clientSide/stubs
 cp commInfra/Message.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ClientCom.class dirStudent/commInfra
 
