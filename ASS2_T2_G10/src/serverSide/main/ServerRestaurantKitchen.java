@@ -12,6 +12,9 @@ import java.net.*;
  *
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
+ * 
+ * @author Rafael Dias
+ * @author Manuel Couto
  */
 
 public class ServerRestaurantKitchen
@@ -33,8 +36,8 @@ public class ServerRestaurantKitchen
 
    public static void main (String [] args)
    {
-      Kitchen kit;								// kitchen (service to be rendered)
-      KitchenInterface kitInter;				// interface to the kitchen
+      Kitchen kitchen;								// kitchen (service to be rendered)
+      KitchenInterface kitchenInter;				// interface to the kitchen
       GeneralReposStub reposStub;				// stub to the general repository
       ServerCom scon, sconi;					// communication channels
       int portNumb = -1;						// port number for listening to service requests
@@ -72,8 +75,8 @@ public class ServerRestaurantKitchen
      /* service is established */
 
       reposStub = new GeneralReposStub (reposServerName, reposPortNumb);		// communication to the general repository is instantiated
-      kit = new Kitchen (reposStub);										// service is instantiated
-      kitInter = new KitchenInterface (kit);								// interface to the service is instantiated
+      kitchen = new Kitchen (reposStub);										// service is instantiated
+      kitchenInter = new KitchenInterface (kitchen);								// interface to the service is instantiated
       scon = new ServerCom (portNumb);										// listening channel at the public port is established
       scon.start ();
       GenericIO.writelnString ("Service is established!");
@@ -87,7 +90,7 @@ public class ServerRestaurantKitchen
       while (waitConnection)
       { try
         { sconi = scon.accept ();								// enter listening procedure
-          cliProxy = new KitchenClientProxy (sconi, kitInter);	// start a service provider agent to address
+          cliProxy = new KitchenClientProxy (sconi, kitchenInter);	// start a service provider agent to address
           cliProxy.start ();									// the request of service
         }
         catch (SocketTimeoutException e) {}

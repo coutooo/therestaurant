@@ -11,6 +11,9 @@ import genclass.GenericIO;
  *    It instantiates a remote reference to the general repository.
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
+ * 
+ *  @author Rafael Dias
+ *  @author Manuel Couto
  */
 public class GeneralReposStub {
 	/**
@@ -21,8 +24,7 @@ public class GeneralReposStub {
 	 * Port number for listening to service requests
 	 */
 	private int serverPortNumb;
-	
-	
+		
 	/**
 	 * Instantiation of a stub to the General Repository. 
 	 * 
@@ -34,11 +36,7 @@ public class GeneralReposStub {
 		this.serverHostName = serverHostName;
 		this.serverPortNumb = serverPortNumb;
 	}
-	
-
-	
-	
-	
+		
 	/**
 	 * Write in the logging file the new chef state
 	 * @param state chef state to set
@@ -71,8 +69,7 @@ public class GeneralReposStub {
 		//Close communication channel
 		com.close ();		
 	}
-	
-	
+		
 	/**
 	 * Write in the logging file the new waiter state
 	 * @param state waiter state to set
@@ -105,8 +102,7 @@ public class GeneralReposStub {
 		//Close communication channel
 		com.close ();		
 	}
-	
-	
+		
 	/**
 	 * Write in the logging file the updated student state
 	 * @param id student id
@@ -140,7 +136,6 @@ public class GeneralReposStub {
 		//Close communication channel
 		com.close ();		
 	}
-
 
 	/**
 	 * Write in the logging file the updated student state
@@ -209,8 +204,7 @@ public class GeneralReposStub {
 		//Close communication channel
 		com.close ();		
 	}
-	
-	
+		
 	/**
 	 * Set variable nPortions and report status in the logging file
 	 * @param value nCourses value to set
@@ -243,8 +237,7 @@ public class GeneralReposStub {
 		//Close communication channel
 		com.close ();		
 	}
-	
-	
+		
 	/**
 	 * Write in the logging file the updated seats value at the table
 	 * @param seat seat at the table
@@ -277,8 +270,7 @@ public class GeneralReposStub {
 		}
 		//Close communication channel
 		com.close ();		
-	}
-	
+	}	
 	
 	/**
 	 * Update the leaving of a student in the seats of the table
@@ -312,8 +304,6 @@ public class GeneralReposStub {
 		//Close communication channel
 		com.close ();		
 	}
-	
-	
 	
 	/**
 	 *   Operation server shutdown.

@@ -12,6 +12,9 @@ import java.net.*;
  *
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
+ * 
+ * @author Rafael Dias
+ * @author Manuel Couto
  */
 
 public class ServerRestaurantTable
@@ -33,8 +36,8 @@ public class ServerRestaurantTable
 
    public static void main (String [] args)
    {
-      Table tab;								// table (service to be rendered)
-      TableInterface tabInter;					// interface to the table
+      Table table;								// table (service to be rendered)
+      TableInterface tableInter;					// interface to the table
       GeneralReposStub reposStub;				// stub to the general repository
       ServerCom scon, sconi;					// communication channels
       int portNumb = -1;						// port number for listening to service requests
@@ -72,8 +75,8 @@ public class ServerRestaurantTable
      /* service is established */
 
       reposStub = new GeneralReposStub (reposServerName, reposPortNumb);		// communication to the general repository is instantiated
-      tab = new Table (reposStub);										// service is instantiated
-      tabInter = new TableInterface (tab);								// interface to the service is instantiated
+      table = new Table (reposStub);										// service is instantiated
+      tableInter = new TableInterface (table);								// interface to the service is instantiated
       scon = new ServerCom (portNumb);										// listening channel at the public port is established
       scon.start ();
       GenericIO.writelnString ("Service is established!");
@@ -87,7 +90,7 @@ public class ServerRestaurantTable
       while (waitConnection)
       { try
         { sconi = scon.accept ();								// enter listening procedure
-          cliProxy = new TableClientProxy (sconi, tabInter);	// start a service provider agent to address
+          cliProxy = new TableClientProxy (sconi, tableInter);	// start a service provider agent to address
           cliProxy.start ();									// the request of service
         }
         catch (SocketTimeoutException e) {}

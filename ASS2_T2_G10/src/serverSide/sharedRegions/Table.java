@@ -7,110 +7,102 @@ import serverSide.entities.TableClientProxy;
 import clientSide.stubs.GeneralReposStub;
 
 /**
- * 	Table
- * 
- *  It is responsible for keeping track of the courses being eaten.
- *  Implemented as an implicit monitor
- *	Public methods executed in mutual exclusion
- *	Synchronisation points for the waiter include:
- *		If saluting a student waiter must wait for him to seat at table and then wait for him to read menu
+ * Table
+ *	Synchronisation points include:
+ *		Waiter waits for students to read the menu
+ *		First student to arrive blocks waiting for others to arrive and describe him the order
  *		Waiter has to wait for first student to arrive to describe him the order
+ *		Student blocks waiting for the course to be served
+ *		Last student to arrive blocks waiting for bill to be presented
  *		Waiter blocks waiting for student to pay the bill
- *	Synchronisation points for the student include:	
- *		Student waits for waiter to bring menu specifically to him
- *		First student to arrive blocks if everybody has not chosen yet and while companions are not describing their choices
- *		First student to arrive waits for waiter to come with the pad
- *		If some student is informing about his choice, then a student must wait for his companion to finish telling his preference
- *		Students must wait that everybody is served before they can start eating
- *		When a student finishes his course must wait for his companions to finish
- *		Student that was last to eat must wait for his companions to woken up before he can signal waiter to bring next course
- *		Last student to arrive must wait for waiter to bring him the bill	
- *		
+ * 
+ * @author Rafael Dias
+ * @author Manuel Couto
  */
 
 public class Table {
 	
-	/**
-	 * Id of student first to arrive at restaurant
-	 */
-	private int firstToArrive;
-	
-	/**
-	 * Id of student last to arrive at restaurant
-	 */
-	private int lastToArrive;
-	
-	/**
-	 * Used to count number of orders made by students
-	 */
-	private int numOrders;
-	
-	/**
-	 * Used to count number of students that finished the course
-	 */
-	private int numStudentsFinishedCourse;
-	
-	/**
-	 * Id of last student to eat
-	 */
-	private int lastToEat;
-	
-	/**
-	 * Used to count number of courses eaten
-	 */
-	private int numOfCoursesEaten;
-	
-	/**
-	 * Used to count number of students served
-	 */
-	private int numStudentsServed;	
-	
-	/**
-	 * Id of the student whose request the waiter is taking care of
-	 */
-	private int studentBeingAnswered;
-	
-	/**
-	 * Boolean variable to check if waiter is presenting the menu or not
-	 */
-	private boolean presentingTheMenu;
-	
-	/**
-	 * Boolean variable to check if waiter is taking the order
-	 */
-	private boolean takingTheOrder;
-	
-	/**
-	 * Boolean variable to check if a student is informing his companion about the order
-	 */
-	private boolean informingCompanion;
-	
-	/**
-	 * Used to count number of students that woke up after last student to eat has signalled them to
-	 */
-	private int numStudentsWokeUp;
-	
-	/**
-	 * Boolean variable to check if waiter is processing the bill
-	 */
-	private boolean processingBill;
-	
-	/**
-	 * Boolean array to check which students have seated already
-	 */
-	private boolean studentsSeated[];
-	
-	/**
-	 * Boolean array to check which students have already read the menu 
-	 */
-	private boolean studentsReadMenu[];
-	
-	/**
-	 * Reference to the student threads
-	 */
-	private final TableClientProxy [] students;
-	
-	/**
+    /**
+     * Id of student first to arrive at restaurant
+     */
+    private int firstToArrive;
+
+    /**
+     * Id of student last to arrive at restaurant
+     */
+    private int lastToArrive;
+
+    /**
+     * Used to count number of orders made by students
+     */
+    private int numOrders;
+
+    /**
+     * Used to count number of students that finished the course
+     */
+    private int numStudentsFinishedCourse;
+
+    /**
+     * Id of last student to eat
+     */
+    private int lastToEat;
+
+    /**
+     * Used to count number of courses eaten
+     */
+    private int numOfCoursesEaten;
+
+    /**
+     * Used to count number of students served
+     */
+    private int numStudentsServed;	
+
+    /**
+     * Id of the student whose request the waiter is taking care of
+     */
+    private int studentBeingAnswered;
+
+    /**
+     * Boolean variable to check if waiter is presenting the menu or not
+     */
+    private boolean presentingTheMenu;
+
+    /**
+     * Boolean variable to check if waiter is taking the order
+     */
+    private boolean takingTheOrder;
+
+    /**
+     * Boolean variable to check if a student is informing his companion about the order
+     */
+    private boolean informingCompanion;
+
+    /**
+     * Used to count number of students that woke up after last student to eat has signalled them to
+     */
+    private int numStudentsWokeUp;
+
+    /**
+     * Boolean variable to check if waiter is processing the bill
+     */
+    private boolean processingBill;
+
+    /**
+     * Boolean array to check which students have seated already
+     */
+    private boolean studentsSeated[];
+
+    /**
+     * Boolean array to check which students have already read the menu 
+     */
+    private boolean studentsReadMenu[];
+
+    /**
+     * Reference to the student threads
+     */
+    private final TableClientProxy [] students;
+
+    /**
      * Reference to the stub of the General Repository.
      */
     private final GeneralReposStub reposStub;
@@ -146,24 +138,21 @@ public class Table {
     	this.nEntities = 0;
     	
     	//initialisation of the boolean arrays
-    	studentsSeated = new boolean[ExecuteConst.Nstudents];
-    	studentsReadMenu = new boolean[ExecuteConst.Nstudents];
-    	for(int i = 0; i < ExecuteConst.Nstudents; i++)
+    	studentsSeated = new boolean[ExecConst.Nstudents];
+    	studentsReadMenu = new boolean[ExecConst.Nstudents];
+    	for(int i = 0; i < ExecConst.Nstudents; i++)
     	{
     		studentsSeated[i] = false;
     		studentsReadMenu[i] = false;
     	}
     	
 		//Initialisation of students thread
-		students = new TableClientProxy[ExecuteConst.Nstudents];
-		for(int i = 0; i < ExecuteConst.Nstudents; i++ ) 
+		students = new TableClientProxy[ExecConst.Nstudents];
+		for(int i = 0; i < ExecConst.Nstudents; i++ ) 
 			students[i] = null;
     	
     }
-    
-    
-    
-    
+ 
     /**
      * Obtain id of the first student to arrive
      * @return id of the first student to arrive at the restaurant
@@ -188,17 +177,9 @@ public class Table {
      */
     public synchronized void setLastToArrive(int lastToArrive) { this.lastToArrive = lastToArrive; }
     
-    
-    
-    
-    
-    
+
     /**
      * Operation salute the client
-     * 
-     * It is called by the waiter when a student enters the restaurant and needs to be saluted
-     * Waiter waits for the student to take a seat (if he hasn't done it yet)
-     * Waiter waits for student to finish reading the menu
      */
     public synchronized void saluteClient(int studentIdBeingAnswered)
     {
@@ -238,14 +219,8 @@ public class Table {
     	presentingTheMenu  = false;
     }
     
-    
-    
-    
-    
     /**
      * Operation return to the bar
-     * 
-     * It is called by the waiter to return to the bar to the appraising situation state
      */
     public synchronized void returnBar()
     {
@@ -254,14 +229,8 @@ public class Table {
     	reposStub.setWaiterState(((TableClientProxy) Thread.currentThread()).getWaiterState());    	
     }
     
-    
-    
-    
     /**
      * Operation get the pad
-     * 
-     * It is called by the waiter when an order is going to be described by the first student to arrive
-     * Waiter Blocks waiting for student to describe him the order
      */
     public synchronized void getThePad()
     {
@@ -287,18 +256,14 @@ public class Table {
     }
     
     
-    
-    
     /**
      * Operation have all clients been served
-     * 
-     * Called by the waiter to check if all clients have been served or not
      * @return true if all clients have been served, false otherwise
      */
     public synchronized boolean haveAllClientsBeenServed()
     {    	
     	//If all clients have been served they must be notified
-    	if(numStudentsServed == ExecuteConst.Nstudents) {
+    	if(numStudentsServed == ExecConst.Nstudents) {
     		//Reset lastToEat and number of students who woke up
     		lastToEat = -1;
     		numStudentsWokeUp = 0;
@@ -309,12 +274,8 @@ public class Table {
     	
     }
     
-    
-    
     /**
      * Operation deliver portion
-     * 
-     * Called by the waiter, to deliver a portion
      */
     public synchronized void deliverPortion()
     {
@@ -322,14 +283,8 @@ public class Table {
     	numStudentsServed++; 
     }
     
-    
-    
-    
-    
     /**
      * Operation present the bill
-     * 
-     * Called by the waiter to present the bill to the last student to arrive
      */
     public synchronized void presentBill()
     {
@@ -350,13 +305,8 @@ public class Table {
     	
     }
     
-    
-    
     /**
      * Operation siting at the table
-     * 
-     * Student comes in the table and sits (blocks) waiting for waiter to bring him the menu
-     * Called by the student (inside enter method in the bar)
      */
     public synchronized void seatAtTable()
     {
@@ -386,12 +336,8 @@ public class Table {
     	
     }
     
-    
-    
     /**
      * Operation read the menu
-     * 
-     * Called by the student to read a menu, wakes up waiter to signal that he already read the menu
      */
     public synchronized void readMenu()
     {
@@ -407,14 +353,8 @@ public class Table {
     }    
     
     
-    
-    
-    
-    
     /**
      * Operation prepare the order
-     * 
-     * Called by the student to begin the preparation of the order (options of his companions) 
      */
     public synchronized void prepareOrder()
     {    	
@@ -432,14 +372,11 @@ public class Table {
     
     /**
      * Operation everybody has chosen
-     * 
-     * Called by the first student to arrive to check if all his companions have choose or not
-     * Blocks if not waiting to be waker up be a companion to give him his preference
      * @return true if everybody choose their course choice, false otherwise
      */
     public synchronized boolean everybodyHasChosen()
     {
-    	if(numOrders == ExecuteConst.Nstudents)
+    	if(numOrders == ExecConst.Nstudents)
     		return true;
     	else {
 	    	//Block if not everybody has choosen and while companions are not describing their choices
@@ -457,13 +394,8 @@ public class Table {
     	
     }
     
-    
-    
-    
     /**
      * Operation add up ones choices
-     * 
-     * Called by the first student to arrive to add up a companions choice to the order
      */
     public synchronized void addUpOnesChoices()
     {
@@ -474,14 +406,8 @@ public class Table {
     }
     
     
-    
-    
     /**
      * Operation describe the order
-     * 
-     * Called by the first student to arrive to describe the order to the waiter
-     * Blocks waiting for waiter to come with pad
-     * Wake waiter up so he can take the order
      */
     public synchronized void describeOrder()
     {
@@ -502,15 +428,8 @@ public class Table {
     	notifyAll();
     }
     
-    
-    
-    
-    
     /**
      * Operation join the talk
-     * 
-     * Called by the first student to arrive so he can join his companions 
-     * while waiting for the courses to be delivered
      */
     public synchronized void joinTalk()
     {
@@ -521,14 +440,8 @@ public class Table {
 	}
     
     
-    
-    
-    
     /**
      * Operation inform companion
-     * 
-     * Called by a student to inform the first student to arrive about their preferences 
-     * Blocks if someone else is informing at the same time
      */
     public synchronized void informCompanion()
     {
@@ -555,13 +468,8 @@ public class Table {
     	reposStub.updateStudentState(studentId, students[studentId].getStudentState());
     }
     
-    
-    
-    
     /**
      * Operation start eating
-     * 
-     * Called by the student to start eating the meal (During random time)
      */    
     public void startEating()
     {
@@ -577,13 +485,9 @@ public class Table {
         }
         catch (InterruptedException e) {}
     }
-
-
-
-	/**
+    
+    /**
      * Operation end eating
-     * 
-     * Called by the student to signal that he has finished eating his meal
      */
     public synchronized void endEating()
     {
@@ -593,7 +497,7 @@ public class Table {
     	numStudentsFinishedCourse++;
     	
     	//If all students have finished means that one more course was eaten
-    	if(numStudentsFinishedCourse == ExecuteConst.Nstudents)
+    	if(numStudentsFinishedCourse == ExecConst.Nstudents)
     	{
     		numOfCoursesEaten++;
     		//register last to eat
@@ -605,14 +509,8 @@ public class Table {
     	reposStub.updateStudentState(studentId, students[studentId].getStudentState());
     }
     
-    
-    
-    
-    
     /**
      * Operation has everybody finished eating
-     * 
-     * Called by the student to wait for his companions to finish eating
      */
     public synchronized boolean hasEverybodyFinishedEating()
     {
@@ -630,7 +528,7 @@ public class Table {
     		
     		//Last student to eat must wait for every companion to wake up from waiting for everybody to finish eating
     		//before he can proceed to signal waiter
-    		while(numStudentsWokeUp != ExecuteConst.Nstudents)
+    		while(numStudentsWokeUp != ExecConst.Nstudents)
     		{
     			try {
 					wait();
@@ -654,7 +552,7 @@ public class Table {
     	numStudentsWokeUp++;
     	//If all students have woken up from last to eat signal, then student that was last to eat
     	//must be notified
-    	if(numStudentsWokeUp == ExecuteConst.Nstudents)
+    	if(numStudentsWokeUp == ExecConst.Nstudents)
     		notifyAll();
     	
     	return true;
@@ -666,9 +564,6 @@ public class Table {
     
     /**
      * Operation honour the bill
-     * 
-     * Called by the student to pay the bill
-     * Student blocks waiting for bill to be presented and signals waiter when it's time to pay it
      */
     public synchronized void honourBill()
     {    	
@@ -688,24 +583,17 @@ public class Table {
     }
     
     
-    
-    
-    
-    
     /**
      * 	Operation have all courses been eaten
-     * 
-     * 	Called by the student to check if there are more courses to be eaten
-     * 	Student blocks waiting for the course to be served
      * 	@return true if all courses have been eaten, false otherwise
      */
     public synchronized boolean haveAllCoursesBeenEaten()
     {
-    	if(numOfCoursesEaten == ExecuteConst.NCourses)
+    	if(numOfCoursesEaten == ExecConst.NCourses)
 			return true;
 		else {
     		//Student blocks waiting for all companions to be served
-    		while(numStudentsServed != ExecuteConst.Nstudents)
+    		while(numStudentsServed != ExecConst.Nstudents)
     		{
 	    		try {
 					wait();
@@ -719,14 +607,8 @@ public class Table {
     	
     }
     
-    
-    
-    
-    
     /**
      * Operation should have arrived earlier
-     * 
-     * Called by the student to check which one was last to arrive
      * @return True if current student was the last to arrive, false otherwise
      */
     public synchronized boolean shouldHaveArrivedEarlier()
@@ -744,16 +626,15 @@ public class Table {
     		return false;
     }
     
-    
-	/**
-	 * Operation Table server shutdown
-	 */
-	public synchronized void shutdown()
-	{
-		nEntities += 1;
-		if(nEntities >= ExecuteConst.NShutKBT)
-			ServerRestaurantTable.waitConnection = false;
-		notifyAll ();
-	}
+    /**
+     * Operation Table server shutdown
+     */
+    public synchronized void shutdown()
+    {
+            nEntities += 1;
+            if(nEntities >= ExecConst.NShutKBT)
+                    ServerRestaurantTable.waitConnection = false;
+            notifyAll ();
+    }
     
 }  

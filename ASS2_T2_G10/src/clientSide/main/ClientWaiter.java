@@ -5,10 +5,13 @@ import clientSide.stubs.*;
 import genclass.GenericIO;
 
 /**
- *  Client side of the Restaurant problem (waiter).
- *
- *	Implementation of a client-server model of type 2 (server replication).
- *	Communication is based on a communication channel under the TCP protocol.
+ *    Client side of the Assignment 2 - Waiter.
+ *    Static solution Attempt (number of threads controlled by global constants - ExecConst)
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
+ * 
+ *  @author Rafael Dias
+ *  @author Manuel Couto
  */
 public class ClientWaiter {
 	
@@ -28,15 +31,15 @@ public class ClientWaiter {
 	public static void main(String[] args) {
 
 		Waiter waiter;					//Waiter thread
-		KitchenStub kitStub;			//remote reference to the kitchen stub
+		KitchenStub kitchenStub;			//remote reference to the kitchen stub
 		BarStub barStub;				//remote reference to the bar stub
-		TableStub tabStub;				//remote reference to the table stub
+		TableStub tableStub;				//remote reference to the table stub
 		GeneralReposStub genReposStub;	//remote reference to the general repository
 		
 		//Name of the platforms where kitchen and bar servers are located
-		String kitServerHostName, barServerHostName, tabServerHostName, genRepoServerHostName;
+		String kitchenServerHostName, barServerHostName, tableServerHostName, genRepoServerHostName;
 		//Port numbers for listening to service requests
-		int kitServerPortNumb = -1, barServerPortNumb = -1, tabServerPortNumb = -1, genRepoServerPortNumb = -1;
+		int kitchenServerPortNumb = -1, barServerPortNumb = -1, tableServerPortNumb = -1, genRepoServerPortNumb = -1;
 		
 		/* Getting problem runtime parameters */
 		if(args.length != 8) {
@@ -44,14 +47,14 @@ public class ClientWaiter {
 			System.exit(1);
 		}
 		//Get kitchen parameters
-		kitServerHostName = args[0];
+		kitchenServerHostName = args[0];
 		try {
-			kitServerPortNumb = Integer.parseInt (args[1]);
+			kitchenServerPortNumb = Integer.parseInt (args[1]);
 		} catch (NumberFormatException e) {
 			GenericIO.writelnString ("args[1] is not a number!");
 			System.exit(1);
 		}
-		if( (kitServerPortNumb < 22110) || (kitServerPortNumb > 22119) ) {
+		if( (kitchenServerPortNumb < 22110) || (kitchenServerPortNumb > 22119) ) {
 			GenericIO.writelnString ("args[1] is not a valid port number!");
 			System.exit(1);			
 		}
@@ -70,14 +73,14 @@ public class ClientWaiter {
 		}
 
 		//Get table parameters
-		tabServerHostName = args[4];
+		tableServerHostName = args[4];
 		try {
-			tabServerPortNumb = Integer.parseInt (args[5]);
+			tableServerPortNumb = Integer.parseInt (args[5]);
 		} catch (NumberFormatException e) {
 			GenericIO.writelnString ("args[5] is not a number!");
 			System.exit(1);
 		}
-		if( (tabServerPortNumb < 22110) || (tabServerPortNumb > 22119) ) {
+		if( (tableServerPortNumb < 22110) || (tableServerPortNumb > 22119) ) {
 			GenericIO.writelnString ("args[5] is not a valid port number!");
 			System.exit(1);			
 		}
@@ -98,11 +101,11 @@ public class ClientWaiter {
 		
 		
 		/* problem initialisation */
-		kitStub = new KitchenStub(kitServerHostName, kitServerPortNumb);
+		kitchenStub = new KitchenStub(kitchenServerHostName, kitchenServerPortNumb);
 		barStub = new BarStub(barServerHostName, barServerPortNumb);
-		tabStub = new TableStub(tabServerHostName, tabServerPortNumb);
+		tableStub = new TableStub(tableServerHostName, tableServerPortNumb);
 		genReposStub = new GeneralReposStub(genRepoServerHostName, genRepoServerPortNumb);
-		waiter = new Waiter("waiter", kitStub, barStub, tabStub);
+		waiter = new Waiter("waiter", kitchenStub, barStub, tableStub);
 		
 		/* start simulation */
 		GenericIO.writelnString ("Launching Waiter Thread");
@@ -114,7 +117,7 @@ public class ClientWaiter {
 		}catch(InterruptedException e) {}
 		GenericIO.writelnString ("The waiter thread has terminated.");
 		barStub.shutdown();
-		tabStub.shutdown();
+		tableStub.shutdown();
 		genReposStub.shutdown();
 
 	}

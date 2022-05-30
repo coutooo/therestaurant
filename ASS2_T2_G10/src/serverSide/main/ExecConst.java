@@ -2,9 +2,12 @@ package serverSide.main;
 
 /**
  *    Definition of the execution parameters.
+ * 
+ * @author Rafael Dias
+ * @author Manuel Couto
  */
 
-public class ExecuteConst
+public class ExecConst
 {
 	/**
 	 *	Number of Students
@@ -27,5 +30,5 @@ public class ExecuteConst
 	 */
 	public static final int NShutG = 3;
 	
-	private ExecuteConst () { }
+	private ExecConst () { }
 }

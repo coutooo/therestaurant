@@ -2,14 +2,17 @@ package clientSide.main;
 
 import clientSide.entities.Student;
 import clientSide.stubs.*;
-import serverSide.main.ExecuteConst;
+import serverSide.main.ExecConst;
 import genclass.GenericIO;
 
 /**
- *  Client side of the Restaurant problem (student).
- *
- *	Implementation of a client-server model of type 2 (server replication).
- *	Communication is based on a communication channel under the TCP protocol.
+ *    Client side of the Assignment 2 - Student.
+ *    Static solution Attempt (number of threads controlled by global constants - ExecConst)
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
+ * 
+ *  @author Rafael Dias
+ *  @author Manuel Couto
  */
 public class ClientStudent {
 	
@@ -26,15 +29,15 @@ public class ClientStudent {
 	 */
 	public static void main(String[] args) {
 
-		Student[] student = new Student[ExecuteConst.Nstudents]; 	//Student threads
+		Student[] student = new Student[ExecConst.Nstudents]; 	//Student threads
 		BarStub barStub;									//remote reference to the bar stub
-		TableStub tabStub;									//remote reference to the table stub
+		TableStub tableStub;									//remote reference to the table stub
 		GeneralReposStub genReposStub;						//remote reference to the general repository
 		
 		//Name of the platforms where kitchen and bar servers are located
-		String barServerHostName, tabServerHostName, genRepoServerHostName;
+		String barServerHostName, tableServerHostName, genRepoServerHostName;
 		//Port numbers for listening to service requests
-		int barServerPortNumb = -1, tabServerPortNumb = -1, genRepoServerPortNumb = -1;
+		int barServerPortNumb = -1, tableServerPortNumb = -1, genRepoServerPortNumb = -1;
 		
 		/* Getting problem runtime parameters */
 		if(args.length != 6) {
@@ -55,14 +58,14 @@ public class ClientStudent {
 		}
 		
 		//Get tab parameters
-		tabServerHostName = args[2];
+		tableServerHostName = args[2];
 		try {
-			tabServerPortNumb = Integer.parseInt (args[3]);
+			tableServerPortNumb = Integer.parseInt (args[3]);
 		} catch (NumberFormatException e) {
 			GenericIO.writelnString ("args[3] is not a number!");
 			System.exit(1);
 		}
-		if( (tabServerPortNumb < 22110) || (tabServerPortNumb > 22119) ) {
+		if( (tableServerPortNumb < 22110) || (tableServerPortNumb > 22119) ) {
 			GenericIO.writelnString ("args[3] is not a valid port number!");
 			System.exit(1);			
 		}
@@ -83,19 +86,19 @@ public class ClientStudent {
 		
 		/* problem initialisation */
 		barStub = new BarStub(barServerHostName, barServerPortNumb);
-		tabStub = new TableStub(tabServerHostName, tabServerPortNumb);
+		tableStub = new TableStub(tableServerHostName, tableServerPortNumb);
 		genReposStub = new GeneralReposStub(genRepoServerHostName, genRepoServerPortNumb);
-		for (int i = 0; i < ExecuteConst.Nstudents; i++)
-			student[i] = new Student ("student_" + (i+1), i, barStub, tabStub);
+		for (int i = 0; i < ExecConst.Nstudents; i++)
+			student[i] = new Student ("student_" + (i+1), i, barStub, tableStub);
 		
 		/* start simulation */
-		for (int i = 0; i < ExecuteConst.Nstudents; i++) {
+		for (int i = 0; i < ExecConst.Nstudents; i++) {
 			GenericIO.writelnString ("Launching Student Thread "+i);
 			student[i].start();
 		}
 		
 		/* waiting for the end of the simulation */
-		for(int i = 0; i < ExecuteConst.Nstudents; i++)
+		for(int i = 0; i < ExecConst.Nstudents; i++)
 		{
 			try {
 				student[i].join();

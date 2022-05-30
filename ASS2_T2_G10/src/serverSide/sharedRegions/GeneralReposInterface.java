@@ -16,6 +16,9 @@ import serverSide.entities.GeneralReposClientProxy;
  *    General Repository and generate the outgoing message.
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
+ * 
+ * @author Rafael Dias
+ * @author Manuel Couto
  */
 public class GeneralReposInterface {
 	/**

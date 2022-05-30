@@ -12,6 +12,9 @@ import genclass.GenericIO;
  *    It instantiates a remote reference to the barber shop.
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
+ * 
+ *  @author Rafael Dias
+ *  @author Manuel Couto
  */
 public class TableStub {
 	/**
@@ -22,8 +25,7 @@ public class TableStub {
 	 * Port number for listening to service requests
 	 */
 	private int serverPortNumb;
-	
-	
+		
 	/**
 	 * Instantiation of a stub to the Table. 
 	 * 
@@ -36,8 +38,6 @@ public class TableStub {
 		this.serverPortNumb = serverPortNumb;
 	}
 
-	
-	
 	
     /**
      * Obtain id of the first student to arrive
@@ -71,10 +71,7 @@ public class TableStub {
 		//Close communication channel
 		com.close ();
 		return inMessage.getFirstToArrive();
-    }
-    
-    
-    
+    }  
     
     /**
      * Obtain id of the last student to arrive
@@ -177,17 +174,9 @@ public class TableStub {
 		com.close ();
     }
     
-    
-    
-    
-    
-    
+
     /**
      * Operation salute the client
-     * 
-     * It is called by the waiter when a student enters the restaurant and needs to be saluted
-     * Waiter waits for the student to take a seat (if he hasn't done it yet)
-     * Waiter waits for student to finish reading the menu
      */
     public void saluteClient(int studentIdBeingAnswered) 
     { 
@@ -228,14 +217,10 @@ public class TableStub {
 		((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState());
 		//Close communication channel
 		com.close ();    	
-    }
-    
-    
+    } 
     
     /**
      * Operation return to the bar
-     * 
-     * It is called by the waiter to return to the bar to the appraising situation state
      */
     public  void returnBar() 
     { 
@@ -272,14 +257,9 @@ public class TableStub {
 		//Close communication channel
 		com.close ();
     }
-    
-    
-    
+
     /**
      * Operation get the pad
-     * 
-     * It is called by the waiter when an order is going to be described by the first student to arrive
-     * Waiter Blocks waiting for student to describe him the order
      */
     public  void getThePad() 
     { 
@@ -321,8 +301,6 @@ public class TableStub {
     
     /**
      * Operation have all clients been served
-     * 
-     * Called by the waiter to check if all clients have been served or not
      * @return true if all clients have been served, false otherwise
      */
     public  boolean haveAllClientsBeenServed() 
@@ -360,8 +338,6 @@ public class TableStub {
     
     /**
      * Operation deliver portion
-     * 
-     * Called by the waiter, to deliver a portion
      */
     public  void deliverPortion() 
     { 
@@ -397,8 +373,6 @@ public class TableStub {
     
     /**
      * Operation present the bill
-     * 
-     * Called by the waiter to present the bill to the last student to arrive
      */
     public  void presentBill() 
     { 
@@ -440,9 +414,6 @@ public class TableStub {
     
     /**
      * Operation siting at the table
-     * 
-     * Student comes in the table and sits (blocks) waiting for waiter to bring him the menu
-     * Called by the student (inside enter method in the bar)
      */
     public  void seatAtTable() 
     {
@@ -485,13 +456,9 @@ public class TableStub {
 		//Close communication channel
 		com.close ();
     }
-    
-    
-    
+
     /**
      * Operation read the menu
-     * 
-     * Called by the student to read a menu, wakes up waiter to signal that he already read the menu
      */
     public  void readMenu() 
     { 
@@ -533,13 +500,10 @@ public class TableStub {
 		//Close communication channel
 		com.close ();
     }
-    
-    
+        
     
     /**
      * Operation prepare the order
-     * 
-     * Called by the student to begin the preparation of the order (options of his companions) 
      */
     public  void prepareOrder() 
     { 
@@ -580,9 +544,6 @@ public class TableStub {
     
     /**
      * Operation everybody has chosen
-     * 
-     * Called by the first student to arrive to check if all his companions have choose or not
-     * Blocks if not waiting to be waker up be a companion to give him his preference
      * @return true if everybody choose their course choice, false otherwise
      */
     public  boolean everybodyHasChosen() 
@@ -618,8 +579,6 @@ public class TableStub {
     
     /**
      * Operation add up ones choices
-     * 
-     * Called by the first student to arrive to add up a companions choice to the order
      */
     public  void addUpOnesChoices()
     { 
@@ -654,10 +613,6 @@ public class TableStub {
     
     /**
      * Operation describe the order
-     * 
-     * Called by the first student to arrive to describe the order to the waiter
-     * Blocks waiting for waiter to come with pad
-     * Wake waiter up so he can take the order
      */
     public  void describeOrder() 
     {
@@ -690,9 +645,6 @@ public class TableStub {
     
     /**
      * Operation join the talk
-     * 
-     * Called by the first student to arrive so he can join his companions 
-     * while waiting for the courses to be delivered
      */
     public  void joinTalk() 
     { 
@@ -734,9 +686,6 @@ public class TableStub {
     
     /**
      * Operation inform companion
-     * 
-     * Called by a student to inform the first student to arrive about their preferences 
-     * Blocks if someone else is informing at the same time
      */
     public  void informCompanion() 
     {
@@ -785,8 +734,6 @@ public class TableStub {
     
     /**
      * Operation start eating
-     * 
-     * Called by the student to start eating the meal (During random time)
      */    
     public void startEating() 
     {
@@ -829,15 +776,10 @@ public class TableStub {
 		//Close communication channel
 		com.close ();	
     }
+
     
-    
-    
-    
-    
-	/**
+    /**
      * Operation end eating
-     * 
-     * Called by the student to signal that he has finished eating his meal
      */
     public  void endEating() 
     {
@@ -880,14 +822,9 @@ public class TableStub {
 		//Close communication channel
 		com.close ();	    	
     }
-    
-    
-    
-    
+
     /**
      * Operation has everybody finished eating
-     * 
-     * Called by the student to wait for his companions to finish eating
      */
     public  boolean hasEverybodyFinishedEating() 
     { 
@@ -929,9 +866,6 @@ public class TableStub {
     
     /**
      * Operation honour the bill
-     * 
-     * Called by the student to pay the bill
-     * Student blocks waiting for bill to be presented and signals waiter when it's time to pay it
      */
     public  void honourBill() 
     { 
@@ -961,15 +895,9 @@ public class TableStub {
 		//Close communication channel
 		com.close ();
     }
-    
-    
-    
-    
+
     /**
      * 	Operation have all courses been eaten
-     * 
-     * 	Called by the student to check if there are more courses to be eaten
-     * 	Student blocks waiting for the course to be served
      * 	@return true if all courses have been eaten, false otherwise
      */
     public  boolean haveAllCoursesBeenEaten() 
@@ -1001,13 +929,10 @@ public class TableStub {
 		com.close ();
 		return inMessage.getAllCoursesEaten();
     }
-    
-    
+  
     
     /**
      * Operation should have arrived earlier
-     * 
-     * Called by the student to check which one was last to arrive
      * @return True if current student was the last to arrive, false otherwise
      */
     public  boolean shouldHaveArrivedEarlier() 
@@ -1052,37 +977,36 @@ public class TableStub {
 		com.close ();
 		return inMessage.getArrivedEarlier();
     }
-    
-    
-	/**
-	 * Operation server shutdown
-	 */
-	public void shutdown()
-	{
-		ClientCom com;					//Client communication
-		Message outMessage, inMessage; 	//outGoing and inGoing messages
-		
-		com = new ClientCom (serverHostName, serverPortNumb);
-		//Wait for a connection to be established
-		while(!com.open())
-		{	try 
-		  	{ Thread.currentThread ().sleep ((long) (10));
-		  	}
-			catch (InterruptedException e) {}
-		}
-		
-		outMessage = new Message (MessageType.TSHUTREQ);
-		com.writeObject (outMessage); 			//Write outGoing message in the communication channel
-		inMessage = (Message) com.readObject(); //Read inGoing message
-		
-		//Validate inGoing message type and arguments
-		if(inMessage.getMsgType() != MessageType.TSHUTDONE)
-		{
-			GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
-			GenericIO.writelnString (inMessage.toString ());
-			System.exit (1);
-		}
-		//Close communication channel
-		com.close ();			
-	}
+   
+    /**
+     * Operation server shutdown
+     */
+    public void shutdown()
+    {
+            ClientCom com;					//Client communication
+            Message outMessage, inMessage; 	//outGoing and inGoing messages
+
+            com = new ClientCom (serverHostName, serverPortNumb);
+            //Wait for a connection to be established
+            while(!com.open())
+            {	try 
+                    { Thread.currentThread ().sleep ((long) (10));
+                    }
+                    catch (InterruptedException e) {}
+            }
+
+            outMessage = new Message (MessageType.TSHUTREQ);
+            com.writeObject (outMessage); 			//Write outGoing message in the communication channel
+            inMessage = (Message) com.readObject(); //Read inGoing message
+
+            //Validate inGoing message type and arguments
+            if(inMessage.getMsgType() != MessageType.TSHUTDONE)
+            {
+                    GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+                    GenericIO.writelnString (inMessage.toString ());
+                    System.exit (1);
+            }
+            //Close communication channel
+            com.close ();			
+    }
 }

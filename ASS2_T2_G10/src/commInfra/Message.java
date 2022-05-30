@@ -2,7 +2,7 @@ package commInfra;
 
 import java.io.*;
 import genclass.GenericIO;
-import serverSide.main.ExecuteConst;
+import serverSide.main.ExecConst;
 
 /**
  *   Internal structure of the exchanged messages.
@@ -185,21 +185,21 @@ public class Message implements Serializable
 			else if (msgType == MessageType.STWSTREQ)
 				waiterState = stateOrId;
 			else if (msgType == MessageType.SETNCREQ) {
-				if ( stateOrId < 0 || stateOrId  > ExecuteConst.NCourses) {	// Not a valid number of courses
+				if ( stateOrId < 0 || stateOrId  > ExecConst.NCourses) {	// Not a valid number of courses
 					GenericIO.writelnString ("Invalid number of courses");
 					System.exit (1);
 				} 
 				nCourses = stateOrId;
 			}
 			else if (msgType == MessageType.SETNPREQ) {
-				if ( stateOrId < 0 || stateOrId  > ExecuteConst.Nstudents) {	// Not a valid number of portions
+				if ( stateOrId < 0 || stateOrId  > ExecConst.Nstudents) {	// Not a valid number of portions
 					GenericIO.writelnString ("Invalid number of portions");
 					System.exit (1);
 				}
 				nPortions = stateOrId;
 			}
 			else if (msgType == MessageType.USALREQ){
-				if ( stateOrId < 0 || stateOrId  >= ExecuteConst.Nstudents) {	// Not a valid Student id
+				if ( stateOrId < 0 || stateOrId  >= ExecConst.Nstudents) {	// Not a valid Student id
 					GenericIO.writelnString ("Invalid student id");
 					System.exit (1);
 				}
@@ -273,7 +273,7 @@ public class Message implements Serializable
 		}
 		
 		//Update studentId
-		if ( id < 0 || id  >= ExecuteConst.Nstudents) {	// Not a valid Student id
+		if ( id < 0 || id  >= ExecConst.Nstudents) {	// Not a valid Student id
 			GenericIO.writelnString ("Invalid student id");
 			System.exit (1);
 		}
@@ -309,7 +309,7 @@ public class Message implements Serializable
 	public Message (int type, int id, int state, boolean bValue)
 	{
 		//Check if student id is valid
-		if ( id < 0 || id  >= ExecuteConst.Nstudents) {	// Not a valid Student id
+		if ( id < 0 || id  >= ExecConst.Nstudents) {	// Not a valid Student id
 			GenericIO.writelnString ("Invalid student id");
 			System.exit (1);
 		}

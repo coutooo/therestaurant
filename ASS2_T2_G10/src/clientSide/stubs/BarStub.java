@@ -12,6 +12,9 @@ import genclass.GenericIO;
  *    It instantiates a remote reference to the bar.
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
+ * 
+ *  @author Rafael Dias
+ *  @author Manuel Couto
  */
 public class BarStub {
 	/**
@@ -76,10 +79,7 @@ public class BarStub {
 	
 	
 	/**
-	 * Operation alert the waiter
-	 * 
-	 * It is called by the chef to alert the waiter that a portion was dished
-	 * 	A request is putted in the queue (chef id will be N+1)
+	 * Operation alert the waiter	 * 
 	 */
 	public void alertWaiter() 
 	{
@@ -164,8 +164,6 @@ public class BarStub {
 	
 	/**
 	 * Operation prepare the Bill
-	 * 
-	 * It is called the waiter to prepare the bill of the meal eaten by the students
 	 */
 	public void prepareBill() 
 	{ 
@@ -206,9 +204,7 @@ public class BarStub {
 	
 	
 	/**
-	 * Operation say Goodbye
-	 * 
-	 * It is called by the waiter to say goodbye to a student that's leaving the restaurant
+	 * Operation say Goodbye	 * 
 	 * @return true if there are no more students at the restaurant, false otherwise
 	 */
 	public boolean sayGoodbye() 
@@ -247,8 +243,6 @@ public class BarStub {
 	
 	/**
 	 * Operation enter the restaurant
-	 * 
-	 * It is called by the student to signal that he is entering the restaurant
 	 */
 	public void enter() 
 	{ 
@@ -298,9 +292,6 @@ public class BarStub {
 	
 	/**
 	 * Operation call the waiter
-	 * 
-	 * It is called by the first student to arrive the restaurant to call the waiter to describe the order
-	 *
 	 */
 	public void callWaiter()
 	{ 
@@ -341,10 +332,6 @@ public class BarStub {
 	
 	/**
 	 * Operation signal the waiter
-	 * 
-	 * It is called by the last student to finish eating that next course can be brought 
-	 * signal chef that he can put request in the queue and waiter that he proceed his executing to collect portions
-	 * It is also used by last student to arrive to signal that he wishes to pay the bill
 	 */
 	public void signalWaiter() 
 	{
@@ -392,8 +379,6 @@ public class BarStub {
 	
 	/**
 	 * Operation exit the restaurant
-	 * 
-	 * It is called by a student when he leaves the restaurant
 	 */
 	public void exit() 
 	{

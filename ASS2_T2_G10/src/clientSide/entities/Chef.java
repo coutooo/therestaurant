@@ -4,66 +4,44 @@ import clientSide.stubs.*;
 
 /**
  *    Chef thread.
- *
+ * 
  *      It simulates the chef life cycle.
  *      Implementation of a client-server model of type 2 (server replication).
  *      Communication is based on a communication channel under the TCP protocol.
+ * 
+ * @author Rafael Dias
+ * @author Manuel Couto
  */
 public class Chef extends Thread{
 	
 	/**
 	 *	Chef state 
 	 */
-	private int chefState;
+	private int currentState;
 	
 	/**
 	 * Reference to the stub of the kitchen
 	 */
-	private final KitchenStub kitStub;
+	private final KitchenStub kitchenStub;
 	
 	/**
 	 * Reference to the stub of the bar
 	 */
 	private final BarStub barStub;
 	
-	
-	
-	/**
-	 * Set a new chef state
-	 * @param chefState new state to be set
-	 */
-	public void setChefState(int chefState)
-	{
-		this.chefState = chefState;
-	}	
-	
-	
-	/**
-	 * Get the chef's state
-	 * @return chef state
-	 */
-	public int getChefState()
-	{
-		return chefState;
-	}
-	
-	
 	/**
 	 * Instantiation of a Chef thread
 	 * 	@param name thread name
-	 * 	@param kitStub reference to the kitchen stub
+	 * 	@param kitchenStub reference to the kitchen stub
 	 * 	@param barStub reference to the bar stub
 	 */
-	public Chef(String name, KitchenStub kitStub, BarStub barStub) {
+	public Chef(String name, KitchenStub kitchenStub, BarStub barStub) {
 		super(name);
-		this.chefState = ChefState.WAITING_FOR_AN_ORDER;
-		this.kitStub = kitStub;
+		this.currentState = ChefState.WAITING_FOR_AN_ORDER;
+		this.kitchenStub = kitchenStub;
 		this.barStub = barStub;
 	}
 
-	
-	
-	
 	/**
 	 * 	Life cycle of the chef
 	 */
@@ -72,23 +50,42 @@ public class Chef extends Thread{
 	{
 		boolean firstCourse = true;
 		
-		kitStub.watchTheNews();
-		kitStub.startPreparation();
+		kitchenStub.watchTheNews();
+		kitchenStub.startPreparation();
 		do
 		{
 			if(!firstCourse)
-				kitStub.continuePreparation();
+				kitchenStub.continuePreparation();
 			else
 				firstCourse = false;
 			
-			kitStub.proceedPreparation();
+			kitchenStub.proceedPreparation();
 			barStub.alertWaiter();
 			
-			while(!kitStub.haveAllPortionsBeenDelivered())
-				kitStub.haveNextPortionReady();
+			while(!kitchenStub.haveAllPortionsBeenDelivered())
+				kitchenStub.haveNextPortionReady();
 		}
-		while(!kitStub.hasOrderBeenCompleted());
+		while(!kitchenStub.hasOrderBeenCompleted());
 		
-		kitStub.cleanUp();
+		kitchenStub.cleanUp();
 	}
+        
+        /**
+        * Set Chef state.
+        *
+        * @param state new state to be set
+        */
+        public void setChefState(int state) {
+            this.currentState = state;
+        }
+
+       /**
+        * Get Chef state.
+        *
+        * @return chef state
+        */
+        public int getChefState() {
+            return currentState;
+        }
+
 }
