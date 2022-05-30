@@ -152,7 +152,7 @@ public class Kitchen
 		}
 		
 		//Check if all portions of the course have been delivered or not
-		if(numberOfPortionsDelivered == ExecuteConst.N) 
+		if(numberOfPortionsDelivered == ExecuteConst.Nstudents) 
 		{
 			//If all portions have been delivered means that a course was completed
 			numberOfCoursesDelivered++;
@@ -174,7 +174,7 @@ public class Kitchen
 	public synchronized boolean hasOrderBeenCompleted()
 	{
 		//Check if all courses have been delivered
-		if (numberOfCoursesDelivered == ExecuteConst.M)
+		if (numberOfCoursesDelivered == ExecuteConst.NCourses)
 			return true;
 		return false;
 	}
@@ -313,7 +313,7 @@ public class Kitchen
 		numberOfPortionsDelivered++;
 		
 		//If a new course is being delivered then numberOfPortionsDelivered must be "reseted"
-		if(numberOfPortionsDelivered > ExecuteConst.N)
+		if(numberOfPortionsDelivered > ExecuteConst.Nstudents)
 			numberOfPortionsDelivered = 1;
 		
 		//Update portion number and course number in general repository
@@ -332,7 +332,7 @@ public class Kitchen
 	public synchronized void shutdown()
 	{
 		nEntities += 1;
-		if(nEntities >= ExecuteConst.E)
+		if(nEntities >= ExecuteConst.NShutKBT)
 			ServerRestaurantKitchen.waitConnection = false;
 		notifyAll ();
 	}

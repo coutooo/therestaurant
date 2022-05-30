@@ -1,5 +1,5 @@
 echo "Compiling source code."
-javac -source 8 -target 8 -cp ../../../SD/genclass.jar */*.java */*/*.java
+javac -source 8 -target 8 -cp ../../genclass.jar */*.java */*/*.java
 
 echo "Distributing intermediate code to the different execution environments."
 

@@ -146,17 +146,17 @@ public class Table {
     	this.nEntities = 0;
     	
     	//initialisation of the boolean arrays
-    	studentsSeated = new boolean[ExecuteConst.N];
-    	studentsReadMenu = new boolean[ExecuteConst.N];
-    	for(int i = 0; i < ExecuteConst.N; i++)
+    	studentsSeated = new boolean[ExecuteConst.Nstudents];
+    	studentsReadMenu = new boolean[ExecuteConst.Nstudents];
+    	for(int i = 0; i < ExecuteConst.Nstudents; i++)
     	{
     		studentsSeated[i] = false;
     		studentsReadMenu[i] = false;
     	}
     	
 		//Initialisation of students thread
-		students = new TableClientProxy[ExecuteConst.N];
-		for(int i = 0; i < ExecuteConst.N; i++ ) 
+		students = new TableClientProxy[ExecuteConst.Nstudents];
+		for(int i = 0; i < ExecuteConst.Nstudents; i++ ) 
 			students[i] = null;
     	
     }
@@ -298,7 +298,7 @@ public class Table {
     public synchronized boolean haveAllClientsBeenServed()
     {    	
     	//If all clients have been served they must be notified
-    	if(numStudentsServed == ExecuteConst.N) {
+    	if(numStudentsServed == ExecuteConst.Nstudents) {
     		//Reset lastToEat and number of students who woke up
     		lastToEat = -1;
     		numStudentsWokeUp = 0;
@@ -439,7 +439,7 @@ public class Table {
      */
     public synchronized boolean everybodyHasChosen()
     {
-    	if(numOrders == ExecuteConst.N)
+    	if(numOrders == ExecuteConst.Nstudents)
     		return true;
     	else {
 	    	//Block if not everybody has choosen and while companions are not describing their choices
@@ -593,7 +593,7 @@ public class Table {
     	numStudentsFinishedCourse++;
     	
     	//If all students have finished means that one more course was eaten
-    	if(numStudentsFinishedCourse == ExecuteConst.N)
+    	if(numStudentsFinishedCourse == ExecuteConst.Nstudents)
     	{
     		numOfCoursesEaten++;
     		//register last to eat
@@ -630,7 +630,7 @@ public class Table {
     		
     		//Last student to eat must wait for every companion to wake up from waiting for everybody to finish eating
     		//before he can proceed to signal waiter
-    		while(numStudentsWokeUp != ExecuteConst.N)
+    		while(numStudentsWokeUp != ExecuteConst.Nstudents)
     		{
     			try {
 					wait();
@@ -654,7 +654,7 @@ public class Table {
     	numStudentsWokeUp++;
     	//If all students have woken up from last to eat signal, then student that was last to eat
     	//must be notified
-    	if(numStudentsWokeUp == ExecuteConst.N)
+    	if(numStudentsWokeUp == ExecuteConst.Nstudents)
     		notifyAll();
     	
     	return true;
@@ -701,11 +701,11 @@ public class Table {
      */
     public synchronized boolean haveAllCoursesBeenEaten()
     {
-    	if(numOfCoursesEaten == ExecuteConst.M)
+    	if(numOfCoursesEaten == ExecuteConst.NCourses)
 			return true;
 		else {
     		//Student blocks waiting for all companions to be served
-    		while(numStudentsServed != ExecuteConst.N)
+    		while(numStudentsServed != ExecuteConst.Nstudents)
     		{
 	    		try {
 					wait();
@@ -751,7 +751,7 @@ public class Table {
 	public synchronized void shutdown()
 	{
 		nEntities += 1;
-		if(nEntities >= ExecuteConst.E)
+		if(nEntities >= ExecuteConst.NShutKBT)
 			ServerRestaurantTable.waitConnection = false;
 		notifyAll ();
 	}

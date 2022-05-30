@@ -26,7 +26,7 @@ public class ClientStudent {
 	 */
 	public static void main(String[] args) {
 
-		Student[] student = new Student[ExecuteConst.N]; 	//Student threads
+		Student[] student = new Student[ExecuteConst.Nstudents]; 	//Student threads
 		BarStub barStub;									//remote reference to the bar stub
 		TableStub tabStub;									//remote reference to the table stub
 		GeneralReposStub genReposStub;						//remote reference to the general repository
@@ -85,17 +85,17 @@ public class ClientStudent {
 		barStub = new BarStub(barServerHostName, barServerPortNumb);
 		tabStub = new TableStub(tabServerHostName, tabServerPortNumb);
 		genReposStub = new GeneralReposStub(genRepoServerHostName, genRepoServerPortNumb);
-		for (int i = 0; i < ExecuteConst.N; i++)
+		for (int i = 0; i < ExecuteConst.Nstudents; i++)
 			student[i] = new Student ("student_" + (i+1), i, barStub, tabStub);
 		
 		/* start simulation */
-		for (int i = 0; i < ExecuteConst.N; i++) {
+		for (int i = 0; i < ExecuteConst.Nstudents; i++) {
 			GenericIO.writelnString ("Launching Student Thread "+i);
 			student[i].start();
 		}
 		
 		/* waiting for the end of the simulation */
-		for(int i = 0; i < ExecuteConst.N; i++)
+		for(int i = 0; i < ExecuteConst.Nstudents; i++)
 		{
 			try {
 				student[i].join();

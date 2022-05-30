@@ -117,7 +117,7 @@ public class Student extends Thread{
 			numCoursesEaten++;
 			
 			while(!tabStub.hasEverybodyFinishedEating());
-			if(studentId == tabStub.getLastToEat() && numCoursesEaten != ExecuteConst.M)
+			if(studentId == tabStub.getLastToEat() && numCoursesEaten != ExecuteConst.NCourses)
 				barStub.signalWaiter();
 		}
 		

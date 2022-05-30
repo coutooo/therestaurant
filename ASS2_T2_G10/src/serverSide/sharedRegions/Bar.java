@@ -84,13 +84,13 @@ public class Bar
 	public Bar(GeneralReposStub reposStub, TableStub tabStub)
 	{
 		//Initizalization of students threads
-		students = new BarClientProxy[ExecuteConst.N];
-		for(int i = 0; i < ExecuteConst.N; i++ ) 
+		students = new BarClientProxy[ExecuteConst.Nstudents];
+		for(int i = 0; i < ExecuteConst.Nstudents; i++ ) 
 			students[i] = null;
 		
 		//Initialisation of the queue of pending requests
 		try {
-			pendingServiceRequestQueue = new MemFIFO<> (new Request [ExecuteConst.N * ExecuteConst.M]);
+			pendingServiceRequestQueue = new MemFIFO<> (new Request [ExecuteConst.Nstudents * ExecuteConst.NCourses]);
 		} catch (MemException e) {
 			pendingServiceRequestQueue = null;
 		    System.exit (1);
@@ -102,8 +102,8 @@ public class Bar
 		this.tabStub = tabStub;
 		this.nEntities = 0;
 		
-		this.studentsGreeted = new boolean[ExecuteConst.N];
-		for(int i = 0 ;i < ExecuteConst.N; i++)
+		this.studentsGreeted = new boolean[ExecuteConst.Nstudents];
+		for(int i = 0 ;i < ExecuteConst.Nstudents; i++)
 			studentsGreeted[i] = false;
 	}
 	
@@ -136,7 +136,7 @@ public class Bar
 			}
 		}
 		
-		Request r = new Request(ExecuteConst.N+1,'p');
+		Request r = new Request(ExecuteConst.Nstudents+1,'p');
 		
 		//Add a new service request to queue of pending requests (portion to be collected)
 		try {
@@ -272,7 +272,7 @@ public class Bar
 			//Register first and last to arrive
 			if(numberOfStudentsAtRestaurant == 1)
 				tabStub.setFirstToArrive(studentId);
-			else if (numberOfStudentsAtRestaurant == ExecuteConst.N)
+			else if (numberOfStudentsAtRestaurant == ExecuteConst.Nstudents)
 				tabStub.setLastToArrive(studentId);
 
 			//Add a new pending requests to the queue
@@ -417,7 +417,7 @@ public class Bar
 	public synchronized void shutdown()
 	{
 		nEntities += 1;
-		if(nEntities >= ExecuteConst.E)
+		if(nEntities >= ExecuteConst.NShutKBT)
 			ServerRestaurantBar.waitConnection = false;
 		notifyAll ();
 	}
