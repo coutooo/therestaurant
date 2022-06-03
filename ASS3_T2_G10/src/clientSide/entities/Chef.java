@@ -3,10 +3,10 @@ package clientSide.entities;
 
 /**
  *    Chef thread.
- * 
- *      It simulates the chef life cycle.
+ *
+ *      It simulates the barber life cycle.
  *      Implementation of a client-server model of type 2 (server replication).
- *      Communication is based on a communication channel under the TCP protocol.
+ *      Communication is based on remote calls under Java RMI. 
  * 
  * @author Rafael Dias
  * @author Manuel Couto
