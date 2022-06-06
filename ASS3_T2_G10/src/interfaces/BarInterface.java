@@ -4,10 +4,13 @@
  */
 package interfaces;
 
+import java.rmi.*;
+
 /**
+ *   Operational interface of a remote object of type Bar.
  *
- * @author rafae
+ *     It provides the functionality to access Bar.
  */
-public interface BarInterface {
+public interface BarInterface extends Remote {
     
 }

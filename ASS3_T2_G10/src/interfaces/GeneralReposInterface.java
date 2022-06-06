@@ -7,45 +7,106 @@ package interfaces;
 import java.rmi.*;
 
 /**
+ *   Operational interface of a remote object of type GeneralRepos.
  *
- * @author rafae
+ *     It provides the functionality to access the General Repository of Information.
+ * 
+ *  
  */
 public interface GeneralReposInterface extends Remote {
-     public void shutdown () throws RemoteException;
 
-  /**
-   *   Set barber state.
-   *
-   *     @param id barber id
-   *     @param state barber state
-   *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
-   *                             service fails
-   */
+    /**
+    *   Set chef state.
+    *
+    *     @param state chef state
+    *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
+    *                             service fails
+    */
 
-   public void setChefState (int id, int state) throws RemoteException;
+    public void setChefState (int state) throws RemoteException;
 
-  /**
-   *   Set customer state.
-   *
-   *     @param id customer id
-   *     @param state customer state
-   *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
-   *                             service fails
-   */
+    /**
+    *   Set waiter state.
+    *
+    *     @param state waiter state
+    *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
+    *                             service fails
+    */
 
-   public void setCustomerState (int id, int state) throws RemoteException;
+    public void setWaiterState (int state) throws RemoteException;
 
-  /**
-   *   Set barber and customer state.
-   *
-   *     @param barberId barber id
-   *     @param barberState barber state
-   *     @param customerId customer id
-   *     @param customerState customer state
-   *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
-   *                             service fails
-   */
+    /**
+    *   Set student state.
+    *
+    *     @param id student id
+    *     @param state student state
+    *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
+    *                             service fails
+    */
 
-   public void setBarberCustomerState (int barberId, int barberState, int customerId, int customerState) throws RemoteException;
+    public void updateStudentState (int id, int state) throws RemoteException;
+    
+    /**
+    *   Set student state.
+    *
+    *     @param id student id
+    *     @param state student state
+    *     @param hold specifies if prints line of report status
+    *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
+    *                             service fails
+    */
+    
+    public void updateStudentState(int id, int state, boolean hold) throws RemoteException;
+    
+    /**
+    *   Set variable nCourses and report status in the logging file.
+    *
+    *     @param value nCourses value to set
+    *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
+    *                             service fails
+    */
+    
+    public void setnCourses(int value) throws RemoteException;
+
+    /**
+    *   Write the portion value in the logging file.
+    *
+    *     @param value nPortions value to set
+    *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
+    *                             service fails
+    */
+    
+    public void setnPortions(int value) throws RemoteException;
+
+    /**
+    *   Write to the logging file the updated seats values at the table.
+    *
+    *     @param seat seat at the table
+    *     @param id student id to sit
+    *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
+    *                             service fails
+    */
+   
+    public void updateSeatsAtTable(int seat, int id) throws RemoteException;
+
+    /**
+    *   Update the leaving of a student in the seats of the table.
+    *
+    *     @param id student id to leave table
+    *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
+    *                             service fails
+    */
+   
+    public void updateSeatsAtLeaving(int id) throws RemoteException;
+    
+    /**
+    *   Operation server shutdown.
+    *
+    *   New operation.
+    *
+    *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
+    *                             service fails
+    */
+    public void shutdown () throws RemoteException;
 }
 

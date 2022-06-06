@@ -1,0 +1,43 @@
+-CLIENTSIDE
+	-ENTITIES
+		+Chef
+		+ChefState
+		+Waiter
+		+WaiterState
+		+Student
+		+StudentState
+		+package-info
+	-MAIN
+		+ClientRestaurantChef
+		+ClientRestaurantWaiter
+		+ClientRestaurantStudent
+		+package-info
+	+package-info
+
+-INTERFACES
+	+BarInterface
+	+GeneralReposInterface
+	+KitchenInterface
+	+Register
+	+ReturnBoolean
+	+ReturnInt
+	+TableInterface
+	+package-info
+
+-SERVERSIDE
+	-MAIN
+		+ServerRegisterRemoteObject
+		+ServerRestaurantBar
+		+ServerRestaurantGeneralRepos
+		+ServerRestaurantKitchen
+		+ServerRestaurantTable
+		+ExecConst
+		+package-info
+	-OBJECTS
+		+Bar
+		+GeneralRepos
+		+Kitchen
+		+Table
+		+RegisterRemoteObject~
+		+package-info
+	+package-info
