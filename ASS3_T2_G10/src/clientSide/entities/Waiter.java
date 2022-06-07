@@ -1,6 +1,9 @@
 package clientSide.entities;
 
 import clientSide.stubs.*;
+import interfaces.BarInterface;
+import interfaces.KitchenInterface;
+import interfaces.TableInterface;
 
 /**
  *    Waiter thread.
@@ -21,17 +24,17 @@ public class Waiter extends Thread{
     /**
      * Reference to the stub of the kitchen
      */
-    private final KitchenStub kitchenStub;
+    private final KitchenInterface kitchenStub;
 
     /**
      * Reference to the stub of the bar
      */
-    private final BarStub barStub;
+    private final BarInterface barStub;
 
     /**
      * Reference to the stub of the table
      */
-    private final TableStub tableStub;
+    private final TableInterface tableStub;
 
 
     /**
@@ -42,7 +45,7 @@ public class Waiter extends Thread{
      * 	@param barStub reference to the stub of the bar
      * 	@param tableStub reference to the stub of the table
      */
-    public Waiter(String name, KitchenStub kitchenStub, BarStub barStub, TableStub tableStub) {
+    public Waiter(String name, KitchenInterface kitchenStub, BarInterface barStub, TableInterface tableStub) {
             super(name);
             this.currentState = WaiterState.APPRAISING_SITUATION;
             this.kitchenStub = kitchenStub;

@@ -1,43 +1,43 @@
 -CLIENTSIDE
 	-ENTITIES
-		+Chef
-		+ChefState
-		+Waiter
-		+WaiterState
-		+Student
-		+StudentState
-		+package-info
+		+Chef						DONE
+		+ChefState					DONE
+		+Waiter 					DONE
+		+WaiterState					DONE
+		+Student  					DONE
+		+StudentState					DONE
+		+package-info					DONE
 	-MAIN
-		+ClientRestaurantChef
-		+ClientRestaurantWaiter
-		+ClientRestaurantStudent
-		+package-info
-	+package-info
+		+ClientRestaurantChef				DONE
+		+ClientRestaurantWaiter				DONE
+		+ClientRestaurantStudent			DONE
+		+package-info					DONE
+	+package-info						DONE
 
 -INTERFACES
-	+BarInterface
-	+GeneralReposInterface
-	+KitchenInterface
-	+Register
-	+ReturnBoolean
-	+ReturnInt
-	+TableInterface
-	+package-info
+	+BarInterface						TO DO
+	+GeneralReposInterface					DONE
+	+KitchenInterface					TO DO
+	+Register						DONE
+	+ReturnBoolean						DONE
+	+ReturnInt						DONE
+	+TableInterface						TO DO
+	+package-info						DONE
 
 -SERVERSIDE
 	-MAIN
-		+ServerRegisterRemoteObject
-		+ServerRestaurantBar
-		+ServerRestaurantGeneralRepos
-		+ServerRestaurantKitchen
-		+ServerRestaurantTable
-		+ExecConst
-		+package-info
+		+ServerRegisterRemoteObject			TO DO
+		+ServerRestaurantBar				TO DO
+		+ServerRestaurantGeneralRepos			TO DO
+		+ServerRestaurantKitchen			TO DO
+		+ServerRestaurantTable				TO DO
+		+ExecConst					DONE
+		+package-info					DONE
 	-OBJECTS
-		+Bar
-		+GeneralRepos
-		+Kitchen
-		+Table
-		+RegisterRemoteObject~
-		+package-info
-	+package-info
+		+Bar						TO DO
+		+GeneralRepos					TO DO
+		+Kitchen					TO DO
+		+Table						TO DO
+		+RegisterRemoteObject				DONE
+		+package-info 					DONE	
+	+package-info						DONE		

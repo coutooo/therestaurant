@@ -1,5 +1,8 @@
 package clientSide.entities;
 
+import interfaces.BarInterface;
+import interfaces.KitchenInterface;
+
 
 /**
  *    Chef thread.
@@ -21,12 +24,12 @@ public class Chef extends Thread{
 	/**
 	 * Reference to the stub of the kitchen
 	 */
-	private final KitchenStub kitchenStub;
+	private final KitchenInterface kitchenStub;
 	
 	/**
 	 * Reference to the stub of the bar
 	 */
-	private final BarStub barStub;
+	private final BarInterface barStub;
 	
 	/**
 	 * Instantiation of a Chef thread
@@ -34,7 +37,7 @@ public class Chef extends Thread{
 	 * 	@param kitchenStub reference to the kitchen stub
 	 * 	@param barStub reference to the bar stub
 	 */
-	public Chef(String name, KitchenStub kitchenStub, BarStub barStub) {
+	public Chef(String name, KitchenInterface kitchenStub, BarInterface barStub) {
 		super(name);
 		this.currentState = ChefState.WAITING_FOR_AN_ORDER;
 		this.kitchenStub = kitchenStub;

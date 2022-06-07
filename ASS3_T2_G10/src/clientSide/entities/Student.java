@@ -1,6 +1,8 @@
 package clientSide.entities;
 
 import clientSide.stubs.*;
+import interfaces.BarInterface;
+import interfaces.TableInterface;
 import serverSide.main.ExecConst;
 
 /**
@@ -30,12 +32,12 @@ public class Student extends Thread{
      * Reference to the stub of the bar
      */
 
-    private final BarStub barStub;
+    private final BarInterface barStub;
 
     /**
      * Reference to the stub of the table
      */
-    private final TableStub tableStub;
+    private final TableInterface tableStub;
 
 
 
@@ -47,7 +49,7 @@ public class Student extends Thread{
      * 	@param barStub reference to the stub of the bar
      * 	@param tableStub reference to the stub of the table
      */
-    public Student(String name, int studentId, BarStub barStub, TableStub tableStub) {
+    public Student(String name, int studentId, BarInterface barStub, TableInterface tableStub) {
             super(name);
             this.studentId = studentId;
             this.currentState = StudentState.GOING_TO_THE_RESTAURANT;
