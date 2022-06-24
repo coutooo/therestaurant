@@ -1,13 +1,11 @@
 
 package clientSide.main;
 
+import genclass.GenericIO;
+import interfaces.*;
+import clientSide.entities.*;
 import java.rmi.registry.*;
 import java.rmi.*;
-import java.rmi.server.*;
-import clientSide.entities.*;
-import serverSide.main.*;
-import interfaces.*;
-import genclass.GenericIO;
 
 /**
  *    Client side of the Restaurant (chef).
@@ -49,9 +47,11 @@ public class ClientRestaurantChef {
         }
 
         /* look for the remote object by name in the remote host registry */
+        String nameEntryGeneralRepos = "GeneralRepository";	
         String nameEntryBar = "Bar";
         String nameEntryKitchen = "Kitchen";
 
+        GeneralReposInterface reposStub = null;
         BarInterface barStub = null;
         KitchenInterface kitchenStub = null;
 
@@ -69,26 +69,42 @@ public class ClientRestaurantChef {
 
         //Lookup all the stubs
         try {
-            barStub = (BarInterface) registry.lookup(nameEntryBar);
+            reposStub = (GeneralReposInterface) registry.lookup(nameEntryGeneralRepos);
         } catch (RemoteException e) {
+            GenericIO.writelnString("General Repository lookup exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (NotBoundException e) {
+            GenericIO.writelnString("General Repository not bound exception: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
+        
+        try {
+            kitchenStub = (KitchenInterface) registry.lookup(nameEntryKitchen);
+        } catch (RemoteException e) {
+            GenericIO.writelnString("Kitchen lookup exception: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        } catch (NotBoundException e) {
+            GenericIO.writelnString("Kitchen not bound exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
 
         try {
-            kitchenStub = (KitchenInterface) registry.lookup(nameEntryKitchen);
+            barStub = (BarInterface) registry.lookup(nameEntryBar);
         } catch (RemoteException e) {
+            GenericIO.writelnString("Bar lookup exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (NotBoundException e) {
+            GenericIO.writelnString("Bar not bound exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
 
-        chef = new Chef("chef_" + (1),kitchenStub, barStub);
+        chef = new Chef("chef",kitchenStub, barStub);
 
         /* start of the simulation */
         chef.start();
@@ -98,22 +114,27 @@ public class ClientRestaurantChef {
             chef.join();
         } catch (InterruptedException e) {
         }
-        System.out.println("The Chef " + (1) + " just terminated");
-
+        GenericIO.writelnString("The chef thread has terminated.");
+        
         try {
             kitchenStub.shutdown();
         } catch (RemoteException e) {
-            GenericIO.writelnString("Customer generator remote exception on BarberShop shutdown: " + e.getMessage());
+            GenericIO.writelnString("Chef generator remote exception on Bar shutdown: " + e.getMessage());
             System.exit(1);
         }
         try {
             barStub.shutdown();
         } catch (RemoteException e) {
-            GenericIO.writelnString("Customer generator remote exception on BarberShop shutdown: " + e.getMessage());
+            GenericIO.writelnString("Chef generator remote exception on Kitchen shutdown: " + e.getMessage());
             System.exit(1);
         }
-
-        System.out.println("End of the Simulation");
+        try {
+            reposStub.shutdown();
+        } catch (RemoteException e) {
+            GenericIO.writelnString("Chef generator remote exception on GeneralRepos shutdown: " + e.getMessage());
+            System.exit(1);
+        }
+        GenericIO.writelnString("End of the Simulation");
 
     }
 

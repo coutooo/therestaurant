@@ -22,7 +22,6 @@ public interface GeneralReposInterface extends Remote {
     *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
     *                             service fails
     */
-
     public void setChefState (int state) throws RemoteException;
 
     /**
@@ -32,7 +31,6 @@ public interface GeneralReposInterface extends Remote {
     *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
     *                             service fails
     */
-
     public void setWaiterState (int state) throws RemoteException;
 
     /**
@@ -43,7 +41,6 @@ public interface GeneralReposInterface extends Remote {
     *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
     *                             service fails
     */
-
     public void updateStudentState (int id, int state) throws RemoteException;
     
     /**
@@ -55,7 +52,6 @@ public interface GeneralReposInterface extends Remote {
     *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
     *                             service fails
     */
-    
     public void updateStudentState(int id, int state, boolean hold) throws RemoteException;
     
     /**
@@ -75,7 +71,6 @@ public interface GeneralReposInterface extends Remote {
     *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
     *                             service fails
     */
-    
     public void setnPortions(int value) throws RemoteException;
 
     /**
@@ -85,8 +80,7 @@ public interface GeneralReposInterface extends Remote {
     *     @param id student id to sit
     *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
     *                             service fails
-    */
-   
+    */  
     public void updateSeatsAtTable(int seat, int id) throws RemoteException;
 
     /**
@@ -95,16 +89,13 @@ public interface GeneralReposInterface extends Remote {
     *     @param id student id to leave table
     *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
     *                             service fails
-    */
-   
+    */ 
     public void updateSeatsAtLeaving(int id) throws RemoteException;
     
     /**
     *   Operation server shutdown.
     *
-    *   New operation.
-    *
-    *     @throws RemoteException if either the invocation of the remote method, or the communication with the registry
+    *   @throws RemoteException if either the invocation of the remote method, or the communication with the registry
     *                             service fails
     */
     public void shutdown () throws RemoteException;

@@ -49,10 +49,12 @@ public class ClientRestaurantWaiter {
         }
 
         /* look for the remote object by name in the remote host registry */
+        String nameEntryGeneralRepos = "GeneralRepository";
         String nameEntryTable = "Table";
         String nameEntryBar = "Bar";
         String nameEntryKitchen = "Kitchen";
 
+        GeneralReposInterface reposStub = null;	
         TableInterface tableStub = null;
         BarInterface barStub = null;
         KitchenInterface kitchenStub = null;
@@ -71,21 +73,13 @@ public class ClientRestaurantWaiter {
 
         //Lookup all the stubs
         try {
-            tableStub = (TableInterface) registry.lookup(nameEntryTable);
+            reposStub = (GeneralReposInterface) registry.lookup(nameEntryGeneralRepos);
         } catch (RemoteException e) {
+            GenericIO.writelnString("General Repository lookup exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (NotBoundException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        try {
-            barStub = (BarInterface) registry.lookup(nameEntryBar);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            System.exit(1);
-        } catch (NotBoundException e) {
+            GenericIO.writelnString("General Repository not bound exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
@@ -93,14 +87,40 @@ public class ClientRestaurantWaiter {
         try {
             kitchenStub = (KitchenInterface) registry.lookup(nameEntryKitchen);
         } catch (RemoteException e) {
+            GenericIO.writelnString("Kitchen lookup exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (NotBoundException e) {
+            GenericIO.writelnString("Kitchen not bound exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
 
-        waiter = new Waiter("waiter_" + (1), kitchenStub, barStub, tableStub);
+        try {
+            barStub = (BarInterface) registry.lookup(nameEntryBar);
+        } catch (RemoteException e) {
+            GenericIO.writelnString("Bar lookup exception: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        } catch (NotBoundException e) {
+            GenericIO.writelnString("Bar not bound exception: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
+        
+        try {
+            tableStub = (TableInterface) registry.lookup(nameEntryTable);
+        } catch (RemoteException e) {
+            GenericIO.writelnString("Table lookup exception: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        } catch (NotBoundException e) {
+            GenericIO.writelnString("Table not bound exception: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        waiter = new Waiter("waiter", kitchenStub, barStub, tableStub);
 
         /* start of the simulation */
         waiter.start();
@@ -110,28 +130,33 @@ public class ClientRestaurantWaiter {
             waiter.join();
         } catch (InterruptedException e) {
         }
-        System.out.println("The Waiter " + (1) + " just terminated");
-
+        GenericIO.writelnString("The waiter thread has terminated.");
+        
         try {
-            tableStub.shutdown();
+            kitchenStub.shutdown();
         } catch (RemoteException e) {
-            GenericIO.writelnString("Customer generator remote exception on Restaurant shutdown: " + e.getMessage());
+            GenericIO.writelnString("Chef generator remote exception on Bar shutdown: " + e.getMessage());
+            System.exit(1);
+        }
+        try {
+            tabStub.shutdown();
+        } catch (RemoteException e) {
+            GenericIO.writelnString("Waiter generator remote exception on Table shutdown: " + e.getMessage());
             System.exit(1);
         }
         try {
             barStub.shutdown();
         } catch (RemoteException e) {
-            GenericIO.writelnString("Customer generator remote exception on Restaurant shutdown: " + e.getMessage());
+            GenericIO.writelnString("Waiter generator remote exception on Kitchen shutdown: " + e.getMessage());
             System.exit(1);
         }
         try {
-            kitchenStub.shutdown();
+            reposStub.shutdown();
         } catch (RemoteException e) {
-            GenericIO.writelnString("Customer generator remote exception on Restaurant shutdown: " + e.getMessage());
+            GenericIO.writelnString("Waiter generator remote exception on GeneralRepos shutdown: " + e.getMessage());
             System.exit(1);
         }
-
-        System.out.println("End of the Simulation");
+        GenericIO.writelnString("End of the Simulation");
 
     }
 

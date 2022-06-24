@@ -49,15 +49,17 @@ public class ClientRestaurantStudent {
         }
 
         /* look for the remote object by name in the remote host registry */
+        String nameEntryGeneralRepos = "GeneralRepository";
         String nameEntryTable = "Table";
         String nameEntryBar = "Bar";
-
+        
+        GeneralReposInterface reposStub = null;
         TableInterface tableStub = null;
         BarInterface barStub = null;
 
         Registry registry = null;
 
-        Student[] pass = new Student[ExecConst.Nstudents];
+        Student[] student = new Student[ExecConst.Nstudents];
 
         try {
             registry = LocateRegistry.getRegistry(rmiRegHostName, rmiRegPortNumb);
@@ -69,11 +71,13 @@ public class ClientRestaurantStudent {
 
         //Lookup all the stubs
         try {
-            tableStub = (TableInterface) registry.lookup(nameEntryTable);
+            reposStub = (GeneralReposInterface) registry.lookup(nameEntryGeneralRepos);
         } catch (RemoteException e) {
+            GenericIO.writelnString("General Repository lookup exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (NotBoundException e) {
+            GenericIO.writelnString("General Repository not bound exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
@@ -81,45 +85,65 @@ public class ClientRestaurantStudent {
         try {
             barStub = (BarInterface) registry.lookup(nameEntryBar);
         } catch (RemoteException e) {
+            GenericIO.writelnString("Bar lookup exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (NotBoundException e) {
+            GenericIO.writelnString("Bar not bound exception: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
+        
+        try {
+            tableStub = (TableInterface) registry.lookup(nameEntryTable);
+        } catch (RemoteException e) {
+            GenericIO.writelnString("Table lookup exception: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        } catch (NotBoundException e) {
+            GenericIO.writelnString("Table not bound exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
 
         for (int i = 0; i < ExecConst.Nstudents; i++) {
-            pass[i] = new Student("student_" + (i + 1), i,barStub, tableStub);
+            student[i] = new Student("student_" + (i + 1), i, barStub, tableStub);
         }
 
+
         /* start of the simulation */
-        for (int i = 0; i < ExecConst.Nstudents; i++) {
-            pass[i].start();
+        for (int i = 0; i < ExecConst.Nstudents; i++){
+            student[i].start();
         }
 
         /* wait for the end */
         for (int i = 0; i < ExecConst.Nstudents; i++) {
             try {
-                pass[i].join();
+                student[i].join();
             } catch (InterruptedException e) {
             }
-            System.out.println("The Student " + (i + 1) + " just terminated");
+            GenericIO.writelnString("The student " + (i + 1) + " has terminated.");
         }
 
-        try {
-            barStub.shutdown();
-        } catch (RemoteException e) {
-            GenericIO.writelnString("Customer generator remote exception on BarberShop shutdown: " + e.getMessage());
-            System.exit(1);
-        }
         try {
             tableStub.shutdown();
         } catch (RemoteException e) {
-            GenericIO.writelnString("Customer generator remote exception on BarberShop shutdown: " + e.getMessage());
+            GenericIO.writelnString("Chef generator remote exception on Table shutdown: " + e.getMessage());
             System.exit(1);
         }
-
-        System.out.println("End of the Simulation");
+        try {
+            barStub.shutdown();
+        } catch (RemoteException e) {
+            GenericIO.writelnString("Chef generator remote exception on Kitchen shutdown: " + e.getMessage());
+            System.exit(1);
+        }
+        try {
+            reposStub.shutdown();
+        } catch (RemoteException e) {
+            GenericIO.writelnString("Chef generator remote exception on GeneralRepos shutdown: " + e.getMessage());
+            System.exit(1);
+        }
+        GenericIO.writelnString("End of the Simulation");
 
     }
 }

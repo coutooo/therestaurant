@@ -15,26 +15,26 @@
 	+package-info						DONE
 
 -INTERFACES
-	+BarInterface						TO DO
+	+BarInterface						DONE
 	+GeneralReposInterface					DONE
-	+KitchenInterface					TO DO
+	+KitchenInterface					DONE
 	+Register						DONE
 	+ReturnBoolean						DONE
 	+ReturnInt						DONE
-	+TableInterface						TO DO
+	+TableInterface						DONE
 	+package-info						DONE
 
 -SERVERSIDE
 	-MAIN
-		+ServerRegisterRemoteObject			TO DO
-		+ServerRestaurantBar				TO DO
-		+ServerRestaurantGeneralRepos			TO DO
-		+ServerRestaurantKitchen			TO DO
-		+ServerRestaurantTable				TO DO
+		+ServerRegisterRemoteObject			DONE
+		+ServerRestaurantBar				DONE
+		+ServerRestaurantGeneralRepos			DONE
+		+ServerRestaurantKitchen			DONE
+		+ServerRestaurantTable				DONE 
 		+ExecConst					DONE
 		+package-info					DONE
 	-OBJECTS
-		+Bar						TO DO
+		+Bar						DONE ( VER VARIAVEIS E COMENTARIOS)
 		+GeneralRepos					TO DO
 		+Kitchen					TO DO
 		+Table						TO DO
