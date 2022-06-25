@@ -139,7 +139,7 @@ public class ClientRestaurantWaiter {
             System.exit(1);
         }
         try {
-            tabStub.shutdown();
+            tableStub.shutdown();
         } catch (RemoteException e) {
             GenericIO.writelnString("Waiter generator remote exception on Table shutdown: " + e.getMessage());
             System.exit(1);
