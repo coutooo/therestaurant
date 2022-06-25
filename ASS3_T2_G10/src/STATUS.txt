@@ -35,9 +35,9 @@
 		+package-info					DONE
 	-OBJECTS
 		+Bar						DONE ( VER VARIAVEIS E COMENTARIOS)
-		+GeneralRepos					TO DO
-		+Kitchen					TO DO
-		+Table						TO DO
+		+GeneralRepos					DONE (ver comentarios)
+		+Kitchen					DONE (ver comentarios)
+		+Table						DONE (ver comentarios)
 		+RegisterRemoteObject				DONE
 		+package-info 					DONE	
 	+package-info						DONE		
