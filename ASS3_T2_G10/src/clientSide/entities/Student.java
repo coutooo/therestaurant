@@ -361,13 +361,16 @@ public class Student extends Thread{
     /**
      * Operation signal the waiter Remote operation.
      */
-    private void signalWaiter() {
-        try {
-            barStub.signalWaiter(studentId, currentState);
-        } catch (RemoteException e) {
-            GenericIO.writelnString("Student " + studentId + " remote exception on signalWaiter: " + e.getMessage());
-            System.exit(1);
-        }
+    private void signalWaiter()
+    {
+            try
+            { barStub.signalWaiter(studentId, studentState);			
+            }
+            catch (RemoteException e)
+            {
+                    GenericIO.writelnString("Student "+ studentId + " remote exception on signalWaiter: " +e.getMessage());
+                    System.exit(1);			
+            }   		
     }
 
     /**
@@ -405,10 +408,11 @@ public class Student extends Thread{
      * Operation exit the restaurant Remote operation.
      */
     private void exit() {
+        GenericIO.writelnString("entrei aqui");
         try {
             currentState = barStub.exit(studentId);
         } catch (RemoteException e) {
-            GenericIO.writelnString("Student " + studentId + " remote exception on exit: " + e.getMessage());
+            GenericIO.writelnString("Student " + studentId + " remote exception tou aqui on exit: " + e.getMessage());
             System.exit(1);
         }
     }

@@ -272,28 +272,32 @@ public class Bar implements BarInterface {
      * or the communication with the registry service fails
      */
     @Override
-    public synchronized void signalWaiter(int studentId, int stuState) throws RemoteException {
-        studentState[studentId] = stuState;
+    public synchronized void signalWaiter(int studentId, int stuState) throws RemoteException
+    {
+            studentState[studentId] = stuState;
 
-        if (studentState[studentId] == StudentState.PAYING_THE_MEAL) {
-            //Add a new pending requests to the queue (Bill needs to be prepared so it can be payed by the student)
-            try {
-                pendingServiceRequestQueue.write(new Request(studentId, 'b'));
-            } catch (MemException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            if(studentState[studentId] == StudentState.PAYING_THE_MEAL)
+            {		
+                    //Add a new pending requests to the queue (Bill needs to be prepared so it can be payed by the student)
+                    try {
+                            pendingServiceRequestQueue.write(new Request(studentId, 'b'));
+                    } catch (MemException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                    }
+                    //Update number of pending requests
+                    numberOfPendingRequests++;	
+
+                    //Signal waiter that there is a pending request
+                    notifyAll();
             }
-            //Update number of pending requests
-            numberOfPendingRequests++;
-
-            //Signal waiter that there is a pending request
-            notifyAll();
-        } else {
-            courseFinished = true;
-            // Wake chef up because he is waiting to tell waiter to collect portion
-            // and waiter so he can collect a new portion
-            notifyAll();
-        }
+            else
+            {
+                    courseFinished = true;
+                    // Wake chef up because he is waiting to tell waiter to collect portion
+                    // and waiter so he can collect a new portion
+                    notifyAll();
+            }
 
     }
 
@@ -411,9 +415,8 @@ public class Bar implements BarInterface {
 
         reposStub.setWaiterState(WaiterState.APPRAISING_SITUATION);
 
-        if (numberOfStudentsAtRestaurant == 0) {
-            return true;
-        }
+        if(numberOfStudentsAtRestaurant == 0)
+                return true;
         return false;
     }
 

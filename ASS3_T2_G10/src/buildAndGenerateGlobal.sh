@@ -27,6 +27,7 @@ cp interfaces/Register.class interfaces/GeneralReposInterface.class dirGeneralRe
 cp clientSide/entities/WaiterState.class clientSide/entities/ChefState.class clientSide/entities/StudentState.class dirGeneralRepos/clientSide/entities
 cp commInfra/*.class dirGeneralRepos/commInfra 
 cp java.policy dirGeneralRepos
+cp repos_com_d.sh dirGeneralRepos
 echo "  Bar"
 rm -rf dirBar/serverSide dirBar/clientSide dirBar/interfaces dirBar/commInfra
 mkdir -p dirBar/serverSide dirBar/serverSide/main dirBar/serverSide/objects dirBar/interfaces \

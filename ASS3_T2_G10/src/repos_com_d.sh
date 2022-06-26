@@ -2,4 +2,4 @@ CODEBASE="http://l040101-ws04.ua.pt/"$1"/classes/"
 java -Djava.rmi.server.codebase=$CODEBASE\
      -Djava.rmi.server.useCodebaseOnly=true\
      -Djava.security.policy=java.policy\
-     serverSide.main.ServerRestaurantKitchen 22392 l040101-ws04.ua.pt 22390
+     serverSide.main.ServerRestaurantGeneralRepos 22393 l040101-ws04.ua.pt 22390
