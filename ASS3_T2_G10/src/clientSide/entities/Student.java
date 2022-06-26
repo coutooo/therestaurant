@@ -364,7 +364,7 @@ public class Student extends Thread{
     private void signalWaiter()
     {
             try
-            { barStub.signalWaiter(studentId, studentState);			
+            { barStub.signalWaiter(studentId, currentState);			
             }
             catch (RemoteException e)
             {

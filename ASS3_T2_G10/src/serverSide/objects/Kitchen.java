@@ -343,7 +343,7 @@ public class Kitchen implements KitchenInterface
     public synchronized void shutdown() throws RemoteException
     {
             nEntities += 1;
-            if(nEntities >= ExecConst.NShutKBT)
+            if(nEntities >= ExecConst.NShutKT)
                     ServerRestaurantKitchen.shutdown();
             notifyAll();
     }

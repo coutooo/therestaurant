@@ -376,7 +376,7 @@ public class GeneralRepos implements GeneralReposInterface{
     @Override
     public synchronized void shutdown() throws RemoteException {
             nEntities += 1;
-            if (nEntities >= ExecConst.NShutG) {
+            if (nEntities >= ExecConst.NShutBG) {
                     reportLegend();
                     ServerRestaurantGeneralRepos.shutdown ();
             }

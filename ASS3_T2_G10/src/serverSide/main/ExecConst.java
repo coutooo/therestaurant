@@ -21,14 +21,14 @@ public class ExecConst
 	public static final int NCourses = 3;
 	
 	/**
-	 * Number of entities that request shutdown in kitchen, bar or table
+	 * Number of entities that request shutdown in kitchen or table
 	 */
-	public static final int NShutKBT = 1;
+	public static final int NShutKT = 2;
 	
 	/**
-	 * Number of entities that request shutdown on general repository
+	 * Number of entities that request shutdown on bar and  general repository
 	 */
-	public static final int NShutG = 3;
+	public static final int NShutBG = 3;
 	
 	private ExecConst () { }
 }
